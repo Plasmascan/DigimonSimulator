@@ -15,7 +15,7 @@ namespace DigimonSimulator
         private int PixelNoY;
         private int PixelLocationX;
         private int PixelLocationY;
-        private bool IsPixelOn = false;
+        public bool IsPixelOn = false;
         private int PixelWidth = 10;
         private int PixelHeight = 10;
         public Rectangle PixelShape;
@@ -146,11 +146,32 @@ namespace DigimonSimulator
                 }
             }
         }
+
+        public void ClearDigimonSprite(DigimonSprite digimon)
+        {
+            for (int y = digimon.SpriteY; y <  digimon.frame1Height + digimon.SpriteY; y++)
+            {
+                for (int x = digimon.SpriteX; x < digimon.frame1Width + digimon.SpriteX; x++)
+                {
+                    if (isPixelOnScreen(y, x))
+                    {
+                        if (screenPixels[y, x].IsPixelOn)
+                        {
+                           screenPixels[y, x].TurnOffPixel();
+                        }
+                    }
+                }
+            }
+        }
+
         public void DrawDigimonSprite(DigimonSprite digimon, int x, int y)
         {
-            for (int yPixels = y, digimonPixelY = 0; digimonPixelY < digimon.SpriteHeight; yPixels++, digimonPixelY++)
+            digimon.SpriteX = x;
+            digimon.SpriteY = y;
+
+            for (int yPixels = y, digimonPixelY = 0; digimonPixelY < digimon.frame1Height; yPixels++, digimonPixelY++)
             {
-                for (int xPixels = x, digimonPixelX = 0; digimonPixelX < digimon.SpriteWidth; xPixels++, digimonPixelX++)
+                for (int xPixels = x, digimonPixelX = 0; digimonPixelX < digimon.frame1Width; xPixels++, digimonPixelX++)
                 {
                     if (isPixelOnScreen(yPixels, xPixels))
                     {
@@ -162,6 +183,81 @@ namespace DigimonSimulator
                     }
                 }
             }
+        }
+
+        public void DrawDigimonFrame(DigimonSprite digimon, int frameNo, bool mirror, int moveToX)
+        {
+            ClearDigimonSprite(digimon);
+
+            // frame to draw
+            int spriteHeight, spriteWidth, moveToY;
+            bool[,] frame;
+
+
+            switch (frameNo)
+            {
+                default:
+                    frame = digimon.frame1;
+                    spriteHeight = digimon.frame1Height;
+                    spriteWidth = digimon.frame1Width;
+                    break;
+
+                case 2:
+                    frame = digimon.frame2;
+                    spriteHeight = digimon.frame2Height;
+                    spriteWidth = digimon.frame2Width;
+                    break;
+
+                case 3:
+                    frame = digimon.happyFrame;
+                    spriteHeight = digimon.happyFrameHeight;
+                    spriteWidth = digimon.happyFrameWidth;
+                    break;
+
+            }
+
+            // Keeps the digimon sprite touching the ground if the frame's height changes from frame to frame
+            moveToY = NoPixelsY - spriteHeight;
+
+            if (!mirror)
+            {
+                for (int yPixels = moveToY, digimonPixelY = 0; digimonPixelY < spriteHeight; yPixels++, digimonPixelY++)
+                {
+                    for (int xPixels = moveToX, digimonPixelX = 0; digimonPixelX < spriteWidth; xPixels++, digimonPixelX++)
+                    {
+                        if (isPixelOnScreen(yPixels, xPixels))
+                        {
+
+                            if (frame[digimonPixelY, digimonPixelX])
+                            {
+                                screenPixels[yPixels, xPixels].TurnOnPixel();
+                            }
+                        }
+                    }
+                }
+            }
+
+            else
+            {
+                for (int yPixels = moveToY, digimonPixelY = 0; digimonPixelY < spriteHeight; yPixels++, digimonPixelY++)
+                {
+                    for (int xPixels = moveToX, digimonPixelX = spriteWidth - 1; digimonPixelX >= 0; xPixels++, digimonPixelX--)
+                    {
+                        if (isPixelOnScreen(yPixels, xPixels))
+                        {
+
+                            if (frame[digimonPixelY, digimonPixelX])
+                            {
+                                screenPixels[yPixels, xPixels].TurnOnPixel();
+                            }
+                        }
+                    }
+                }
+            }
+
+            digimon.SpriteX = moveToX;
+            digimon.SpriteY = moveToY;
+
         }
     }
 }

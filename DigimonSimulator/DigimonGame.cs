@@ -19,12 +19,12 @@ namespace DigimonSimulator
             pixelScreen = new PixelScreen(screen, 20, 20, 16, 32);
             pixelScreen.SetupScreen();
             currentDigimon = SpriteImages.GetElecmon();
-            pixelScreen.DrawDigimonSprite(currentDigimon, 4, counter);
-            //Animate();
+            //pixelScreen.DrawDigimonSprite(currentDigimon, 4, counter);
+            setTimer();
 
         }
 
-        public void Animate()
+        public void setTimer()
         {
             _animationTimer.Interval = TimeSpan.FromMilliseconds(400);
             _animationTimer.Tick += _animationTimer_Tick;
@@ -33,8 +33,10 @@ namespace DigimonSimulator
 
         private void _animationTimer_Tick(object sender, EventArgs e)
         {
-            pixelScreen.ClearScreen();
-            pixelScreen.DrawDigimonSprite(currentDigimon, 4, counter--);
+            //pixelScreen.ClearDigimonSprite(currentDigimon);
+            //pixelScreen.DrawDigimonSprite(currentDigimon, counter++, 4);
+            pixelScreen.DrawDigimonFrame(currentDigimon, 1, true, counter++);
+
         }
 
     }
