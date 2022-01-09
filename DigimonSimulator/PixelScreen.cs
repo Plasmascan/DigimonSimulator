@@ -74,8 +74,8 @@ namespace DigimonSimulator
         private Canvas CanvasScreen;
         private int StartX;
         private int StartY;
-        private int NoPixelsY;
-        private int NoPixelsX;
+        public int NoPixelsY;
+        public int NoPixelsX;
         private int PixelSpacing = 11;
         private Pixel[,] screenPixels;
         private Color PixelColorOff = SystemColors.ScrollBarColor;
@@ -149,7 +149,7 @@ namespace DigimonSimulator
 
         public void ClearDigimonSprite(DigimonSprite digimon)
         {
-            for (int y = digimon.SpriteY; y <  digimon.frame1Height + digimon.SpriteY; y++)
+            for (int y = digimon.SpriteY; y <  digimon.currentSpriteHeight + digimon.SpriteY; y++)
             {
                 for (int x = digimon.SpriteX; x < digimon.frame1Width + digimon.SpriteX; x++)
                 {
@@ -255,8 +255,10 @@ namespace DigimonSimulator
                 }
             }
 
+            // update digimon current location and height
             digimon.SpriteX = moveToX;
             digimon.SpriteY = moveToY;
+            digimon.currentSpriteHeight = spriteHeight;
 
         }
     }

@@ -15,6 +15,7 @@ namespace DigimonSimulator
     {
         public int SpriteX;
         public int SpriteY;
+        public int currentSpriteHeight;
         public int frame1Height;
         public int frame1Width;
         public int frame2Height;
@@ -32,6 +33,7 @@ namespace DigimonSimulator
         public static DigimonSprite GetElecmon()
         {
             DigimonSprite elecmon = new DigimonSprite();
+            elecmon.currentSpriteHeight = 12;
             elecmon.frame1Height = 12;
             elecmon.frame1Width = 16;
             elecmon.frame2Height = 10;
