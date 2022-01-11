@@ -6,12 +6,4 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="menu1Icon.gif" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="menu1Icon.gif" />
-  </ItemGroup>
-
 </Project>

@@ -15,7 +15,7 @@ namespace DigimonSimulator
         public readonly DispatcherTimer _animationTimer = new DispatcherTimer(DispatcherPriority.Normal);
         private int GameTickSpeed = 478;
         private int ScreenNo = 0;
-        private int SelectedMenuNo = -1;
+        private MenuScreen SelectedMenuNo = MenuScreen.MainScreen;
         private int SubMenuNo = 0;
 
         public void InitializeGame(Canvas screen)
@@ -45,15 +45,15 @@ namespace DigimonSimulator
         {
             if (ScreenNo == 0)
             {
-                if (SelectedMenuNo == -1)
+                if (SelectedMenuNo == MenuScreen.MainScreen)
                 {
-                    pixelScreen.TurnMenuIconON(0);
-                    SelectedMenuNo = 0;
+                    pixelScreen.TurnMenuIconON(MenuScreen.StatScreen);
+                    SelectedMenuNo = MenuScreen.StatScreen;
                 }
-                else if (SelectedMenuNo == pixelScreen.numberOfIcons - 1)
+                else if ((int)SelectedMenuNo == pixelScreen.numberOfIcons - 1)
                 {
                     pixelScreen.TurnOffAllIcons();
-                    SelectedMenuNo = -1;
+                    SelectedMenuNo = MenuScreen.MainScreen;
                 }
                 else
                 {
@@ -69,14 +69,24 @@ namespace DigimonSimulator
             {
                 if (SelectedMenuNo == 0)
                 {
-                    MenuScreens.drawStats(this);
+                    MenuScreens.DrawStats(this);
+                    ScreenNo = 1;
                 }
             }
         }
 
         public void CButtonPress()
         {
-
+            if (ScreenNo != 0)
+            {
+                MenuScreens.MainScreen(this);
+                ScreenNo = 0;
+            }
+            else
+            {
+                pixelScreen.TurnOffAllIcons();
+                SelectedMenuNo = MenuScreen.MainScreen;
+            }
         }
 
     }

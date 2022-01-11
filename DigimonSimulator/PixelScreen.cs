@@ -126,13 +126,13 @@ namespace DigimonSimulator
             }
         }
 
-        public void TurnMenuIconON(int noMenu)
+        public void TurnMenuIconON(MenuScreen screen)
         {
             TurnOffAllIcons();
 
-            if (noMenu > -1 && noMenu < numberOfIcons)
+            if ((int)screen > -1 && (int)screen < numberOfIcons)
             {
-                MenuIcons[noMenu].Fill = new SolidColorBrush(PixelColorOn);
+                MenuIcons[(int)screen].Fill = new SolidColorBrush(PixelColorOn);
             }
         }
 
