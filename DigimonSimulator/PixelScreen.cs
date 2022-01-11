@@ -23,8 +23,8 @@ namespace DigimonSimulator
         public Pixel(int x, int y, int locationX, int locationY)
         {
             PixelShape = new Rectangle();
-            PixelShape.Width = 10;
-            PixelShape.Height = 10;
+            PixelShape.Width = PixelWidth;
+            PixelShape.Height = PixelHeight;
             PixelNoX = x;
             PixelNoY = y;
             PixelLocationX = locationX;
@@ -76,10 +76,12 @@ namespace DigimonSimulator
         private int StartY;
         public int NoPixelsY;
         public int NoPixelsX;
+        public int numberOfIcons = 6;
         private int PixelSpacing = 11;
-        private Pixel[,] screenPixels;
+        private Pixel[,] ScreenPixels;
+        private Rectangle[] MenuIcons;
         private Color PixelColorOff = SystemColors.ScrollBarColor;
-        private Color PixelColorOn = SystemColors.ScrollBarColor;
+        private Color PixelColorOn = Colors.Black;
 
         public PixelScreen(Canvas canvasScreen, int x, int y, int noPixelsY, int noPixelsX)
         {
@@ -92,7 +94,8 @@ namespace DigimonSimulator
 
         public void SetupScreen()
         {
-            screenPixels = new Pixel[NoPixelsY, NoPixelsX];
+            // Setup pixels
+            ScreenPixels = new Pixel[NoPixelsY, NoPixelsX];
 
             for (int yPixel = 0, topPixelLocation = StartY; yPixel < NoPixelsY; yPixel++, topPixelLocation += PixelSpacing)
             {
@@ -103,10 +106,42 @@ namespace DigimonSimulator
                     Canvas.SetLeft(pixel.PixelShape, leftPixelLocation);
                     Canvas.SetTop(pixel.PixelShape, topPixelLocation);
                     CanvasScreen.Children.Add(pixel.PixelShape);
-                    screenPixels[yPixel, xPixel] = pixel;
+                    ScreenPixels[yPixel, xPixel] = pixel;
                 }
             }
 
+            // Setup menu icons
+            MenuIcons = new Rectangle[numberOfIcons];
+
+            for (int i = 0, x = 20; i < numberOfIcons; i++, x += 40)
+            {
+                Rectangle menu = new Rectangle();
+                menu.Width = 20;
+                menu.Height = 20;
+                menu.Fill = new SolidColorBrush(PixelColorOff);
+                Canvas.SetLeft(menu, x);
+                Canvas.SetTop(menu, 0);
+                CanvasScreen.Children.Add(menu);
+                MenuIcons[i] = menu;
+            }
+        }
+
+        public void TurnMenuIconON(int noMenu)
+        {
+            TurnOffAllIcons();
+
+            if (noMenu > -1 && noMenu < numberOfIcons)
+            {
+                MenuIcons[noMenu].Fill = new SolidColorBrush(PixelColorOn);
+            }
+        }
+
+        public void TurnOffAllIcons()
+        {
+            for (int i = 0; i < numberOfIcons; i++)
+            {
+                MenuIcons[i].Fill = new SolidColorBrush(PixelColorOff);
+            }
         }
 
         public void ClearScreen()
@@ -115,7 +150,7 @@ namespace DigimonSimulator
             {
                 for (int x = 0; x < NoPixelsX; x++)
                 {
-                    screenPixels[y, x].TurnOffPixel();
+                    ScreenPixels[y, x].TurnOffPixel();
                 }
             }
         }
@@ -138,9 +173,9 @@ namespace DigimonSimulator
             {
                 for (int x = 0; x < NoPixelsX; x++)
                 {
-                    if (screenPixels[y, x].IsPixelClicked(clickedX, clixkedY))
+                    if (ScreenPixels[y, x].IsPixelClicked(clickedX, clixkedY))
                     {
-                        screenPixels[y, x].TogglePixel();
+                        ScreenPixels[y, x].TogglePixel();
                         return;
                     }
                 }
@@ -155,9 +190,9 @@ namespace DigimonSimulator
                 {
                     if (isPixelOnScreen(y, x))
                     {
-                        if (screenPixels[y, x].IsPixelOn)
+                        if (ScreenPixels[y, x].IsPixelOn)
                         {
-                           screenPixels[y, x].TurnOffPixel();
+                            ScreenPixels[y, x].TurnOffPixel();
                         }
                     }
                 }
@@ -178,7 +213,7 @@ namespace DigimonSimulator
                         
                         if (digimon.frame1[digimonPixelY, digimonPixelX])
                         {
-                            screenPixels[yPixels, xPixels].TurnOnPixel();
+                            ScreenPixels[yPixels, xPixels].TurnOnPixel();
                         }
                     }
                 }
@@ -230,7 +265,7 @@ namespace DigimonSimulator
 
                             if (frame[digimonPixelY, digimonPixelX])
                             {
-                                screenPixels[yPixels, xPixels].TurnOnPixel();
+                                ScreenPixels[yPixels, xPixels].TurnOnPixel();
                             }
                         }
                     }
@@ -248,7 +283,7 @@ namespace DigimonSimulator
 
                             if (frame[digimonPixelY, digimonPixelX])
                             {
-                                screenPixels[yPixels, xPixels].TurnOnPixel();
+                                ScreenPixels[yPixels, xPixels].TurnOnPixel();
                             }
                         }
                     }

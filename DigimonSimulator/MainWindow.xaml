@@ -7,8 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Canvas x:Name="screenCavas" Margin="112,69,253,108" Background="#FFF0EEEE" MouseLeftButtonDown="mouseLeftButtonClick"/>
-        <Button x:Name="aButton" Content="Button" HorizontalAlignment="Left" Margin="137,356,0,0" VerticalAlignment="Top" Click="aButton_Click"/>
+        <Canvas x:Name="screenCavas" Margin="112,69,253,108" Background="#FFF0EEEE" MouseLeftButtonDown="mouseLeftButtonClick">
+            <Image x:Name="menuImage1" Height="21" Canvas.Left="19" Canvas.Top="11" Width="25">
+                <Image.OpacityMask>
+                    <ImageBrush ImageSource="/menu1Icon.gif"/>
+                </Image.OpacityMask>
+            </Image>
+        </Canvas>
+        <Button x:Name="aButton" Content="A" HorizontalAlignment="Left" Margin="116,362,0,0" VerticalAlignment="Top" Click="aButton_Click" Width="32"/>
+        <Button x:Name="bButton" Content="B" HorizontalAlignment="Left" Margin="166,362,0,0" VerticalAlignment="Top" Click="bButton_Click" Width="30"/>
+        <Button x:Name="cButton" Content="C" HorizontalAlignment="Left" Margin="216,362,0,0" VerticalAlignment="Top" Width="31" Click="cButton_Click"/>
 
     </Grid>
 </Window>

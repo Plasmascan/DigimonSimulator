@@ -12,12 +12,15 @@ namespace DigimonSimulator
         public PixelScreen pixelScreen;
         public DigimonSprite currentDigimon;
         public Animations animate;
-        private readonly DispatcherTimer _animationTimer = new DispatcherTimer(DispatcherPriority.Normal);
+        public readonly DispatcherTimer _animationTimer = new DispatcherTimer(DispatcherPriority.Normal);
         private int GameTickSpeed = 478;
+        private int ScreenNo = 0;
+        private int SelectedMenuNo = -1;
+        private int SubMenuNo = 0;
 
         public void InitializeGame(Canvas screen)
         {
-            pixelScreen = new PixelScreen(screen, 20, 20, 16, 32);
+            pixelScreen = new PixelScreen(screen, 20, 30, 16, 32);
             pixelScreen.SetupScreen();
             currentDigimon = SpriteImages.GetElecmon();
             animate = new Animations(pixelScreen, currentDigimon);
@@ -35,8 +38,45 @@ namespace DigimonSimulator
 
         private void _animationTimer_Tick(object sender, EventArgs e)
         {
-            //pixelScreen.DrawDigimonFrame(currentDigimon, 1, true, counter++);
             animate.StepDigimon();
+        }
+
+        public void AButtonPress()
+        {
+            if (ScreenNo == 0)
+            {
+                if (SelectedMenuNo == -1)
+                {
+                    pixelScreen.TurnMenuIconON(0);
+                    SelectedMenuNo = 0;
+                }
+                else if (SelectedMenuNo == pixelScreen.numberOfIcons - 1)
+                {
+                    pixelScreen.TurnOffAllIcons();
+                    SelectedMenuNo = -1;
+                }
+                else
+                {
+                    SelectedMenuNo++;
+                    pixelScreen.TurnMenuIconON(SelectedMenuNo);
+                }
+            }
+        }
+
+        public void BButtonPress()
+        {
+            if (ScreenNo == 0)
+            {
+                if (SelectedMenuNo == 0)
+                {
+                    MenuScreens.drawStats(this);
+                }
+            }
+        }
+
+        public void CButtonPress()
+        {
+
         }
 
     }
