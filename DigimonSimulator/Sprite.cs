@@ -6,9 +6,11 @@ namespace DigimonSimulator
 {
     public class Sprite
     {
-        private int SpriteHeight;
-        private int SpriteWidth;
-        private bool[,] sprite;
+        public int SpriteX;
+        public int SpriteY;
+        public int SpriteHeight;
+        public int SpriteWidth;
+        public bool[,] sprite;
     }
 
     public class DigimonSprite
@@ -22,15 +24,172 @@ namespace DigimonSimulator
         public int frame2Width;
         public int happyFrameHeight;
         public int happyFrameWidth;
+        public int currentHunger = 1000;
         public bool[,] frame1;
         public bool[,] frame2;
         public bool[,] happyFrame;
-   
-
     }
+
     public static class SpriteImages
     {
-        public static DigimonSprite GetElecmon()
+        public static Sprite HungerSprite()
+        {
+            Sprite hungerSprite = new Sprite();
+            hungerSprite.SpriteHeight = 8;
+            hungerSprite.SpriteWidth = 24;
+            hungerSprite.sprite = new bool[hungerSprite.SpriteHeight, hungerSprite.SpriteWidth];
+
+            #region hungerSprite.sprite
+            hungerSprite.sprite[0, 0] = true;
+            hungerSprite.sprite[0, 3] = true;
+            hungerSprite.sprite[1, 0] = true;
+            hungerSprite.sprite[1, 3] = true;
+            hungerSprite.sprite[2, 0] = true;
+            hungerSprite.sprite[2, 3] = true;
+            hungerSprite.sprite[2, 5] = true;
+            hungerSprite.sprite[2, 7] = true;
+            hungerSprite.sprite[2, 9] = true;
+            hungerSprite.sprite[2, 10] = true;
+            hungerSprite.sprite[2, 11] = true;
+            hungerSprite.sprite[2, 13] = true;
+            hungerSprite.sprite[2, 14] = true;
+            hungerSprite.sprite[2, 15] = true;
+            hungerSprite.sprite[2, 17] = true;
+            hungerSprite.sprite[2, 19] = true;
+            hungerSprite.sprite[2, 21] = true;
+            hungerSprite.sprite[2, 23] = true;
+            hungerSprite.sprite[3, 0] = true;
+            hungerSprite.sprite[3, 1] = true;
+            hungerSprite.sprite[3, 2] = true;
+            hungerSprite.sprite[3, 3] = true;
+            hungerSprite.sprite[3, 5] = true;
+            hungerSprite.sprite[3, 7] = true;
+            hungerSprite.sprite[3, 9] = true;
+            hungerSprite.sprite[3, 11] = true;
+            hungerSprite.sprite[3, 13] = true;
+            hungerSprite.sprite[3, 15] = true;
+            hungerSprite.sprite[3, 17] = true;
+            hungerSprite.sprite[3, 18] = true;
+            hungerSprite.sprite[3, 21] = true;
+            hungerSprite.sprite[3, 23] = true;
+            hungerSprite.sprite[4, 0] = true;
+            hungerSprite.sprite[4, 3] = true;
+            hungerSprite.sprite[4, 5] = true;
+            hungerSprite.sprite[4, 7] = true;
+            hungerSprite.sprite[4, 9] = true;
+            hungerSprite.sprite[4, 11] = true;
+            hungerSprite.sprite[4, 13] = true;
+            hungerSprite.sprite[4, 15] = true;
+            hungerSprite.sprite[4, 17] = true;
+            hungerSprite.sprite[4, 21] = true;
+            hungerSprite.sprite[4, 23] = true;
+            hungerSprite.sprite[5, 0] = true;
+            hungerSprite.sprite[5, 3] = true;
+            hungerSprite.sprite[5, 5] = true;
+            hungerSprite.sprite[5, 7] = true;
+            hungerSprite.sprite[5, 9] = true;
+            hungerSprite.sprite[5, 11] = true;
+            hungerSprite.sprite[5, 13] = true;
+            hungerSprite.sprite[5, 14] = true;
+            hungerSprite.sprite[5, 15] = true;
+            hungerSprite.sprite[5, 17] = true;
+            hungerSprite.sprite[5, 22] = true;
+            hungerSprite.sprite[5, 23] = true;
+            hungerSprite.sprite[6, 0] = true;
+            hungerSprite.sprite[6, 3] = true;
+            hungerSprite.sprite[6, 5] = true;
+            hungerSprite.sprite[6, 6] = true;
+            hungerSprite.sprite[6, 7] = true;
+            hungerSprite.sprite[6, 9] = true;
+            hungerSprite.sprite[6, 11] = true;
+            hungerSprite.sprite[6, 15] = true;
+            hungerSprite.sprite[6, 17] = true;
+            hungerSprite.sprite[6, 23] = true;
+            hungerSprite.sprite[7, 13] = true;
+            hungerSprite.sprite[7, 14] = true;
+            hungerSprite.sprite[7, 15] = true;
+            hungerSprite.sprite[7, 21] = true;
+            hungerSprite.sprite[7, 22] = true;
+            #endregion
+
+            return hungerSprite;
+        }
+
+        public static Sprite FullHeartSprite()
+        {
+            Sprite fullHeartSprite = new Sprite();
+            fullHeartSprite.SpriteHeight = 7;
+            fullHeartSprite.SpriteWidth = 7;
+            fullHeartSprite.sprite = new bool[fullHeartSprite.SpriteHeight, fullHeartSprite.SpriteWidth];
+
+            #region fullHeart
+            fullHeartSprite.sprite[0, 1] = true;
+            fullHeartSprite.sprite[0, 2] = true;
+            fullHeartSprite.sprite[0, 4] = true;
+            fullHeartSprite.sprite[0, 5] = true;
+            fullHeartSprite.sprite[1, 0] = true;
+            fullHeartSprite.sprite[1, 2] = true;
+            fullHeartSprite.sprite[1, 3] = true;
+            fullHeartSprite.sprite[1, 4] = true;
+            fullHeartSprite.sprite[1, 5] = true;
+            fullHeartSprite.sprite[1, 6] = true;
+            fullHeartSprite.sprite[2, 0] = true;
+            fullHeartSprite.sprite[2, 2] = true;
+            fullHeartSprite.sprite[2, 3] = true;
+            fullHeartSprite.sprite[2, 4] = true;
+            fullHeartSprite.sprite[2, 5] = true;
+            fullHeartSprite.sprite[2, 6] = true;
+            fullHeartSprite.sprite[3, 0] = true;
+            fullHeartSprite.sprite[3, 1] = true;
+            fullHeartSprite.sprite[3, 2] = true;
+            fullHeartSprite.sprite[3, 3] = true;
+            fullHeartSprite.sprite[3, 4] = true;
+            fullHeartSprite.sprite[3, 5] = true;
+            fullHeartSprite.sprite[3, 6] = true;
+            fullHeartSprite.sprite[4, 1] = true;
+            fullHeartSprite.sprite[4, 2] = true;
+            fullHeartSprite.sprite[4, 3] = true;
+            fullHeartSprite.sprite[4, 4] = true;
+            fullHeartSprite.sprite[4, 5] = true;
+            fullHeartSprite.sprite[5, 2] = true;
+            fullHeartSprite.sprite[5, 3] = true;
+            fullHeartSprite.sprite[5, 4] = true;
+            fullHeartSprite.sprite[6, 3] = true;
+            #endregion
+
+            return fullHeartSprite;
+        }
+
+        public static Sprite EmptyHeartSprite()
+        {
+            Sprite emptyHeartSprite = new Sprite();
+            emptyHeartSprite.SpriteHeight = 7;
+            emptyHeartSprite.SpriteWidth = 7;
+            emptyHeartSprite.sprite = new bool[emptyHeartSprite.SpriteHeight, emptyHeartSprite.SpriteWidth];
+
+            #region emptyHeart
+            emptyHeartSprite.sprite[0, 1] = true;
+            emptyHeartSprite.sprite[0, 2] = true;
+            emptyHeartSprite.sprite[0, 4] = true;
+            emptyHeartSprite.sprite[0, 5] = true;
+            emptyHeartSprite.sprite[1, 0] = true;
+            emptyHeartSprite.sprite[1, 3] = true;
+            emptyHeartSprite.sprite[1, 6] = true;
+            emptyHeartSprite.sprite[2, 0] = true;
+            emptyHeartSprite.sprite[2, 6] = true;
+            emptyHeartSprite.sprite[3, 0] = true;
+            emptyHeartSprite.sprite[3, 6] = true;
+            emptyHeartSprite.sprite[4, 1] = true;
+            emptyHeartSprite.sprite[4, 5] = true;
+            emptyHeartSprite.sprite[5, 2] = true;
+            emptyHeartSprite.sprite[5, 4] = true;
+            emptyHeartSprite.sprite[6, 3] = true;
+            #endregion
+
+            return emptyHeartSprite;
+        }
+
+        public static DigimonSprite Elecmon()
         {
             DigimonSprite elecmon = new DigimonSprite();
             elecmon.currentSpriteHeight = 12;

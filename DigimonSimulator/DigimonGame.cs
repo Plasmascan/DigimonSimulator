@@ -12,80 +12,105 @@ namespace DigimonSimulator
         public PixelScreen pixelScreen;
         public DigimonSprite currentDigimon;
         public Animations animate;
-        public readonly DispatcherTimer _animationTimer = new DispatcherTimer(DispatcherPriority.Normal);
+        public readonly DispatcherTimer _gameTimer = new DispatcherTimer(DispatcherPriority.Normal);
+        public bool stepSprite;
         private int GameTickSpeed = 478;
-        private int ScreenNo = 0;
-        private MenuScreen SelectedMenuNo = MenuScreen.MainScreen;
+        private int TimeoutSelectedMenu = 0;
+        private MenuScreen CurrentScreen = MenuScreen.MainScreen;
+        private MenuScreen SelectedMenu = MenuScreen.MainScreen;
         private int SubMenuNo = 0;
 
         public void InitializeGame(Canvas screen)
         {
             pixelScreen = new PixelScreen(screen, 20, 30, 16, 32);
             pixelScreen.SetupScreen();
-            currentDigimon = SpriteImages.GetElecmon();
+            currentDigimon = SpriteImages.Elecmon();
             animate = new Animations(pixelScreen, currentDigimon);
             animate.resetStepAnimation();
+            stepSprite = true;
             setTimer();
 
         }
 
         public void setTimer()
         {
-            _animationTimer.Interval = TimeSpan.FromMilliseconds(GameTickSpeed);
-            _animationTimer.Tick += _animationTimer_Tick;
-            _animationTimer.Start();
+            _gameTimer.Interval = TimeSpan.FromMilliseconds(GameTickSpeed);
+            _gameTimer.Tick += _gameTimer_Tick;
+            _gameTimer.Start();
         }
 
-        private void _animationTimer_Tick(object sender, EventArgs e)
+        private void _gameTimer_Tick(object sender, EventArgs e)
         {
-            animate.StepDigimon();
+            if (stepSprite)
+            {
+                animate.StepDigimon();
+            }
+            if (currentDigimon.currentHunger > -1)
+            {
+                currentDigimon.currentHunger--;
+            }
+            
+            // reset selected menu after ?ms if on main screen
+            if (CurrentScreen == MenuScreen.MainScreen && SelectedMenu!= MenuScreen.MainScreen)
+            {
+                TimeoutSelectedMenu++;
+                if (TimeoutSelectedMenu == 10)
+                {
+                    pixelScreen.TurnOffAllIcons();
+                    SelectedMenu = MenuScreen.MainScreen;
+                    TimeoutSelectedMenu = 0;
+                }
+            }
+
         }
 
         public void AButtonPress()
         {
-            if (ScreenNo == 0)
+
+            if (CurrentScreen == MenuScreen.MainScreen)
             {
-                if (SelectedMenuNo == MenuScreen.MainScreen)
+                TimeoutSelectedMenu = 0;
+                if (SelectedMenu == MenuScreen.MainScreen)
                 {
                     pixelScreen.TurnMenuIconON(MenuScreen.StatScreen);
-                    SelectedMenuNo = MenuScreen.StatScreen;
+                    SelectedMenu = MenuScreen.StatScreen;
                 }
-                else if ((int)SelectedMenuNo == pixelScreen.numberOfIcons - 1)
+                else if ((int)SelectedMenu == pixelScreen.numberOfIcons - 1)
                 {
                     pixelScreen.TurnOffAllIcons();
-                    SelectedMenuNo = MenuScreen.MainScreen;
+                    SelectedMenu = MenuScreen.MainScreen;
                 }
                 else
                 {
-                    SelectedMenuNo++;
-                    pixelScreen.TurnMenuIconON(SelectedMenuNo);
+                    SelectedMenu++;
+                    pixelScreen.TurnMenuIconON(SelectedMenu);
                 }
             }
         }
 
         public void BButtonPress()
         {
-            if (ScreenNo == 0)
+            if (CurrentScreen == MenuScreen.MainScreen)
             {
-                if (SelectedMenuNo == 0)
+                if (SelectedMenu == 0)
                 {
                     MenuScreens.DrawStats(this);
-                    ScreenNo = 1;
+                    CurrentScreen = MenuScreen.StatScreen;
                 }
             }
         }
 
         public void CButtonPress()
         {
-            if (ScreenNo != 0)
+            if (CurrentScreen != MenuScreen.MainScreen)
             {
                 MenuScreens.MainScreen(this);
-                ScreenNo = 0;
+                CurrentScreen = MenuScreen.MainScreen;
             }
             else
             {
                 pixelScreen.TurnOffAllIcons();
-                SelectedMenuNo = MenuScreen.MainScreen;
+                SelectedMenu = MenuScreen.MainScreen;
             }
         }
 

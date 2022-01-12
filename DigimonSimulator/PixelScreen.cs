@@ -182,7 +182,8 @@ namespace DigimonSimulator
             }
         }
 
-        public void ClearDigimonSprite(DigimonSprite digimon)
+        // Clears a digimon sprite from the screen
+        public void ClearSprite(DigimonSprite digimon)
         {
             for (int y = digimon.SpriteY; y <  digimon.currentSpriteHeight + digimon.SpriteY; y++)
             {
@@ -199,7 +200,26 @@ namespace DigimonSimulator
             }
         }
 
-        public void DrawDigimonSprite(DigimonSprite digimon, int x, int y)
+        // Clears a single image from the screen
+        public void ClearSprite(Sprite sprite)
+        {
+            for (int y = sprite.SpriteY; y < sprite.SpriteHeight + sprite.SpriteY; y++)
+            {
+                for (int x = sprite.SpriteX; x < sprite.SpriteWidth + sprite.SpriteX; x++)
+                {
+                    if (isPixelOnScreen(y, x))
+                    {
+                        if (ScreenPixels[y, x].IsPixelOn)
+                        {
+                            ScreenPixels[y, x].TurnOffPixel();
+                        }
+                    }
+                }
+            }
+        }
+
+        // Draws a single image from a digimon
+        public void DrawSprite(DigimonSprite digimon, int x, int y)
         {
             digimon.SpriteX = x;
             digimon.SpriteY = y;
@@ -220,9 +240,31 @@ namespace DigimonSimulator
             }
         }
 
+        // Draws single sprite image to the screen
+        public void DrawSprite(Sprite sprite, int x, int y)
+        {
+            sprite.SpriteX = x;
+            sprite.SpriteY = y;
+
+            for (int yPixels = y, spritePixelY = 0; spritePixelY < sprite.SpriteHeight; yPixels++, spritePixelY++)
+            {
+                for (int xPixels = x, spritePixelX = 0; spritePixelX < sprite.SpriteWidth; xPixels++, spritePixelX++)
+                {
+                    if (isPixelOnScreen(yPixels, xPixels))
+                    {
+
+                        if (sprite.sprite[spritePixelY, spritePixelX])
+                        {
+                            ScreenPixels[yPixels, xPixels].TurnOnPixel();
+                        }
+                    }
+                }
+            }
+        }
+
         public void DrawDigimonFrame(DigimonSprite digimon, int frameNo, bool mirror, int moveToX)
         {
-            ClearDigimonSprite(digimon);
+            ClearSprite(digimon);
 
             // frame to draw
             int spriteHeight, spriteWidth, moveToY;

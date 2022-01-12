@@ -17,8 +17,25 @@ namespace DigimonSimulator
     {
         public static void DrawStats(DigimonGame game)
         {
-            game._animationTimer.Stop();
+            game.stepSprite = false;
             game.pixelScreen.ClearScreen();
+            Sprite hungerSprite = SpriteImages.HungerSprite();
+            Sprite fullHeartSprite = SpriteImages.FullHeartSprite();
+            Sprite emptyHeartSprite = SpriteImages.EmptyHeartSprite();
+            game.pixelScreen.DrawSprite(hungerSprite, 0, 0);
+
+            for (int i = 0, hunger = 1, x = 0; i < 4; i++, hunger += 250, x += 8)
+            {
+                if (game.currentDigimon.currentHunger < hunger)
+                {
+                    game.pixelScreen.DrawSprite(emptyHeartSprite, x, 9);
+                }
+                else
+                {
+                    game.pixelScreen.DrawSprite(fullHeartSprite, x, 9);
+                }
+            }
+
         }
 
         public static void MainScreen(DigimonGame game)
@@ -26,7 +43,7 @@ namespace DigimonSimulator
             game.pixelScreen.ClearScreen();
             game.animate.resetStepAnimation();
             game.animate.StepDigimon();
-            game._animationTimer.Start();
+            game.stepSprite = true;
         }
     }
 }
