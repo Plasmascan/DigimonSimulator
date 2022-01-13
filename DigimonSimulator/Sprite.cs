@@ -25,6 +25,7 @@ namespace DigimonSimulator
         public int happyFrameHeight;
         public int happyFrameWidth;
         public int currentHunger = 1000;
+        public int currentStrength = 1000;
         public bool[,] frame1;
         public bool[,] frame2;
         public bool[,] happyFrame;
@@ -113,6 +114,104 @@ namespace DigimonSimulator
             #endregion
 
             return hungerSprite;
+        }
+
+        public static Sprite StrengthSprite()
+        {
+            Sprite strengthSprite = new Sprite();
+            strengthSprite.SpriteHeight = 8;
+            strengthSprite.SpriteWidth = 32;
+            strengthSprite.sprite = new bool[strengthSprite.SpriteHeight, strengthSprite.SpriteWidth];
+
+            #region StrengthSprite
+            strengthSprite.sprite[0, 1] = true;
+            strengthSprite.sprite[0, 2] = true;
+            strengthSprite.sprite[0, 29] = true;
+            strengthSprite.sprite[1, 0] = true;
+            strengthSprite.sprite[1, 3] = true;
+            strengthSprite.sprite[1, 6] = true;
+            strengthSprite.sprite[1, 26] = true;
+            strengthSprite.sprite[1, 29] = true;
+            strengthSprite.sprite[2, 0] = true;
+            strengthSprite.sprite[2, 5] = true;
+            strengthSprite.sprite[2, 6] = true;
+            strengthSprite.sprite[2, 7] = true;
+            strengthSprite.sprite[2, 9] = true;
+            strengthSprite.sprite[2, 11] = true;
+            strengthSprite.sprite[2, 13] = true;
+            strengthSprite.sprite[2, 14] = true;
+            strengthSprite.sprite[2, 15] = true;
+            strengthSprite.sprite[2, 17] = true;
+            strengthSprite.sprite[2, 18] = true;
+            strengthSprite.sprite[2, 19] = true;
+            strengthSprite.sprite[2, 21] = true;
+            strengthSprite.sprite[2, 22] = true;
+            strengthSprite.sprite[2, 23] = true;
+            strengthSprite.sprite[2, 25] = true;
+            strengthSprite.sprite[2, 26] = true;
+            strengthSprite.sprite[2, 27] = true;
+            strengthSprite.sprite[2, 29] = true;
+            strengthSprite.sprite[2, 30] = true;
+            strengthSprite.sprite[2, 31] = true;
+            strengthSprite.sprite[3, 1] = true;
+            strengthSprite.sprite[3, 2] = true;
+            strengthSprite.sprite[3, 6] = true;
+            strengthSprite.sprite[3, 9] = true;
+            strengthSprite.sprite[3, 10] = true;
+            strengthSprite.sprite[3, 13] = true;
+            strengthSprite.sprite[3, 15] = true;
+            strengthSprite.sprite[3, 17] = true;
+            strengthSprite.sprite[3, 19] = true;
+            strengthSprite.sprite[3, 21] = true;
+            strengthSprite.sprite[3, 23] = true;
+            strengthSprite.sprite[3, 26] = true;
+            strengthSprite.sprite[3, 29] = true;
+            strengthSprite.sprite[3, 31] = true;
+            strengthSprite.sprite[4, 3] = true;
+            strengthSprite.sprite[4, 6] = true;
+            strengthSprite.sprite[4, 9] = true;
+            strengthSprite.sprite[4, 13] = true;
+            strengthSprite.sprite[4, 14] = true;
+            strengthSprite.sprite[4, 15] = true;
+            strengthSprite.sprite[4, 17] = true;
+            strengthSprite.sprite[4, 19] = true;
+            strengthSprite.sprite[4, 21] = true;
+            strengthSprite.sprite[4, 23] = true;
+            strengthSprite.sprite[4, 26] = true;
+            strengthSprite.sprite[4, 29] = true;
+            strengthSprite.sprite[4, 31] = true;
+            strengthSprite.sprite[5, 0] = true;
+            strengthSprite.sprite[5, 3] = true;
+            strengthSprite.sprite[5, 6] = true;
+            strengthSprite.sprite[5, 9] = true;
+            strengthSprite.sprite[5, 13] = true;
+            strengthSprite.sprite[5, 17] = true;
+            strengthSprite.sprite[5, 19] = true;
+            strengthSprite.sprite[5, 21] = true;
+            strengthSprite.sprite[5, 22] = true;
+            strengthSprite.sprite[5, 23] = true;
+            strengthSprite.sprite[5, 26] = true;
+            strengthSprite.sprite[5, 29] = true;
+            strengthSprite.sprite[5, 31] = true;
+            strengthSprite.sprite[6, 1] = true;
+            strengthSprite.sprite[6, 2] = true;
+            strengthSprite.sprite[6, 6] = true;
+            strengthSprite.sprite[6, 9] = true;
+            strengthSprite.sprite[6, 13] = true;
+            strengthSprite.sprite[6, 14] = true;
+            strengthSprite.sprite[6, 15] = true;
+            strengthSprite.sprite[6, 17] = true;
+            strengthSprite.sprite[6, 19] = true;
+            strengthSprite.sprite[6, 23] = true;
+            strengthSprite.sprite[6, 26] = true;
+            strengthSprite.sprite[6, 29] = true;
+            strengthSprite.sprite[6, 31] = true;
+            strengthSprite.sprite[7, 21] = true;
+            strengthSprite.sprite[7, 22] = true;
+            strengthSprite.sprite[7, 23] = true;
+            #endregion
+
+            return strengthSprite;
         }
 
         public static Sprite FullHeartSprite()

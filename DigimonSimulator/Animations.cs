@@ -19,7 +19,7 @@ namespace DigimonSimulator
         public void resetStepAnimation()
         {
             StepCounter = 0;
-            Digimon.SpriteX = PixelScreen.NoPixelsX - (Digimon.frame1Width / 2) - 18;
+            Digimon.SpriteX = PixelScreen.NumberOfXPixels - (Digimon.frame1Width / 2) - 18;
         }
 
         public void StepDigimon()

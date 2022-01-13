@@ -1,0 +1,21 @@
+﻿<Window x:Class="DigimonSimulator.DrawWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DigimonSimulator"
+        mc:Ignorable="d"
+        Title="DrawWindow" Height="809" Width="800">
+    <Grid Margin="0,0,0,-6">
+        <Canvas x:Name="screenCanvas" Margin="85,72,260,476" Background="#FFF0EEEE" MouseLeftButtonDown="screenCanvas_MouseLeftButtonDown"/>
+        <Button x:Name="generateCodeButton" Content="Generate Code" HorizontalAlignment="Left" Margin="618,131,0,0" VerticalAlignment="Top" Width="95" Click="generateCodeButton_Click"/>
+        <Button x:Name="panUpButton" Content="^" HorizontalAlignment="Left" Margin="643,217,0,0" VerticalAlignment="Top" Height="35" Width="35" Click="panUpButton_Click"/>
+        <Button x:Name="panDownButton" Content="V" HorizontalAlignment="Left" Margin="643,258,0,0" VerticalAlignment="Top" Width="35" Height="35" Click="panDownButton_Click"/>
+        <Button x:Name="panLeftButton" Content="&lt;" HorizontalAlignment="Left" Margin="603,238,0,0" VerticalAlignment="Top" Width="35" Height="38" Click="panLeftButton_Click"/>
+        <Button x:Name="panRightButton" Content="&gt;" HorizontalAlignment="Left" Margin="683,241,0,0" VerticalAlignment="Top" Width="35" Height="35" Click="panRightButton_Click"/>
+        <Label x:Name="SpriteNameLabel" Content="Sprite/Frame:" HorizontalAlignment="Left" Margin="536,25,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="spriteNameTextbox" HorizontalAlignment="Left" Margin="622,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="codeTextbox" HorizontalAlignment="Left" Margin="113,372,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="569" Height="328"/>
+
+    </Grid>
+</Window>

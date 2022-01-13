@@ -49,7 +49,11 @@ namespace DigimonSimulator
             {
                 currentDigimon.currentHunger--;
             }
-            
+            if (currentDigimon.currentStrength > -1)
+            {
+                currentDigimon.currentStrength--;
+            }
+
             // reset selected menu after ?ms if on main screen
             if (CurrentScreen == MenuScreen.MainScreen && SelectedMenu!= MenuScreen.MainScreen)
             {
@@ -92,10 +96,24 @@ namespace DigimonSimulator
         {
             if (CurrentScreen == MenuScreen.MainScreen)
             {
-                if (SelectedMenu == 0)
+                if (SelectedMenu == MenuScreen.StatScreen)
                 {
-                    MenuScreens.DrawStats(this);
+                    stepSprite = false;
                     CurrentScreen = MenuScreen.StatScreen;
+                    MenuScreens.DrawStats(this, SubMenuNo);
+                    SubMenuNo++;
+                }
+            }
+            else if (CurrentScreen == MenuScreen.StatScreen)
+            {
+                MenuScreens.DrawStats(this, SubMenuNo);
+                if (SubMenuNo < 2)
+                {
+                    SubMenuNo++;
+                }
+                else
+                {
+                    SubMenuNo = 0;
                 }
             }
         }
@@ -106,6 +124,7 @@ namespace DigimonSimulator
             {
                 MenuScreens.MainScreen(this);
                 CurrentScreen = MenuScreen.MainScreen;
+                SubMenuNo = 0;
             }
             else
             {

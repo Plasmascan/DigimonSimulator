@@ -26,14 +26,14 @@ namespace DigimonSimulator
         public MainWindow()
         {
             InitializeComponent();
-            mainGame.InitializeGame(screenCavas);
+            mainGame.InitializeGame(screenCanvas);
         }
 
         private void mouseLeftButtonClick(object sender, MouseButtonEventArgs e)
         {
-            int x = (int)e.GetPosition(screenCavas).X;
-            int y = (int)e.GetPosition(screenCavas).Y;
-            mainGame.pixelScreen.pixelClick(x, y);
+            int x = (int)e.GetPosition(screenCanvas).X;
+            int y = (int)e.GetPosition(screenCanvas).Y;
+            mainGame.pixelScreen.PixelClick(x, y);
         }
 
         private void aButton_Click(object sender, RoutedEventArgs e)
@@ -49,6 +49,24 @@ namespace DigimonSimulator
         private void cButton_Click(object sender, RoutedEventArgs e)
         {
             mainGame.CButtonPress();
+        }
+
+        private void printButton_Click(object sender, RoutedEventArgs e)
+        {
+            DrawWindow drawWindow = new DrawWindow();
+            drawWindow.Show();
+        }
+
+        private void pauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (mainGame._gameTimer.IsEnabled)
+            {
+                mainGame._gameTimer.Stop();
+            }
+            else
+            {
+                mainGame._gameTimer.Start();
+            }
         }
     }
 }

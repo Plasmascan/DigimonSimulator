@@ -74,8 +74,8 @@ namespace DigimonSimulator
         private Canvas CanvasScreen;
         private int StartX;
         private int StartY;
-        public int NoPixelsY;
-        public int NoPixelsX;
+        public int NumberOfYPixels;
+        public int NumberOfXPixels;
         public int numberOfIcons = 6;
         private int PixelSpacing = 11;
         private Pixel[,] ScreenPixels;
@@ -88,18 +88,18 @@ namespace DigimonSimulator
             CanvasScreen = canvasScreen;
             StartX = x;
             StartY = y;
-            NoPixelsY = noPixelsY;
-            NoPixelsX = noPixelsX;
+            NumberOfYPixels = noPixelsY;
+            NumberOfXPixels = noPixelsX;
         }
 
         public void SetupScreen()
         {
             // Setup pixels
-            ScreenPixels = new Pixel[NoPixelsY, NoPixelsX];
+            ScreenPixels = new Pixel[NumberOfYPixels, NumberOfXPixels];
 
-            for (int yPixel = 0, topPixelLocation = StartY; yPixel < NoPixelsY; yPixel++, topPixelLocation += PixelSpacing)
+            for (int yPixel = 0, topPixelLocation = StartY; yPixel < NumberOfYPixels; yPixel++, topPixelLocation += PixelSpacing)
             {
-                for (int xPixel = 0, leftPixelLocation = StartX; xPixel < NoPixelsX; xPixel++, leftPixelLocation += PixelSpacing)
+                for (int xPixel = 0, leftPixelLocation = StartX; xPixel < NumberOfXPixels; xPixel++, leftPixelLocation += PixelSpacing)
                 {
                     Pixel pixel = new Pixel(xPixel, yPixel, leftPixelLocation, topPixelLocation);
                     pixel.TurnOffPixel();
@@ -146,9 +146,9 @@ namespace DigimonSimulator
 
         public void ClearScreen()
         {
-            for (int y = 0; y < NoPixelsY; y++)
+            for (int y = 0; y < NumberOfYPixels; y++)
             {
-                for (int x = 0; x < NoPixelsX; x++)
+                for (int x = 0; x < NumberOfXPixels; x++)
                 {
                     ScreenPixels[y, x].TurnOffPixel();
                 }
@@ -157,7 +157,7 @@ namespace DigimonSimulator
 
         private bool isPixelOnScreen(int y, int x)
         {
-            if (y >= 0 && y <= NoPixelsY - 1 && x >= 0 && x <= NoPixelsX - 1)
+            if (y >= 0 && y <= NumberOfYPixels - 1 && x >= 0 && x <= NumberOfXPixels - 1)
             {
                 return true;
             }
@@ -167,11 +167,11 @@ namespace DigimonSimulator
             }
         }
 
-        public void pixelClick(int clickedX, int clixkedY)
+        public void PixelClick(int clickedX, int clixkedY)
         {
-            for (int y = 0; y < NoPixelsY; y++)
+            for (int y = 0; y < NumberOfYPixels; y++)
             {
-                for (int x = 0; x < NoPixelsX; x++)
+                for (int x = 0; x < NumberOfXPixels; x++)
                 {
                     if (ScreenPixels[y, x].IsPixelClicked(clickedX, clixkedY))
                     {
@@ -294,7 +294,7 @@ namespace DigimonSimulator
             }
 
             // Keeps the digimon sprite touching the ground if the frame's height changes from frame to frame
-            moveToY = NoPixelsY - spriteHeight;
+            moveToY = NumberOfYPixels - spriteHeight;
 
             if (!mirror)
             {
@@ -336,6 +336,93 @@ namespace DigimonSimulator
             digimon.SpriteX = moveToX;
             digimon.SpriteY = moveToY;
             digimon.currentSpriteHeight = spriteHeight;
+
+        }
+
+        public void GenerateSpriteCode(string spriteName, TextBox textBox)
+        {
+            string code = "";
+            bool[,] croppedSprite;
+            int spriteStartX = 1000, spriteEndX = 0;
+            int spriteStartY = 1000, spriteEndY = 0;
+            int spriteHeight, spriteWidth;
+
+            // find the heighest and lowest pixel locations to crop the sprite and find the sprites height and width
+            for (int y = 0; y < NumberOfYPixels; y++)
+            {
+                for (int x = 0; x < NumberOfXPixels; x++)
+                {
+                    if (ScreenPixels[y, x].IsPixelOn)
+                    {
+                        if (x < spriteStartX)
+                        {
+                            spriteStartX = x;
+                        }
+
+                        if (x > spriteEndX)
+                        {
+                            spriteEndX = x;
+                        }
+
+                        if (y < spriteStartY)
+                        {
+                            spriteStartY = y;
+                        }
+
+                        if (y > spriteEndY)
+                        {
+                            spriteEndY = y;
+                        }
+                    }
+                }
+            }
+
+            spriteHeight = spriteEndY - spriteStartY + 1;
+            spriteWidth = spriteEndX - spriteStartX + 1;
+            code += String.Format("Height = {0}\nWidth = {1}\n#region\n", spriteHeight, spriteWidth);
+            // Crop and copy the sprite on the screen into a new bool 2d array
+            croppedSprite = new bool[spriteHeight, spriteWidth];
+
+            for (int y = spriteStartY; y <  spriteEndY + 1; y++)
+            {
+                for (int x = spriteStartX; x <  spriteEndX + 1; x++)
+                {
+                    if (ScreenPixels[y, x].IsPixelOn)
+                    {
+                        croppedSprite[y - spriteStartY, x - spriteStartX] = true;
+                        code += String.Format("{0}[{1}, {2}] = true;\n", spriteName, y - spriteStartY, x - spriteStartX);
+                    }
+                }
+            }
+            code += "#endregion";
+            textBox.Text = code;
+        }
+
+        public void PanScreen(int moveX, int moveY)
+        {
+            Sprite screenCopy = new Sprite();
+            screenCopy.SpriteHeight = NumberOfYPixels;
+            screenCopy.SpriteWidth = NumberOfXPixels;
+            bool[,] screenSprite = new bool[NumberOfYPixels, NumberOfXPixels];
+            for (int y = 0; y < NumberOfYPixels; y++)
+            {
+                for (int x = 0; x < NumberOfXPixels; x++)
+                {
+                    if (ScreenPixels[y, x].IsPixelOn)
+                    {
+                        screenSprite[y, x] = true;
+
+                        // Ensure pixels are not moving off the pixelscreen
+                        if (y == 0 && moveY < 0 || y == NumberOfYPixels - 1 && moveY > 0 || x == 0 && moveX < 0 || x == NumberOfXPixels - 1 && moveX > 0)
+                        {
+                            return;
+                        }
+                    }
+                }
+            }
+            screenCopy.sprite = screenSprite;
+            ClearScreen();
+            DrawSprite(screenCopy, moveX, moveY);
 
         }
     }

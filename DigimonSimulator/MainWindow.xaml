@@ -7,11 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Canvas x:Name="screenCavas" Margin="112,69,253,108" Background="#FFF0EEEE" MouseLeftButtonDown="mouseLeftButtonClick">
+        <Canvas x:Name="screenCanvas" Margin="112,69,253,108" Background="#FFF0EEEE" MouseLeftButtonDown="mouseLeftButtonClick">
         </Canvas>
         <Button x:Name="aButton" Content="A" HorizontalAlignment="Left" Margin="116,362,0,0" VerticalAlignment="Top" Click="aButton_Click" Width="32"/>
         <Button x:Name="bButton" Content="B" HorizontalAlignment="Left" Margin="166,362,0,0" VerticalAlignment="Top" Click="bButton_Click" Width="30"/>
         <Button x:Name="cButton" Content="C" HorizontalAlignment="Left" Margin="216,362,0,0" VerticalAlignment="Top" Width="31" Click="cButton_Click"/>
+        <Button x:Name="printButton" Content="Print" HorizontalAlignment="Left" Margin="664,149,0,0" VerticalAlignment="Top" Click="printButton_Click" Width="58"/>
+        <Button x:Name="pauseButton" Content="Pause&#xD;&#xA;" HorizontalAlignment="Left" Margin="664,198,0,0" VerticalAlignment="Top" Height="19" Width="58" Click="pauseButton_Click"/>
 
     </Grid>
 </Window>
