@@ -26,9 +26,12 @@ namespace DigimonSimulator
         public int happyFrameWidth;
         public int currentHunger = 1000;
         public int currentStrength = 1000;
+        public int maxHunger = 1000;
+        public int maxStrength = 1000;
         public bool[,] frame1;
         public bool[,] frame2;
         public bool[,] happyFrame;
+        // to do - add max hunger and strength to the setup functions
     }
 
     public static class SpriteImages
@@ -286,6 +289,230 @@ namespace DigimonSimulator
             #endregion
 
             return emptyHeartSprite;
+        }
+
+        public static Sprite FullFoodSprite()
+        {
+            Sprite fullFoodSprite = new Sprite();
+            fullFoodSprite.SpriteHeight = 8;
+            fullFoodSprite.SpriteWidth = 8;
+            fullFoodSprite.sprite = new bool[fullFoodSprite.SpriteHeight, fullFoodSprite.SpriteWidth];
+
+            #region fullFood
+            fullFoodSprite.sprite[0, 0] = true;
+            fullFoodSprite.sprite[0, 1] = true;
+            fullFoodSprite.sprite[1, 0] = true;
+            fullFoodSprite.sprite[1, 2] = true;
+            fullFoodSprite.sprite[1, 3] = true;
+            fullFoodSprite.sprite[1, 4] = true;
+            fullFoodSprite.sprite[2, 1] = true;
+            fullFoodSprite.sprite[2, 3] = true;
+            fullFoodSprite.sprite[2, 5] = true;
+            fullFoodSprite.sprite[3, 1] = true;
+            fullFoodSprite.sprite[3, 2] = true;
+            fullFoodSprite.sprite[3, 3] = true;
+            fullFoodSprite.sprite[3, 4] = true;
+            fullFoodSprite.sprite[3, 6] = true;
+            fullFoodSprite.sprite[4, 1] = true;
+            fullFoodSprite.sprite[4, 2] = true;
+            fullFoodSprite.sprite[4, 3] = true;
+            fullFoodSprite.sprite[4, 4] = true;
+            fullFoodSprite.sprite[4, 5] = true;
+            fullFoodSprite.sprite[4, 6] = true;
+            fullFoodSprite.sprite[5, 2] = true;
+            fullFoodSprite.sprite[5, 3] = true;
+            fullFoodSprite.sprite[5, 4] = true;
+            fullFoodSprite.sprite[5, 5] = true;
+            fullFoodSprite.sprite[5, 6] = true;
+            fullFoodSprite.sprite[6, 3] = true;
+            fullFoodSprite.sprite[6, 4] = true;
+            fullFoodSprite.sprite[6, 5] = true;
+            fullFoodSprite.sprite[6, 7] = true;
+            fullFoodSprite.sprite[7, 6] = true;
+            fullFoodSprite.sprite[7, 7] = true;
+            #endregion
+
+            return fullFoodSprite;
+        }
+
+        public static Sprite HalfFoodSprite()
+        {
+            Sprite halfFoodSprite = new Sprite();
+            halfFoodSprite.SpriteHeight = 8;
+            halfFoodSprite.SpriteWidth = 8;
+            halfFoodSprite.sprite = new bool[halfFoodSprite.SpriteHeight, halfFoodSprite.SpriteWidth];
+
+            #region halfFood
+            halfFoodSprite.sprite[0, 0] = true;
+            halfFoodSprite.sprite[0, 1] = true;
+            halfFoodSprite.sprite[1, 0] = true;
+            halfFoodSprite.sprite[1, 2] = true;
+            halfFoodSprite.sprite[1, 3] = true;
+            halfFoodSprite.sprite[2, 1] = true;
+            halfFoodSprite.sprite[2, 2] = true;
+            halfFoodSprite.sprite[2, 3] = true;
+            halfFoodSprite.sprite[2, 4] = true;
+            halfFoodSprite.sprite[3, 1] = true;
+            halfFoodSprite.sprite[3, 2] = true;
+            halfFoodSprite.sprite[3, 4] = true;
+            halfFoodSprite.sprite[4, 2] = true;
+            halfFoodSprite.sprite[4, 3] = true;
+            halfFoodSprite.sprite[4, 5] = true;
+            halfFoodSprite.sprite[5, 4] = true;
+            halfFoodSprite.sprite[5, 6] = true;
+            halfFoodSprite.sprite[6, 5] = true;
+            halfFoodSprite.sprite[6, 7] = true;
+            halfFoodSprite.sprite[7, 6] = true;
+            halfFoodSprite.sprite[7, 7] = true;
+            #endregion
+
+            return halfFoodSprite;
+        }
+
+        public static Sprite EmptyFoodSprite()
+        {
+            Sprite EmptyFoodSprite = new Sprite();
+            EmptyFoodSprite.SpriteHeight = 8;
+            EmptyFoodSprite.SpriteWidth = 8;
+            EmptyFoodSprite.sprite = new bool[EmptyFoodSprite.SpriteHeight, EmptyFoodSprite.SpriteWidth];
+
+            #region EmptyFoodSprite
+            EmptyFoodSprite.sprite[0, 0] = true;
+            EmptyFoodSprite.sprite[0, 1] = true;
+            EmptyFoodSprite.sprite[1, 0] = true;
+            EmptyFoodSprite.sprite[1, 2] = true;
+            EmptyFoodSprite.sprite[2, 1] = true;
+            EmptyFoodSprite.sprite[2, 3] = true;
+            EmptyFoodSprite.sprite[3, 2] = true;
+            EmptyFoodSprite.sprite[3, 4] = true;
+            EmptyFoodSprite.sprite[4, 3] = true;
+            EmptyFoodSprite.sprite[4, 5] = true;
+            EmptyFoodSprite.sprite[5, 4] = true;
+            EmptyFoodSprite.sprite[5, 6] = true;
+            EmptyFoodSprite.sprite[6, 5] = true;
+            EmptyFoodSprite.sprite[6, 7] = true;
+            EmptyFoodSprite.sprite[7, 6] = true;
+            EmptyFoodSprite.sprite[7, 7] = true;
+            #endregion
+
+            return EmptyFoodSprite;
+        }
+
+        public static Sprite FullVitaminSprite()
+        {
+            Sprite fullVitaminSprite = new Sprite();
+            fullVitaminSprite.SpriteHeight = 8;
+            fullVitaminSprite.SpriteWidth = 8;
+            fullVitaminSprite.sprite = new bool[fullVitaminSprite.SpriteHeight, fullVitaminSprite.SpriteWidth];
+
+            #region fullVitamin
+            fullVitaminSprite.sprite[0, 4] = true;
+            fullVitaminSprite.sprite[0, 5] = true;
+            fullVitaminSprite.sprite[0, 6] = true;
+            fullVitaminSprite.sprite[1, 3] = true;
+            fullVitaminSprite.sprite[1, 6] = true;
+            fullVitaminSprite.sprite[1, 7] = true;
+            fullVitaminSprite.sprite[2, 2] = true;
+            fullVitaminSprite.sprite[2, 4] = true;
+            fullVitaminSprite.sprite[2, 5] = true;
+            fullVitaminSprite.sprite[2, 6] = true;
+            fullVitaminSprite.sprite[2, 7] = true;
+            fullVitaminSprite.sprite[3, 1] = true;
+            fullVitaminSprite.sprite[3, 3] = true;
+            fullVitaminSprite.sprite[3, 4] = true;
+            fullVitaminSprite.sprite[3, 5] = true;
+            fullVitaminSprite.sprite[3, 6] = true;
+            fullVitaminSprite.sprite[3, 7] = true;
+            fullVitaminSprite.sprite[4, 0] = true;
+            fullVitaminSprite.sprite[4, 4] = true;
+            fullVitaminSprite.sprite[4, 5] = true;
+            fullVitaminSprite.sprite[4, 6] = true;
+            fullVitaminSprite.sprite[5, 0] = true;
+            fullVitaminSprite.sprite[5, 5] = true;
+            fullVitaminSprite.sprite[6, 0] = true;
+            fullVitaminSprite.sprite[6, 4] = true;
+            fullVitaminSprite.sprite[7, 1] = true;
+            fullVitaminSprite.sprite[7, 2] = true;
+            fullVitaminSprite.sprite[7, 3] = true;
+            #endregion
+
+            return fullVitaminSprite;
+        }
+
+        public static Sprite HalfVitaminSprite()
+        {
+            Sprite halfVitaminSprite = new Sprite();
+            halfVitaminSprite.SpriteHeight = 5;
+            halfVitaminSprite.SpriteWidth = 5;
+            halfVitaminSprite.sprite = new bool[halfVitaminSprite.SpriteHeight, halfVitaminSprite.SpriteWidth];
+
+            #region halfVitamin
+            halfVitaminSprite.sprite[0, 1] = true;
+            halfVitaminSprite.sprite[0, 2] = true;
+            halfVitaminSprite.sprite[1, 0] = true;
+            halfVitaminSprite.sprite[1, 1] = true;
+            halfVitaminSprite.sprite[1, 3] = true;
+            halfVitaminSprite.sprite[2, 0] = true;
+            halfVitaminSprite.sprite[2, 2] = true;
+            halfVitaminSprite.sprite[2, 4] = true;
+            halfVitaminSprite.sprite[3, 0] = true;
+            halfVitaminSprite.sprite[3, 3] = true;
+            halfVitaminSprite.sprite[3, 4] = true;
+            halfVitaminSprite.sprite[4, 1] = true;
+            halfVitaminSprite.sprite[4, 2] = true;
+            halfVitaminSprite.sprite[4, 3] = true;
+            #endregion
+
+            return halfVitaminSprite;
+        }
+
+        public static Sprite EmptyVitaminSprite()
+        {
+            Sprite EmptyVitaminSprite = new Sprite();
+            EmptyVitaminSprite.SpriteHeight = 0;
+            EmptyVitaminSprite.SpriteWidth = 0;
+            EmptyVitaminSprite.sprite = new bool[EmptyVitaminSprite.SpriteHeight, EmptyVitaminSprite.SpriteWidth];
+
+            #region EmptyVitaminSprite
+
+            #endregion
+
+            return EmptyVitaminSprite;
+        }
+
+        public static Sprite ArrowSprite()
+        {
+            Sprite arrowSprite = new Sprite();
+            arrowSprite.SpriteHeight = 7;
+            arrowSprite.SpriteWidth = 6;
+            arrowSprite.sprite = new bool[arrowSprite.SpriteHeight, arrowSprite.SpriteWidth];
+
+            #region arrow
+            arrowSprite.sprite[0, 2] = true;
+            arrowSprite.sprite[1, 2] = true;
+            arrowSprite.sprite[1, 3] = true;
+            arrowSprite.sprite[2, 0] = true;
+            arrowSprite.sprite[2, 1] = true;
+            arrowSprite.sprite[2, 2] = true;
+            arrowSprite.sprite[2, 3] = true;
+            arrowSprite.sprite[2, 4] = true;
+            arrowSprite.sprite[3, 0] = true;
+            arrowSprite.sprite[3, 1] = true;
+            arrowSprite.sprite[3, 2] = true;
+            arrowSprite.sprite[3, 3] = true;
+            arrowSprite.sprite[3, 4] = true;
+            arrowSprite.sprite[3, 5] = true;
+            arrowSprite.sprite[4, 0] = true;
+            arrowSprite.sprite[4, 1] = true;
+            arrowSprite.sprite[4, 2] = true;
+            arrowSprite.sprite[4, 3] = true;
+            arrowSprite.sprite[4, 4] = true;
+            arrowSprite.sprite[5, 2] = true;
+            arrowSprite.sprite[5, 3] = true;
+            arrowSprite.sprite[6, 2] = true;
+            #endregion
+
+            return arrowSprite;
         }
 
         public static DigimonSprite Elecmon()

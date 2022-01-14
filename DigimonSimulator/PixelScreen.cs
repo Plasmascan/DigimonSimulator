@@ -155,6 +155,28 @@ namespace DigimonSimulator
             }
         }
 
+        public void MirrorScreen()
+        {
+            Sprite mirrorScreen = new Sprite();
+            mirrorScreen.SpriteHeight = NumberOfYPixels;
+            mirrorScreen.SpriteWidth = NumberOfXPixels;
+            bool[,] mirrorScreenSprite = new bool[NumberOfYPixels, NumberOfXPixels];
+
+            for (int yPixel = 0; yPixel < NumberOfYPixels; yPixel++)
+            {
+                for (int xPixel = NumberOfXPixels - 1, mirrorX = 0; xPixel >= 0; xPixel--, mirrorX++)
+                {
+                    if (ScreenPixels[yPixel, xPixel].IsPixelOn)
+                    {
+                        mirrorScreenSprite[yPixel, mirrorX] = true;
+                    }
+                }
+            }
+            mirrorScreen.sprite = mirrorScreenSprite;
+            ClearScreen();
+            DrawSprite(mirrorScreen, 0, 0, false);
+        }
+
         private bool isPixelOnScreen(int y, int x)
         {
             if (y >= 0 && y <= NumberOfYPixels - 1 && x >= 0 && x <= NumberOfXPixels - 1)
@@ -241,21 +263,42 @@ namespace DigimonSimulator
         }
 
         // Draws single sprite image to the screen
-        public void DrawSprite(Sprite sprite, int x, int y)
+        public void DrawSprite(Sprite sprite, int x, int y, bool mirror)
         {
             sprite.SpriteX = x;
             sprite.SpriteY = y;
 
-            for (int yPixels = y, spritePixelY = 0; spritePixelY < sprite.SpriteHeight; yPixels++, spritePixelY++)
+            if (!mirror)
             {
-                for (int xPixels = x, spritePixelX = 0; spritePixelX < sprite.SpriteWidth; xPixels++, spritePixelX++)
+                for (int yPixels = y, spritePixelY = 0; spritePixelY < sprite.SpriteHeight; yPixels++, spritePixelY++)
                 {
-                    if (isPixelOnScreen(yPixels, xPixels))
+                    for (int xPixels = x, spritePixelX = 0; spritePixelX < sprite.SpriteWidth; xPixels++, spritePixelX++)
                     {
-
-                        if (sprite.sprite[spritePixelY, spritePixelX])
+                        if (isPixelOnScreen(yPixels, xPixels))
                         {
-                            ScreenPixels[yPixels, xPixels].TurnOnPixel();
+
+                            if (sprite.sprite[spritePixelY, spritePixelX])
+                            {
+                                ScreenPixels[yPixels, xPixels].TurnOnPixel();
+                            }
+                        }
+                    }
+                }
+            }
+            
+            else
+            {
+                for (int yPixels = y, spritePixelY = 0; spritePixelY < sprite.SpriteHeight; yPixels++, spritePixelY++)
+                {
+                    for (int xPixels = x, spritePixelX = sprite.SpriteWidth - 1; spritePixelX >= 0; xPixels++, spritePixelX--)
+                    {
+                        if (isPixelOnScreen(yPixels, xPixels))
+                        {
+
+                            if (sprite.sprite[spritePixelY, spritePixelX])
+                            {
+                                ScreenPixels[yPixels, xPixels].TurnOnPixel();
+                            }
                         }
                     }
                 }
@@ -346,6 +389,7 @@ namespace DigimonSimulator
             int spriteStartX = 1000, spriteEndX = 0;
             int spriteStartY = 1000, spriteEndY = 0;
             int spriteHeight, spriteWidth;
+            bool isEmpty = true;
 
             // find the heighest and lowest pixel locations to crop the sprite and find the sprites height and width
             for (int y = 0; y < NumberOfYPixels; y++)
@@ -354,6 +398,8 @@ namespace DigimonSimulator
                 {
                     if (ScreenPixels[y, x].IsPixelOn)
                     {
+                        isEmpty = false;
+
                         if (x < spriteStartX)
                         {
                             spriteStartX = x;
@@ -375,6 +421,11 @@ namespace DigimonSimulator
                         }
                     }
                 }
+            }
+
+            if (isEmpty)
+            {
+                return;
             }
 
             spriteHeight = spriteEndY - spriteStartY + 1;
@@ -422,7 +473,7 @@ namespace DigimonSimulator
             }
             screenCopy.sprite = screenSprite;
             ClearScreen();
-            DrawSprite(screenCopy, moveX, moveY);
+            DrawSprite(screenCopy, moveX, moveY, false);
 
         }
     }

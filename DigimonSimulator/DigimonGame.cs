@@ -14,18 +14,20 @@ namespace DigimonSimulator
         public Animations animate;
         public readonly DispatcherTimer _gameTimer = new DispatcherTimer(DispatcherPriority.Normal);
         public bool stepSprite;
+        public bool isInAnimation = false;
         private int GameTickSpeed = 478;
         private int TimeoutSelectedMenu = 0;
         private MenuScreen CurrentScreen = MenuScreen.MainScreen;
         private MenuScreen SelectedMenu = MenuScreen.MainScreen;
-        private int SubMenuNo = 0;
+        public int SelectedSubMenuNo = 0;
+        public int CurrentSubMenu = 0;
 
         public void InitializeGame(Canvas screen)
         {
             pixelScreen = new PixelScreen(screen, 20, 30, 16, 32);
             pixelScreen.SetupScreen();
             currentDigimon = SpriteImages.Elecmon();
-            animate = new Animations(pixelScreen, currentDigimon);
+            animate = new Animations(this, currentDigimon);
             animate.resetStepAnimation();
             stepSprite = true;
             setTimer();
@@ -90,6 +92,30 @@ namespace DigimonSimulator
                     pixelScreen.TurnMenuIconON(SelectedMenu);
                 }
             }
+            else if (CurrentScreen == MenuScreen.StatScreen)
+            {
+                MenuScreens.DrawStats(this, SelectedSubMenuNo);
+                if (SelectedSubMenuNo < 2)
+                {
+                    SelectedSubMenuNo++;
+                }
+                else
+                {
+                    SelectedSubMenuNo = 0;
+                }
+            }
+            else if (CurrentScreen == MenuScreen.FeedScreen && CurrentSubMenu == 0)
+            {
+                if (SelectedSubMenuNo == 1)
+                {
+                    SelectedSubMenuNo--;
+                }
+                else
+                {
+                    SelectedSubMenuNo++;
+                }
+                MenuScreens.drawFeedScreen(this, SelectedSubMenuNo);
+            }
         }
 
         public void BButtonPress()
@@ -100,20 +126,47 @@ namespace DigimonSimulator
                 {
                     stepSprite = false;
                     CurrentScreen = MenuScreen.StatScreen;
-                    MenuScreens.DrawStats(this, SubMenuNo);
-                    SubMenuNo++;
+                    MenuScreens.DrawStats(this, SelectedSubMenuNo);
+                    SelectedSubMenuNo++;
+                }
+                else if (SelectedMenu == MenuScreen.FeedScreen)
+                {
+                    stepSprite = false;
+                    CurrentScreen = MenuScreen.FeedScreen;
+                    MenuScreens.drawFeedScreen(this, 0);
                 }
             }
             else if (CurrentScreen == MenuScreen.StatScreen)
             {
-                MenuScreens.DrawStats(this, SubMenuNo);
-                if (SubMenuNo < 2)
+                // Goes through the different screen in stats
+                MenuScreens.DrawStats(this, SelectedSubMenuNo);
+
+                if (SelectedSubMenuNo < 2)
                 {
-                    SubMenuNo++;
+                    SelectedSubMenuNo++;
                 }
                 else
                 {
-                    SubMenuNo = 0;
+                    SelectedSubMenuNo = 0;
+                }
+            }
+
+            else if (CurrentScreen == MenuScreen.FeedScreen)
+            {
+                if (CurrentSubMenu == 1)
+                {
+                    if (animate.animation == AnimationNo.eat)
+                    {
+                        MenuScreens.drawFeedScreen(this, SelectedSubMenuNo);
+                        CurrentSubMenu = 0;
+                        animate.resetAnimations();
+                    }
+                }
+
+                else
+                {
+                    animate.SetupEatAnimation(SelectedSubMenuNo);
+                    CurrentSubMenu = 1;
                 }
             }
         }
@@ -124,7 +177,10 @@ namespace DigimonSimulator
             {
                 MenuScreens.MainScreen(this);
                 CurrentScreen = MenuScreen.MainScreen;
-                SubMenuNo = 0;
+                SelectedSubMenuNo = 0;
+                CurrentSubMenu = 0;
+                animate.resetAnimations();
+
             }
             else
             {

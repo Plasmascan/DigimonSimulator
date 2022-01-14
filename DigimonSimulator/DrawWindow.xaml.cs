@@ -56,5 +56,10 @@ namespace DigimonSimulator
         {
             drawScreen.PanScreen(1, 0);
         }
+
+        private void mirrorScreenButton_Click(object sender, RoutedEventArgs e)
+        {
+            drawScreen.MirrorScreen();
+        }
     }
 }
