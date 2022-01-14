@@ -61,5 +61,13 @@ namespace DigimonSimulator
         {
             drawScreen.MirrorScreen();
         }
+
+        private void loadSpriteButton_Click(object sender, RoutedEventArgs e)
+        {
+            DigimonSprite digimon = new DigimonSprite();
+            digimon = SpriteImages.Betamon();
+            int startX = drawScreen.NumberOfXPixels - (digimon.frame1Width / 2) - 16;
+            drawScreen.DrawDigimonFrame(digimon, SpriteFrame.Walk, false, startX);
+        }
     }
 }

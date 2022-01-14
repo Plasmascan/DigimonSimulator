@@ -28,7 +28,7 @@ namespace DigimonSimulator
         {
             pixelScreen = new PixelScreen(screen, 20, 30, 16, 32);
             pixelScreen.SetupScreen();
-            currentDigimon = SpriteImages.Elecmon();
+            currentDigimon = SpriteImages.Betamon();
             animate = new Animations(this, currentDigimon);
             animate.resetStepAnimation();
             stepSprite = true;

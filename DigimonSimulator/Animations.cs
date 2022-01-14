@@ -43,21 +43,21 @@ namespace DigimonSimulator
                         Game.pixelScreen.ClearSprite(EatItemFull);
                         Game.pixelScreen.DrawSprite(EatItemFull, 0, 8, false);
                         EatItemFull.SpriteY = 8;
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, false, Digimon.SpriteX);
+                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Eat2, false, Digimon.SpriteX);
                         break;
 
                     case 1:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, Digimon.SpriteX);
+                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Eat1, false, Digimon.SpriteX);
                         Game.pixelScreen.ClearSprite(EatItemFull);
                         Game.pixelScreen.DrawSprite(EatItemHalf, 0, Game.pixelScreen.NumberOfYPixels - EatItemHalf.SpriteHeight, false);
                         break;
 
                     case 2:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, false, Digimon.SpriteX);
+                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Eat2, false, Digimon.SpriteX);
                         break;
 
                     case 3:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, Digimon.SpriteX);
+                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Eat1, false, Digimon.SpriteX);
                         Game.pixelScreen.ClearSprite(EatItemHalf);
                         Game.pixelScreen.DrawSprite(EatItemEmpty, 0, Game.pixelScreen.NumberOfYPixels - EatItemEmpty.SpriteHeight, false);
                         break;
@@ -75,19 +75,19 @@ namespace DigimonSimulator
                 switch (animationCounter)
                 {
                     default:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, 0, true, Digimon.SpriteX);
+                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Reject, true, Digimon.SpriteX);
                         break;
 
                     case 1:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, 0, false, Digimon.SpriteX);
+                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Reject, false, Digimon.SpriteX);
                         break;
 
                     case 2:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, 0, true, Digimon.SpriteX);
+                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Reject, true, Digimon.SpriteX);
                         break;
 
                     case 3:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, 0, false, Digimon.SpriteX);
+                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Reject, false, Digimon.SpriteX);
                         break;
 
                     case 4:
@@ -103,7 +103,6 @@ namespace DigimonSimulator
         {
             StepCounter = 0;
             Digimon.SpriteX = Game.pixelScreen.NumberOfXPixels - (Digimon.frame1Width / 2) - 18;
-            //_animationTick.Stop();
         }
 
         public void resetAnimations()
@@ -323,7 +322,7 @@ namespace DigimonSimulator
             if (choice == 0 && Digimon.currentHunger > Digimon.maxHunger)
             {
                 animation = AnimationNo.reject;
-                Game.pixelScreen.DrawDigimonFrame(Digimon, 0, false, Digimon.SpriteX);
+                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Reject, false, Digimon.SpriteX);
                 _animationTick.Interval = TimeSpan.FromMilliseconds(478);
                 _animationTick.Start();
                 return;
@@ -349,7 +348,7 @@ namespace DigimonSimulator
                 }
             }
 
-            Game.pixelScreen.DrawDigimonFrame(Digimon, 0, false, Digimon.SpriteX);
+            Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Eat1, false, Digimon.SpriteX);
             Game.pixelScreen.DrawSprite(EatItemFull, 0, 0, false);
             _animationTick.Interval = TimeSpan.FromMilliseconds(478);
             _animationTick.Start();

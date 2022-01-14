@@ -17,6 +17,7 @@
         <TextBox x:Name="spriteNameTextbox" HorizontalAlignment="Left" Margin="622,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="codeTextbox" HorizontalAlignment="Left" Margin="113,372,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="569" Height="328"/>
         <Button x:Name="mirrorScreenButton" Content="Mirror Screen" HorizontalAlignment="Left" Margin="603,123,0,0" VerticalAlignment="Top" Width="97" Click="mirrorScreenButton_Click"/>
+        <Button x:Name="loadSpriteButton" Content="Load" HorizontalAlignment="Left" Margin="603,160,0,0" VerticalAlignment="Top" Width="97" Click="loadSpriteButton_Click"/>
 
     </Grid>
 </Window>
