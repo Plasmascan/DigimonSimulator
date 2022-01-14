@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Media;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -21,6 +22,7 @@ namespace DigimonSimulator
         private MenuScreen SelectedMenu = MenuScreen.MainScreen;
         public int SelectedSubMenuNo = 0;
         public int CurrentSubMenu = 0;
+        SoundPlayer beepSound = new SoundPlayer("../../../resources/beep.wav");
 
         public void InitializeGame(Canvas screen)
         {
@@ -72,10 +74,10 @@ namespace DigimonSimulator
 
         public void AButtonPress()
         {
-
             if (CurrentScreen == MenuScreen.MainScreen)
             {
                 TimeoutSelectedMenu = 0;
+                beepSound.Play();
                 if (SelectedMenu == MenuScreen.MainScreen)
                 {
                     pixelScreen.TurnMenuIconON(MenuScreen.StatScreen);
@@ -94,6 +96,7 @@ namespace DigimonSimulator
             }
             else if (CurrentScreen == MenuScreen.StatScreen)
             {
+                beepSound.Play();
                 MenuScreens.DrawStats(this, SelectedSubMenuNo);
                 if (SelectedSubMenuNo < 2)
                 {
@@ -106,6 +109,7 @@ namespace DigimonSimulator
             }
             else if (CurrentScreen == MenuScreen.FeedScreen && CurrentSubMenu == 0)
             {
+                beepSound.Play();
                 if (SelectedSubMenuNo == 1)
                 {
                     SelectedSubMenuNo--;
@@ -124,6 +128,7 @@ namespace DigimonSimulator
             {
                 if (SelectedMenu == MenuScreen.StatScreen)
                 {
+                    beepSound.Play();
                     stepSprite = false;
                     CurrentScreen = MenuScreen.StatScreen;
                     MenuScreens.DrawStats(this, SelectedSubMenuNo);
@@ -131,6 +136,7 @@ namespace DigimonSimulator
                 }
                 else if (SelectedMenu == MenuScreen.FeedScreen)
                 {
+                    beepSound.Play();
                     stepSprite = false;
                     CurrentScreen = MenuScreen.FeedScreen;
                     MenuScreens.drawFeedScreen(this, 0);
@@ -139,6 +145,7 @@ namespace DigimonSimulator
             else if (CurrentScreen == MenuScreen.StatScreen)
             {
                 // Goes through the different screen in stats
+                beepSound.Play();
                 MenuScreens.DrawStats(this, SelectedSubMenuNo);
 
                 if (SelectedSubMenuNo < 2)
@@ -157,6 +164,7 @@ namespace DigimonSimulator
                 {
                     if (animate.animation == AnimationNo.eat)
                     {
+                        beepSound.Play();
                         MenuScreens.drawFeedScreen(this, SelectedSubMenuNo);
                         CurrentSubMenu = 0;
                         animate.resetAnimations();
@@ -165,6 +173,7 @@ namespace DigimonSimulator
 
                 else
                 {
+                    beepSound.Play();
                     animate.SetupEatAnimation(SelectedSubMenuNo);
                     CurrentSubMenu = 1;
                 }
@@ -175,6 +184,7 @@ namespace DigimonSimulator
         {
             if (CurrentScreen != MenuScreen.MainScreen)
             {
+                beepSound.Play();
                 MenuScreens.MainScreen(this);
                 CurrentScreen = MenuScreen.MainScreen;
                 SelectedSubMenuNo = 0;
@@ -182,8 +192,9 @@ namespace DigimonSimulator
                 animate.resetAnimations();
 
             }
-            else
+            else if (CurrentScreen == MenuScreen.MainScreen && SelectedMenu != MenuScreen.MainScreen)
             {
+                beepSound.Play();
                 pixelScreen.TurnOffAllIcons();
                 SelectedMenu = MenuScreen.MainScreen;
             }

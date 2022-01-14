@@ -305,7 +305,7 @@ namespace DigimonSimulator
             }
         }
 
-        public void DrawDigimonFrame(DigimonSprite digimon, int frameNo, bool mirror, int moveToX)
+        public void DrawDigimonFrame(DigimonSprite digimon, SpriteFrame frameNo, bool mirror, int moveToX)
         {
             ClearSprite(digimon);
 
@@ -314,7 +314,7 @@ namespace DigimonSimulator
             bool[,] frame;
 
 
-            switch (frameNo)
+            switch ((int)frameNo)
             {
                 default:
                     frame = digimon.frame1;
@@ -322,13 +322,13 @@ namespace DigimonSimulator
                     spriteWidth = digimon.frame1Width;
                     break;
 
-                case 2:
+                case 1:
                     frame = digimon.frame2;
                     spriteHeight = digimon.frame2Height;
                     spriteWidth = digimon.frame2Width;
                     break;
 
-                case 3:
+                case 2:
                     frame = digimon.happyFrame;
                     spriteHeight = digimon.happyFrameHeight;
                     spriteWidth = digimon.happyFrameWidth;

@@ -4,6 +4,13 @@ using System.Text;
 
 namespace DigimonSimulator
 {
+    public enum SpriteFrame
+    {
+        Walk,
+        Walk2,
+        Happy
+        
+    }
     public class Sprite
     {
         public int SpriteX;
@@ -532,7 +539,6 @@ namespace DigimonSimulator
 
             #region elecmon frames
             //frame 1
-
             elecmon.frame1[0, 1] = true;
             elecmon.frame1[0, 2] = true;
             elecmon.frame1[0, 9] = true;
@@ -613,7 +619,6 @@ namespace DigimonSimulator
             elecmon.frame1[11, 13] = true;
             elecmon.frame1[11, 14] = true;
             
-
             //Frame 2
             elecmon.frame2[0, 0] = true;
             elecmon.frame2[0, 1] = true;
@@ -804,6 +809,120 @@ namespace DigimonSimulator
             #endregion
 
             return elecmon;
+        }
+
+        public static DigimonSprite Botamon()
+        {
+            DigimonSprite botamon = new DigimonSprite();
+            botamon.currentSpriteHeight = 6;
+            botamon.frame1Height = 6;
+            botamon.frame1Width = 8;
+            botamon.frame2Height = 5;
+            botamon.frame2Width = 8;
+            botamon.happyFrameHeight = 8;
+            botamon.happyFrameWidth = 6;
+
+            botamon.frame1 = new bool[botamon.frame1Height, botamon.frame1Width];
+            botamon.frame2 = new bool[botamon.frame2Height, botamon.frame2Width];
+            botamon.happyFrame = new bool[botamon.happyFrameHeight, botamon.happyFrameWidth];
+
+            #region elecmon frames
+            //frame 1
+            botamon.frame1[0, 2] = true;
+            botamon.frame1[0, 5] = true;
+            botamon.frame1[1, 1] = true;
+            botamon.frame1[1, 2] = true;
+            botamon.frame1[1, 3] = true;
+            botamon.frame1[1, 4] = true;
+            botamon.frame1[1, 5] = true;
+            botamon.frame1[1, 6] = true;
+            botamon.frame1[2, 1] = true;
+            botamon.frame1[2, 3] = true;
+            botamon.frame1[2, 4] = true;
+            botamon.frame1[2, 6] = true;
+            botamon.frame1[3, 1] = true;
+            botamon.frame1[3, 2] = true;
+            botamon.frame1[3, 3] = true;
+            botamon.frame1[3, 4] = true;
+            botamon.frame1[3, 5] = true;
+            botamon.frame1[3, 6] = true;
+            botamon.frame1[4, 1] = true;
+            botamon.frame1[4, 2] = true;
+            botamon.frame1[4, 5] = true;
+            botamon.frame1[4, 6] = true;
+            botamon.frame1[5, 0] = true;
+            botamon.frame1[5, 1] = true;
+            botamon.frame1[5, 2] = true;
+            botamon.frame1[5, 3] = true;
+            botamon.frame1[5, 4] = true;
+            botamon.frame1[5, 5] = true;
+            botamon.frame1[5, 6] = true;
+            botamon.frame1[5, 7] = true;
+
+            //Frame 2
+            botamon.frame2[0, 2] = true;
+            botamon.frame2[0, 5] = true;
+            botamon.frame2[1, 2] = true;
+            botamon.frame2[1, 3] = true;
+            botamon.frame2[1, 4] = true;
+            botamon.frame2[1, 5] = true;
+            botamon.frame2[2, 1] = true;
+            botamon.frame2[2, 3] = true;
+            botamon.frame2[2, 4] = true;
+            botamon.frame2[2, 5] = true;
+            botamon.frame2[2, 6] = true;
+            botamon.frame2[3, 1] = true;
+            botamon.frame2[3, 2] = true;
+            botamon.frame2[3, 3] = true;
+            botamon.frame2[3, 4] = true;
+            botamon.frame2[3, 6] = true;
+            botamon.frame2[4, 0] = true;
+            botamon.frame2[4, 1] = true;
+            botamon.frame2[4, 2] = true;
+            botamon.frame2[4, 3] = true;
+            botamon.frame2[4, 4] = true;
+            botamon.frame2[4, 5] = true;
+            botamon.frame2[4, 6] = true;
+            botamon.frame2[4, 7] = true;
+
+            //happy frame
+            botamon.happyFrame[0, 1] = true;
+            botamon.happyFrame[0, 4] = true;
+            botamon.happyFrame[1, 1] = true;
+            botamon.happyFrame[1, 2] = true;
+            botamon.happyFrame[1, 3] = true;
+            botamon.happyFrame[1, 4] = true;
+            botamon.happyFrame[2, 0] = true;
+            botamon.happyFrame[2, 2] = true;
+            botamon.happyFrame[2, 3] = true;
+            botamon.happyFrame[2, 5] = true;
+            botamon.happyFrame[3, 0] = true;
+            botamon.happyFrame[3, 1] = true;
+            botamon.happyFrame[3, 2] = true;
+            botamon.happyFrame[3, 3] = true;
+            botamon.happyFrame[3, 4] = true;
+            botamon.happyFrame[3, 5] = true;
+            botamon.happyFrame[4, 0] = true;
+            botamon.happyFrame[4, 1] = true;
+            botamon.happyFrame[4, 4] = true;
+            botamon.happyFrame[4, 5] = true;
+            botamon.happyFrame[5, 0] = true;
+            botamon.happyFrame[5, 1] = true;
+            botamon.happyFrame[5, 4] = true;
+            botamon.happyFrame[5, 5] = true;
+            botamon.happyFrame[6, 0] = true;
+            botamon.happyFrame[6, 1] = true;
+            botamon.happyFrame[6, 2] = true;
+            botamon.happyFrame[6, 3] = true;
+            botamon.happyFrame[6, 4] = true;
+            botamon.happyFrame[6, 5] = true;
+            botamon.happyFrame[7, 1] = true;
+            botamon.happyFrame[7, 2] = true;
+            botamon.happyFrame[7, 3] = true;
+            botamon.happyFrame[7, 4] = true;
+            #endregion
+
+            return botamon;
         }
     }
 }
