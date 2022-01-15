@@ -140,13 +140,13 @@ namespace DigimonSimulator
                         Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 8, Game.pixelScreen.NumberOfYPixels - 2, false);
                         break;
 
-                    // Jump the digimon backwards and then move forwards
+                    // Jump the digimon backwards and then move forwards and attack
                     case 6:
                         IsinAnimation = true;
                         Game.pixelScreen.ClearScreen();
                         Digimon.projectileSprite.SpriteX = 8;
                         Digimon.projectileSprite.SpriteY = 0;
-                        _animationTick.Interval = TimeSpan.FromMilliseconds(45);
+                        _animationTick.Interval = TimeSpan.FromMilliseconds(50);
                         Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, Digimon.SpriteX, 0);
                         break;
 
@@ -155,15 +155,15 @@ namespace DigimonSimulator
                         break;
 
                     case 8:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, Digimon.SpriteX + 1, -1);
+                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, Digimon.SpriteX + 1, -2);
                         break;
 
                     case 9:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, Digimon.SpriteX + 1, 0);
+                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, Digimon.SpriteX + 1, -1);
                         break;
 
                     case 10:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, Digimon.SpriteX - 1, 0);
+                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, Digimon.SpriteX + 1, 0);
                         break;
 
                     case 11:
@@ -174,14 +174,19 @@ namespace DigimonSimulator
                         Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, Digimon.SpriteX - 1, 0);
                         break;
 
+                    case 13:
+                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Attack, false, Digimon.SpriteX - 1, 0);
+                        break;
+
                     // Start shooting the digimon's projectile
-                    case 15:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Attack, false, Digimon.SpriteX, 0);
+                    case 14:
+                        _animationTick.Interval = TimeSpan.FromMilliseconds(47);
+                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Attack, false, Digimon.SpriteX - 1, 0);
                         attackSound.Play();
                         break;
 
                     // start 2nd screen: draw brick wall and move the projectiles position
-                    case 41:
+                    case 35:
                         Game.pixelScreen.ClearScreen();
                         BrickWall = SpriteImages.FullBrickWallSprite();
                         Game.pixelScreen.DrawSprite(BrickWall, 0, 0, false);
@@ -189,7 +194,7 @@ namespace DigimonSimulator
                         break;
 
                     // Projectile hits wall
-                    case 67:
+                    case 61:
                         damageSound.Play();
                         Game.pixelScreen.ClearSprite(BrickWall);
                         Game.pixelScreen.ClearSprite(Digimon.projectileSprite);
@@ -197,20 +202,20 @@ namespace DigimonSimulator
                         Game.pixelScreen.DrawSprite(Explosion, 0, 0, false);
                         break;
 
-                    case 72:
+                    case 66:
                         Game.pixelScreen.ClearSprite(Explosion);
                         Explosion = SpriteImages.ExplosionSmallSprite();
                         Game.pixelScreen.DrawSprite(Explosion, 3, 3, false);
                         break;
 
-                    case 77:
+                    case 71:
                         Game.pixelScreen.ClearSprite(Explosion);
                         Explosion = SpriteImages.ExplosionBigSprite();
                         Game.pixelScreen.DrawSprite(Explosion, 0, 0, false);
                         break;
 
                     // show corrisponding broken wall depending on power
-                    case 82:
+                    case 76:
                         Game.pixelScreen.ClearSprite(Explosion);
 
                         if (powerUp >= 13)
@@ -241,7 +246,7 @@ namespace DigimonSimulator
                 }
 
                 // Continue moving the digimon's projectile
-                if (animationCounter > 15 && animationCounter < 67)
+                if (animationCounter > 14 && animationCounter < 61)
                 {
                     Game.pixelScreen.ClearSprite(Digimon.projectileSprite);
                     Digimon.projectileSprite.SpriteX--;
