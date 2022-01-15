@@ -31,7 +31,7 @@ namespace DigimonSimulator
         private Sprite BrickWall;
         public bool IsinAnimation = false;
         public bool powerUpReady = false;
-        public readonly DispatcherTimer _animationTick = new DispatcherTimer(DispatcherPriority.Render);
+        public readonly DispatcherTimer _animationTick = new DispatcherTimer(DispatcherPriority.Send);
         public readonly DispatcherTimer _stepTimer = new DispatcherTimer(DispatcherPriority.Normal);
         public AnimationNo animation = AnimationNo.noAnimation;
         SoundPlayer attackSound = new SoundPlayer("../../../resources/se_attack.wav");
@@ -212,29 +212,30 @@ namespace DigimonSimulator
                     // show corrisponding broken wall depending on power
                     case 82:
                         Game.pixelScreen.ClearSprite(Explosion);
-                        if (powerUp <= 7)
-                        {
-                            BrickWall = SpriteImages.FullBrickWallSprite();
-                            Game.pixelScreen.DrawSprite(BrickWall, 0, 0, false);
-                        }
-                        else if (powerUp <= 9)
-                        {
-                            BrickWall = SpriteImages.HalfBrickWallSprite();
-                            Game.pixelScreen.DrawSprite(BrickWall, 0, Game.pixelScreen.NumberOfYPixels - BrickWall.SpriteHeight, false);
-                        }
-                        else if (powerUp <= 11)
-                        {
-                            BrickWall = SpriteImages.QuarterBrickWallSprite();
-                            Game.pixelScreen.DrawSprite(BrickWall, 0, Game.pixelScreen.NumberOfYPixels - BrickWall.SpriteHeight, false);
-                        }
-                        else
+
+                        if (powerUp >= 13)
                         {
                             BrickWall = SpriteImages.BrockenBrickWallSprite();
                             Game.pixelScreen.DrawSprite(BrickWall, 0, Game.pixelScreen.NumberOfYPixels - BrickWall.SpriteHeight, false);
                         }
+                        else if (powerUp >= 11)
+                        {
+                            BrickWall = SpriteImages.QuarterBrickWallSprite();
+                            Game.pixelScreen.DrawSprite(BrickWall, 0, Game.pixelScreen.NumberOfYPixels - BrickWall.SpriteHeight, false);
+                        }
+                        else if (powerUp >= 9)
+                        {
+                            BrickWall = SpriteImages.HalfBrickWallSprite();
+                            Game.pixelScreen.DrawSprite(BrickWall, 0, Game.pixelScreen.NumberOfYPixels - BrickWall.SpriteHeight, false);
+                        }
+                        else
+                        {
+                            BrickWall = SpriteImages.FullBrickWallSprite();
+                            Game.pixelScreen.DrawSprite(BrickWall, 0, 0, false);
+                        }
                         break;
 
-                    case 100:
+                    case 115:
                         Game.resetMainScreen();
                         break;
                 }
@@ -246,13 +247,6 @@ namespace DigimonSimulator
                     Digimon.projectileSprite.SpriteX--;
                     Game.pixelScreen.DrawSprite(Digimon.projectileSprite, Digimon.projectileSprite.SpriteX, 0, false);
                 }
-
-                // Continue 2nd screen
-                //else if (animationCounter > 41)
-                //{
-                //    Digimon.projectileSprite.SpriteX--;
-                //    Game.pixelScreen.DrawSprite(Digimon.projectileSprite, Digimon.projectileSprite.SpriteX, 0, false);
-                //}
                 #endregion
             }
         }
