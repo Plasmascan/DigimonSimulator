@@ -67,7 +67,7 @@ namespace DigimonSimulator
             DigimonSprite digimon = new DigimonSprite();
             digimon = SpriteImages.Betamon();
             int startX = drawScreen.NumberOfXPixels - (digimon.frame1Width / 2) - 16;
-            drawScreen.DrawDigimonFrame(digimon, SpriteFrame.Walk, false, startX);
+            drawScreen.DrawDigimonFrame(digimon, SpriteFrame.Walk, false, startX, 0);
         }
     }
 }

@@ -141,6 +141,13 @@ namespace DigimonSimulator
                     CurrentScreen = MenuScreen.FeedScreen;
                     MenuScreens.drawFeedScreen(this, 0);
                 }
+                else if (SelectedMenu == MenuScreen.Training)
+                {
+                    stepSprite = false;
+                    beepSound.Play();
+                    CurrentScreen = MenuScreen.Training;
+                    animate.setupTraining();
+                }
             }
             else if (CurrentScreen == MenuScreen.StatScreen)
             {
@@ -178,6 +185,10 @@ namespace DigimonSimulator
                     CurrentSubMenu = 1;
                 }
             }
+            else if (CurrentScreen == MenuScreen.Training)
+            {
+                // stuff when already in training screen
+            }
         }
 
         public void CButtonPress()
@@ -185,11 +196,7 @@ namespace DigimonSimulator
             if (CurrentScreen != MenuScreen.MainScreen)
             {
                 beepSound.Play();
-                MenuScreens.MainScreen(this);
-                CurrentScreen = MenuScreen.MainScreen;
-                SelectedSubMenuNo = 0;
-                CurrentSubMenu = 0;
-                animate.resetAnimations();
+                resetMainScreen();
 
             }
             else if (CurrentScreen == MenuScreen.MainScreen && SelectedMenu != MenuScreen.MainScreen)
@@ -198,6 +205,16 @@ namespace DigimonSimulator
                 pixelScreen.TurnOffAllIcons();
                 SelectedMenu = MenuScreen.MainScreen;
             }
+        }
+
+        public void resetMainScreen()
+        {
+            MenuScreens.MainScreen(this);
+            CurrentScreen = MenuScreen.MainScreen;
+            SelectedSubMenuNo = 0;
+            CurrentSubMenu = 0;
+            TimeoutSelectedMenu = 0;
+            animate.resetAnimations();
         }
 
     }

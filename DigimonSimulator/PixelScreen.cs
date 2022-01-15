@@ -305,7 +305,7 @@ namespace DigimonSimulator
             }
         }
 
-        public void DrawDigimonFrame(DigimonSprite digimon, SpriteFrame frameNo, bool mirror, int moveToX)
+        public void DrawDigimonFrame(DigimonSprite digimon, SpriteFrame frameNo, bool mirror, int moveToX, int offsetY)
         {
             ClearSprite(digimon);
 
@@ -352,10 +352,16 @@ namespace DigimonSimulator
                     spriteWidth = digimon.rejectFrameWidth;
                     break;
 
+                case 6:
+                    frame = digimon.attackFrame;
+                    spriteHeight = digimon.attackFrameHeight;
+                    spriteWidth = digimon.attackFrameWidth;
+                    break;
+
             }
 
             // Keeps the digimon sprite touching the ground if the frame's height changes from frame to frame
-            moveToY = NumberOfYPixels - spriteHeight;
+            moveToY = NumberOfYPixels - spriteHeight + offsetY;
 
             if (!mirror)
             {

@@ -11,7 +11,8 @@ namespace DigimonSimulator
         Happy,
         Eat1,
         Eat2,
-        Reject
+        Reject,
+        Attack,
         
     }
     public class Sprite
@@ -40,16 +41,20 @@ namespace DigimonSimulator
         public int eat2FrameWidth;
         public int rejectFrameHeight;
         public int rejectFrameWidth;
+        public int attackFrameHeight;
+        public int attackFrameWidth;
         public int currentHunger = 1000;
         public int currentStrength = 1000;
         public int maxHunger = 1000;
         public int maxStrength = 1000;
+        public Sprite projectileSprite;
         public bool[,] frame1;
         public bool[,] frame2;
         public bool[,] happyFrame;
         public bool[,] eat1Frame;
         public bool[,] eat2Frame;
         public bool[,] rejectFrame;
+        public bool[,] attackFrame;
         // to do - add max hunger and strength to the setup functions
     }
 
@@ -534,6 +539,81 @@ namespace DigimonSimulator
             return arrowSprite;
         }
 
+        public static Sprite ExplanationMarkSprite()
+        {
+            Sprite explanationMarkSprite = new Sprite();
+            explanationMarkSprite.SpriteHeight = 8;
+            explanationMarkSprite.SpriteWidth = 8;
+            explanationMarkSprite.sprite = new bool[explanationMarkSprite.SpriteHeight, explanationMarkSprite.SpriteWidth];
+
+            #region explanationMarkSprite
+            explanationMarkSprite.sprite[0, 1] = true;
+            explanationMarkSprite.sprite[0, 3] = true;
+            explanationMarkSprite.sprite[0, 4] = true;
+            explanationMarkSprite.sprite[0, 6] = true;
+            explanationMarkSprite.sprite[1, 3] = true;
+            explanationMarkSprite.sprite[1, 4] = true;
+            explanationMarkSprite.sprite[2, 0] = true;
+            explanationMarkSprite.sprite[2, 3] = true;
+            explanationMarkSprite.sprite[2, 4] = true;
+            explanationMarkSprite.sprite[2, 7] = true;
+            explanationMarkSprite.sprite[3, 3] = true;
+            explanationMarkSprite.sprite[3, 4] = true;
+            explanationMarkSprite.sprite[4, 0] = true;
+            explanationMarkSprite.sprite[4, 3] = true;
+            explanationMarkSprite.sprite[4, 4] = true;
+            explanationMarkSprite.sprite[4, 7] = true;
+            explanationMarkSprite.sprite[6, 1] = true;
+            explanationMarkSprite.sprite[6, 3] = true;
+            explanationMarkSprite.sprite[6, 4] = true;
+            explanationMarkSprite.sprite[6, 6] = true;
+            explanationMarkSprite.sprite[7, 3] = true;
+            explanationMarkSprite.sprite[7, 4] = true;
+            #endregion
+
+            return explanationMarkSprite;
+        }
+
+        public static Sprite ThunderProjectileSprite()
+        {
+            Sprite thunderProjectileSprite = new Sprite();
+            thunderProjectileSprite.SpriteHeight = 8;
+            thunderProjectileSprite.SpriteWidth = 8;
+            thunderProjectileSprite.sprite = new bool[thunderProjectileSprite.SpriteHeight, thunderProjectileSprite.SpriteWidth];
+
+            #region thunderAttackSprite
+           thunderProjectileSprite.sprite[0, 7] = true;
+           thunderProjectileSprite.sprite[1, 3] = true;
+           thunderProjectileSprite.sprite[1, 6] = true;
+           thunderProjectileSprite.sprite[1, 7] = true;
+           thunderProjectileSprite.sprite[2, 2] = true;
+           thunderProjectileSprite.sprite[2, 3] = true;
+           thunderProjectileSprite.sprite[2, 5] = true;
+           thunderProjectileSprite.sprite[2, 6] = true;
+           thunderProjectileSprite.sprite[2, 7] = true;
+           thunderProjectileSprite.sprite[3, 1] = true;
+           thunderProjectileSprite.sprite[3, 2] = true;
+           thunderProjectileSprite.sprite[3, 3] = true;
+           thunderProjectileSprite.sprite[3, 4] = true;
+           thunderProjectileSprite.sprite[3, 5] = true;
+           thunderProjectileSprite.sprite[3, 6] = true;
+           thunderProjectileSprite.sprite[4, 0] = true;
+           thunderProjectileSprite.sprite[4, 1] = true;
+           thunderProjectileSprite.sprite[4, 2] = true;
+           thunderProjectileSprite.sprite[4, 3] = true;
+           thunderProjectileSprite.sprite[4, 4] = true;
+           thunderProjectileSprite.sprite[4, 5] = true;
+           thunderProjectileSprite.sprite[5, 0] = true;
+           thunderProjectileSprite.sprite[5, 1] = true;
+           thunderProjectileSprite.sprite[5, 3] = true;
+           thunderProjectileSprite.sprite[5, 4] = true;
+           thunderProjectileSprite.sprite[6, 0] = true;
+           thunderProjectileSprite.sprite[6, 3] = true;
+            #endregion
+
+            return thunderProjectileSprite;
+        }
+
         public static DigimonSprite Elecmon()
         {
             DigimonSprite elecmon = new DigimonSprite();
@@ -826,6 +906,7 @@ namespace DigimonSimulator
         public static DigimonSprite Betamon()
         {
             DigimonSprite betamon = new DigimonSprite();
+            betamon.projectileSprite = ThunderProjectileSprite();
             betamon.currentSpriteHeight = 12;
             betamon.frame1Height = 12;
             betamon.frame1Width = 16;
@@ -839,6 +920,8 @@ namespace DigimonSimulator
             betamon.eat2FrameWidth = 16;
             betamon.rejectFrameHeight = 12;
             betamon.rejectFrameWidth = 16;
+            betamon.attackFrameHeight = 15;
+            betamon.attackFrameWidth = 16;
 
             betamon.frame1 = new bool[betamon.frame1Height, betamon.frame1Width];
             betamon.frame2 = new bool[betamon.frame2Height, betamon.frame2Width];
@@ -846,6 +929,7 @@ namespace DigimonSimulator
             betamon.eat1Frame = new bool[betamon.eat1FrameHeight, betamon.eat1FrameWidth];
             betamon.eat2Frame = new bool[betamon.eat2FrameHeight, betamon.eat2FrameWidth];
             betamon.rejectFrame = new bool[betamon.rejectFrameHeight, betamon.rejectFrameWidth];
+            betamon.attackFrame = new bool[betamon.attackFrameHeight, betamon.attackFrameWidth];
 
             #region elecmon frames
             //frame 1
@@ -1224,6 +1308,9 @@ namespace DigimonSimulator
             betamon.rejectFrame[11, 12] = true;
             betamon.rejectFrame[11, 13] = true;
             betamon.rejectFrame[11, 14] = true;
+
+            //atttack
+            betamon.attackFrame = betamon.happyFrame;
             #endregion
 
             return betamon;
