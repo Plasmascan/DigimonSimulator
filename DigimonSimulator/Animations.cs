@@ -21,20 +21,35 @@ namespace DigimonSimulator
         private DigimonGame Game;
         private int StepCounter = 0;
         private int animationCounter = -1;
+        private int GameTickSpeed = 478;
+        public int powerUp = 0;
         private Sprite EatItemFull;
         private Sprite EatItemHalf;
         private Sprite EatItemEmpty;
         private Sprite ExplainationMark;
-        public readonly DispatcherTimer _animationTick = new DispatcherTimer(DispatcherPriority.Normal);
+        private Sprite Explosion;
+        private Sprite BrickWall;
+        public bool IsinAnimation = false;
+        public bool powerUpReady = false;
+        public readonly DispatcherTimer _animationTick = new DispatcherTimer(DispatcherPriority.Render);
+        public readonly DispatcherTimer _stepTimer = new DispatcherTimer(DispatcherPriority.Normal);
         public AnimationNo animation = AnimationNo.noAnimation;
         SoundPlayer attackSound = new SoundPlayer("../../../resources/se_attack.wav");
         SoundPlayer stepSound = new SoundPlayer("../../../resources/se_step.wav");
+        SoundPlayer damageSound = new SoundPlayer("../../../resources/se_damage.wav");
 
         public Animations(DigimonGame pixelScreen, DigimonSprite digimon)
         {
             Digimon = digimon;
             Game = pixelScreen;
             _animationTick.Tick += _animation_Tick;
+            _stepTimer.Tick += _stepTimer_Tick;
+            _stepTimer.Interval = TimeSpan.FromMilliseconds(GameTickSpeed);
+        }
+
+        private void _stepTimer_Tick(object sender, EventArgs e)
+        {
+            StepDigimon();
         }
 
         private void _animation_Tick(object sender, EventArgs e)
@@ -42,6 +57,7 @@ namespace DigimonSimulator
             animationCounter++;
             if (animation == AnimationNo.eat)
             {
+                #region Eat Animation
                 switch (animationCounter)
                 {
                     default:
@@ -73,10 +89,12 @@ namespace DigimonSimulator
                         MenuScreens.drawFeedScreen(Game, Game.SelectedSubMenuNo);
                         break;
                 }
+                #endregion 
             }
 
             else if (animation == AnimationNo.reject)
             {
+                #region Reject Animation
                 switch (animationCounter)
                 {
                     default:
@@ -101,10 +119,12 @@ namespace DigimonSimulator
                         MenuScreens.drawFeedScreen(Game, Game.SelectedSubMenuNo);
                         break;
                 }
+                #endregion 
             }
 
             else if (animation == AnimationNo.training)
             {
+                #region Training Animation
                 switch (animationCounter)
                 {
                     case 0:
@@ -116,9 +136,14 @@ namespace DigimonSimulator
                     case 1:
                         Game.pixelScreen.ClearSprite(ExplainationMark);
                         Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, Digimon.SpriteX, 0);
+                        powerUpReady = true;
+                        Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 8, Game.pixelScreen.NumberOfYPixels - 2, false);
                         break;
 
+                    // Jump the digimon backwards and then move forwards
                     case 6:
+                        IsinAnimation = true;
+                        Game.pixelScreen.ClearScreen();
                         Digimon.projectileSprite.SpriteX = 8;
                         Digimon.projectileSprite.SpriteY = 0;
                         _animationTick.Interval = TimeSpan.FromMilliseconds(45);
@@ -149,41 +174,111 @@ namespace DigimonSimulator
                         Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, Digimon.SpriteX - 1, 0);
                         break;
 
+                    // Start shooting the digimon's projectile
                     case 15:
                         Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Attack, false, Digimon.SpriteX, 0);
                         attackSound.Play();
                         break;
 
-                    case 40:
-                        Game.resetMainScreen();
+                    // start 2nd screen: draw brick wall and move the projectiles position
+                    case 41:
+                        Game.pixelScreen.ClearScreen();
+                        BrickWall = SpriteImages.FullBrickWallSprite();
+                        Game.pixelScreen.DrawSprite(BrickWall, 0, 0, false);
+                        Digimon.projectileSprite.SpriteX = Game.pixelScreen.NumberOfXPixels + 2;
                         break;
 
+                    // Projectile hits wall
+                    case 67:
+                        damageSound.Play();
+                        Game.pixelScreen.ClearSprite(BrickWall);
+                        Game.pixelScreen.ClearSprite(Digimon.projectileSprite);
+                        Explosion = SpriteImages.ExplosionBigSprite();
+                        Game.pixelScreen.DrawSprite(Explosion, 0, 0, false);
+                        break;
+
+                    case 72:
+                        Game.pixelScreen.ClearSprite(Explosion);
+                        Explosion = SpriteImages.ExplosionSmallSprite();
+                        Game.pixelScreen.DrawSprite(Explosion, 3, 3, false);
+                        break;
+
+                    case 77:
+                        Game.pixelScreen.ClearSprite(Explosion);
+                        Explosion = SpriteImages.ExplosionBigSprite();
+                        Game.pixelScreen.DrawSprite(Explosion, 0, 0, false);
+                        break;
+
+                    // show corrisponding broken wall depending on power
+                    case 82:
+                        Game.pixelScreen.ClearSprite(Explosion);
+                        if (powerUp <= 7)
+                        {
+                            BrickWall = SpriteImages.FullBrickWallSprite();
+                            Game.pixelScreen.DrawSprite(BrickWall, 0, 0, false);
+                        }
+                        else if (powerUp <= 9)
+                        {
+                            BrickWall = SpriteImages.HalfBrickWallSprite();
+                            Game.pixelScreen.DrawSprite(BrickWall, 0, Game.pixelScreen.NumberOfYPixels - BrickWall.SpriteHeight, false);
+                        }
+                        else if (powerUp <= 11)
+                        {
+                            BrickWall = SpriteImages.QuarterBrickWallSprite();
+                            Game.pixelScreen.DrawSprite(BrickWall, 0, Game.pixelScreen.NumberOfYPixels - BrickWall.SpriteHeight, false);
+                        }
+                        else
+                        {
+                            BrickWall = SpriteImages.BrockenBrickWallSprite();
+                            Game.pixelScreen.DrawSprite(BrickWall, 0, Game.pixelScreen.NumberOfYPixels - BrickWall.SpriteHeight, false);
+                        }
+                        break;
+
+                    case 100:
+                        Game.resetMainScreen();
+                        break;
                 }
 
-
-                if (animationCounter > 15)
+                // Continue moving the digimon's projectile
+                if (animationCounter > 15 && animationCounter < 67)
                 {
                     Game.pixelScreen.ClearSprite(Digimon.projectileSprite);
                     Digimon.projectileSprite.SpriteX--;
                     Game.pixelScreen.DrawSprite(Digimon.projectileSprite, Digimon.projectileSprite.SpriteX, 0, false);
                 }
-               
 
+                // Continue 2nd screen
+                //else if (animationCounter > 41)
+                //{
+                //    Digimon.projectileSprite.SpriteX--;
+                //    Game.pixelScreen.DrawSprite(Digimon.projectileSprite, Digimon.projectileSprite.SpriteX, 0, false);
+                //}
+                #endregion
             }
         }
 
-            public void resetStepAnimation()
+        public void StartStepAnimation()
         {
             StepCounter = 0;
             Digimon.SpriteX = Game.pixelScreen.NumberOfXPixels - (Digimon.frame1Width / 2) - 18;
+            StepDigimon();
+            _stepTimer.Start();
+        }
+
+        public void StopStepAnimation()
+        {
+            _stepTimer.Stop();
         }
 
         public void resetAnimations()
         {
             animationCounter = -1;
+            powerUp = 0;
             animation = AnimationNo.noAnimation;
+            BrickWall = SpriteImages.FullBrickWallSprite();
             _animationTick.Stop();
-
+            IsinAnimation = false;
+            powerUpReady = false;
         }
 
         public void StepDigimon()
@@ -396,12 +491,12 @@ namespace DigimonSimulator
             {
                 animation = AnimationNo.reject;
                 Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Reject, false, Digimon.SpriteX, 0);
-                _animationTick.Interval = TimeSpan.FromMilliseconds(478);
+                _animationTick.Interval = TimeSpan.FromMilliseconds(GameTickSpeed);
                 _animationTick.Start();
                 return;
             }
 
-            // setup eating animation
+            // setup food item eating animation
             animation = AnimationNo.eat;
             if (choice == 0)
             {
@@ -423,7 +518,7 @@ namespace DigimonSimulator
 
             Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Eat1, false, Digimon.SpriteX, 0);
             Game.pixelScreen.DrawSprite(EatItemFull, 0, 0, false);
-            _animationTick.Interval = TimeSpan.FromMilliseconds(478);
+            _animationTick.Interval = TimeSpan.FromMilliseconds(GameTickSpeed);
             _animationTick.Start();
 
         }
@@ -436,8 +531,40 @@ namespace DigimonSimulator
             Digimon.SpriteX = startX;
             Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, startX, 0);
             animation = AnimationNo.training;
-            _animationTick.Interval = TimeSpan.FromMilliseconds(478);
+            _animationTick.Interval = TimeSpan.FromMilliseconds(GameTickSpeed);
             _animationTick.Start();
+        }
+
+        public void powerUpTraining()
+        {
+            powerUp++;
+            if (powerUp == 3)
+            {
+                Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 8, Game.pixelScreen.NumberOfYPixels - (2 * 2), false);
+            }
+            if (powerUp == 5)
+            {
+                Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 8, Game.pixelScreen.NumberOfYPixels - (2 * 3), false);
+            }
+            if (powerUp == 7)
+            {
+                Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 8, Game.pixelScreen.NumberOfYPixels - (2 * 4), false);
+            }
+            if (powerUp == 9)
+            {
+                // half brick wall SAD
+                Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 8, Game.pixelScreen.NumberOfYPixels - (2 * 5), false);
+            }
+            if (powerUp == 11)
+            {
+                // quater HAPPY
+                Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 8, Game.pixelScreen.NumberOfYPixels - (2 * 6), false);
+            }
+            if (powerUp == 13)
+            {
+                Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 8, Game.pixelScreen.NumberOfYPixels - (2 * 7), false);
+            }
+
         }
 
     }

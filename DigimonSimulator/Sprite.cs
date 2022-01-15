@@ -574,6 +574,411 @@ namespace DigimonSimulator
             return explanationMarkSprite;
         }
 
+        public static Sprite ExplosionSmallSprite()
+        {
+            Sprite explosionSmallSprite = new Sprite();
+            explosionSmallSprite.SpriteHeight = 9;
+            explosionSmallSprite.SpriteWidth = 9;
+            explosionSmallSprite.sprite = new bool[explosionSmallSprite.SpriteHeight, explosionSmallSprite.SpriteWidth];
+
+            #region explosionSmallSprite
+            explosionSmallSprite.sprite[0, 3] = true;
+            explosionSmallSprite.sprite[1, 3] = true;
+            explosionSmallSprite.sprite[1, 4] = true;
+            explosionSmallSprite.sprite[2, 3] = true;
+            explosionSmallSprite.sprite[2, 4] = true;
+            explosionSmallSprite.sprite[2, 5] = true;
+            explosionSmallSprite.sprite[3, 2] = true;
+            explosionSmallSprite.sprite[3, 3] = true;
+            explosionSmallSprite.sprite[3, 5] = true;
+            explosionSmallSprite.sprite[3, 6] = true;
+            explosionSmallSprite.sprite[3, 7] = true;
+            explosionSmallSprite.sprite[4, 0] = true;
+            explosionSmallSprite.sprite[4, 1] = true;
+            explosionSmallSprite.sprite[4, 2] = true;
+            explosionSmallSprite.sprite[4, 6] = true;
+            explosionSmallSprite.sprite[4, 7] = true;
+            explosionSmallSprite.sprite[4, 8] = true;
+            explosionSmallSprite.sprite[5, 1] = true;
+            explosionSmallSprite.sprite[5, 2] = true;
+            explosionSmallSprite.sprite[5, 3] = true;
+            explosionSmallSprite.sprite[5, 5] = true;
+            explosionSmallSprite.sprite[5, 6] = true;
+            explosionSmallSprite.sprite[6, 2] = true;
+            explosionSmallSprite.sprite[6, 3] = true;
+            explosionSmallSprite.sprite[6, 4] = true;
+            explosionSmallSprite.sprite[6, 5] = true;
+            explosionSmallSprite.sprite[7, 3] = true;
+            explosionSmallSprite.sprite[7, 4] = true;
+            explosionSmallSprite.sprite[8, 4] = true;
+            #endregion
+
+            return explosionSmallSprite;
+        }
+
+        public static Sprite ExplosionBigSprite()
+        {
+            Sprite explosionBigSprite = new Sprite();
+            explosionBigSprite.SpriteHeight = 16;
+            explosionBigSprite.SpriteWidth = 16;
+            explosionBigSprite.sprite = new bool[explosionBigSprite.SpriteHeight, explosionBigSprite.SpriteWidth];
+
+            #region explosionBigSprite
+            explosionBigSprite.sprite[0, 1] = true;
+            explosionBigSprite.sprite[0, 2] = true;
+            explosionBigSprite.sprite[0, 9] = true;
+            explosionBigSprite.sprite[0, 12] = true;
+            explosionBigSprite.sprite[0, 13] = true;
+            explosionBigSprite.sprite[1, 1] = true;
+            explosionBigSprite.sprite[1, 2] = true;
+            explosionBigSprite.sprite[1, 3] = true;
+            explosionBigSprite.sprite[1, 4] = true;
+            explosionBigSprite.sprite[1, 8] = true;
+            explosionBigSprite.sprite[1, 11] = true;
+            explosionBigSprite.sprite[1, 12] = true;
+            explosionBigSprite.sprite[1, 13] = true;
+            explosionBigSprite.sprite[2, 2] = true;
+            explosionBigSprite.sprite[2, 4] = true;
+            explosionBigSprite.sprite[2, 5] = true;
+            explosionBigSprite.sprite[2, 6] = true;
+            explosionBigSprite.sprite[2, 9] = true;
+            explosionBigSprite.sprite[2, 10] = true;
+            explosionBigSprite.sprite[2, 11] = true;
+            explosionBigSprite.sprite[2, 13] = true;
+            explosionBigSprite.sprite[3, 2] = true;
+            explosionBigSprite.sprite[3, 3] = true;
+            explosionBigSprite.sprite[3, 5] = true;
+            explosionBigSprite.sprite[3, 6] = true;
+            explosionBigSprite.sprite[3, 7] = true;
+            explosionBigSprite.sprite[3, 8] = true;
+            explosionBigSprite.sprite[3, 9] = true;
+            explosionBigSprite.sprite[3, 12] = true;
+            explosionBigSprite.sprite[4, 0] = true;
+            explosionBigSprite.sprite[4, 2] = true;
+            explosionBigSprite.sprite[4, 3] = true;
+            explosionBigSprite.sprite[4, 7] = true;
+            explosionBigSprite.sprite[4, 8] = true;
+            explosionBigSprite.sprite[4, 11] = true;
+            explosionBigSprite.sprite[4, 12] = true;
+            explosionBigSprite.sprite[4, 14] = true;
+            explosionBigSprite.sprite[5, 1] = true;
+            explosionBigSprite.sprite[5, 3] = true;
+            explosionBigSprite.sprite[5, 4] = true;
+            explosionBigSprite.sprite[5, 10] = true;
+            explosionBigSprite.sprite[5, 11] = true;
+            explosionBigSprite.sprite[5, 12] = true;
+            explosionBigSprite.sprite[6, 0] = true;
+            explosionBigSprite.sprite[6, 1] = true;
+            explosionBigSprite.sprite[6, 3] = true;
+            explosionBigSprite.sprite[6, 4] = true;
+            explosionBigSprite.sprite[6, 9] = true;
+            explosionBigSprite.sprite[6, 10] = true;
+            explosionBigSprite.sprite[6, 11] = true;
+            explosionBigSprite.sprite[6, 12] = true;
+            explosionBigSprite.sprite[6, 13] = true;
+            explosionBigSprite.sprite[6, 14] = true;
+            explosionBigSprite.sprite[6, 15] = true;
+            explosionBigSprite.sprite[7, 2] = true;
+            explosionBigSprite.sprite[7, 3] = true;
+            explosionBigSprite.sprite[7, 5] = true;
+            explosionBigSprite.sprite[7, 11] = true;
+            explosionBigSprite.sprite[7, 14] = true;
+            explosionBigSprite.sprite[8, 1] = true;
+            explosionBigSprite.sprite[8, 2] = true;
+            explosionBigSprite.sprite[8, 12] = true;
+            explosionBigSprite.sprite[8, 13] = true;
+            explosionBigSprite.sprite[9, 0] = true;
+            explosionBigSprite.sprite[9, 1] = true;
+            explosionBigSprite.sprite[9, 2] = true;
+            explosionBigSprite.sprite[9, 3] = true;
+            explosionBigSprite.sprite[9, 4] = true;
+            explosionBigSprite.sprite[9, 10] = true;
+            explosionBigSprite.sprite[9, 11] = true;
+            explosionBigSprite.sprite[9, 12] = true;
+            explosionBigSprite.sprite[10, 4] = true;
+            explosionBigSprite.sprite[10, 6] = true;
+            explosionBigSprite.sprite[10, 9] = true;
+            explosionBigSprite.sprite[10, 10] = true;
+            explosionBigSprite.sprite[11, 3] = true;
+            explosionBigSprite.sprite[11, 4] = true;
+            explosionBigSprite.sprite[11, 5] = true;
+            explosionBigSprite.sprite[11, 7] = true;
+            explosionBigSprite.sprite[11, 8] = true;
+            explosionBigSprite.sprite[11, 10] = true;
+            explosionBigSprite.sprite[11, 11] = true;
+            explosionBigSprite.sprite[11, 14] = true;
+            explosionBigSprite.sprite[12, 1] = true;
+            explosionBigSprite.sprite[12, 3] = true;
+            explosionBigSprite.sprite[12, 5] = true;
+            explosionBigSprite.sprite[12, 6] = true;
+            explosionBigSprite.sprite[12, 7] = true;
+            explosionBigSprite.sprite[12, 8] = true;
+            explosionBigSprite.sprite[12, 9] = true;
+            explosionBigSprite.sprite[12, 11] = true;
+            explosionBigSprite.sprite[12, 12] = true;
+            explosionBigSprite.sprite[13, 1] = true;
+            explosionBigSprite.sprite[13, 3] = true;
+            explosionBigSprite.sprite[13, 4] = true;
+            explosionBigSprite.sprite[13, 5] = true;
+            explosionBigSprite.sprite[13, 6] = true;
+            explosionBigSprite.sprite[13, 9] = true;
+            explosionBigSprite.sprite[13, 10] = true;
+            explosionBigSprite.sprite[13, 12] = true;
+            explosionBigSprite.sprite[14, 0] = true;
+            explosionBigSprite.sprite[14, 2] = true;
+            explosionBigSprite.sprite[14, 3] = true;
+            explosionBigSprite.sprite[14, 4] = true;
+            explosionBigSprite.sprite[14, 11] = true;
+            explosionBigSprite.sprite[14, 12] = true;
+            explosionBigSprite.sprite[14, 13] = true;
+            explosionBigSprite.sprite[15, 2] = true;
+            explosionBigSprite.sprite[15, 6] = true;
+            explosionBigSprite.sprite[15, 10] = true;
+            explosionBigSprite.sprite[15, 13] = true;
+            explosionBigSprite.sprite[15, 14] = true;
+            #endregion
+
+            return explosionBigSprite;
+        }
+
+        public static Sprite FullBrickWallSprite()
+        {
+            Sprite fullBrickWallSprite = new Sprite();
+            fullBrickWallSprite.SpriteHeight = 16;
+            fullBrickWallSprite.SpriteWidth = 8;
+            fullBrickWallSprite.sprite = new bool[fullBrickWallSprite.SpriteHeight, fullBrickWallSprite.SpriteWidth];
+
+            #region fullBrickWallSprite
+            fullBrickWallSprite.sprite[0, 0] = true;
+            fullBrickWallSprite.sprite[0, 1] = true;
+            fullBrickWallSprite.sprite[0, 2] = true;
+            fullBrickWallSprite.sprite[0, 3] = true;
+            fullBrickWallSprite.sprite[0, 4] = true;
+            fullBrickWallSprite.sprite[0, 5] = true;
+            fullBrickWallSprite.sprite[0, 6] = true;
+            fullBrickWallSprite.sprite[0, 7] = true;
+            fullBrickWallSprite.sprite[1, 0] = true;
+            fullBrickWallSprite.sprite[1, 4] = true;
+            fullBrickWallSprite.sprite[1, 7] = true;
+            fullBrickWallSprite.sprite[2, 0] = true;
+            fullBrickWallSprite.sprite[2, 4] = true;
+            fullBrickWallSprite.sprite[2, 7] = true;
+            fullBrickWallSprite.sprite[3, 0] = true;
+            fullBrickWallSprite.sprite[3, 1] = true;
+            fullBrickWallSprite.sprite[3, 2] = true;
+            fullBrickWallSprite.sprite[3, 3] = true;
+            fullBrickWallSprite.sprite[3, 4] = true;
+            fullBrickWallSprite.sprite[3, 5] = true;
+            fullBrickWallSprite.sprite[3, 6] = true;
+            fullBrickWallSprite.sprite[3, 7] = true;
+            fullBrickWallSprite.sprite[4, 0] = true;
+            fullBrickWallSprite.sprite[4, 2] = true;
+            fullBrickWallSprite.sprite[4, 7] = true;
+            fullBrickWallSprite.sprite[5, 0] = true;
+            fullBrickWallSprite.sprite[5, 2] = true;
+            fullBrickWallSprite.sprite[5, 7] = true;
+            fullBrickWallSprite.sprite[6, 0] = true;
+            fullBrickWallSprite.sprite[6, 1] = true;
+            fullBrickWallSprite.sprite[6, 2] = true;
+            fullBrickWallSprite.sprite[6, 3] = true;
+            fullBrickWallSprite.sprite[6, 4] = true;
+            fullBrickWallSprite.sprite[6, 5] = true;
+            fullBrickWallSprite.sprite[6, 6] = true;
+            fullBrickWallSprite.sprite[6, 7] = true;
+            fullBrickWallSprite.sprite[7, 0] = true;
+            fullBrickWallSprite.sprite[7, 4] = true;
+            fullBrickWallSprite.sprite[7, 7] = true;
+            fullBrickWallSprite.sprite[8, 0] = true;
+            fullBrickWallSprite.sprite[8, 4] = true;
+            fullBrickWallSprite.sprite[8, 7] = true;
+            fullBrickWallSprite.sprite[9, 0] = true;
+            fullBrickWallSprite.sprite[9, 1] = true;
+            fullBrickWallSprite.sprite[9, 2] = true;
+            fullBrickWallSprite.sprite[9, 3] = true;
+            fullBrickWallSprite.sprite[9, 4] = true;
+            fullBrickWallSprite.sprite[9, 5] = true;
+            fullBrickWallSprite.sprite[9, 6] = true;
+            fullBrickWallSprite.sprite[9, 7] = true;
+            fullBrickWallSprite.sprite[10, 0] = true;
+            fullBrickWallSprite.sprite[10, 2] = true;
+            fullBrickWallSprite.sprite[10, 7] = true;
+            fullBrickWallSprite.sprite[11, 0] = true;
+            fullBrickWallSprite.sprite[11, 2] = true;
+            fullBrickWallSprite.sprite[11, 7] = true;
+            fullBrickWallSprite.sprite[12, 0] = true;
+            fullBrickWallSprite.sprite[12, 1] = true;
+            fullBrickWallSprite.sprite[12, 2] = true;
+            fullBrickWallSprite.sprite[12, 3] = true;
+            fullBrickWallSprite.sprite[12, 4] = true;
+            fullBrickWallSprite.sprite[12, 5] = true;
+            fullBrickWallSprite.sprite[12, 6] = true;
+            fullBrickWallSprite.sprite[12, 7] = true;
+            fullBrickWallSprite.sprite[13, 0] = true;
+            fullBrickWallSprite.sprite[13, 4] = true;
+            fullBrickWallSprite.sprite[13, 7] = true;
+            fullBrickWallSprite.sprite[14, 0] = true;
+            fullBrickWallSprite.sprite[14, 4] = true;
+            fullBrickWallSprite.sprite[14, 7] = true;
+            fullBrickWallSprite.sprite[15, 0] = true;
+            fullBrickWallSprite.sprite[15, 1] = true;
+            fullBrickWallSprite.sprite[15, 2] = true;
+            fullBrickWallSprite.sprite[15, 3] = true;
+            fullBrickWallSprite.sprite[15, 4] = true;
+            fullBrickWallSprite.sprite[15, 5] = true;
+            fullBrickWallSprite.sprite[15, 6] = true;
+            fullBrickWallSprite.sprite[15, 7] = true;
+            #endregion
+
+            return fullBrickWallSprite;
+        }
+
+        public static Sprite BrockenBrickWallSprite()
+        {
+            Sprite brockenBrickWallSprite = new Sprite();
+            brockenBrickWallSprite.SpriteHeight = 2;
+            brockenBrickWallSprite.SpriteWidth = 7;
+            brockenBrickWallSprite.sprite = new bool[brockenBrickWallSprite.SpriteHeight, brockenBrickWallSprite.SpriteWidth];
+
+            #region brockenBrickWallSprite
+            brockenBrickWallSprite.sprite[0, 4] = true;
+            brockenBrickWallSprite.sprite[1, 0] = true;
+            brockenBrickWallSprite.sprite[1, 3] = true;
+            brockenBrickWallSprite.sprite[1, 4] = true;
+            brockenBrickWallSprite.sprite[1, 6] = true;
+            #endregion
+
+            return brockenBrickWallSprite;
+        }
+
+        public static Sprite HalfBrickWallSprite()
+        {
+            Sprite halfBrickWallSprite = new Sprite();
+            halfBrickWallSprite.SpriteHeight = 13;
+            halfBrickWallSprite.SpriteWidth = 8;
+            halfBrickWallSprite.sprite = new bool[halfBrickWallSprite.SpriteHeight, halfBrickWallSprite.SpriteWidth];
+
+            #region halfBrickWallSprite
+            halfBrickWallSprite.sprite[0, 0] = true;
+            halfBrickWallSprite.sprite[0, 1] = true;
+            halfBrickWallSprite.sprite[1, 0] = true;
+            halfBrickWallSprite.sprite[1, 2] = true;
+            halfBrickWallSprite.sprite[2, 0] = true;
+            halfBrickWallSprite.sprite[2, 2] = true;
+            halfBrickWallSprite.sprite[3, 0] = true;
+            halfBrickWallSprite.sprite[3, 1] = true;
+            halfBrickWallSprite.sprite[3, 2] = true;
+            halfBrickWallSprite.sprite[3, 3] = true;
+            halfBrickWallSprite.sprite[3, 4] = true;
+            halfBrickWallSprite.sprite[3, 6] = true;
+            halfBrickWallSprite.sprite[4, 0] = true;
+            halfBrickWallSprite.sprite[4, 3] = true;
+            halfBrickWallSprite.sprite[4, 5] = true;
+            halfBrickWallSprite.sprite[4, 7] = true;
+            halfBrickWallSprite.sprite[5, 0] = true;
+            halfBrickWallSprite.sprite[5, 4] = true;
+            halfBrickWallSprite.sprite[5, 7] = true;
+            halfBrickWallSprite.sprite[6, 0] = true;
+            halfBrickWallSprite.sprite[6, 1] = true;
+            halfBrickWallSprite.sprite[6, 2] = true;
+            halfBrickWallSprite.sprite[6, 3] = true;
+            halfBrickWallSprite.sprite[6, 4] = true;
+            halfBrickWallSprite.sprite[6, 5] = true;
+            halfBrickWallSprite.sprite[6, 6] = true;
+            halfBrickWallSprite.sprite[6, 7] = true;
+            halfBrickWallSprite.sprite[7, 0] = true;
+            halfBrickWallSprite.sprite[7, 2] = true;
+            halfBrickWallSprite.sprite[7, 7] = true;
+            halfBrickWallSprite.sprite[8, 0] = true;
+            halfBrickWallSprite.sprite[8, 2] = true;
+            halfBrickWallSprite.sprite[8, 7] = true;
+            halfBrickWallSprite.sprite[9, 0] = true;
+            halfBrickWallSprite.sprite[9, 1] = true;
+            halfBrickWallSprite.sprite[9, 2] = true;
+            halfBrickWallSprite.sprite[9, 3] = true;
+            halfBrickWallSprite.sprite[9, 4] = true;
+            halfBrickWallSprite.sprite[9, 5] = true;
+            halfBrickWallSprite.sprite[9, 6] = true;
+            halfBrickWallSprite.sprite[9, 7] = true;
+            halfBrickWallSprite.sprite[10, 0] = true;
+            halfBrickWallSprite.sprite[10, 4] = true;
+            halfBrickWallSprite.sprite[10, 7] = true;
+            halfBrickWallSprite.sprite[11, 0] = true;
+            halfBrickWallSprite.sprite[11, 4] = true;
+            halfBrickWallSprite.sprite[11, 7] = true;
+            halfBrickWallSprite.sprite[12, 0] = true;
+            halfBrickWallSprite.sprite[12, 1] = true;
+            halfBrickWallSprite.sprite[12, 2] = true;
+            halfBrickWallSprite.sprite[12, 3] = true;
+            halfBrickWallSprite.sprite[12, 4] = true;
+            halfBrickWallSprite.sprite[12, 5] = true;
+            halfBrickWallSprite.sprite[12, 6] = true;
+            halfBrickWallSprite.sprite[12, 7] = true;
+            #endregion
+
+            return halfBrickWallSprite;
+        }
+
+        public static Sprite QuarterBrickWallSprite()
+        {
+            Sprite quarterBrickWallSprite = new Sprite();
+            quarterBrickWallSprite.SpriteHeight = 6;
+            quarterBrickWallSprite.SpriteWidth = 8;
+            quarterBrickWallSprite.sprite = new bool[quarterBrickWallSprite.SpriteHeight, quarterBrickWallSprite.SpriteWidth];
+
+            #region quarterBrickWallSprite
+            quarterBrickWallSprite.sprite[0, 1] = true;
+            quarterBrickWallSprite.sprite[1, 0] = true;
+            quarterBrickWallSprite.sprite[1, 2] = true;
+            quarterBrickWallSprite.sprite[2, 0] = true;
+            quarterBrickWallSprite.sprite[2, 1] = true;
+            quarterBrickWallSprite.sprite[2, 2] = true;
+            quarterBrickWallSprite.sprite[2, 3] = true;
+            quarterBrickWallSprite.sprite[2, 5] = true;
+            quarterBrickWallSprite.sprite[2, 6] = true;
+            quarterBrickWallSprite.sprite[3, 0] = true;
+            quarterBrickWallSprite.sprite[3, 4] = true;
+            quarterBrickWallSprite.sprite[3, 6] = true;
+            quarterBrickWallSprite.sprite[3, 7] = true;
+            quarterBrickWallSprite.sprite[4, 0] = true;
+            quarterBrickWallSprite.sprite[4, 3] = true;
+            quarterBrickWallSprite.sprite[4, 4] = true;
+            quarterBrickWallSprite.sprite[4, 7] = true;
+            quarterBrickWallSprite.sprite[5, 0] = true;
+            quarterBrickWallSprite.sprite[5, 1] = true;
+            quarterBrickWallSprite.sprite[5, 2] = true;
+            quarterBrickWallSprite.sprite[5, 3] = true;
+            quarterBrickWallSprite.sprite[5, 4] = true;
+            quarterBrickWallSprite.sprite[5, 5] = true;
+            quarterBrickWallSprite.sprite[5, 6] = true;
+            quarterBrickWallSprite.sprite[5, 7] = true;
+            #endregion
+
+            return quarterBrickWallSprite;
+        }
+
+        public static Sprite PowerUpSprite()
+        {
+            Sprite powerUpSprite = new Sprite();
+            powerUpSprite.SpriteHeight = 2;
+            powerUpSprite.SpriteWidth = 6;
+            powerUpSprite.sprite = new bool[powerUpSprite.SpriteHeight, powerUpSprite.SpriteWidth];
+
+            #region powerUpSprite
+             powerUpSprite.sprite[0, 1] = true;
+             powerUpSprite.sprite[0, 2] = true;
+             powerUpSprite.sprite[0, 3] = true;
+             powerUpSprite.sprite[0, 4] = true;
+             powerUpSprite.sprite[1, 0] = true;
+             powerUpSprite.sprite[1, 1] = true;
+             powerUpSprite.sprite[1, 2] = true;
+             powerUpSprite.sprite[1, 3] = true;
+             powerUpSprite.sprite[1, 4] = true;
+             powerUpSprite.sprite[1, 5] = true;
+            #endregion
+
+            return powerUpSprite;
+        }
+
         public static Sprite ThunderProjectileSprite()
         {
             Sprite thunderProjectileSprite = new Sprite();
