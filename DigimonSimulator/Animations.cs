@@ -14,7 +14,6 @@ namespace DigimonSimulator
         training,
         happy,
         angry
-
     }
 
     public class Animations
@@ -104,22 +103,18 @@ namespace DigimonSimulator
                 switch (animationCounter)
                 {
                     default:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Reject, true, Digimon.SpriteX, 0);
+                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Reject, false, Digimon.SpriteX, 0);
                         break;
 
                     case 1:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Reject, false, Digimon.SpriteX, 0);
-                        break;
-
-                    case 2:
                         Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Reject, true, Digimon.SpriteX, 0);
                         break;
 
-                    case 3:
+                    case 2:
                         Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Reject, false, Digimon.SpriteX, 0);
                         break;
 
-                    case 4:
+                    case 3:
                         resetAnimations();
                         Game.CurrentSubMenu = 0;
                         MenuScreens.drawFeedScreen(Game, Game.SelectedSubMenuNo);
@@ -130,88 +125,12 @@ namespace DigimonSimulator
 
             else if (animation == AnimationNo.angry)
             {
-                #region Angry Animation
-                switch (animationCounter)
-                {
-                    default:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Angry, false, Digimon.SpriteX, 0);
-                        Game.pixelScreen.ClearSprite(AngryMark);
-                        AngryMark = SpriteImages.AngryMarkBigSprite();
-                        Game.pixelScreen.DrawSprite(AngryMark, Game.pixelScreen.NumberOfXPixels - 7, 0, false);
-                        break;
-
-                    case 1:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, Digimon.SpriteX, 0);
-                        Game.pixelScreen.ClearSprite(AngryMark);
-                        AngryMark = SpriteImages.AngryMarkSmallSprite();
-                        Game.pixelScreen.DrawSprite(AngryMark, Game.pixelScreen.NumberOfXPixels - 6, 5, false);
-                        break;
-
-                    case 2:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Angry, false, Digimon.SpriteX, 0);
-                        Game.pixelScreen.ClearSprite(AngryMark);
-                        AngryMark = SpriteImages.AngryMarkBigSprite();
-                        Game.pixelScreen.DrawSprite(AngryMark, Game.pixelScreen.NumberOfXPixels - 7, 0, false);
-                        break;
-
-                    case 3:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, Digimon.SpriteX, 0);
-                        Game.pixelScreen.ClearSprite(AngryMark);
-                        AngryMark = SpriteImages.AngryMarkSmallSprite();
-                        Game.pixelScreen.DrawSprite(AngryMark, Game.pixelScreen.NumberOfXPixels - 6, 5, false);
-                        break;
-
-                    case 4:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Angry, false, Digimon.SpriteX, 0);
-                        Game.pixelScreen.ClearSprite(AngryMark);
-                        AngryMark = SpriteImages.AngryMarkBigSprite();
-                        Game.pixelScreen.DrawSprite(AngryMark, Game.pixelScreen.NumberOfXPixels - 7, 0, false);
-                        break;
-
-                    case 6:
-                        resetAnimations();
-                        Game.resetMainScreen();
-                        break;
-                }
-                #endregion 
+                PlayAngry();
             }
 
             else if (animation == AnimationNo.happy)
             {
-                #region Happy Animation
-                switch (animationCounter)
-                {
-                    default:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, false, Digimon.SpriteX, 0);
-                        Game.pixelScreen.DrawSprite(HappyMark, Game.pixelScreen.NumberOfXPixels - HappyMark.SpriteWidth, 0, false);
-                        break;
-
-                    case 1:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, Digimon.SpriteX, 0);
-                        Game.pixelScreen.ClearSprite(HappyMark);
-                        break;
-
-                    case 2:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, false, Digimon.SpriteX, 0);
-                        Game.pixelScreen.DrawSprite(HappyMark, Game.pixelScreen.NumberOfXPixels - HappyMark.SpriteWidth, 0, false);
-                        break;
-
-                    case 3:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, Digimon.SpriteX, 0);
-                        Game.pixelScreen.ClearSprite(HappyMark);
-                        break;
-
-                    case 4:
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, false, Digimon.SpriteX, 0);
-                        Game.pixelScreen.DrawSprite(HappyMark, Game.pixelScreen.NumberOfXPixels - HappyMark.SpriteWidth, 0, false);
-                        break;
-
-                    case 6:
-                        resetAnimations();
-                        Game.resetMainScreen();
-                        break;
-                }
-                #endregion 
+                PlayHappy();
             }
 
             else if (animation == AnimationNo.training)
@@ -229,7 +148,7 @@ namespace DigimonSimulator
                         Game.pixelScreen.ClearSprite(ExplainationMark);
                         Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, Digimon.SpriteX, 0);
                         powerUpReady = true;
-                        Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 8, Game.pixelScreen.NumberOfYPixels - 2, false);
+                        Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 9, Game.pixelScreen.NumberOfYPixels - 2, false);
                         break;
 
                     // Jump the digimon backwards and then move forwards and attack
@@ -269,15 +188,12 @@ namespace DigimonSimulator
                     // Start shooting the digimon's projectile
                     case 13:
                         Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Attack, false, Digimon.SpriteX - 1, 0);
-                        //_animationTick.Interval = TimeSpan.FromMilliseconds(47);
                         attackSound.Play();
                         break;
 
                     
                     case 14:
-                        //_animationTick.Interval = TimeSpan.FromMilliseconds(47);
                         Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Attack, false, Digimon.SpriteX - 1, 0);
-                        //attackSound.Play();
                         break;
 
                     // start 2nd screen: draw brick wall and move the projectiles position
@@ -338,13 +254,11 @@ namespace DigimonSimulator
                     case 110:
                         if (powerUp >= 11)
                         {
-                            resetAnimations();
-                            setupHappy();
+                            SetupHappy();
                         }
                         else
                         {
-                            resetAnimations();
-                            setupAngry();
+                            SetupAngry();
                         }
                         break;
                 }
@@ -354,7 +268,7 @@ namespace DigimonSimulator
                 {
                     Game.pixelScreen.ClearSprite(Digimon.projectileSprite);
                     Digimon.projectileSprite.SpriteX--;
-                    Game.pixelScreen.DrawSprite(Digimon.projectileSprite, Digimon.projectileSprite.SpriteX, 0, false);
+                    Game.pixelScreen.DrawSprite(Digimon.projectileSprite, Digimon.projectileSprite.SpriteX, 8 - Digimon.projectileSprite.SpriteHeight, false);
                 }
                 #endregion
             }
@@ -593,7 +507,7 @@ namespace DigimonSimulator
             if (choice == 0 && Digimon.currentHunger > Digimon.maxHunger)
             {
                 animation = AnimationNo.reject;
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Reject, false, Digimon.SpriteX, 0);
+                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Reject, true, Digimon.SpriteX, 0);
                 _animationTick.Interval = TimeSpan.FromMilliseconds(GameTickSpeed);
                 _animationTick.Start();
                 return;
@@ -638,9 +552,10 @@ namespace DigimonSimulator
             _animationTick.Start();
         }
 
-        public void setupAngry()
+        public void SetupAngry()
         {
             Game.pixelScreen.ClearScreen();
+            resetAnimations();
             Digimon.SpriteX = Game.pixelScreen.NumberOfXPixels - (Digimon.frame1Width / 2) - 16;
             Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, Digimon.SpriteX, 0);
             AngryMark = SpriteImages.AngryMarkSmallSprite();
@@ -651,9 +566,56 @@ namespace DigimonSimulator
             _animationTick.Start();
         }
 
-        public void setupHappy()
+        public void PlayAngry()
+        {
+            switch (animationCounter)
+            {
+                default:
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Angry, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.ClearSprite(AngryMark);
+                    AngryMark = SpriteImages.AngryMarkBigSprite();
+                    Game.pixelScreen.DrawSprite(AngryMark, Game.pixelScreen.NumberOfXPixels - 7, 0, false);
+                    break;
+
+                case 1:
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.ClearSprite(AngryMark);
+                    AngryMark = SpriteImages.AngryMarkSmallSprite();
+                    Game.pixelScreen.DrawSprite(AngryMark, Game.pixelScreen.NumberOfXPixels - 6, 5, false);
+                    break;
+
+                case 2:
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Angry, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.ClearSprite(AngryMark);
+                    AngryMark = SpriteImages.AngryMarkBigSprite();
+                    Game.pixelScreen.DrawSprite(AngryMark, Game.pixelScreen.NumberOfXPixels - 7, 0, false);
+                    break;
+
+                case 3:
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.ClearSprite(AngryMark);
+                    AngryMark = SpriteImages.AngryMarkSmallSprite();
+                    Game.pixelScreen.DrawSprite(AngryMark, Game.pixelScreen.NumberOfXPixels - 6, 5, false);
+                    break;
+
+                case 4:
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Angry, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.ClearSprite(AngryMark);
+                    AngryMark = SpriteImages.AngryMarkBigSprite();
+                    Game.pixelScreen.DrawSprite(AngryMark, Game.pixelScreen.NumberOfXPixels - 7, 0, false);
+                    break;
+
+                case 6:
+                    resetAnimations();
+                    Game.resetMainScreen();
+                    break;
+            }
+        }
+
+        public void SetupHappy()
         {
             Game.pixelScreen.ClearScreen();
+            resetAnimations();
             Digimon.SpriteX = Game.pixelScreen.NumberOfXPixels - (Digimon.frame1Width / 2) - 16;
             Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, Digimon.SpriteX, 0);
             winSound.Play();
@@ -662,34 +624,70 @@ namespace DigimonSimulator
             _animationTick.Start();
         }
 
+        public void PlayHappy()
+        {
+            switch (animationCounter)
+            {
+                default:
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.DrawSprite(HappyMark, Game.pixelScreen.NumberOfXPixels - HappyMark.SpriteWidth, 0, false);
+                    break;
+
+                case 1:
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.ClearSprite(HappyMark);
+                    break;
+
+                case 2:
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.DrawSprite(HappyMark, Game.pixelScreen.NumberOfXPixels - HappyMark.SpriteWidth, 0, false);
+                    break;
+
+                case 3:
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.ClearSprite(HappyMark);
+                    break;
+
+                case 4:
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.DrawSprite(HappyMark, Game.pixelScreen.NumberOfXPixels - HappyMark.SpriteWidth, 0, false);
+                    break;
+
+                case 6:
+                    resetAnimations();
+                    Game.resetMainScreen();
+                    break;
+            }
+        }
+
         public void powerUpTraining()
         {
             powerUp++;
             if (powerUp == 3)
             {
-                Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 8, Game.pixelScreen.NumberOfYPixels - (2 * 2), false);
+                Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 9, Game.pixelScreen.NumberOfYPixels - (2 * 2), false);
             }
             if (powerUp == 5)
             {
-                Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 8, Game.pixelScreen.NumberOfYPixels - (2 * 3), false);
+                Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 9, Game.pixelScreen.NumberOfYPixels - (2 * 3), false);
             }
             if (powerUp == 7)
             {
-                Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 8, Game.pixelScreen.NumberOfYPixels - (2 * 4), false);
+                Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 9, Game.pixelScreen.NumberOfYPixels - (2 * 4), false);
             }
             if (powerUp == 9)
             {
                 // half brick wall SAD
-                Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 8, Game.pixelScreen.NumberOfYPixels - (2 * 5), false);
+                Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 9, Game.pixelScreen.NumberOfYPixels - (2 * 5), false);
             }
             if (powerUp == 11)
             {
                 // quater HAPPY
-                Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 8, Game.pixelScreen.NumberOfYPixels - (2 * 6), false);
+                Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 9, Game.pixelScreen.NumberOfYPixels - (2 * 6), false);
             }
             if (powerUp == 13)
             {
-                Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 8, Game.pixelScreen.NumberOfYPixels - (2 * 7), false);
+                Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 9, Game.pixelScreen.NumberOfYPixels - (2 * 7), false);
             }
 
         }

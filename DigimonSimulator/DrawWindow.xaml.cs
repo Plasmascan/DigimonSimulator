@@ -64,18 +64,18 @@ namespace DigimonSimulator
 
         private void loadSpriteButton_Click(object sender, RoutedEventArgs e)
         {
-            bool isDigimon = true;
+            bool isDigimon = false;
             if (isDigimon)
             {
                 DigimonSprite digimon = new DigimonSprite();
-                digimon = SpriteImages.Betamon();
+                digimon = SpriteImages.Greymon();
                 int startX = drawScreen.NumberOfXPixels - (digimon.frame1Width / 2) - 16;
-                drawScreen.DrawDigimonFrame(digimon, SpriteFrame.Angry, false, startX, 0);
+                drawScreen.DrawDigimonFrame(digimon, SpriteFrame.Eat2, false, startX, 0);
             }
             else
             {
                 Sprite sprite = new Sprite();
-                sprite = SpriteImages.FullBrickWallSprite();
+                sprite = SpriteImages.FireBallProjectileSprite();
                 drawScreen.DrawSprite(sprite, 0, 0, false);
             }
         }

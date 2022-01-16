@@ -14,7 +14,6 @@ namespace DigimonSimulator
         public DigimonSprite currentDigimon;
         public Animations animate;
         public readonly DispatcherTimer _gameTimer = new DispatcherTimer(DispatcherPriority.Normal);
-        //public bool isInAnimation = false;
         public int TimeoutSelectedMenu = 0;
         public MenuScreen CurrentScreen = MenuScreen.MainScreen;
         public MenuScreen SelectedMenu = MenuScreen.MainScreen;
@@ -29,7 +28,6 @@ namespace DigimonSimulator
             currentDigimon = SpriteImages.Betamon();
             animate = new Animations(this, currentDigimon);
             animate.StartStepAnimation();
-            //stepSprite = true;
             setTimer();
 
         }
