@@ -13,6 +13,7 @@ namespace DigimonSimulator
         Eat2,
         Reject,
         Attack,
+        Angry
         
     }
     public class Sprite
@@ -43,6 +44,8 @@ namespace DigimonSimulator
         public int rejectFrameWidth;
         public int attackFrameHeight;
         public int attackFrameWidth;
+        public int angryFrameHeight;
+        public int angryFrameWidth;
         public int currentHunger = 1000;
         public int currentStrength = 1000;
         public int maxHunger = 1000;
@@ -55,7 +58,7 @@ namespace DigimonSimulator
         public bool[,] eat2Frame;
         public bool[,] rejectFrame;
         public bool[,] attackFrame;
-        // to do - add max hunger and strength to the setup functions
+        public bool[,] angryFrame;
     }
 
     public static class SpriteImages
@@ -979,6 +982,89 @@ namespace DigimonSimulator
             return powerUpSprite;
         }
 
+        public static Sprite AngryMarkSmallSprite()
+        {
+            Sprite angryMarkSmallSprite = new Sprite();
+            angryMarkSmallSprite.SpriteHeight = 3;
+            angryMarkSmallSprite.SpriteWidth = 3;
+            angryMarkSmallSprite.sprite = new bool[angryMarkSmallSprite.SpriteHeight, angryMarkSmallSprite.SpriteWidth];
+
+            #region angryMarkSmallSprite
+            angryMarkSmallSprite.sprite[0, 1] = true;
+            angryMarkSmallSprite.sprite[0, 2] = true;
+            angryMarkSmallSprite.sprite[1, 1] = true;
+            angryMarkSmallSprite.sprite[1, 2] = true;
+            angryMarkSmallSprite.sprite[2, 0] = true;
+            #endregion
+
+            return angryMarkSmallSprite;
+        }
+
+        public static Sprite AngryMarkBigSprite()
+        {
+            Sprite angryMarkBigSprite = new Sprite();
+            angryMarkBigSprite.SpriteHeight = 8;
+            angryMarkBigSprite.SpriteWidth = 7;
+            angryMarkBigSprite.sprite = new bool[angryMarkBigSprite.SpriteHeight, angryMarkBigSprite.SpriteWidth];
+
+            #region angryMarkBigSprite
+            angryMarkBigSprite.sprite[0, 3] = true;
+            angryMarkBigSprite.sprite[0, 4] = true;
+            angryMarkBigSprite.sprite[1, 3] = true;
+            angryMarkBigSprite.sprite[1, 4] = true;
+            angryMarkBigSprite.sprite[1, 5] = true;
+            angryMarkBigSprite.sprite[1, 6] = true;
+            angryMarkBigSprite.sprite[2, 2] = true;
+            angryMarkBigSprite.sprite[2, 3] = true;
+            angryMarkBigSprite.sprite[2, 4] = true;
+            angryMarkBigSprite.sprite[2, 5] = true;
+            angryMarkBigSprite.sprite[2, 6] = true;
+            angryMarkBigSprite.sprite[3, 2] = true;
+            angryMarkBigSprite.sprite[3, 3] = true;
+            angryMarkBigSprite.sprite[3, 4] = true;
+            angryMarkBigSprite.sprite[3, 5] = true;
+            angryMarkBigSprite.sprite[4, 4] = true;
+            angryMarkBigSprite.sprite[4, 5] = true;
+            angryMarkBigSprite.sprite[5, 1] = true;
+            angryMarkBigSprite.sprite[6, 0] = true;
+            angryMarkBigSprite.sprite[6, 1] = true;
+            angryMarkBigSprite.sprite[6, 2] = true;
+            angryMarkBigSprite.sprite[7, 1] = true;
+            #endregion
+
+            return angryMarkBigSprite;
+        }
+
+        public static Sprite HappyMarkprite()
+        {
+            Sprite happyMarkprite = new Sprite();
+            happyMarkprite.SpriteHeight = 8;
+            happyMarkprite.SpriteWidth = 8;
+            happyMarkprite.sprite = new bool[happyMarkprite.SpriteHeight, happyMarkprite.SpriteWidth];
+
+            #region happyMarkprite
+            happyMarkprite.sprite[0, 4] = true;
+            happyMarkprite.sprite[1, 1] = true;
+            happyMarkprite.sprite[1, 6] = true;
+            happyMarkprite.sprite[2, 3] = true;
+            happyMarkprite.sprite[2, 4] = true;
+            happyMarkprite.sprite[3, 0] = true;
+            happyMarkprite.sprite[3, 2] = true;
+            happyMarkprite.sprite[3, 5] = true;
+            happyMarkprite.sprite[3, 7] = true;
+            happyMarkprite.sprite[4, 2] = true;
+            happyMarkprite.sprite[4, 5] = true;
+            happyMarkprite.sprite[5, 3] = true;
+            happyMarkprite.sprite[5, 4] = true;
+            happyMarkprite.sprite[6, 1] = true;
+            happyMarkprite.sprite[6, 7] = true;
+            happyMarkprite.sprite[7, 3] = true;
+            happyMarkprite.sprite[7, 5] = true;
+            #endregion
+
+            return happyMarkprite;
+        }
+
         public static Sprite ThunderProjectileSprite()
         {
             Sprite thunderProjectileSprite = new Sprite();
@@ -1327,6 +1413,8 @@ namespace DigimonSimulator
             betamon.rejectFrameWidth = 16;
             betamon.attackFrameHeight = 15;
             betamon.attackFrameWidth = 16;
+            betamon.angryFrameHeight = 15;
+            betamon.angryFrameWidth = 16;
 
             betamon.frame1 = new bool[betamon.frame1Height, betamon.frame1Width];
             betamon.frame2 = new bool[betamon.frame2Height, betamon.frame2Width];
@@ -1335,6 +1423,7 @@ namespace DigimonSimulator
             betamon.eat2Frame = new bool[betamon.eat2FrameHeight, betamon.eat2FrameWidth];
             betamon.rejectFrame = new bool[betamon.rejectFrameHeight, betamon.rejectFrameWidth];
             betamon.attackFrame = new bool[betamon.attackFrameHeight, betamon.attackFrameWidth];
+            betamon.angryFrame = new bool[betamon.angryFrameHeight, betamon.angryFrameWidth];
 
             #region elecmon frames
             //frame 1
@@ -1716,6 +1805,106 @@ namespace DigimonSimulator
 
             //atttack
             betamon.attackFrame = betamon.happyFrame;
+
+            //angry
+            betamon.angryFrame[0, 3] = true;
+            betamon.angryFrame[0, 4] = true;
+            betamon.angryFrame[0, 5] = true;
+            betamon.angryFrame[0, 6] = true;
+            betamon.angryFrame[0, 7] = true;
+            betamon.angryFrame[1, 3] = true;
+            betamon.angryFrame[1, 8] = true;
+            betamon.angryFrame[2, 4] = true;
+            betamon.angryFrame[2, 9] = true;
+            betamon.angryFrame[3, 4] = true;
+            betamon.angryFrame[3, 5] = true;
+            betamon.angryFrame[3, 6] = true;
+            betamon.angryFrame[3, 7] = true;
+            betamon.angryFrame[3, 8] = true;
+            betamon.angryFrame[3, 10] = true;
+            betamon.angryFrame[4, 3] = true;
+            betamon.angryFrame[4, 9] = true;
+            betamon.angryFrame[4, 11] = true;
+            betamon.angryFrame[5, 2] = true;
+            betamon.angryFrame[5, 3] = true;
+            betamon.angryFrame[5, 8] = true;
+            betamon.angryFrame[5, 10] = true;
+            betamon.angryFrame[5, 11] = true;
+            betamon.angryFrame[6, 1] = true;
+            betamon.angryFrame[6, 7] = true;
+            betamon.angryFrame[6, 8] = true;
+            betamon.angryFrame[6, 10] = true;
+            betamon.angryFrame[6, 11] = true;
+            betamon.angryFrame[6, 12] = true;
+            betamon.angryFrame[7, 1] = true;
+            betamon.angryFrame[7, 2] = true;
+            betamon.angryFrame[7, 3] = true;
+            betamon.angryFrame[7, 4] = true;
+            betamon.angryFrame[7, 5] = true;
+            betamon.angryFrame[7, 6] = true;
+            betamon.angryFrame[7, 12] = true;
+            betamon.angryFrame[7, 13] = true;
+            betamon.angryFrame[8, 2] = true;
+            betamon.angryFrame[8, 4] = true;
+            betamon.angryFrame[8, 6] = true;
+            betamon.angryFrame[8, 7] = true;
+            betamon.angryFrame[8, 8] = true;
+            betamon.angryFrame[8, 13] = true;
+            betamon.angryFrame[8, 14] = true;
+            betamon.angryFrame[8, 15] = true;
+            betamon.angryFrame[9, 3] = true;
+            betamon.angryFrame[9, 4] = true;
+            betamon.angryFrame[9, 5] = true;
+            betamon.angryFrame[9, 6] = true;
+            betamon.angryFrame[9, 7] = true;
+            betamon.angryFrame[9, 8] = true;
+            betamon.angryFrame[9, 9] = true;
+            betamon.angryFrame[9, 11] = true;
+            betamon.angryFrame[9, 12] = true;
+            betamon.angryFrame[9, 13] = true;
+            betamon.angryFrame[9, 15] = true;
+            betamon.angryFrame[10, 3] = true;
+            betamon.angryFrame[10, 5] = true;
+            betamon.angryFrame[10, 7] = true;
+            betamon.angryFrame[10, 9] = true;
+            betamon.angryFrame[10, 14] = true;
+            betamon.angryFrame[10, 15] = true;
+            betamon.angryFrame[11, 1] = true;
+            betamon.angryFrame[11, 2] = true;
+            betamon.angryFrame[11, 3] = true;
+            betamon.angryFrame[11, 4] = true;
+            betamon.angryFrame[11, 5] = true;
+            betamon.angryFrame[11, 6] = true;
+            betamon.angryFrame[11, 7] = true;
+            betamon.angryFrame[11, 8] = true;
+            betamon.angryFrame[11, 9] = true;
+            betamon.angryFrame[11, 14] = true;
+            betamon.angryFrame[12, 1] = true;
+            betamon.angryFrame[12, 10] = true;
+            betamon.angryFrame[12, 12] = true;
+            betamon.angryFrame[12, 15] = true;
+            betamon.angryFrame[13, 0] = true;
+            betamon.angryFrame[13, 2] = true;
+            betamon.angryFrame[13, 3] = true;
+            betamon.angryFrame[13, 4] = true;
+            betamon.angryFrame[13, 5] = true;
+            betamon.angryFrame[13, 6] = true;
+            betamon.angryFrame[13, 9] = true;
+            betamon.angryFrame[13, 10] = true;
+            betamon.angryFrame[13, 11] = true;
+            betamon.angryFrame[13, 15] = true;
+            betamon.angryFrame[14, 0] = true;
+            betamon.angryFrame[14, 1] = true;
+            betamon.angryFrame[14, 2] = true;
+            betamon.angryFrame[14, 3] = true;
+            betamon.angryFrame[14, 6] = true;
+            betamon.angryFrame[14, 7] = true;
+            betamon.angryFrame[14, 8] = true;
+            betamon.angryFrame[14, 9] = true;
+            betamon.angryFrame[14, 11] = true;
+            betamon.angryFrame[14, 12] = true;
+            betamon.angryFrame[14, 13] = true;
+            betamon.angryFrame[14, 14] = true;
             #endregion
 
             return betamon;
