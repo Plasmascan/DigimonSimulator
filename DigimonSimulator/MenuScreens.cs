@@ -9,7 +9,7 @@ namespace DigimonSimulator
         StatScreen = 0 ,
         FeedScreen = 1,
         Training = 2,
-        Screen4 = 3,
+        BattleCup = 3,
         Screen5 = 4,
     }
 

@@ -42,17 +42,19 @@ namespace DigimonSimulator
 
         private void aButton_Click(object sender, RoutedEventArgs e)
         {
-            mainGame.AButtonPress();
+            //mainGame.AButtonPress();
+            mainGame.animate.StopStepAnimation();
+            mainGame.animate.SetupBattleCup();
         }
 
         private void bButton_Click(object sender, RoutedEventArgs e)
         {
-            mainGame.BButtonPress();
+            //mainGame.BButtonPress();
         }
 
         private void cButton_Click(object sender, RoutedEventArgs e)
         {
-            mainGame.CButtonPress();
+            //mainGame.CButtonPress();
         }
 
         private void printButton_Click(object sender, RoutedEventArgs e)

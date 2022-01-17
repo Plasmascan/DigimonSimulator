@@ -15,7 +15,7 @@ namespace DigimonSimulator
         Damage,
         Lose,
         Win, 
-        empty
+        Start
     }
     public static class Sounds
     {
@@ -78,6 +78,10 @@ namespace DigimonSimulator
                 else if (soundName == Sound.Win)
                 {
                     Play(Properties.Resources.se_win);
+                }
+                else if (soundName == Sound.Start)
+                {
+                    Play(Properties.Resources.se_start);
                 }
                 
             }

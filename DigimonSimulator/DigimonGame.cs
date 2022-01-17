@@ -22,10 +22,10 @@ namespace DigimonSimulator
 
         public void InitializeGame(Canvas screen)
         {
-            pixelScreen = new PixelScreen(screen, 15, 50, 16, 32);
+            pixelScreen = new PixelScreen(screen, 15, 50, 16, 32, 4);
             pixelScreen.SetupScreen();
             currentDigimon = SpriteImages.Greymon();
-            animate = new Animations(this, currentDigimon);
+            animate = new Animations(this);
             animate.StartStepAnimation();
             setTimer();
         }
@@ -117,6 +117,13 @@ namespace DigimonSimulator
                     animate.powerUpTraining();
                 }
             }
+            else if (CurrentScreen == MenuScreen.BattleCup)
+            {
+                if (!animate.IsinAnimation && animate.powerUpReady)
+                {
+                    animate.powerUpTraining();
+                }
+            }
         }
 
         public void BButtonPress()
@@ -143,7 +150,14 @@ namespace DigimonSimulator
                     animate.StopStepAnimation();
                     Sounds.PlaySound(Sound.Beep);
                     CurrentScreen = MenuScreen.Training;
-                    animate.setupTraining();
+                    animate.SetupTraining();
+                }
+                else if (SelectedMenu == MenuScreen.BattleCup)
+                {
+                    animate.StopStepAnimation();
+                    Sounds.PlaySound(Sound.Beep);
+                    CurrentScreen = MenuScreen.BattleCup;
+                    animate.SetupBattleCup();
                 }
             }
             else if (CurrentScreen == MenuScreen.StatScreen)
@@ -171,7 +185,7 @@ namespace DigimonSimulator
                         Sounds.PlaySound(Sound.Beep);
                         MenuScreens.drawFeedScreen(this, SelectedSubMenuNo);
                         CurrentSubMenu = 0;
-                        animate.resetAnimations();
+                        animate.ResetAnimations();
                     }
                 }
 
@@ -211,7 +225,7 @@ namespace DigimonSimulator
             SelectedSubMenuNo = 0;
             CurrentSubMenu = 0;
             TimeoutSelectedMenu = 0;
-            animate.resetAnimations();
+            animate.ResetAnimations();
         }
 
     }

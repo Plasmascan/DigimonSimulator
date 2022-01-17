@@ -21,7 +21,7 @@ namespace DigimonSimulator
         public DrawWindow()
         {
             InitializeComponent();
-            drawScreen = new PixelScreen(screenCanvas, 20, 30, 16, 32);
+            drawScreen = new PixelScreen(screenCanvas, 20, 30, 16, 32, 10);
             drawScreen.SetupScreen();
         }
 
@@ -78,6 +78,11 @@ namespace DigimonSimulator
                 sprite = SpriteImages.FireBallProjectileSprite();
                 drawScreen.DrawSprite(sprite, 0, 0, false);
             }
+        }
+
+        private void invertScreenButton_Click(object sender, RoutedEventArgs e)
+        {
+            drawScreen.InvertScreen();
         }
     }
 }

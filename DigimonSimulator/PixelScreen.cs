@@ -79,20 +79,21 @@ namespace DigimonSimulator
         public int NumberOfYPixels;
         public int NumberOfXPixels;
         public int numberOfIcons = 6;
-        private int PixelSize = 4;
+        private int PixelSize;
         private double PixelSpacing = 0.4;
         private Pixel[,] ScreenPixels;
         private Rectangle[] MenuIcons;
         private Color PixelColorOn = Color.FromRgb(19, 55, 43);
         private Color PixelColorOff = Color.FromArgb(30, 1, 1, 1);
 
-        public PixelScreen(Canvas canvasScreen, int x, int y, int noPixelsY, int noPixelsX)
+        public PixelScreen(Canvas canvasScreen, int x, int y, int noPixelsY, int noPixelsX, int pixelSize)
         {
             CanvasScreen = canvasScreen;
             StartX = x;
             StartY = y;
             NumberOfYPixels = noPixelsY;
             NumberOfXPixels = noPixelsX;
+            PixelSize = pixelSize;
         }
 
         public void SetupScreen()
@@ -160,6 +161,17 @@ namespace DigimonSimulator
                 for (int x = 0; x < NumberOfXPixels; x++)
                 {
                     ScreenPixels[y, x].TurnOffPixel();
+                }
+            }
+        }
+
+        public void InvertScreen()
+        {
+            for (int y = 0; y < NumberOfYPixels; y++)
+            {
+                for (int x = 0; x < NumberOfXPixels; x++)
+                {
+                    ScreenPixels[y, x].TogglePixel();
                 }
             }
         }
