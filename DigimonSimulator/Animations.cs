@@ -22,7 +22,7 @@ namespace DigimonSimulator
         private DigimonGame Game;
         private int StepCounter = 0;
         private int animationCounter = -1;
-        private int GameTickSpeed = 478;
+        private int GameTickSpeed = 500;
         public int powerUp = 0;
         private Sprite EatItemFull;
         private Sprite EatItemHalf;
@@ -157,7 +157,7 @@ namespace DigimonSimulator
                         Game.pixelScreen.ClearScreen();
                         Digimon.projectileSprite.SpriteX = 8;
                         Digimon.projectileSprite.SpriteY = 0;
-                        _animationTick.Interval = TimeSpan.FromMilliseconds(47);
+                        _animationTick.Interval = TimeSpan.FromMilliseconds(55);
                         Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, Digimon.SpriteX, 0);
                         break;
 
@@ -189,6 +189,7 @@ namespace DigimonSimulator
                     case 13:
                         Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Attack, false, Digimon.SpriteX - 1, 0);
                         attackSound.Play();
+                        _animationTick.Interval = TimeSpan.FromMilliseconds(47);
                         break;
 
                     

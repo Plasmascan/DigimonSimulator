@@ -16,30 +16,32 @@ namespace DigimonSimulator
         private int PixelLocationX;
         private int PixelLocationY;
         public bool IsPixelOn = false;
-        private int PixelWidth = 10;
-        private int PixelHeight = 10;
+        private int PixelSize;
         public Rectangle PixelShape;
+        private Color onColor = Color.FromRgb(1, 35, 23);
+        private Color offColor = Color.FromArgb(50, 1, 1, 1);
 
-        public Pixel(int x, int y, int locationX, int locationY)
+        public Pixel(int x, int y, int locationX, int locationY, int pixelSize)
         {
             PixelShape = new Rectangle();
-            PixelShape.Width = PixelWidth;
-            PixelShape.Height = PixelHeight;
+            PixelShape.Width = pixelSize;
+            PixelShape.Height = pixelSize;
             PixelNoX = x;
             PixelNoY = y;
             PixelLocationX = locationX;
             PixelLocationY = locationY;
+            PixelSize = pixelSize;
         }
 
         public void TurnOnPixel()
         {
-            PixelShape.Fill = new SolidColorBrush(Colors.Black);
+            PixelShape.Fill = new SolidColorBrush(onColor);
             IsPixelOn = true;
         }
 
         public void TurnOffPixel()
         {
-            PixelShape.Fill = new SolidColorBrush(SystemColors.ScrollBarColor);
+            PixelShape.Fill = new SolidColorBrush(offColor);
             IsPixelOn = false;
         }
 
@@ -47,19 +49,19 @@ namespace DigimonSimulator
         {
             if (IsPixelOn)
             {
-                PixelShape.Fill = new SolidColorBrush(SystemColors.ScrollBarColor);
+                PixelShape.Fill = new SolidColorBrush(offColor);
                 IsPixelOn = false;
             }
             else
             {
-                PixelShape.Fill = new SolidColorBrush(Colors.Black);
+                PixelShape.Fill = new SolidColorBrush(onColor);
                 IsPixelOn = true;
             }
         }
 
         public bool IsPixelClicked(int x, int y)
         {
-            if (x >= PixelLocationX && x <= PixelLocationX + PixelWidth && y >= PixelLocationY && y <= PixelLocationY + PixelHeight)
+            if (x >= PixelLocationX && x <= PixelLocationX + PixelSize && y >= PixelLocationY && y <= PixelLocationY + PixelSize)
             {
                 return true;
             }
@@ -77,11 +79,12 @@ namespace DigimonSimulator
         public int NumberOfYPixels;
         public int NumberOfXPixels;
         public int numberOfIcons = 6;
-        private int PixelSpacing = 11;
+        private int PixelSize = 4;
+        private double PixelSpacing = 0.5;
         private Pixel[,] ScreenPixels;
         private Rectangle[] MenuIcons;
-        private Color PixelColorOff = SystemColors.ScrollBarColor;
-        private Color PixelColorOn = Colors.Black;
+        private Color PixelColorOn = Color.FromRgb(19, 55, 43);
+        private Color PixelColorOff = Color.FromArgb(30, 1, 1, 1);
 
         public PixelScreen(Canvas canvasScreen, int x, int y, int noPixelsY, int noPixelsX)
         {
@@ -96,15 +99,19 @@ namespace DigimonSimulator
         {
             // Setup pixels
             ScreenPixels = new Pixel[NumberOfYPixels, NumberOfXPixels];
+            PixelSpacing += PixelSize;
+            double YPixelLocation = StartY;
+            double XPixelLocation;
 
-            for (int yPixel = 0, topPixelLocation = StartY; yPixel < NumberOfYPixels; yPixel++, topPixelLocation += PixelSpacing)
+            for (int yPixel = 0; yPixel < NumberOfYPixels; yPixel++, YPixelLocation += PixelSpacing)
             {
-                for (int xPixel = 0, leftPixelLocation = StartX; xPixel < NumberOfXPixels; xPixel++, leftPixelLocation += PixelSpacing)
+                XPixelLocation = StartX;
+                for (int xPixel = 0; xPixel < NumberOfXPixels; xPixel++, XPixelLocation += PixelSpacing)
                 {
-                    Pixel pixel = new Pixel(xPixel, yPixel, leftPixelLocation, topPixelLocation);
+                    Pixel pixel = new Pixel(xPixel, yPixel, (int)XPixelLocation, (int)YPixelLocation, PixelSize);
                     pixel.TurnOffPixel();
-                    Canvas.SetLeft(pixel.PixelShape, leftPixelLocation);
-                    Canvas.SetTop(pixel.PixelShape, topPixelLocation);
+                    Canvas.SetLeft(pixel.PixelShape, XPixelLocation);
+                    Canvas.SetTop(pixel.PixelShape, YPixelLocation);
                     CanvasScreen.Children.Add(pixel.PixelShape);
                     ScreenPixels[yPixel, xPixel] = pixel;
                 }
@@ -112,15 +119,16 @@ namespace DigimonSimulator
 
             // Setup menu icons
             MenuIcons = new Rectangle[numberOfIcons];
+            int menuYLocation = 15;
 
-            for (int i = 0, x = 20; i < numberOfIcons; i++, x += 40)
+            for (int i = 0, x = 5; i < numberOfIcons; i++, x += 20)
             {
                 Rectangle menu = new Rectangle();
-                menu.Width = 20;
-                menu.Height = 20;
+                menu.Width = 10;
+                menu.Height = 10;
                 menu.Fill = new SolidColorBrush(PixelColorOff);
                 Canvas.SetLeft(menu, x);
-                Canvas.SetTop(menu, 0);
+                Canvas.SetTop(menu, menuYLocation);
                 CanvasScreen.Children.Add(menu);
                 MenuIcons[i] = menu;
             }

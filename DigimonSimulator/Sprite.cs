@@ -46,8 +46,8 @@ namespace DigimonSimulator
         public int attackFrameWidth;
         public int angryFrameHeight;
         public int angryFrameWidth;
-        public int currentHunger = 1000;
-        public int currentStrength = 1000;
+        public int currentHunger = 700;
+        public int currentStrength = 300;
         public int maxHunger = 1000;
         public int maxStrength = 1000;
         public Sprite projectileSprite;

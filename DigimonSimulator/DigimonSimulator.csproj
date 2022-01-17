@@ -6,4 +6,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="digivice.gif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="digivice.gif" />
+  </ItemGroup>
+
 </Project>
