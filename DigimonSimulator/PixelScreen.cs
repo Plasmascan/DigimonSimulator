@@ -80,7 +80,7 @@ namespace DigimonSimulator
         public int NumberOfXPixels;
         public int numberOfIcons = 6;
         private int PixelSize = 4;
-        private double PixelSpacing = 0.5;
+        private double PixelSpacing = 0.4;
         private Pixel[,] ScreenPixels;
         private Rectangle[] MenuIcons;
         private Color PixelColorOn = Color.FromRgb(19, 55, 43);
@@ -119,9 +119,10 @@ namespace DigimonSimulator
 
             // Setup menu icons
             MenuIcons = new Rectangle[numberOfIcons];
-            int menuYLocation = 15;
+            int menuYLocation = 30;
+            int menuXLocation = 20;
 
-            for (int i = 0, x = 5; i < numberOfIcons; i++, x += 20)
+            for (int i = 0, x = menuXLocation; i < numberOfIcons; i++, x += 20)
             {
                 Rectangle menu = new Rectangle();
                 menu.Width = 10;

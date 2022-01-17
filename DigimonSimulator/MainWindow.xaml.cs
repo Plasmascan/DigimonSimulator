@@ -27,6 +27,9 @@ namespace DigimonSimulator
         {
             InitializeComponent();
             mainGame.InitializeGame(screenCanvas);
+            pressedAButtonImage.Opacity = 0;
+            pressedBButtonImage.Opacity = 0;
+            pressedCButtonImage.Opacity = 0;
         }
 
         private void mouseLeftButtonClick(object sender, MouseButtonEventArgs e)
@@ -34,6 +37,7 @@ namespace DigimonSimulator
             int x = (int)e.GetPosition(screenCanvas).X;
             int y = (int)e.GetPosition(screenCanvas).Y;
             mainGame.pixelScreen.PixelClick(x, y);
+            //Debug.Write("x: " + e.GetPosition(this).X + " y: " + (int)e.GetPosition(screenCanvas).Y);
         }
 
         private void aButton_Click(object sender, RoutedEventArgs e)
@@ -67,6 +71,54 @@ namespace DigimonSimulator
             {
                 mainGame._gameTimer.Start();
             }
+        }
+
+        private void pressedAButtonImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            mainGame.AButtonPress();
+            pressedAButtonImage.Opacity = 1;
+        }
+
+        private void pressedAButtonImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            pressedAButtonImage.Opacity = 0;
+        }
+
+        private void pressedAButtonImage_MouseLeave(object sender, MouseEventArgs e)
+        {
+            pressedAButtonImage.Opacity = 0;
+        }
+
+        private void pressedBButtonImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            mainGame.BButtonPress();
+            pressedBButtonImage.Opacity = 1;
+        }
+
+        private void pressedBButtonImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            pressedBButtonImage.Opacity = 0;
+        }
+
+        private void pressedBButtonImage_MouseLeave(object sender, MouseEventArgs e)
+        {
+            pressedBButtonImage.Opacity = 0;
+        }
+
+        private void pressedCButtonImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            mainGame.CButtonPress();
+            pressedCButtonImage.Opacity = 1;
+        }
+
+        private void pressedCButtonImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            pressedCButtonImage.Opacity = 0;
+        }
+
+        private void pressedCButtonImage_MouseLeave(object sender, MouseEventArgs e)
+        {
+            pressedCButtonImage.Opacity = 0;
         }
     }
 }

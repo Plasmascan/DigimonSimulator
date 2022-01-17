@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <None Remove="digivice.gif" />
+    <None Remove="pressedButton.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="digivice.gif" />
+    <Resource Include="pressedButton.jpg" />
   </ItemGroup>
 
 </Project>

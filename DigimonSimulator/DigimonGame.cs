@@ -23,9 +23,9 @@ namespace DigimonSimulator
 
         public void InitializeGame(Canvas screen)
         {
-            pixelScreen = new PixelScreen(screen, 0, 40, 16, 32);
+            pixelScreen = new PixelScreen(screen, 15, 50, 16, 32);
             pixelScreen.SetupScreen();
-            currentDigimon = SpriteImages.Betamon();
+            currentDigimon = SpriteImages.Greymon();
             animate = new Animations(this, currentDigimon);
             animate.StartStepAnimation();
             setTimer();
