@@ -37,11 +37,6 @@ namespace DigimonSimulator
         public readonly DispatcherTimer _animationTick = new DispatcherTimer(DispatcherPriority.Send);
         public readonly DispatcherTimer _stepTimer = new DispatcherTimer(DispatcherPriority.Normal);
         public AnimationNo animation = AnimationNo.noAnimation;
-        SoundPlayer attackSound = new SoundPlayer("../../../resources/se_attack.wav");
-        SoundPlayer stepSound = new SoundPlayer("../../../resources/se_step.wav");
-        SoundPlayer damageSound = new SoundPlayer("../../../resources/se_damage.wav");
-        SoundPlayer loseSound = new SoundPlayer("../../../resources/se_lose.wav");
-        SoundPlayer winSound = new SoundPlayer("../../../resources/se_win.wav");
 
         public Animations(DigimonGame pixelScreen, DigimonSprite digimon)
         {
@@ -141,7 +136,7 @@ namespace DigimonSimulator
                     case 0:
                         Game.pixelScreen.DrawSprite(ExplainationMark, 8, 0, false);
                         Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Attack, false, Digimon.SpriteX, 0);
-                        stepSound.Play();
+                        Sounds.PlaySound(Sound.Step);
                         break;
 
                     case 1:
@@ -188,7 +183,7 @@ namespace DigimonSimulator
                     // Start shooting the digimon's projectile
                     case 13:
                         Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Attack, false, Digimon.SpriteX - 1, 0);
-                        attackSound.Play();
+                        Sounds.PlaySound(Sound.Attack);
                         _animationTick.Interval = TimeSpan.FromMilliseconds(47);
                         break;
 
@@ -207,7 +202,7 @@ namespace DigimonSimulator
 
                     // Projectile hits wall
                     case 61:
-                        damageSound.Play();
+                        Sounds.PlaySound(Sound.Damage);
                         Game.pixelScreen.ClearSprite(BrickWall);
                         Game.pixelScreen.ClearSprite(Digimon.projectileSprite);
                         Explosion = SpriteImages.ExplosionBigSprite();
@@ -561,7 +556,7 @@ namespace DigimonSimulator
             Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, Digimon.SpriteX, 0);
             AngryMark = SpriteImages.AngryMarkSmallSprite();
             Game.pixelScreen.DrawSprite(AngryMark, Game.pixelScreen.NumberOfXPixels - 6, 5, false);
-            loseSound.Play();
+            Sounds.PlaySound(Sound.Lose);
             animation = AnimationNo.angry;
             _animationTick.Interval = TimeSpan.FromMilliseconds(GameTickSpeed);
             _animationTick.Start();
@@ -619,7 +614,7 @@ namespace DigimonSimulator
             resetAnimations();
             Digimon.SpriteX = Game.pixelScreen.NumberOfXPixels - (Digimon.frame1Width / 2) - 16;
             Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, Digimon.SpriteX, 0);
-            winSound.Play();
+            Sounds.PlaySound(Sound.Win);
             animation = AnimationNo.happy;
             _animationTick.Interval = TimeSpan.FromMilliseconds(GameTickSpeed);
             _animationTick.Start();
