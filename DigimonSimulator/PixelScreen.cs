@@ -261,27 +261,7 @@ namespace DigimonSimulator
             }
         }
 
-        // Draws a single image from a digimon
-        public void DrawSprite(DigimonSprite digimon, int x, int y)
-        {
-            digimon.SpriteX = x;
-            digimon.SpriteY = y;
-
-            for (int yPixels = y, digimonPixelY = 0; digimonPixelY < digimon.frame1Height; yPixels++, digimonPixelY++)
-            {
-                for (int xPixels = x, digimonPixelX = 0; digimonPixelX < digimon.frame1Width; xPixels++, digimonPixelX++)
-                {
-                    if (isPixelOnScreen(yPixels, xPixels))
-                    {
-                        
-                        if (digimon.frame1[digimonPixelY, digimonPixelX])
-                        {
-                            ScreenPixels[yPixels, xPixels].TurnOnPixel();
-                        }
-                    }
-                }
-            }
-        }
+        
 
         // Draws single sprite image to the screen
         public void DrawSprite(Sprite sprite, int x, int y, bool mirror)
@@ -297,10 +277,13 @@ namespace DigimonSimulator
                     {
                         if (isPixelOnScreen(yPixels, xPixels))
                         {
-
                             if (sprite.sprite[spritePixelY, spritePixelX])
                             {
                                 ScreenPixels[yPixels, xPixels].TurnOnPixel();
+                            }
+                            else
+                            {
+                                ScreenPixels[yPixels, xPixels].TurnOffPixel();
                             }
                         }
                     }
@@ -403,6 +386,10 @@ namespace DigimonSimulator
                             {
                                 ScreenPixels[yPixels, xPixels].TurnOnPixel();
                             }
+                            else
+                            {
+                                ScreenPixels[yPixels, xPixels].TurnOffPixel();
+                            }
                         }
                     }
                 }
@@ -420,6 +407,10 @@ namespace DigimonSimulator
                             if (frame[digimonPixelY, digimonPixelX])
                             {
                                 ScreenPixels[yPixels, xPixels].TurnOnPixel();
+                            }
+                            else
+                            {
+                                ScreenPixels[yPixels, xPixels].TurnOffPixel();
                             }
                         }
                     }

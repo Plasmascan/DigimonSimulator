@@ -50,7 +50,9 @@ namespace DigimonSimulator
         public int currentStrength = 300;
         public int maxHunger = 1000;
         public int maxStrength = 1000;
-        public int health = 1000;
+        public int currenthealth = 1000;
+        public int maxHealth = 1000;
+        public int hitDamage = 100;
         public Sprite projectileSprite;
         public bool[,] frame1;
         public bool[,] frame2;
@@ -1941,6 +1943,122 @@ namespace DigimonSimulator
             return whiteSkullSprite;
         }
 
+        public static Sprite HealthBarSprite()
+        {
+            Sprite healthBarSprite = new Sprite();
+            healthBarSprite.SpriteHeight = 4;
+            healthBarSprite.SpriteWidth = 32;
+            healthBarSprite.sprite = new bool[healthBarSprite.SpriteHeight, healthBarSprite.SpriteWidth];
+
+            #region healthBarSprite
+            healthBarSprite.sprite[0, 0] = true;
+            healthBarSprite.sprite[0, 1] = true;
+            healthBarSprite.sprite[0, 2] = true;
+            healthBarSprite.sprite[0, 3] = true;
+            healthBarSprite.sprite[0, 4] = true;
+            healthBarSprite.sprite[0, 5] = true;
+            healthBarSprite.sprite[0, 6] = true;
+            healthBarSprite.sprite[0, 7] = true;
+            healthBarSprite.sprite[0, 8] = true;
+            healthBarSprite.sprite[0, 9] = true;
+            healthBarSprite.sprite[0, 10] = true;
+            healthBarSprite.sprite[0, 11] = true;
+            healthBarSprite.sprite[0, 12] = true;
+            healthBarSprite.sprite[0, 13] = true;
+            healthBarSprite.sprite[0, 14] = true;
+            healthBarSprite.sprite[0, 15] = true;
+            healthBarSprite.sprite[0, 16] = true;
+            healthBarSprite.sprite[0, 17] = true;
+            healthBarSprite.sprite[0, 18] = true;
+            healthBarSprite.sprite[0, 19] = true;
+            healthBarSprite.sprite[0, 20] = true;
+            healthBarSprite.sprite[0, 21] = true;
+            healthBarSprite.sprite[0, 22] = true;
+            healthBarSprite.sprite[0, 23] = true;
+            healthBarSprite.sprite[0, 24] = true;
+            healthBarSprite.sprite[0, 25] = true;
+            healthBarSprite.sprite[0, 26] = true;
+            healthBarSprite.sprite[0, 27] = true;
+            healthBarSprite.sprite[0, 28] = true;
+            healthBarSprite.sprite[0, 29] = true;
+            healthBarSprite.sprite[0, 30] = true;
+            healthBarSprite.sprite[0, 31] = true;
+            healthBarSprite.sprite[1, 0] = true;
+            healthBarSprite.sprite[1, 3] = true;
+            healthBarSprite.sprite[1, 6] = true;
+            healthBarSprite.sprite[1, 9] = true;
+            healthBarSprite.sprite[1, 12] = true;
+            healthBarSprite.sprite[1, 15] = true;
+            healthBarSprite.sprite[1, 18] = true;
+            healthBarSprite.sprite[1, 21] = true;
+            healthBarSprite.sprite[1, 24] = true;
+            healthBarSprite.sprite[1, 27] = true;
+            healthBarSprite.sprite[1, 31] = true;
+            healthBarSprite.sprite[2, 0] = true;
+            healthBarSprite.sprite[2, 3] = true;
+            healthBarSprite.sprite[2, 6] = true;
+            healthBarSprite.sprite[2, 9] = true;
+            healthBarSprite.sprite[2, 12] = true;
+            healthBarSprite.sprite[2, 15] = true;
+            healthBarSprite.sprite[2, 18] = true;
+            healthBarSprite.sprite[2, 21] = true;
+            healthBarSprite.sprite[2, 24] = true;
+            healthBarSprite.sprite[2, 27] = true;
+            healthBarSprite.sprite[2, 31] = true;
+            healthBarSprite.sprite[3, 0] = true;
+            healthBarSprite.sprite[3, 1] = true;
+            healthBarSprite.sprite[3, 2] = true;
+            healthBarSprite.sprite[3, 3] = true;
+            healthBarSprite.sprite[3, 4] = true;
+            healthBarSprite.sprite[3, 5] = true;
+            healthBarSprite.sprite[3, 6] = true;
+            healthBarSprite.sprite[3, 7] = true;
+            healthBarSprite.sprite[3, 8] = true;
+            healthBarSprite.sprite[3, 9] = true;
+            healthBarSprite.sprite[3, 10] = true;
+            healthBarSprite.sprite[3, 11] = true;
+            healthBarSprite.sprite[3, 12] = true;
+            healthBarSprite.sprite[3, 13] = true;
+            healthBarSprite.sprite[3, 14] = true;
+            healthBarSprite.sprite[3, 15] = true;
+            healthBarSprite.sprite[3, 16] = true;
+            healthBarSprite.sprite[3, 17] = true;
+            healthBarSprite.sprite[3, 18] = true;
+            healthBarSprite.sprite[3, 19] = true;
+            healthBarSprite.sprite[3, 20] = true;
+            healthBarSprite.sprite[3, 21] = true;
+            healthBarSprite.sprite[3, 22] = true;
+            healthBarSprite.sprite[3, 23] = true;
+            healthBarSprite.sprite[3, 24] = true;
+            healthBarSprite.sprite[3, 25] = true;
+            healthBarSprite.sprite[3, 26] = true;
+            healthBarSprite.sprite[3, 27] = true;
+            healthBarSprite.sprite[3, 28] = true;
+            healthBarSprite.sprite[3, 29] = true;
+            healthBarSprite.sprite[3, 30] = true;
+            healthBarSprite.sprite[3, 31] = true;
+            #endregion
+
+            return healthBarSprite;
+        }
+
+        public static Sprite BarSprite()
+        {
+            Sprite barSprite = new Sprite();
+            barSprite.SpriteHeight = 2;
+            barSprite.SpriteWidth = 2;
+            barSprite.sprite = new bool[barSprite.SpriteHeight, barSprite.SpriteWidth];
+
+            #region barSprite
+            barSprite.sprite[0, 0] = true;
+            barSprite.sprite[0, 1] = true;
+            barSprite.sprite[1, 0] = true;
+            barSprite.sprite[1, 1] = true;
+            #endregion
+
+            return barSprite;
+        }
+
         public static Sprite ThunderProjectileSprite()
         {
             Sprite thunderProjectileSprite = new Sprite();
@@ -2344,6 +2462,7 @@ namespace DigimonSimulator
             betamon.attackFrameWidth = 16;
             betamon.angryFrameHeight = 15;
             betamon.angryFrameWidth = 16;
+            betamon.hitDamage = 200;
 
             betamon.frame1 = new bool[betamon.frame1Height, betamon.frame1Width];
             betamon.frame2 = new bool[betamon.frame2Height, betamon.frame2Width];
@@ -2860,6 +2979,7 @@ namespace DigimonSimulator
             greymon.attackFrameWidth = 16;
             greymon.angryFrameHeight = 16;
             greymon.angryFrameWidth = 16;
+            greymon.hitDamage = 300;
 
             greymon.frame1 = new bool[greymon.frame1Height, greymon.frame1Width];
             greymon.frame2 = new bool[greymon.frame2Height, greymon.frame2Width];

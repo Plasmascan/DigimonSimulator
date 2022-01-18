@@ -50,13 +50,13 @@ namespace DigimonSimulator
         private void bButton_Click(object sender, RoutedEventArgs e)
         {
             //mainGame.BButtonPress();
-            mainGame.animate.Opponent.health = -1;
+            //mainGame.animate.Opponent.health = -1;
         }
 
         private void cButton_Click(object sender, RoutedEventArgs e)
         {
             //mainGame.CButtonPress();
-            mainGame.currentDigimon.health = -1;
+            //mainGame.currentDigimon.health = -1;
         }
 
         private void printButton_Click(object sender, RoutedEventArgs e)
