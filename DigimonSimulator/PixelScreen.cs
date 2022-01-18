@@ -80,7 +80,7 @@ namespace DigimonSimulator
         public int NumberOfXPixels;
         public int numberOfIcons = 6;
         private int PixelSize;
-        private double PixelSpacing = 0.4;
+        private double PixelSpacing = 0.5;
         private Pixel[,] ScreenPixels;
         private Rectangle[] MenuIcons;
         private Color PixelColorOn = Color.FromRgb(19, 55, 43);

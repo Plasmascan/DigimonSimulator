@@ -67,13 +67,13 @@ namespace DigimonSimulator
 
         private void pauseButton_Click(object sender, RoutedEventArgs e)
         {
-            if (mainGame._gameTimer.IsEnabled)
+            if (mainGame.animate._animationTick.IsEnabled)
             {
-                mainGame._gameTimer.Stop();
+                mainGame.animate._animationTick.Stop();
             }
             else
             {
-                mainGame._gameTimer.Start();
+                mainGame.animate._animationTick.Start();
             }
         }
 
