@@ -717,9 +717,9 @@ namespace DigimonSimulator
         {
             Game.pixelScreen.ClearScreen();
             ResetAnimations();
-            int startX = Game.pixelScreen.NumberOfXPixels - (Game.currentDigimon.frame1Width / 2) - 8;
+            int startX = Game.pixelScreen.NumberOfXPixels - (Digimon.frame1Width / 2) - 8;
             IsinAnimation = true;
-            Oponent.SpriteX = 0;
+            Oponent.SpriteX = 8 - (Oponent.frame1Width / 2);
             Oponent.health = 1000;
             Digimon.SpriteX = startX;
             Game.pixelScreen.DrawDigimonFrame(Oponent, SpriteFrame.Walk2, true, Oponent.SpriteX, 0);
@@ -812,30 +812,125 @@ namespace DigimonSimulator
                     hitPower = rnd.Next(1, 100);
                     // ROLL
                     break;
-
+                
+                // oponent screen start
                 case 40:
+                    Digimon.SpriteX = Game.pixelScreen.NumberOfXPixels - (Digimon.frame1Width / 2) - 8; // reset owned digimon's X coordinant
                     Game.pixelScreen.ClearScreen();
                     Game.pixelScreen.DrawDigimonFrame(Oponent, SpriteFrame.Walk2, true, 0, 0);
                     Digimon.projectileSprite.SpriteX = Game.pixelScreen.NumberOfXPixels + Digimon.projectileSprite.SpriteWidth;
                     break;
 
+                // start oponent Hit or Defend. TODO: use digimon's hurt sprite
                 case 63:
-                    //Game.pixelScreen.ClearScreen();
-                    //animationCounter = 21;
-                    _animationTick.Stop();
+                    // if hit
+                    Game.pixelScreen.ClearScreen();
+                    Game.pixelScreen.DrawSprite(SpriteImages.BlackSkullSprite(), 0, 0, false);
+                    Sounds.PlaySound(Sound.Damage);
+                    //
                     break;
 
-                case 70:
+                case 68:
+                    // if hit
+                    Game.pixelScreen.ClearScreen();
+                    Game.pixelScreen.DrawSprite(SpriteImages.WhiteSkullSprite(), 0, 0, false);
+                    //
+                    break;
+
+                case 73:
+                    // if hit
+                    Game.pixelScreen.ClearScreen();
+                    Game.pixelScreen.DrawDigimonFrame(Oponent, SpriteFrame.Angry, true, Oponent.SpriteX, 0);
+                    //
+                    break;
+
+                case 90:
+                    _animationTick.Interval = TimeSpan.FromMilliseconds(65);
+                    Game.pixelScreen.ClearScreen();
+
+                    Game.pixelScreen.DrawDigimonFrame(Oponent, SpriteFrame.Walk2, true, Oponent.SpriteX - 1, -1);
+                    break;
+
+                case 91:
+                    Game.pixelScreen.DrawDigimonFrame(Oponent, SpriteFrame.Walk2, true, Oponent.SpriteX - 1, -2);
+                    break;
+
+                case 93:
+                    Game.pixelScreen.DrawDigimonFrame(Oponent, SpriteFrame.Walk2, true, Oponent.SpriteX - 1, -1);
+                    break;
+
+                case 94:
+                    Game.pixelScreen.DrawDigimonFrame(Oponent, SpriteFrame.Walk2, true, Oponent.SpriteX - 1, 0);
+                    break;
+
+                case 96:
+                    Game.pixelScreen.DrawDigimonFrame(Oponent, SpriteFrame.Walk2, true, Oponent.SpriteX + 1, 0);
+                    break;
+
+                // Start attacking
+                case 97:
+                    Game.pixelScreen.DrawDigimonFrame(Oponent, SpriteFrame.Attack, true, Oponent.SpriteX + 1, 0);
+                    Oponent.projectileSprite.SpriteX = 16;
+                    Oponent.projectileSprite.SpriteY = 0;
+                    _animationTick.Interval = TimeSpan.FromMilliseconds(47);
+                    Sounds.PlaySound(Sound.Attack);
+                    hitPower = rnd.Next(1, 100);
+                    // ROLL
+                    break;
+
+                // own digimon screen start
+                case 116:
+                    Oponent.SpriteX = 8 - (Oponent.frame1Width / 2); // reset oponents digimon X Coordanints
+                    Game.pixelScreen.ClearScreen();
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, Digimon.SpriteX, 0);
+                    Oponent.projectileSprite.SpriteX = -Oponent.projectileSprite.SpriteWidth - 8;
+                    break;
+
+                // hit or defend start
+                case 139:
+                    // if hit
+                    Game.pixelScreen.ClearScreen();
+                    Game.pixelScreen.DrawSprite(SpriteImages.BlackSkullSprite(), 0, 0, false);
+                    Sounds.PlaySound(Sound.Damage);
+                    //
+                    break;
+
+                case 144:
+                    // if hit
+                    Game.pixelScreen.ClearScreen();
+                    Game.pixelScreen.DrawSprite(SpriteImages.WhiteSkullSprite(), 0, 0, false);
+                    //
+                    break;
+
+                case 149:
+                    // if hit
+                    Game.pixelScreen.ClearScreen();
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Angry, false, Digimon.SpriteX, 0);
+                    //
+                    break;
+
+                case 166:
+                    animationCounter = 13;
+                    break;
+
+                case 200:
                     ResetAnimations();
                     Game.resetMainScreen();
                     break;
             }
 
-            if (animationCounter > 21 && animationCounter < 70)
+            if (animationCounter > 21 && animationCounter < 63)
             {
                 Game.pixelScreen.ClearSprite(Digimon.projectileSprite);
                 Digimon.projectileSprite.SpriteX--;
                 Game.pixelScreen.DrawSprite(Digimon.projectileSprite, Digimon.projectileSprite.SpriteX, 8 - Digimon.projectileSprite.SpriteHeight, false);
+            }
+
+            else if (animationCounter > 97 && animationCounter < 139)
+            {
+                Game.pixelScreen.ClearSprite(Oponent.projectileSprite);
+                Oponent.projectileSprite.SpriteX++;
+                Game.pixelScreen.DrawSprite(Oponent.projectileSprite, Oponent.projectileSprite.SpriteX, 8 - Oponent.projectileSprite.SpriteHeight, true);
             }
         }
 
