@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace DigimonSimulator
@@ -82,9 +83,9 @@ namespace DigimonSimulator
         private int PixelSize;
         private double PixelSpacing = 0.5;
         private Pixel[,] ScreenPixels;
-        private Rectangle[] MenuIcons;
-        private Color PixelColorOn = Color.FromRgb(19, 55, 43);
-        private Color PixelColorOff = Color.FromArgb(30, 1, 1, 1);
+        private Image[] MenuIcons;
+        private double MenuIconOn = 1.0;
+        private double MenuIconOff = 0.3;
 
         public PixelScreen(Canvas canvasScreen, int x, int y, int noPixelsY, int noPixelsX, int pixelSize)
         {
@@ -118,21 +119,109 @@ namespace DigimonSimulator
                 }
             }
 
+            SetupMenuIcons();
+        }
+
+        private void SetupMenuIcons()
+        {
             // Setup menu icons
-            MenuIcons = new Rectangle[numberOfIcons];
+            MenuIcons = new Image[numberOfIcons];
             int menuYLocation = 30;
             int menuXLocation = 20;
+            int spacing = 25;
+            int iconWidth = 34;
+            int iconHeight = 17;
 
-            for (int i = 0, x = menuXLocation; i < numberOfIcons; i++, x += 20)
+
+            for (int i = 0, x = menuXLocation; i < numberOfIcons; i++, x += spacing)
             {
-                Rectangle menu = new Rectangle();
-                menu.Width = 10;
-                menu.Height = 10;
-                menu.Fill = new SolidColorBrush(PixelColorOff);
-                Canvas.SetLeft(menu, x);
-                Canvas.SetTop(menu, menuYLocation);
-                CanvasScreen.Children.Add(menu);
-                MenuIcons[i] = menu;
+                Image menuIcon = new Image();
+
+                // Move to bottom of the screen and reset X coordinant
+                if (i == 5)
+                {
+                    x = menuXLocation;
+                    menuYLocation = 125;
+                }
+
+                if (i == 0)
+                {
+                    menuIcon.Source = new BitmapImage(new Uri("scales.png", UriKind.Relative));
+                    menuIcon.Width = iconWidth;
+                    menuIcon.Height = iconHeight;
+                    menuIcon.Opacity = MenuIconOff;
+                    Canvas.SetLeft(menuIcon, x);
+                    Canvas.SetTop(menuIcon, menuYLocation);
+                    CanvasScreen.Children.Add(menuIcon);
+                    MenuIcons[i] = menuIcon;
+                }
+
+                else if (i == 1)
+                {
+                    menuIcon.Source = new BitmapImage(new Uri("food.png", UriKind.Relative));
+                    menuIcon.Width = iconWidth;
+                    menuIcon.Height = iconHeight;
+                    menuIcon.Opacity = MenuIconOff;
+                    Canvas.SetLeft(menuIcon, x);
+                    Canvas.SetTop(menuIcon, menuYLocation);
+                    CanvasScreen.Children.Add(menuIcon);
+                    MenuIcons[i] = menuIcon;
+                }
+                else if (i == 2) {
+                    menuIcon.Source = new BitmapImage(new Uri("trainingBag.png", UriKind.Relative));
+                    menuIcon.Width = iconWidth;
+                    menuIcon.Height = iconHeight;
+                    menuIcon.Opacity = MenuIconOff;
+                    Canvas.SetLeft(menuIcon, x);
+                    Canvas.SetTop(menuIcon, menuYLocation);
+                    CanvasScreen.Children.Add(menuIcon);
+                    MenuIcons[i] = menuIcon;
+                }
+                else if (i == 3)
+                {
+                    menuIcon.Source = new BitmapImage(new Uri("battleCup.png", UriKind.Relative));
+                    menuIcon.Width = iconWidth;
+                    menuIcon.Height = iconHeight;
+                    menuIcon.Opacity = MenuIconOff;
+                    Canvas.SetLeft(menuIcon, x);
+                    Canvas.SetTop(menuIcon, menuYLocation);
+                    CanvasScreen.Children.Add(menuIcon);
+                    MenuIcons[i] = menuIcon;
+                }
+                else if (i == 4)
+                {
+                    menuIcon.Source = new BitmapImage(new Uri("dung.png", UriKind.Relative));
+                    menuIcon.Width = iconWidth;
+                    menuIcon.Height = iconHeight;
+                    menuIcon.Opacity = MenuIconOff;
+                    Canvas.SetLeft(menuIcon, x);
+                    Canvas.SetTop(menuIcon, menuYLocation);
+                    CanvasScreen.Children.Add(menuIcon);
+                    MenuIcons[i] = menuIcon;
+                }
+                else if (i == 5)
+                {
+                    menuIcon.Source = new BitmapImage(new Uri("lightbulb.png", UriKind.Relative));
+                    menuIcon.Width = iconWidth;
+                    menuIcon.Height = iconHeight;
+                    menuIcon.Opacity = MenuIconOff;
+                    Canvas.SetLeft(menuIcon, x);
+                    Canvas.SetTop(menuIcon, menuYLocation);
+                    CanvasScreen.Children.Add(menuIcon);
+                    MenuIcons[i] = menuIcon;
+                }
+                else
+                {
+                    menuIcon.Source = new BitmapImage(new Uri("scales.png", UriKind.Relative));
+                    menuIcon.Width = iconWidth;
+                    menuIcon.Height = iconHeight;
+                    menuIcon.Opacity = MenuIconOff;
+                    Canvas.SetLeft(menuIcon, x);
+                    Canvas.SetTop(menuIcon, menuYLocation);
+                    CanvasScreen.Children.Add(menuIcon);
+                    MenuIcons[i] = menuIcon;
+                }
+               
             }
         }
 
@@ -142,7 +231,7 @@ namespace DigimonSimulator
 
             if ((int)screen > -1 && (int)screen < numberOfIcons)
             {
-                MenuIcons[(int)screen].Fill = new SolidColorBrush(PixelColorOn);
+                MenuIcons[(int)screen].Opacity = MenuIconOn;
             }
         }
 
@@ -150,7 +239,7 @@ namespace DigimonSimulator
         {
             for (int i = 0; i < numberOfIcons; i++)
             {
-                MenuIcons[i].Fill = new SolidColorBrush(PixelColorOff);
+                MenuIcons[i].Opacity = MenuIconOff;
             }
         }
 

@@ -7,13 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="battleCup.png" />
     <None Remove="digivice.gif" />
+    <None Remove="dung.png" />
+    <None Remove="food.png" />
+    <None Remove="lightbulb.png" />
     <None Remove="pressedButton.jpg" />
+    <None Remove="scales.png" />
+    <None Remove="trainingBag.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="battleCup.png" />
     <Resource Include="digivice.gif" />
+    <Resource Include="dung.png" />
+    <Resource Include="food.png" />
+    <Resource Include="lightbulb.png" />
     <Resource Include="pressedButton.jpg" />
+    <Resource Include="scales.png" />
+    <Resource Include="trainingBag.png" />
   </ItemGroup>
 
   <ItemGroup>
