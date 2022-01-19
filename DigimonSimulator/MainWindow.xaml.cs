@@ -25,6 +25,7 @@ namespace DigimonSimulator
 
         public MainWindow()
         {
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             mainGame.InitializeGame(screenCanvas);
             pressedAButtonImage.Opacity = 0;
@@ -124,6 +125,24 @@ namespace DigimonSimulator
         private void pressedCButtonImage_MouseLeave(object sender, MouseEventArgs e)
         {
             pressedCButtonImage.Opacity = 0;
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            aButton.Visibility = Visibility.Visible;
+            bButton.Visibility = Visibility.Visible;
+            cButton.Visibility = Visibility.Visible;
+            pauseButton.Visibility = Visibility.Visible;
+            printButton.Visibility = Visibility.Visible;
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            aButton.Visibility = Visibility.Hidden;
+            bButton.Visibility = Visibility.Hidden;
+            cButton.Visibility = Visibility.Hidden;
+            pauseButton.Visibility = Visibility.Hidden;
+            printButton.Visibility = Visibility.Hidden;
         }
     }
 }

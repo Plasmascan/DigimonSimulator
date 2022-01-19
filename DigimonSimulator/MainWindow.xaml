@@ -5,19 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DigimonSimulator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Digimon Simulator" Height="360" Width="550"
+        >
     <Grid>
-        <Image x:Name="backgroundImage" HorizontalAlignment="Left" Height="277" Margin="113,23,0,0" VerticalAlignment="Top" Width="434" Source="/digivice.gif" Stretch="Fill"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="72*"/>
+            <ColumnDefinition Width="203*"/>
+        </Grid.ColumnDefinitions>
+        <Image x:Name="backgroundImage" HorizontalAlignment="Left" Height="280" Margin="12,8,0,0" VerticalAlignment="Top" Width="445" Source="/digivice.gif" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.051"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
 
-        <Canvas x:Name="screenCanvas" Margin="146,79,420,170" MouseLeftButtonDown="mouseLeftButtonClick"/>
-        <Button x:Name="aButton" Content="A" HorizontalAlignment="Left" Margin="116,362,0,0" VerticalAlignment="Top" Click="aButton_Click" Width="32"/>
-        <Button x:Name="bButton" Content="B" HorizontalAlignment="Left" Margin="166,362,0,0" VerticalAlignment="Top" Click="bButton_Click" Width="30"/>
-        <Button x:Name="cButton" Content="C" HorizontalAlignment="Left" Margin="216,362,0,0" VerticalAlignment="Top" Width="31" Click="cButton_Click"/>
-        <Button x:Name="printButton" Content="Print" HorizontalAlignment="Left" Margin="664,149,0,0" VerticalAlignment="Top" Click="printButton_Click" Width="58"/>
-        <Button x:Name="pauseButton" Content="Pause&#xA;" HorizontalAlignment="Left" Margin="664,198,0,0" VerticalAlignment="Top" Height="19" Width="58" Click="pauseButton_Click"/>
-        <Image x:Name="pressedAButtonImage" HorizontalAlignment="Left" Height="34" Margin="444,85,0,0" VerticalAlignment="Top" Width="37" Source="/pressedButton.jpg" MouseLeftButtonDown="pressedAButtonImage_MouseLeftButtonDown" MouseLeftButtonUp="pressedAButtonImage_MouseLeftButtonUp" MouseLeave="pressedAButtonImage_MouseLeave"/>
-        <Image x:Name="pressedBButtonImage" HorizontalAlignment="Left" Height="34" Margin="443,145,0,0" VerticalAlignment="Top" Width="37" Source="/pressedButton.jpg" MouseLeftButtonDown="pressedBButtonImage_MouseLeftButtonDown" MouseLeftButtonUp="pressedBButtonImage_MouseLeftButtonUp" MouseLeave="pressedBButtonImage_MouseLeave"/>
-        <Image x:Name="pressedCButtonImage" HorizontalAlignment="Left" Height="34" Margin="442,206,0,0" VerticalAlignment="Top" Width="37" Source="/pressedButton.jpg" MouseLeftButtonDown="pressedCButtonImage_MouseLeftButtonDown" MouseLeftButtonUp="pressedCButtonImage_MouseLeftButtonUp" MouseLeave="pressedCButtonImage_MouseLeave"/>
+        <Canvas x:Name="screenCanvas" Margin="63,93,309,231" MouseLeftButtonDown="mouseLeftButtonClick" Grid.ColumnSpan="2"/>
+        <Button x:Name="aButton" Content="A" HorizontalAlignment="Left" Margin="29,287,0,0" VerticalAlignment="Top" Click="aButton_Click" Width="32"/>
+        <Button x:Name="bButton" Content="B" HorizontalAlignment="Left" Margin="79,287,0,0" VerticalAlignment="Top" Click="bButton_Click" Width="30"/>
+        <Button x:Name="cButton" Content="C" HorizontalAlignment="Left" Margin="129,287,0,0" VerticalAlignment="Top" Width="31" Click="cButton_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="printButton" Content="Print" HorizontalAlignment="Left" Margin="286,73,0,0" VerticalAlignment="Top" Click="printButton_Click" Width="58" Grid.Column="1"/>
+        <Button x:Name="pauseButton" Content="Pause" HorizontalAlignment="Left" Margin="286,103,0,0" VerticalAlignment="Top" Height="19" Width="58" Click="pauseButton_Click" Grid.Column="1"/>
+        <Image x:Name="pressedAButtonImage" HorizontalAlignment="Left" Height="33" Margin="208,71,0,0" VerticalAlignment="Top" Width="36" Source="/pressedButton.jpg" MouseLeftButtonDown="pressedAButtonImage_MouseLeftButtonDown" MouseLeftButtonUp="pressedAButtonImage_MouseLeftButtonUp" MouseLeave="pressedAButtonImage_MouseLeave" Grid.Column="1"/>
+        <Image x:Name="pressedBButtonImage" HorizontalAlignment="Left" Height="33" Margin="207,133,0,0" VerticalAlignment="Top" Width="36" Source="/pressedButton.jpg" MouseLeftButtonDown="pressedBButtonImage_MouseLeftButtonDown" MouseLeftButtonUp="pressedBButtonImage_MouseLeftButtonUp" MouseLeave="pressedBButtonImage_MouseLeave" Grid.Column="1"/>
+        <Image x:Name="pressedCButtonImage" HorizontalAlignment="Left" Height="33" VerticalAlignment="Top" Width="36" Source="/pressedButton.jpg" MouseLeftButtonDown="pressedCButtonImage_MouseLeftButtonDown" MouseLeftButtonUp="pressedCButtonImage_MouseLeftButtonUp" MouseLeave="pressedCButtonImage_MouseLeave" Margin="208,195,0,0" Grid.Column="1"/>
+        <CheckBox Content="Show Buttons" HorizontalAlignment="Left" Margin="286,35,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" IsChecked="True" Grid.Column="1"/>
 
     </Grid>
 </Window>

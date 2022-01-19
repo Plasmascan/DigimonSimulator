@@ -126,8 +126,8 @@ namespace DigimonSimulator
         {
             // Setup menu icons
             MenuIcons = new Image[numberOfIcons];
-            int menuYLocation = 30;
-            int menuXLocation = 20;
+            int menuYLocation = 1;
+            int menuXLocation = 5;
             int spacing = 25;
             int iconWidth = 34;
             int iconHeight = 17;
@@ -141,7 +141,7 @@ namespace DigimonSimulator
                 if (i == 5)
                 {
                     x = menuXLocation;
-                    menuYLocation = 125;
+                    menuYLocation = 95;
                 }
 
                 if (i == 0)
