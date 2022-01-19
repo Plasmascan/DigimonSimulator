@@ -491,7 +491,7 @@ namespace DigimonSimulator
             textBox.Text = code;
         }
 
-        public void PanScreen(int moveX, int moveY)
+        public void PanScreen(int moveX, int moveY, bool moveOffScreen)
         {
             Sprite screenCopy = new Sprite();
             screenCopy.SpriteHeight = NumberOfYPixels;
@@ -505,10 +505,13 @@ namespace DigimonSimulator
                     {
                         screenSprite[y, x] = true;
 
-                        // Ensure pixels are not moving off the pixelscreen
-                        if (y == 0 && moveY < 0 || y == NumberOfYPixels - 1 && moveY > 0 || x == 0 && moveX < 0 || x == NumberOfXPixels - 1 && moveX > 0)
+                        if (!moveOffScreen)
                         {
-                            return;
+                            // Ensure pixels are not moving off the pixelscreen
+                            if (y == 0 && moveY < 0 || y == NumberOfYPixels - 1 && moveY > 0 || x == 0 && moveX < 0 || x == NumberOfXPixels - 1 && moveX > 0)
+                            {
+                                return;
+                            }
                         }
                     }
                 }

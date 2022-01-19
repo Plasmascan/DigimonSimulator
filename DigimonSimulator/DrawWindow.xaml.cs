@@ -39,22 +39,22 @@ namespace DigimonSimulator
 
         private void panUpButton_Click(object sender, RoutedEventArgs e)
         {
-            drawScreen.PanScreen(0, -1);
+            drawScreen.PanScreen(0, -1, false);
         }
 
         private void panDownButton_Click(object sender, RoutedEventArgs e)
         {
-            drawScreen.PanScreen(0, 1);
+            drawScreen.PanScreen(0, 1, false);
         }
 
         private void panLeftButton_Click(object sender, RoutedEventArgs e)
         {
-            drawScreen.PanScreen(-1, 0);
+            drawScreen.PanScreen(-1, 0, false);
         }
 
         private void panRightButton_Click(object sender, RoutedEventArgs e)
         {
-            drawScreen.PanScreen(1, 0);
+            drawScreen.PanScreen(1, 0, false);
         }
 
         private void mirrorScreenButton_Click(object sender, RoutedEventArgs e)

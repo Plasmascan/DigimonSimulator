@@ -110,6 +110,15 @@ namespace DigimonSimulator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
+        internal static System.IO.UnmanagedMemoryStream se_defeat {
+            get {
+                return ResourceManager.GetStream("se_defeat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
         internal static System.IO.UnmanagedMemoryStream se_lose {
             get {
                 return ResourceManager.GetStream("se_lose", resourceCulture);

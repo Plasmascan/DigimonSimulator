@@ -24,7 +24,7 @@ namespace DigimonSimulator
         {
             pixelScreen = new PixelScreen(screen, 15, 50, 16, 32, 4);
             pixelScreen.SetupScreen();
-            currentDigimon = SpriteImages.Betamon();
+            currentDigimon = SpriteImages.Greymon();
             animate = new Animations(this);
             animate.StartStepAnimation();
             setTimer();
@@ -180,7 +180,7 @@ namespace DigimonSimulator
             {
                 if (CurrentSubMenu == 1)
                 {
-                    if (animate.animation == AnimationNo.eat)
+                    if (animate.animation == AnimationNo.Eat)
                     {
                         Sounds.PlaySound(Sound.Beep);
                         MenuScreens.drawFeedScreen(this, SelectedSubMenuNo);

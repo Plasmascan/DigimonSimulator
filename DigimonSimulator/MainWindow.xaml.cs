@@ -44,19 +44,20 @@ namespace DigimonSimulator
         {
             //mainGame.AButtonPress();
             mainGame.animate.StopStepAnimation();
-            mainGame.animate.SetupBattleCup();
+            mainGame.animate._animationTick.Start();
+            mainGame.animate.animation = AnimationNo.Defeat;
         }
 
         private void bButton_Click(object sender, RoutedEventArgs e)
         {
             //mainGame.BButtonPress();
-            //mainGame.animate.Opponent.health = -1;
+            mainGame.animate.Opponent.currenthealth = -1;
         }
 
         private void cButton_Click(object sender, RoutedEventArgs e)
         {
             //mainGame.CButtonPress();
-            //mainGame.currentDigimon.health = -1;
+            mainGame.currentDigimon.currenthealth = -1;
         }
 
         private void printButton_Click(object sender, RoutedEventArgs e)

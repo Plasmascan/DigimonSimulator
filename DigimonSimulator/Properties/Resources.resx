@@ -133,6 +133,9 @@
   <data name="se_damage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\se_damage.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="se_defeat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\se_defeat.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="se_lose" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\se_lose.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

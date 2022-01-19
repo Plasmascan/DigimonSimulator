@@ -1943,6 +1943,55 @@ namespace DigimonSimulator
             return whiteSkullSprite;
         }
 
+        public static Sprite BlackSkullMarkSprite()
+        {
+            Sprite blackSkullMarkSprite = new Sprite();
+            blackSkullMarkSprite.SpriteHeight = 7;
+            blackSkullMarkSprite.SpriteWidth = 7;
+            blackSkullMarkSprite.sprite = new bool[blackSkullMarkSprite.SpriteHeight, blackSkullMarkSprite.SpriteWidth];
+
+            #region skullMarkSprite
+            blackSkullMarkSprite.sprite[0, 0] = true;
+            blackSkullMarkSprite.sprite[0, 2] = true;
+            blackSkullMarkSprite.sprite[0, 3] = true;
+            blackSkullMarkSprite.sprite[0, 4] = true;
+            blackSkullMarkSprite.sprite[0, 6] = true;
+            blackSkullMarkSprite.sprite[1, 0] = true;
+            blackSkullMarkSprite.sprite[1, 1] = true;
+            blackSkullMarkSprite.sprite[1, 2] = true;
+            blackSkullMarkSprite.sprite[1, 3] = true;
+            blackSkullMarkSprite.sprite[1, 4] = true;
+            blackSkullMarkSprite.sprite[1, 5] = true;
+            blackSkullMarkSprite.sprite[1, 6] = true;
+            blackSkullMarkSprite.sprite[2, 0] = true;
+            blackSkullMarkSprite.sprite[2, 1] = true;
+            blackSkullMarkSprite.sprite[2, 2] = true;
+            blackSkullMarkSprite.sprite[2, 3] = true;
+            blackSkullMarkSprite.sprite[2, 4] = true;
+            blackSkullMarkSprite.sprite[2, 5] = true;
+            blackSkullMarkSprite.sprite[2, 6] = true;
+            blackSkullMarkSprite.sprite[3, 0] = true;
+            blackSkullMarkSprite.sprite[3, 3] = true;
+            blackSkullMarkSprite.sprite[3, 6] = true;
+            blackSkullMarkSprite.sprite[4, 0] = true;
+            blackSkullMarkSprite.sprite[4, 1] = true;
+            blackSkullMarkSprite.sprite[4, 2] = true;
+            blackSkullMarkSprite.sprite[4, 3] = true;
+            blackSkullMarkSprite.sprite[4, 4] = true;
+            blackSkullMarkSprite.sprite[4, 5] = true;
+            blackSkullMarkSprite.sprite[4, 6] = true;
+            blackSkullMarkSprite.sprite[5, 1] = true;
+            blackSkullMarkSprite.sprite[5, 2] = true;
+            blackSkullMarkSprite.sprite[5, 3] = true;
+            blackSkullMarkSprite.sprite[5, 4] = true;
+            blackSkullMarkSprite.sprite[5, 5] = true;
+            blackSkullMarkSprite.sprite[6, 1] = true;
+            blackSkullMarkSprite.sprite[6, 5] = true;
+            #endregion
+
+            return blackSkullMarkSprite;
+        }
+
         public static Sprite HealthBarSprite()
         {
             Sprite healthBarSprite = new Sprite();
@@ -2150,6 +2199,44 @@ namespace DigimonSimulator
             #endregion
 
             return fireBallProjectileSprite;
+        }
+
+        public static Sprite WaveProjectileSprite()
+        {
+            Sprite waveProjectileSprite = new Sprite();
+            waveProjectileSprite.SpriteHeight = 8;
+            waveProjectileSprite.SpriteWidth = 7;
+            waveProjectileSprite.sprite = new bool[waveProjectileSprite.SpriteHeight, waveProjectileSprite.SpriteWidth];
+
+            #region waveProjectileSprite
+            waveProjectileSprite.sprite[0, 2] = true;
+            waveProjectileSprite.sprite[0, 3] = true;
+            waveProjectileSprite.sprite[0, 4] = true;
+            waveProjectileSprite.sprite[0, 6] = true;
+            waveProjectileSprite.sprite[1, 1] = true;
+            waveProjectileSprite.sprite[1, 2] = true;
+            waveProjectileSprite.sprite[1, 5] = true;
+            waveProjectileSprite.sprite[2, 0] = true;
+            waveProjectileSprite.sprite[2, 1] = true;
+            waveProjectileSprite.sprite[2, 4] = true;
+            waveProjectileSprite.sprite[3, 1] = true;
+            waveProjectileSprite.sprite[3, 2] = true;
+            waveProjectileSprite.sprite[3, 5] = true;
+            waveProjectileSprite.sprite[4, 2] = true;
+            waveProjectileSprite.sprite[4, 3] = true;
+            waveProjectileSprite.sprite[4, 6] = true;
+            waveProjectileSprite.sprite[5, 1] = true;
+            waveProjectileSprite.sprite[5, 2] = true;
+            waveProjectileSprite.sprite[5, 5] = true;
+            waveProjectileSprite.sprite[6, 0] = true;
+            waveProjectileSprite.sprite[6, 1] = true;
+            waveProjectileSprite.sprite[6, 4] = true;
+            waveProjectileSprite.sprite[7, 1] = true;
+            waveProjectileSprite.sprite[7, 2] = true;
+            waveProjectileSprite.sprite[7, 5] = true;
+            #endregion
+
+            return waveProjectileSprite;
         }
 
         public static DigimonSprite Elecmon()
