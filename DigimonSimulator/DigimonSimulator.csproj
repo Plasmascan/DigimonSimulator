@@ -8,27 +8,39 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="bandage.png" />
+    <None Remove="battle.png" />
     <None Remove="battleCup.png" />
     <None Remove="blueDigiviceButton.png" />
     <None Remove="blueDigiviceLightGreen.png" />
+    <None Remove="book.png" />
     <None Remove="dung.png" />
     <None Remove="food.png" />
     <None Remove="lightbulb.png" />
+    <None Remove="mute.png" />
     <None Remove="powerOff.png" />
     <None Remove="scales.png" />
+    <None Remove="shout.png" />
     <None Remove="trainingBag.png" />
+    <None Remove="Unmute.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="bandage.png" />
+    <Resource Include="battle.png" />
     <Resource Include="battleCup.png" />
     <Resource Include="blueDigiviceButton.png" />
     <Resource Include="blueDigiviceLightGreen.png" />
+    <Resource Include="book.png" />
     <Resource Include="dung.png" />
     <Resource Include="food.png" />
     <Resource Include="lightbulb.png" />
+    <Resource Include="mute.png" />
     <Resource Include="powerOff.png" />
     <Resource Include="scales.png" />
+    <Resource Include="shout.png" />
     <Resource Include="trainingBag.png" />
+    <Resource Include="unmute.png" />
   </ItemGroup>
 
   <ItemGroup>

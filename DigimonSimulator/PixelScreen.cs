@@ -79,11 +79,12 @@ namespace DigimonSimulator
         private int StartY;
         public int NumberOfYPixels;
         public int NumberOfXPixels;
-        public int numberOfIcons = 6;
+        public int numberOfIcons = 9;
         private int PixelSize;
         private double PixelSpacing = 0.5;
         private Pixel[,] ScreenPixels;
         private Image[] MenuIcons;
+        private Image notificationIcon;
         private double MenuIconOn = 1.0;
         private double MenuIconOff = 0.3;
 
@@ -133,7 +134,7 @@ namespace DigimonSimulator
             int iconHeight = 17;
 
 
-            for (int i = 0, x = menuXLocation; i < numberOfIcons; i++, x += spacing)
+            for (int i = 0, x = menuXLocation; i < numberOfIcons + 1; i++, x += spacing)
             {
                 Image menuIcon = new Image();
 
@@ -210,9 +211,9 @@ namespace DigimonSimulator
                     CanvasScreen.Children.Add(menuIcon);
                     MenuIcons[i] = menuIcon;
                 }
-                else
+                else if (i == 6)
                 {
-                    menuIcon.Source = new BitmapImage(new Uri("scales.png", UriKind.Relative));
+                    menuIcon.Source = new BitmapImage(new Uri("bandage.png", UriKind.Relative));
                     menuIcon.Width = iconWidth;
                     menuIcon.Height = iconHeight;
                     menuIcon.Opacity = MenuIconOff;
@@ -220,6 +221,39 @@ namespace DigimonSimulator
                     Canvas.SetTop(menuIcon, menuYLocation);
                     CanvasScreen.Children.Add(menuIcon);
                     MenuIcons[i] = menuIcon;
+                }
+                else if (i == 7)
+                {
+                    menuIcon.Source = new BitmapImage(new Uri("book.png", UriKind.Relative));
+                    menuIcon.Width = iconWidth;
+                    menuIcon.Height = iconHeight;
+                    menuIcon.Opacity = MenuIconOff;
+                    Canvas.SetLeft(menuIcon, x);
+                    Canvas.SetTop(menuIcon, menuYLocation);
+                    CanvasScreen.Children.Add(menuIcon);
+                    MenuIcons[i] = menuIcon;
+                }
+                else if (i == 8)
+                {
+                    menuIcon.Source = new BitmapImage(new Uri("battle.png", UriKind.Relative));
+                    menuIcon.Width = iconWidth;
+                    menuIcon.Height = iconHeight;
+                    menuIcon.Opacity = MenuIconOff;
+                    Canvas.SetLeft(menuIcon, x);
+                    Canvas.SetTop(menuIcon, menuYLocation);
+                    CanvasScreen.Children.Add(menuIcon);
+                    MenuIcons[i] = menuIcon;
+                }
+                else
+                {
+                    menuIcon.Source = new BitmapImage(new Uri("shout.png", UriKind.Relative));
+                    menuIcon.Width = iconWidth;
+                    menuIcon.Height = iconHeight;
+                    menuIcon.Opacity = MenuIconOff;
+                    Canvas.SetLeft(menuIcon, x);
+                    Canvas.SetTop(menuIcon, menuYLocation);
+                    CanvasScreen.Children.Add(menuIcon);
+                    notificationIcon = menuIcon;
                 }
                
             }

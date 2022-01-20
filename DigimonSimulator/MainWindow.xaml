@@ -9,6 +9,11 @@
         WindowStyle="None"
         Title="Digimon Simulator" Height="360" Width="550" 
         >
+    <Window.Resources>
+        <ResourceDictionary>
+            <PopupAnimation x:Key="{x:Static SystemParameters.MenuPopupAnimationKey}">None</PopupAnimation>
+        </ResourceDictionary>
+    </Window.Resources>
     <Window.Background>
         <SolidColorBrush Opacity="0" Color="White"/>
     </Window.Background>
@@ -19,8 +24,13 @@
         <Image x:Name="backgroundImage" HorizontalAlignment="Left" Height="292" Margin="12,8,0,0" VerticalAlignment="Top" Width="474" Source="/blueDigiviceLightGreen.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5" MouseDown="backgroundImage_MouseDown">
             <Image.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Placeholder 1" />
-                    <MenuItem Header="Placeholder 2" />
+                    <MenuItem x:Name="pinMenuItem" Header="Always ontop" IsCheckable="True" Click="pinMenuItem_Click" />
+                    <MenuItem x:Name="minimizeMenuItem" Header="Minimize" Click="minimizeMenuItem_Click" />
+                    <MenuItem x:Name="muteUnmuteMenuItem" Header="Mute" Click="muteUnmuteMenuItem_Click">
+                        <MenuItem.Icon>
+                            <Image x:Name="muteUnmuteMenuItemIcon" Source="/mute.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <Separator />
                     <MenuItem Header="Quit" Click="closeGameMenuItem_Click">
                         <MenuItem.Icon>

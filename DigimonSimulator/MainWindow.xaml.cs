@@ -63,7 +63,38 @@ namespace DigimonSimulator
         {
             Close();
         }
-        
+
+        private void muteUnmuteMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (Sounds.IsMute())
+            {
+                Sounds.SoundOn();
+                muteUnmuteMenuItem.Header = "Mute";
+                muteUnmuteMenuItemIcon.Source = new BitmapImage(new Uri("mute.png", UriKind.Relative));
+            }
+            else
+            {
+                Sounds.MuteSound();
+                muteUnmuteMenuItem.Header = "Unmute";
+                muteUnmuteMenuItemIcon.Source = new BitmapImage(new Uri("unmute.png", UriKind.Relative));
+            }
+        }
+        private void pinMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (pinMenuItem.IsChecked)
+            {
+                Topmost = true;
+            }
+            else
+            {
+                Topmost = false;
+            }
+        }
+
+        private void minimizeMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
 
         private void pauseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -149,12 +180,8 @@ namespace DigimonSimulator
             {
                 this.DragMove();
             }
+
         }
 
-        private void testCommand(object sender, RoutedEventArgs e)
-        {
-           
-            Debug.WriteLine("WOWO");
-        }
     }
 }

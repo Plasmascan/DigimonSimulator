@@ -10,7 +10,11 @@ namespace DigimonSimulator
         FeedScreen = 1,
         Training = 2,
         BattleCup = 3,
-        Screen5 = 4,
+        CleanDung = 4,
+        Lights = 5,
+        Medical = 6,
+        History = 7,
+        Battle = 8,
     }
 
     public static class MenuScreens

@@ -684,32 +684,39 @@ namespace DigimonSimulator
             _animationTick.Start();
         }
 
+        // Returns the X value required to position a sprite in the middle of the screen
+        private int GetMiddleX(int spriteWidth)
+        {
+            int middleX = Game.pixelScreen.NumberOfXPixels - (spriteWidth / 2) - 16;
+            return middleX;
+        }
+
         private void PlayHappy()
         {
             switch (animationCounter)
             {
                 default:
-                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, false, GetMiddleX(Digimon.happyFrameWidth), 0);
                     Game.pixelScreen.DrawSprite(HappyMark, Game.pixelScreen.NumberOfXPixels - HappyMark.SpriteWidth, 0, false);
                     break;
 
                 case 1:
-                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, GetMiddleX(Digimon.frame1Width), 0);
                     Game.pixelScreen.ClearSprite(HappyMark);
                     break;
 
                 case 2:
-                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, false, GetMiddleX(Digimon.happyFrameWidth), 0);
                     Game.pixelScreen.DrawSprite(HappyMark, Game.pixelScreen.NumberOfXPixels - HappyMark.SpriteWidth, 0, false);
                     break;
 
                 case 3:
-                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, GetMiddleX(Digimon.frame1Width), 0);
                     Game.pixelScreen.ClearSprite(HappyMark);
                     break;
 
                 case 4:
-                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, false, GetMiddleX(Digimon.happyFrameWidth), 0);
                     Game.pixelScreen.DrawSprite(HappyMark, Game.pixelScreen.NumberOfXPixels - HappyMark.SpriteWidth, 0, false);
                     break;
 
@@ -1301,8 +1308,8 @@ namespace DigimonSimulator
             {
                 case 0:
                     Game.pixelScreen.ClearScreen();
-                    Digimon.SpriteX = Game.pixelScreen.NumberOfXPixels - (Digimon.frame1Width / 2) - 16;
-                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, Digimon.SpriteX, 0);
+                    Digimon.SpriteX = Game.pixelScreen.NumberOfXPixels - (Digimon.angryFrameWidth / 2) - 16;
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Angry, false, Digimon.SpriteX, 0);
                     _animationTick.Interval = TimeSpan.FromMilliseconds(GameTickSpeed + 260); // slowdown timer to sync the sounds
                     break;
 

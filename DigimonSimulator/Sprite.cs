@@ -3710,6 +3710,7 @@ namespace DigimonSimulator
         public static DigimonSprite Botamon()
         {
             DigimonSprite botamon = new DigimonSprite();
+            botamon.projectileSprite = FireBallProjectileSprite();
             botamon.currentSpriteHeight = 6;
             botamon.frame1Height = 6;
             botamon.frame1Width = 8;

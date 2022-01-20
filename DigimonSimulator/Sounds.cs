@@ -33,6 +33,18 @@ namespace DigimonSimulator
             IsMuted = false;
         }
 
+        public static bool IsMute()
+        {
+            if (IsMuted)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         private static void Play(Stream stream)
         {
             if (SoundPlayer != null)
