@@ -1013,7 +1013,7 @@ namespace DigimonSimulator
                 case 10:
                     // if hit
                     Game.pixelScreen.ClearScreen();
-                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Angry, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Hurt1, false, Digimon.SpriteX, 0);
                     DrawHealthBar(Digimon);
                     break;
 
@@ -1034,11 +1034,15 @@ namespace DigimonSimulator
 
                 // stand digimon back up
                 case 35:
-                    if (Digimon.currenthealth > 0)
+                    Game.pixelScreen.ClearScreen();
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, Digimon.SpriteX, 0);
+                    if (Digimon.currenthealth < 1)
                     {
-                        Game.pixelScreen.ClearScreen();
-                        Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, Digimon.SpriteX, 0);
+                        _animationTick.Interval = TimeSpan.FromMilliseconds(GameTickSpeed);
+                        animationCounter = -1;
+                        animation = AnimationNo.Defeat;
                     }
+                    
                     break;
 
                 case 50:
@@ -1047,11 +1051,7 @@ namespace DigimonSimulator
                         animationCounter = -1;
                         animation = AnimationNo.Attack;
                     }
-                    else
-                    {
-                        animationCounter = -1;
-                        animation = AnimationNo.Defeat;
-                    }
+                    
                     break;
             }
         }
@@ -1078,7 +1078,7 @@ namespace DigimonSimulator
                 case 10:
                     // if hit
                     Game.pixelScreen.ClearScreen();
-                    Game.pixelScreen.DrawDigimonFrame(Opponent, SpriteFrame.Angry, true, Opponent.SpriteX, 0);
+                    Game.pixelScreen.DrawDigimonFrame(Opponent, SpriteFrame.Hurt1, true, Opponent.SpriteX, 0);
                     DrawHealthBar(Opponent);
                     //
                     break;
@@ -1308,20 +1308,20 @@ namespace DigimonSimulator
             {
                 case 0:
                     Game.pixelScreen.ClearScreen();
-                    Digimon.SpriteX = Game.pixelScreen.NumberOfXPixels - (Digimon.angryFrameWidth / 2) - 16;
-                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Angry, false, Digimon.SpriteX, 0);
+                    Digimon.SpriteX = Game.pixelScreen.NumberOfXPixels - (Digimon.hurt1FrameWidth / 2) - 16;
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, Digimon.SpriteX, 0);
                     _animationTick.Interval = TimeSpan.FromMilliseconds(GameTickSpeed + 260); // slowdown timer to sync the sounds
                     break;
 
                 case 1:
                     Sounds.PlaySound(Sound.Lose);
-                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Angry, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Hurt1, false, Digimon.SpriteX, 0);
                     DrawDefeatMarks();
                     break;
 
                 case 2:
                     Game.pixelScreen.ClearScreen();
-                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Angry, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Hurt1, false, Digimon.SpriteX, 0);
                     _animationTick.Interval = TimeSpan.FromMilliseconds(GameTickSpeed); // speed timer back up to normal
                     break;
 
@@ -1332,7 +1332,7 @@ namespace DigimonSimulator
 
                 case 4:
                     Game.pixelScreen.ClearScreen();
-                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Angry, false, Digimon.SpriteX, 0);
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Hurt1, false, Digimon.SpriteX, 0);
                     break;
 
                 case 5:

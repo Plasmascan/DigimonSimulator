@@ -13,7 +13,8 @@ namespace DigimonSimulator
         Eat2,
         Reject,
         Attack,
-        Angry
+        Angry,
+        Hurt1
         
     }
     public class Sprite
@@ -46,6 +47,8 @@ namespace DigimonSimulator
         public int attackFrameWidth;
         public int angryFrameHeight;
         public int angryFrameWidth;
+        public int hurt1FrameHeight;
+        public int hurt1FrameWidth;
         public int currentHunger = 700;
         public int currentStrength = 300;
         public int maxHunger = 1000;
@@ -62,6 +65,7 @@ namespace DigimonSimulator
         public bool[,] rejectFrame;
         public bool[,] attackFrame;
         public bool[,] angryFrame;
+        public bool[,] hurt1Frame;
     }
 
     public static class SpriteImages
@@ -2549,6 +2553,8 @@ namespace DigimonSimulator
             betamon.attackFrameWidth = 16;
             betamon.angryFrameHeight = 15;
             betamon.angryFrameWidth = 16;
+            betamon.hurt1FrameHeight = 11;
+            betamon.hurt1FrameWidth = 16;
             betamon.hitDamage = 200;
 
             betamon.frame1 = new bool[betamon.frame1Height, betamon.frame1Width];
@@ -2559,6 +2565,7 @@ namespace DigimonSimulator
             betamon.rejectFrame = new bool[betamon.rejectFrameHeight, betamon.rejectFrameWidth];
             betamon.attackFrame = new bool[betamon.attackFrameHeight, betamon.attackFrameWidth];
             betamon.angryFrame = new bool[betamon.angryFrameHeight, betamon.angryFrameWidth];
+            betamon.hurt1Frame = new bool[betamon.hurt1FrameHeight, betamon.hurt1FrameWidth];
 
             #region betamon frames
             //frame 1
@@ -3040,6 +3047,71 @@ namespace DigimonSimulator
             betamon.angryFrame[14, 12] = true;
             betamon.angryFrame[14, 13] = true;
             betamon.angryFrame[14, 14] = true;
+
+            //hurt1
+            betamon.hurt1Frame[0, 3] = true;
+            betamon.hurt1Frame[0, 4] = true;
+            betamon.hurt1Frame[0, 5] = true;
+            betamon.hurt1Frame[0, 6] = true;
+            betamon.hurt1Frame[0, 7] = true;
+            betamon.hurt1Frame[1, 3] = true;
+            betamon.hurt1Frame[1, 8] = true;
+            betamon.hurt1Frame[1, 9] = true;
+            betamon.hurt1Frame[2, 4] = true;
+            betamon.hurt1Frame[2, 10] = true;
+            betamon.hurt1Frame[3, 4] = true;
+            betamon.hurt1Frame[3, 6] = true;
+            betamon.hurt1Frame[3, 7] = true;
+            betamon.hurt1Frame[3, 8] = true;
+            betamon.hurt1Frame[3, 9] = true;
+            betamon.hurt1Frame[3, 11] = true;
+            betamon.hurt1Frame[4, 3] = true;
+            betamon.hurt1Frame[4, 5] = true;
+            betamon.hurt1Frame[4, 10] = true;
+            betamon.hurt1Frame[4, 11] = true;
+            betamon.hurt1Frame[4, 12] = true;
+            betamon.hurt1Frame[5, 2] = true;
+            betamon.hurt1Frame[5, 9] = true;
+            betamon.hurt1Frame[5, 10] = true;
+            betamon.hurt1Frame[5, 13] = true;
+            betamon.hurt1Frame[5, 14] = true;
+            betamon.hurt1Frame[5, 15] = true;
+            betamon.hurt1Frame[6, 1] = true;
+            betamon.hurt1Frame[6, 8] = true;
+            betamon.hurt1Frame[6, 12] = true;
+            betamon.hurt1Frame[6, 13] = true;
+            betamon.hurt1Frame[6, 15] = true;
+            betamon.hurt1Frame[7, 1] = true;
+            betamon.hurt1Frame[7, 11] = true;
+            betamon.hurt1Frame[7, 14] = true;
+            betamon.hurt1Frame[7, 15] = true;
+            betamon.hurt1Frame[8, 1] = true;
+            betamon.hurt1Frame[8, 2] = true;
+            betamon.hurt1Frame[8, 3] = true;
+            betamon.hurt1Frame[8, 6] = true;
+            betamon.hurt1Frame[8, 7] = true;
+            betamon.hurt1Frame[8, 14] = true;
+            betamon.hurt1Frame[9, 0] = true;
+            betamon.hurt1Frame[9, 1] = true;
+            betamon.hurt1Frame[9, 10] = true;
+            betamon.hurt1Frame[9, 11] = true;
+            betamon.hurt1Frame[9, 15] = true;
+            betamon.hurt1Frame[10, 0] = true;
+            betamon.hurt1Frame[10, 1] = true;
+            betamon.hurt1Frame[10, 2] = true;
+            betamon.hurt1Frame[10, 3] = true;
+            betamon.hurt1Frame[10, 4] = true;
+            betamon.hurt1Frame[10, 5] = true;
+            betamon.hurt1Frame[10, 6] = true;
+            betamon.hurt1Frame[10, 7] = true;
+            betamon.hurt1Frame[10, 8] = true;
+            betamon.hurt1Frame[10, 9] = true;
+            betamon.hurt1Frame[10, 10] = true;
+            betamon.hurt1Frame[10, 11] = true;
+            betamon.hurt1Frame[10, 12] = true;
+            betamon.hurt1Frame[10, 13] = true;
+            betamon.hurt1Frame[10, 14] = true;
+            betamon.hurt1Frame[10, 15] = true;
             #endregion
 
             return betamon;
@@ -3066,6 +3138,8 @@ namespace DigimonSimulator
             greymon.attackFrameWidth = 16;
             greymon.angryFrameHeight = 16;
             greymon.angryFrameWidth = 16;
+            greymon.hurt1FrameHeight = 15;
+            greymon.hurt1FrameWidth = 16;
             greymon.hitDamage = 300;
 
             greymon.frame1 = new bool[greymon.frame1Height, greymon.frame1Width];
@@ -3076,6 +3150,7 @@ namespace DigimonSimulator
             greymon.rejectFrame = new bool[greymon.rejectFrameHeight, greymon.rejectFrameWidth];
             greymon.attackFrame = new bool[greymon.attackFrameHeight, greymon.attackFrameWidth];
             greymon.angryFrame = new bool[greymon.angryFrameHeight, greymon.angryFrameWidth];
+            greymon.hurt1Frame = new bool[greymon.hurt1FrameHeight, greymon.hurt1FrameWidth];
 
 
             #region greymon frames
@@ -3700,6 +3775,104 @@ namespace DigimonSimulator
 
             //angry
             greymon.angryFrame = greymon.attackFrame;
+
+            //hurt1
+            greymon.hurt1Frame[0, 5] = true;
+            greymon.hurt1Frame[0, 6] = true;
+            greymon.hurt1Frame[0, 7] = true;
+            greymon.hurt1Frame[0, 8] = true;
+            greymon.hurt1Frame[0, 9] = true;
+            greymon.hurt1Frame[0, 12] = true;
+            greymon.hurt1Frame[0, 13] = true;
+            greymon.hurt1Frame[0, 14] = true;
+            greymon.hurt1Frame[1, 0] = true;
+            greymon.hurt1Frame[1, 1] = true;
+            greymon.hurt1Frame[1, 4] = true;
+            greymon.hurt1Frame[1, 10] = true;
+            greymon.hurt1Frame[1, 11] = true;
+            greymon.hurt1Frame[1, 14] = true;
+            greymon.hurt1Frame[2, 0] = true;
+            greymon.hurt1Frame[2, 2] = true;
+            greymon.hurt1Frame[2, 3] = true;
+            greymon.hurt1Frame[2, 4] = true;
+            greymon.hurt1Frame[2, 13] = true;
+            greymon.hurt1Frame[3, 0] = true;
+            greymon.hurt1Frame[3, 1] = true;
+            greymon.hurt1Frame[3, 6] = true;
+            greymon.hurt1Frame[3, 10] = true;
+            greymon.hurt1Frame[3, 11] = true;
+            greymon.hurt1Frame[3, 12] = true;
+            greymon.hurt1Frame[4, 0] = true;
+            greymon.hurt1Frame[4, 4] = true;
+            greymon.hurt1Frame[4, 7] = true;
+            greymon.hurt1Frame[4, 8] = true;
+            greymon.hurt1Frame[4, 11] = true;
+            greymon.hurt1Frame[5, 0] = true;
+            greymon.hurt1Frame[5, 1] = true;
+            greymon.hurt1Frame[5, 2] = true;
+            greymon.hurt1Frame[5, 3] = true;
+            greymon.hurt1Frame[5, 4] = true;
+            greymon.hurt1Frame[5, 5] = true;
+            greymon.hurt1Frame[5, 11] = true;
+            greymon.hurt1Frame[6, 1] = true;
+            greymon.hurt1Frame[6, 12] = true;
+            greymon.hurt1Frame[7, 2] = true;
+            greymon.hurt1Frame[7, 3] = true;
+            greymon.hurt1Frame[7, 4] = true;
+            greymon.hurt1Frame[7, 5] = true;
+            greymon.hurt1Frame[7, 6] = true;
+            greymon.hurt1Frame[7, 12] = true;
+            greymon.hurt1Frame[8, 4] = true;
+            greymon.hurt1Frame[8, 13] = true;
+            greymon.hurt1Frame[9, 1] = true;
+            greymon.hurt1Frame[9, 2] = true;
+            greymon.hurt1Frame[9, 3] = true;
+            greymon.hurt1Frame[9, 9] = true;
+            greymon.hurt1Frame[9, 10] = true;
+            greymon.hurt1Frame[9, 13] = true;
+            greymon.hurt1Frame[9, 14] = true;
+            greymon.hurt1Frame[9, 15] = true;
+            greymon.hurt1Frame[10, 0] = true;
+            greymon.hurt1Frame[10, 3] = true;
+            greymon.hurt1Frame[10, 8] = true;
+            greymon.hurt1Frame[10, 13] = true;
+            greymon.hurt1Frame[10, 15] = true;
+            greymon.hurt1Frame[11, 0] = true;
+            greymon.hurt1Frame[11, 3] = true;
+            greymon.hurt1Frame[11, 8] = true;
+            greymon.hurt1Frame[11, 12] = true;
+            greymon.hurt1Frame[11, 13] = true;
+            greymon.hurt1Frame[11, 15] = true;
+            greymon.hurt1Frame[12, 1] = true;
+            greymon.hurt1Frame[12, 2] = true;
+            greymon.hurt1Frame[12, 4] = true;
+            greymon.hurt1Frame[12, 9] = true;
+            greymon.hurt1Frame[12, 10] = true;
+            greymon.hurt1Frame[12, 11] = true;
+            greymon.hurt1Frame[12, 14] = true;
+            greymon.hurt1Frame[13, 0] = true;
+            greymon.hurt1Frame[13, 2] = true;
+            greymon.hurt1Frame[13, 5] = true;
+            greymon.hurt1Frame[13, 9] = true;
+            greymon.hurt1Frame[13, 11] = true;
+            greymon.hurt1Frame[13, 13] = true;
+            greymon.hurt1Frame[13, 15] = true;
+            greymon.hurt1Frame[14, 0] = true;
+            greymon.hurt1Frame[14, 1] = true;
+            greymon.hurt1Frame[14, 2] = true;
+            greymon.hurt1Frame[14, 3] = true;
+            greymon.hurt1Frame[14, 4] = true;
+            greymon.hurt1Frame[14, 5] = true;
+            greymon.hurt1Frame[14, 6] = true;
+            greymon.hurt1Frame[14, 7] = true;
+            greymon.hurt1Frame[14, 8] = true;
+            greymon.hurt1Frame[14, 9] = true;
+            greymon.hurt1Frame[14, 10] = true;
+            greymon.hurt1Frame[14, 11] = true;
+            greymon.hurt1Frame[14, 12] = true;
+            greymon.hurt1Frame[14, 13] = true;
+            greymon.hurt1Frame[14, 14] = true;
+            greymon.hurt1Frame[14, 15] = true;
             #endregion
 
 

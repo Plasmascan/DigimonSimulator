@@ -491,6 +491,12 @@ namespace DigimonSimulator
                     spriteWidth = digimon.angryFrameWidth;
                     break;
 
+                case 8:
+                    frame = digimon.hurt1Frame;
+                    spriteHeight = digimon.hurt1FrameHeight;
+                    spriteWidth = digimon.hurt1FrameWidth;
+                    break;
+
             }
 
             // Keeps the digimon sprite touching the ground if the frame's height changes from frame to frame
