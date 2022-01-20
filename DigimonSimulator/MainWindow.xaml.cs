@@ -33,14 +33,6 @@ namespace DigimonSimulator
             pressedCButtonImage.Opacity = 0;
         }
 
-        private void mouseLeftButtonClick(object sender, MouseButtonEventArgs e)
-        {
-            int x = (int)e.GetPosition(screenCanvas).X;
-            int y = (int)e.GetPosition(screenCanvas).Y;
-            mainGame.pixelScreen.PixelClick(x, y);
-            //Debug.Write("x: " + e.GetPosition(this).X + " y: " + (int)e.GetPosition(screenCanvas).Y);
-        }
-
         private void aButton_Click(object sender, RoutedEventArgs e)
         {
             //mainGame.AButtonPress();
@@ -66,6 +58,12 @@ namespace DigimonSimulator
             DrawWindow drawWindow = new DrawWindow();
             drawWindow.Show();
         }
+
+        private void closeGameMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+        
 
         private void pauseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -143,6 +141,20 @@ namespace DigimonSimulator
             cButton.Visibility = Visibility.Hidden;
             pauseButton.Visibility = Visibility.Hidden;
             printButton.Visibility = Visibility.Hidden;
+        }
+
+        private void backgroundImage_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+        }
+
+        private void testCommand(object sender, RoutedEventArgs e)
+        {
+           
+            Debug.WriteLine("WOWO");
         }
     }
 }
