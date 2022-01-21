@@ -761,7 +761,8 @@ namespace DigimonSimulator
 
 
         public DigimonSprite Opponent = SpriteImages.Betamon();
-        int hitPower;
+        private Sprite secondProjectile;
+        int hitPower, doubleAttack, damage;
         Random rnd = new Random();
         public void SetupBattleCup()
         {
@@ -839,6 +840,16 @@ namespace DigimonSimulator
             
         }
 
+        private void SetupSecondProjectile(DigimonSprite digimon)
+        {
+            secondProjectile = new Sprite();
+            secondProjectile.sprite = digimon.projectileSprite.sprite;
+            secondProjectile.SpriteHeight = digimon.projectileSprite.SpriteHeight;
+            secondProjectile.SpriteWidth = digimon.projectileSprite.SpriteWidth;
+            secondProjectile.SpriteX = 8;
+            secondProjectile.SpriteY = 8;
+        }
+
         private void DigimonAttack()
         {
             animation = AnimationNo.Attack;
@@ -880,6 +891,19 @@ namespace DigimonSimulator
                     //_animationTick.Interval = TimeSpan.FromMilliseconds(47);
                     Sounds.PlaySound(Sound.Attack);
                     hitPower = rnd.Next(1, 100);
+                    doubleAttack = rnd.Next(1, 100);
+
+                    // shoot two projectiles
+                    if (doubleAttack > 50)
+                    {
+                        SetupSecondProjectile(Digimon);
+                        damage = Digimon.hitDamage * 2;
+                    }
+                    else
+                    {
+                        secondProjectile = null;
+                        damage = Digimon.hitDamage;
+                    }
                     // ROLL
                     break;
 
@@ -890,6 +914,10 @@ namespace DigimonSimulator
                     Game.pixelScreen.DrawDigimonFrame(Opponent, SpriteFrame.Walk2, true, 0, 0);
                     DrawHealthBar(Opponent);
                     Digimon.projectileSprite.SpriteX = Game.pixelScreen.NumberOfXPixels + Digimon.projectileSprite.SpriteWidth;
+                    if (doubleAttack > 50)
+                    {
+                        secondProjectile.SpriteX = Game.pixelScreen.NumberOfXPixels + secondProjectile.SpriteWidth;
+                    }
                     break;
 
                 // start oponent Hit or Dodge.
@@ -909,6 +937,16 @@ namespace DigimonSimulator
             }
             if (animationCounter > 12 && animationCounter < 54)
             {
+                if (doubleAttack > 50)
+                {
+                    Game.pixelScreen.ClearSprite(secondProjectile);
+                    secondProjectile.SpriteX--;
+                    Game.pixelScreen.DrawSprite(secondProjectile, secondProjectile.SpriteX, secondProjectile.SpriteY, false);
+                    if (animationCounter > 31)
+                    {
+                        DrawHealthBar(Opponent);
+                    }
+                }
                 Game.pixelScreen.ClearSprite(Digimon.projectileSprite);
                 Digimon.projectileSprite.SpriteX--;
                 Game.pixelScreen.DrawSprite(Digimon.projectileSprite, Digimon.projectileSprite.SpriteX, 8 - Digimon.projectileSprite.SpriteHeight, false);
@@ -956,6 +994,20 @@ namespace DigimonSimulator
                     //_animationTick.Interval = TimeSpan.FromMilliseconds(47);
                     Sounds.PlaySound(Sound.Attack);
                     hitPower = rnd.Next(1, 100);
+                    doubleAttack = rnd.Next(1, 100);
+
+                    // shoot two projectiles
+                    if (doubleAttack > 50)
+                    {
+                        SetupSecondProjectile(Opponent);
+                        secondProjectile.SpriteX = 16;
+                        damage = Opponent.hitDamage * 2;
+                    }
+                    else
+                    {
+                        secondProjectile = null;
+                        damage = Opponent.hitDamage;
+                    }
                     // ROLL
                     break;
 
@@ -966,6 +1018,10 @@ namespace DigimonSimulator
                     Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, Digimon.SpriteX, 0);
                     DrawHealthBar(Digimon);
                     Opponent.projectileSprite.SpriteX = -Opponent.projectileSprite.SpriteWidth - 8;
+                    if (doubleAttack > 50)
+                    {
+                        secondProjectile.SpriteX = -Opponent.projectileSprite.SpriteWidth - 8;
+                    }
                     break;
 
                 // hit or Dodge start
@@ -985,6 +1041,16 @@ namespace DigimonSimulator
 
             if (animationCounter > 12 && animationCounter < 54)
             {
+                if (doubleAttack > 50)
+                {
+                    Game.pixelScreen.ClearSprite(secondProjectile);
+                    secondProjectile.SpriteX++;
+                    Game.pixelScreen.DrawSprite(secondProjectile, secondProjectile.SpriteX, secondProjectile.SpriteY, true);
+                    if (animationCounter > 31)
+                    {
+                        DrawHealthBar(Digimon);
+                    }
+                }
                 Game.pixelScreen.ClearSprite(Opponent.projectileSprite);
                 Opponent.projectileSprite.SpriteX++;
                 Game.pixelScreen.DrawSprite(Opponent.projectileSprite, Opponent.projectileSprite.SpriteX, 8 - Opponent.projectileSprite.SpriteHeight, true);
@@ -1018,17 +1084,17 @@ namespace DigimonSimulator
                     break;
 
                 case 15:
-                    Digimon.currenthealth -= Opponent.hitDamage;
+                    Digimon.currenthealth -= damage;
                     DrawHealthBar(Digimon);
                     break;
 
                 case 20:
-                    Digimon.currenthealth += Opponent.hitDamage;
+                    Digimon.currenthealth += damage;
                     DrawHealthBar(Digimon);
                     break;
 
                 case 25:
-                    Digimon.currenthealth -= Opponent.hitDamage;
+                    Digimon.currenthealth -= damage;
                     DrawHealthBar(Digimon);
                     break;
 
@@ -1084,17 +1150,17 @@ namespace DigimonSimulator
                     break;
 
                 case 15:
-                    Opponent.currenthealth -= Digimon.hitDamage;
+                    Opponent.currenthealth -= damage;
                     DrawHealthBar(Opponent);
                     break;
 
                 case 20:
-                    Opponent.currenthealth += Digimon.hitDamage;
+                    Opponent.currenthealth += damage;
                     DrawHealthBar(Opponent);
                     break;
 
                 case 25:
-                    Opponent.currenthealth -= Digimon.hitDamage;
+                    Opponent.currenthealth -= damage;
                     DrawHealthBar(Opponent);
                     break;
 
