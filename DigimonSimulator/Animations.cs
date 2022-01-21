@@ -153,6 +153,7 @@ namespace DigimonSimulator
             BrickWall = SpriteImages.FullBrickWallSprite();
             IsinAnimation = false;
             powerUpReady = false;
+            secondProjectile = null;
         }
 
         public void StepDigimon()
@@ -534,6 +535,14 @@ namespace DigimonSimulator
 
                 case 14:
                     Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Attack, false, Digimon.SpriteX - 1, 0);
+                    if (powerUp >= 11)
+                    {
+                        SetupSecondProjectile(Digimon);
+                    }
+                    else
+                    {
+                        secondProjectile = null;
+                    }
                     break;
 
                 // start 2nd screen: draw brick wall and move the projectiles position
@@ -542,6 +551,10 @@ namespace DigimonSimulator
                     BrickWall = SpriteImages.FullBrickWallSprite();
                     Game.pixelScreen.DrawSprite(BrickWall, 0, 0, false);
                     Digimon.projectileSprite.SpriteX = Game.pixelScreen.NumberOfXPixels + 2;
+                    if (secondProjectile != null)
+                    {
+                        secondProjectile.SpriteX = Game.pixelScreen.NumberOfXPixels + 2;
+                    }
                     break;
 
                 // Projectile hits wall
@@ -609,6 +622,12 @@ namespace DigimonSimulator
                 Game.pixelScreen.ClearSprite(Digimon.projectileSprite);
                 Digimon.projectileSprite.SpriteX--;
                 Game.pixelScreen.DrawSprite(Digimon.projectileSprite, Digimon.projectileSprite.SpriteX, 8 - Digimon.projectileSprite.SpriteHeight, false);
+                if (powerUp >= 11)
+                {
+                    Game.pixelScreen.ClearSprite(secondProjectile);
+                    secondProjectile.SpriteX--;
+                    Game.pixelScreen.DrawSprite(secondProjectile, secondProjectile.SpriteX, secondProjectile.SpriteY, false);
+                }
             }
         }
 
@@ -914,7 +933,7 @@ namespace DigimonSimulator
                     Game.pixelScreen.DrawDigimonFrame(Opponent, SpriteFrame.Walk2, true, 0, 0);
                     DrawHealthBar(Opponent);
                     Digimon.projectileSprite.SpriteX = Game.pixelScreen.NumberOfXPixels + Digimon.projectileSprite.SpriteWidth;
-                    if (doubleAttack > 50)
+                    if (secondProjectile != null)
                     {
                         secondProjectile.SpriteX = Game.pixelScreen.NumberOfXPixels + secondProjectile.SpriteWidth;
                     }
@@ -937,7 +956,7 @@ namespace DigimonSimulator
             }
             if (animationCounter > 12 && animationCounter < 54)
             {
-                if (doubleAttack > 50)
+                if (secondProjectile != null)
                 {
                     Game.pixelScreen.ClearSprite(secondProjectile);
                     secondProjectile.SpriteX--;
@@ -1018,7 +1037,7 @@ namespace DigimonSimulator
                     Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, Digimon.SpriteX, 0);
                     DrawHealthBar(Digimon);
                     Opponent.projectileSprite.SpriteX = -Opponent.projectileSprite.SpriteWidth - 8;
-                    if (doubleAttack > 50)
+                    if (secondProjectile != null)
                     {
                         secondProjectile.SpriteX = -Opponent.projectileSprite.SpriteWidth - 8;
                     }
@@ -1041,7 +1060,7 @@ namespace DigimonSimulator
 
             if (animationCounter > 12 && animationCounter < 54)
             {
-                if (doubleAttack > 50)
+                if (secondProjectile != null)
                 {
                     Game.pixelScreen.ClearSprite(secondProjectile);
                     secondProjectile.SpriteX++;
