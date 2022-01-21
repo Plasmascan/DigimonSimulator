@@ -41,7 +41,7 @@
             </Image.ContextMenu>
         </Image>
 
-        <Canvas x:Name="screenCanvas" Margin="77,96,295,131"/>
+        <Canvas x:Name="screenCanvas" Margin="77,94,295,133"/>
         <Button x:Name="aButton" Content="A" HorizontalAlignment="Left" Margin="29,287,0,0" VerticalAlignment="Top" Click="aButton_Click" Width="32" Visibility="Hidden"/>
         <Button x:Name="bButton" Content="B" HorizontalAlignment="Left" Margin="79,287,0,0" VerticalAlignment="Top" Click="bButton_Click" Width="30" Visibility="Hidden"/>
         <Button x:Name="cButton" Content="C" HorizontalAlignment="Left" Margin="129,287,0,0" VerticalAlignment="Top" Width="31" Click="cButton_Click" Grid.ColumnSpan="2" Visibility="Hidden"/>
