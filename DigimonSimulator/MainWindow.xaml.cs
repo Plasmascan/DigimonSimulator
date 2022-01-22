@@ -183,7 +183,7 @@ namespace DigimonSimulator
 
         private void backgroundImage_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left)
+            if (e.ChangedButton == MouseButton.Left && !lockMenuItem.IsChecked)
             {
                 this.DragMove();
             }

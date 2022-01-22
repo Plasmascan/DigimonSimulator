@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         AllowsTransparency="True"
         WindowStyle="None"
-        Title="Digimon Simulator" Height="360" Width="550" 
+        Title="Digimon Simulator" Height="360" Width="550" ResizeMode="NoResize" 
         >
     <Window.Resources>
         <ResourceDictionary>
@@ -26,6 +26,7 @@
                 <ContextMenu>
                     <MenuItem x:Name="debugMenuItem" Header="debug" Click="debugMenuItem_Click" />
                     <MenuItem x:Name="pinMenuItem" Header="Always ontop" IsCheckable="True" Click="pinMenuItem_Click" />
+                    <MenuItem x:Name="lockMenuItem" Header="Lock into place" IsCheckable="True"/>
                     <MenuItem x:Name="minimizeMenuItem" Header="Minimize" Click="minimizeMenuItem_Click" />
                     <MenuItem x:Name="muteUnmuteMenuItem" Header="Mute" Click="muteUnmuteMenuItem_Click">
                         <MenuItem.Icon>
