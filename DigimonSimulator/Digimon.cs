@@ -14,6 +14,7 @@ namespace DigimonSimulator
     }
     public class Digimon
     {
+        public DigimonGame game;
         public DigimonId digimonID;
         public DigimonSprite sprite;
         public int currentHunger = 700;
@@ -21,13 +22,17 @@ namespace DigimonSimulator
         public int currenthealth = 1000;
         public int careMistakes = 0;
         public int injuries = 0;
+        public int totalTimeAlive;
+        public bool canDigivolve;
+        public int evolveTime;
         public int maxHunger;
         public int maxStrength;
         public int maxHealth;
         public int hitDamage;
 
-        public Digimon(DigimonId digimonID)
+        public Digimon(DigimonGame game, DigimonId digimonID)
         {
+            this.game = game;
             SetupDigimon(digimonID);
         }
 
@@ -42,6 +47,7 @@ namespace DigimonSimulator
                     maxHunger = 1000;
                     maxStrength = 1000;
                     hitDamage = 100;
+                    canDigivolve = true;
                     break;
 
                 case DigimonId.Egg:
@@ -55,6 +61,7 @@ namespace DigimonSimulator
                     maxHunger = 1000;
                     maxStrength = 1000;
                     hitDamage = 100;
+                    canDigivolve = true;
                     break;
 
                 case DigimonId.Betamon:
@@ -64,6 +71,8 @@ namespace DigimonSimulator
                     maxHunger = 1000;
                     maxStrength = 1000;
                     hitDamage = 200;
+                    evolveTime = 6;
+                    canDigivolve = true;
                     break;
 
                 case DigimonId.Greymon:
@@ -73,13 +82,14 @@ namespace DigimonSimulator
                     maxHunger = 1000;
                     maxStrength = 1000;
                     hitDamage = 300;
+                    canDigivolve = false;
                     break;
             }
         }
 
         public void Digivolve()
         {
-
+            Digimon evolveDigimon;
             switch (digimonID)
             {
                 case DigimonId.Egg:
@@ -89,6 +99,8 @@ namespace DigimonSimulator
                     break;
 
                 case DigimonId.Betamon:
+                    evolveDigimon = new Digimon(game, DigimonId.Greymon);
+                    game.animate.setupDigivolve(evolveDigimon);
                     // call digivolv animation
                     break;
             }

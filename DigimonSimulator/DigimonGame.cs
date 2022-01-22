@@ -19,12 +19,19 @@ namespace DigimonSimulator
         public MenuScreen SelectedMenu = MenuScreen.MainScreen;
         public int SelectedSubMenuNo = 0;
         public int CurrentSubMenu = 0;
+        public int gameElapsedSeconds = 0;
+        public int gameElapsedMinutes = 0;
+        public int gameElapsedHours = 0;
+        public int gameCurrentSecond;
+        public int gameCurrentMinute;
+        public int gameCurrentHour;
+        public bool isEvolutionReady = false;
 
         public void InitializeGame(Canvas screen)
         {
             pixelScreen = new PixelScreen(screen, 0, 20, 16, 32, 4);
             pixelScreen.SetupScreen();
-            currentDigimon = new Digimon(DigimonId.Betamon);
+            currentDigimon = new Digimon(this, DigimonId.Betamon);
             animate = new Animations(this);
             animate.StartStepAnimation();
             setTimer();
@@ -39,6 +46,27 @@ namespace DigimonSimulator
 
         private void _gameTimer_Tick(object sender, EventArgs e)
         {
+            gameElapsedSeconds++;
+            gameCurrentSecond = gameElapsedSeconds % 60;
+            gameCurrentMinute = gameElapsedSeconds / 60 % 60;
+            gameElapsedMinutes = gameElapsedSeconds / 60;
+            gameElapsedHours = gameElapsedMinutes / 60;
+            currentDigimon.totalTimeAlive++;
+
+            if (currentDigimon.canDigivolve)
+            {
+                currentDigimon.evolveTime--;
+            }
+
+            if (!animate.isEvolving && !animate.IsinAnimation)
+            {
+                if (CurrentScreen == MenuScreen.MainScreen && currentDigimon.evolveTime < 1 && currentDigimon.canDigivolve)
+                {
+                    animate.StopStepAnimation();
+                    currentDigimon.Digivolve();
+                }
+            }
+
             if (currentDigimon.currentHunger > -1)
             {
                 currentDigimon.currentHunger--;
@@ -64,157 +92,166 @@ namespace DigimonSimulator
 
         public void AButtonPress()
         {
-            if (CurrentScreen == MenuScreen.MainScreen)
+            if (!animate.isEvolving)
             {
-                TimeoutSelectedMenu = 0;
-                Sounds.PlaySound(Sound.Beep);
-                if (SelectedMenu == MenuScreen.MainScreen)
+                if (CurrentScreen == MenuScreen.MainScreen)
                 {
-                    pixelScreen.TurnMenuIconON(MenuScreen.StatScreen);
-                    SelectedMenu = MenuScreen.StatScreen;
+                    TimeoutSelectedMenu = 0;
+                    Sounds.PlaySound(Sound.Beep);
+                    if (SelectedMenu == MenuScreen.MainScreen)
+                    {
+                        pixelScreen.TurnMenuIconON(MenuScreen.StatScreen);
+                        SelectedMenu = MenuScreen.StatScreen;
+                    }
+                    else if ((int)SelectedMenu == pixelScreen.numberOfIcons - 1)
+                    {
+                        pixelScreen.TurnOffAllIcons();
+                        SelectedMenu = MenuScreen.MainScreen;
+                    }
+                    else
+                    {
+                        SelectedMenu++;
+                        pixelScreen.TurnMenuIconON(SelectedMenu);
+                    }
                 }
-                else if ((int)SelectedMenu == pixelScreen.numberOfIcons - 1)
+                else if (CurrentScreen == MenuScreen.StatScreen)
                 {
-                    pixelScreen.TurnOffAllIcons();
-                    SelectedMenu = MenuScreen.MainScreen;
+                    Sounds.PlaySound(Sound.Beep);
+                    MenuScreens.DrawStats(this, SelectedSubMenuNo);
+                    if (SelectedSubMenuNo < 2)
+                    {
+                        SelectedSubMenuNo++;
+                    }
+                    else
+                    {
+                        SelectedSubMenuNo = 0;
+                    }
                 }
-                else
+                else if (CurrentScreen == MenuScreen.FeedScreen && CurrentSubMenu == 0)
                 {
-                    SelectedMenu++;
-                    pixelScreen.TurnMenuIconON(SelectedMenu);
+                    Sounds.PlaySound(Sound.Beep);
+                    if (SelectedSubMenuNo == 1)
+                    {
+                        SelectedSubMenuNo--;
+                    }
+                    else
+                    {
+                        SelectedSubMenuNo++;
+                    }
+                    MenuScreens.drawFeedScreen(this, SelectedSubMenuNo);
                 }
-            }
-            else if (CurrentScreen == MenuScreen.StatScreen)
-            {
-                Sounds.PlaySound(Sound.Beep);
-                MenuScreens.DrawStats(this, SelectedSubMenuNo);
-                if (SelectedSubMenuNo < 2)
+                else if (CurrentScreen == MenuScreen.Training)
                 {
-                    SelectedSubMenuNo++;
+                    if (!animate.IsinAnimation && animate.powerUpReady)
+                    {
+                        animate.powerUpTraining();
+                    }
                 }
-                else
+                else if (CurrentScreen == MenuScreen.BattleCup)
                 {
-                    SelectedSubMenuNo = 0;
-                }
-            }
-            else if (CurrentScreen == MenuScreen.FeedScreen && CurrentSubMenu == 0)
-            {
-                Sounds.PlaySound(Sound.Beep);
-                if (SelectedSubMenuNo == 1)
-                {
-                    SelectedSubMenuNo--;
-                }
-                else
-                {
-                    SelectedSubMenuNo++;
-                }
-                MenuScreens.drawFeedScreen(this, SelectedSubMenuNo);
-            }
-            else if (CurrentScreen == MenuScreen.Training)
-            {
-                if (!animate.IsinAnimation && animate.powerUpReady)
-                {
-                    animate.powerUpTraining();
-                }
-            }
-            else if (CurrentScreen == MenuScreen.BattleCup)
-            {
-                if (!animate.IsinAnimation && animate.powerUpReady)
-                {
-                    animate.powerUpTraining();
+                    if (!animate.IsinAnimation && animate.powerUpReady)
+                    {
+                        animate.powerUpTraining();
+                    }
                 }
             }
         }
 
         public void BButtonPress()
         {
-            if (CurrentScreen == MenuScreen.MainScreen)
+            if (!animate.isEvolving)
             {
-                if (SelectedMenu == MenuScreen.StatScreen)
+                if (CurrentScreen == MenuScreen.MainScreen)
                 {
-                    Sounds.PlaySound(Sound.Beep);
-                    animate.StopStepAnimation();
-                    CurrentScreen = MenuScreen.StatScreen;
-                    MenuScreens.DrawStats(this, SelectedSubMenuNo);
-                    SelectedSubMenuNo++;
-                }
-                else if (SelectedMenu == MenuScreen.FeedScreen)
-                {
-                    Sounds.PlaySound(Sound.Beep);
-                    animate.StopStepAnimation();
-                    CurrentScreen = MenuScreen.FeedScreen;
-                    MenuScreens.drawFeedScreen(this, 0);
-                }
-                else if (SelectedMenu == MenuScreen.Training)
-                {
-                    animate.StopStepAnimation();
-                    Sounds.PlaySound(Sound.Beep);
-                    CurrentScreen = MenuScreen.Training;
-                    animate.SetupTraining();
-                }
-                else if (SelectedMenu == MenuScreen.BattleCup)
-                {
-                    animate.StopStepAnimation();
-                    Sounds.PlaySound(Sound.Beep);
-                    CurrentScreen = MenuScreen.BattleCup;
-                    animate.SetupBattleCup();
-                }
-            }
-            else if (CurrentScreen == MenuScreen.StatScreen)
-            {
-                // Goes through the different screen in stats
-                Sounds.PlaySound(Sound.Beep);
-                MenuScreens.DrawStats(this, SelectedSubMenuNo);
-
-                if (SelectedSubMenuNo < 2)
-                {
-                    SelectedSubMenuNo++;
-                }
-                else
-                {
-                    SelectedSubMenuNo = 0;
-                }
-            }
-
-            else if (CurrentScreen == MenuScreen.FeedScreen)
-            {
-                if (CurrentSubMenu == 1)
-                {
-                    if (animate.animation == AnimationNo.Eat)
+                    if (SelectedMenu == MenuScreen.StatScreen)
                     {
                         Sounds.PlaySound(Sound.Beep);
-                        MenuScreens.drawFeedScreen(this, SelectedSubMenuNo);
-                        CurrentSubMenu = 0;
-                        animate.ResetAnimations();
+                        animate.StopStepAnimation();
+                        CurrentScreen = MenuScreen.StatScreen;
+                        MenuScreens.DrawStats(this, SelectedSubMenuNo);
+                        SelectedSubMenuNo++;
+                    }
+                    else if (SelectedMenu == MenuScreen.FeedScreen)
+                    {
+                        Sounds.PlaySound(Sound.Beep);
+                        animate.StopStepAnimation();
+                        CurrentScreen = MenuScreen.FeedScreen;
+                        MenuScreens.drawFeedScreen(this, 0);
+                    }
+                    else if (SelectedMenu == MenuScreen.Training)
+                    {
+                        animate.StopStepAnimation();
+                        Sounds.PlaySound(Sound.Beep);
+                        CurrentScreen = MenuScreen.Training;
+                        animate.SetupTraining();
+                    }
+                    else if (SelectedMenu == MenuScreen.BattleCup)
+                    {
+                        animate.StopStepAnimation();
+                        Sounds.PlaySound(Sound.Beep);
+                        CurrentScreen = MenuScreen.BattleCup;
+                        animate.SetupBattleCup();
+                    }
+                }
+                else if (CurrentScreen == MenuScreen.StatScreen)
+                {
+                    // Goes through the different screen in stats
+                    Sounds.PlaySound(Sound.Beep);
+                    MenuScreens.DrawStats(this, SelectedSubMenuNo);
+
+                    if (SelectedSubMenuNo < 2)
+                    {
+                        SelectedSubMenuNo++;
+                    }
+                    else
+                    {
+                        SelectedSubMenuNo = 0;
                     }
                 }
 
-                else
+                else if (CurrentScreen == MenuScreen.FeedScreen)
                 {
-                    Sounds.PlaySound(Sound.Beep);
-                    animate.SetupEatAnimation(SelectedSubMenuNo);
-                    CurrentSubMenu = 1;
+                    if (CurrentSubMenu == 1)
+                    {
+                        if (animate.animation == AnimationNo.Eat)
+                        {
+                            Sounds.PlaySound(Sound.Beep);
+                            MenuScreens.drawFeedScreen(this, SelectedSubMenuNo);
+                            CurrentSubMenu = 0;
+                            animate.ResetAnimations();
+                        }
+                    }
+
+                    else
+                    {
+                        Sounds.PlaySound(Sound.Beep);
+                        animate.SetupEatAnimation(SelectedSubMenuNo);
+                        CurrentSubMenu = 1;
+                    }
                 }
-            }
-            else if (CurrentScreen == MenuScreen.Training)
-            {
-                // stuff when already in training screen
+                else if (CurrentScreen == MenuScreen.Training)
+                {
+                    // stuff when already in training screen
+                }
             }
         }
 
         public void CButtonPress()
         {
-            if (CurrentScreen != MenuScreen.MainScreen)
+            if (!animate.isEvolving)
             {
-                Sounds.PlaySound(Sound.Beep);
-                resetMainScreen();
+                if (CurrentScreen != MenuScreen.MainScreen)
+                {
+                    Sounds.PlaySound(Sound.Beep);
+                    resetMainScreen();
 
-            }
-            else if (CurrentScreen == MenuScreen.MainScreen && SelectedMenu != MenuScreen.MainScreen)
-            {
-                Sounds.PlaySound(Sound.Beep);
-                pixelScreen.TurnOffAllIcons();
-                SelectedMenu = MenuScreen.MainScreen;
+                }
+                else if (CurrentScreen == MenuScreen.MainScreen && SelectedMenu != MenuScreen.MainScreen)
+                {
+                    Sounds.PlaySound(Sound.Beep);
+                    pixelScreen.TurnOffAllIcons();
+                    SelectedMenu = MenuScreen.MainScreen;
+                }
             }
         }
 

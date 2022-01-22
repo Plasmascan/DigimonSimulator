@@ -94,7 +94,7 @@ namespace DigimonSimulator
         private void debugMenuItem_Click(object sender, RoutedEventArgs e)
         {
             mainGame.animate.StopStepAnimation();
-            Digimon testDigimon = new Digimon(DigimonId.Greymon);
+            Digimon testDigimon = new Digimon(mainGame, DigimonId.Greymon);
             mainGame.animate.setupDigivolve(testDigimon);
         }
 

@@ -67,7 +67,7 @@ namespace DigimonSimulator
             bool isDigimon = true;
             if (isDigimon)
             {
-                Digimon digimon = new Digimon(DigimonId.Betamon);
+                Digimon digimon = new Digimon(null, DigimonId.Betamon);
                 int startX = drawScreen.NumberOfXPixels - (digimon.sprite.frame1Width / 2) - 16;
                 drawScreen.DrawDigimonFrame(digimon, SpriteFrame.Walk2, false, true, startX, 0);
             }

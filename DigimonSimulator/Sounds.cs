@@ -16,7 +16,8 @@ namespace DigimonSimulator
         Lose,
         Win, 
         Start,
-        Defeat
+        Defeat,
+        Digivolve
     }
     public static class Sounds
     {
@@ -100,7 +101,11 @@ namespace DigimonSimulator
                 {
                     Play(Properties.Resources.se_defeat);
                 }
-                
+                else if (soundName == Sound.Digivolve)
+                {
+                    Play(Properties.Resources.digivolve);
+                }
+
             }
         }
     }

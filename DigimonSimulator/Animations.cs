@@ -159,6 +159,7 @@ namespace DigimonSimulator
             IsinAnimation = false;
             powerUpReady = false;
             secondProjectile = null;
+            isEvolving = false;
         }
 
         public void StepDigimon()
@@ -795,7 +796,7 @@ namespace DigimonSimulator
             ResetAnimations();
             int startX = Game.pixelScreen.NumberOfXPixels - (Digimon.sprite.frame1Width / 2) - 8;
             IsinAnimation = true;
-            Opponent = new Digimon(DigimonId.Greymon);
+            Opponent = new Digimon(Game, DigimonId.Greymon);
             Opponent.sprite.SpriteX = 8 - (Opponent.sprite.frame1Width / 2);
             Digimon.sprite.SpriteX = startX;
             Game.pixelScreen.DrawDigimonFrame(Opponent, SpriteFrame.Walk2, true, true, Opponent.sprite.SpriteX, 0);
@@ -1492,12 +1493,14 @@ namespace DigimonSimulator
             _animationTick.Start();
         }
 
+        public bool isEvolving = false;
         public void PlayDigivolve()
         {
             switch (animationCounter)
             {
                 case 0:
-                    IsinAnimation = true;
+                    isEvolving = true;
+                    Sounds.PlaySound(Sound.Digivolve);
                     Game.pixelScreen.ClearScreen();
                     Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, true, GetMiddleX(Digimon.sprite.frame1Width), 0);
                     break;
@@ -1558,7 +1561,24 @@ namespace DigimonSimulator
                     Game.pixelScreen.DrawDigimonFrame(evolvedDigimon, SpriteFrame.Walk, false, false, GetMiddleX(Digimon.sprite.frame1Width), 0);
                     break;
 
-                case 20:
+                case 12:
+                    Game.pixelScreen.ClearScreen();
+                    Game.pixelScreen.DrawDigimonFrame(evolvedDigimon, SpriteFrame.Walk, false, false, GetMiddleX(Digimon.sprite.frame1Width), 0);
+                    break;
+
+                case 13:
+                    Game.pixelScreen.ShadeScreen();
+                    Game.pixelScreen.DrawDigimonFrame(evolvedDigimon, SpriteFrame.Walk, false, false, GetMiddleX(Digimon.sprite.frame1Width), 0);
+                    break;
+
+                case 14:
+                    Game.pixelScreen.ClearScreen();
+                    Game.pixelScreen.DrawDigimonFrame(evolvedDigimon, SpriteFrame.Walk, false, false, GetMiddleX(Digimon.sprite.frame1Width), 0);
+                    _animationTick.Interval = TimeSpan.FromMilliseconds(GameTickSpeed);
+                    break;
+
+                case 17:
+                    Game.currentDigimon.SetupDigimon(evolvedDigimon.digimonID);
                     Game.resetMainScreen();
                     break;
             }

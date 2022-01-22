@@ -124,6 +124,9 @@
   <data name="digivice" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\digivice.gif;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="digivolve" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\digivolve.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="pressedButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pressedButton.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
