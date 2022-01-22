@@ -21,6 +21,7 @@ namespace DigimonSimulator
         public Rectangle PixelShape;
         private Color onColor = Color.FromRgb(1, 35, 23);
         private Color offColor = Color.FromArgb(50, 1, 1, 1);
+        private Color shadeColor = Color.FromArgb(150, 1, 1, 1);
 
         public Pixel(int x, int y, int locationX, int locationY, int pixelSize)
         {
@@ -43,6 +44,12 @@ namespace DigimonSimulator
         public void TurnOffPixel()
         {
             PixelShape.Fill = new SolidColorBrush(offColor);
+            IsPixelOn = false;
+        }
+
+        public void ShadePixel()
+        {
+            PixelShape.Fill = new SolidColorBrush(shadeColor);
             IsPixelOn = false;
         }
 
@@ -288,6 +295,17 @@ namespace DigimonSimulator
             }
         }
 
+        public void ShadeScreen()
+        {
+            for (int y = 0; y < NumberOfYPixels; y++)
+            {
+                for (int x = 0; x < NumberOfXPixels; x++)
+                {
+                    ScreenPixels[y, x].ShadePixel();
+                }
+            }
+        }
+
         public void InvertScreen()
         {
             for (int y = 0; y < NumberOfYPixels; y++)
@@ -432,9 +450,9 @@ namespace DigimonSimulator
             }
         }
 
-        public void DrawDigimonFrame(DigimonSprite digimon, SpriteFrame frameNo, bool mirror, int moveToX, int offsetY)
+        public void DrawDigimonFrame(Digimon digimon, SpriteFrame frameNo, bool mirror, bool fill, int moveToX, int offsetY)
         {
-            ClearSprite(digimon);
+            ClearSprite(digimon.sprite);
 
             // frame to draw
             int spriteHeight, spriteWidth, moveToY;
@@ -444,57 +462,57 @@ namespace DigimonSimulator
             switch ((int)frameNo)
             {
                 default:
-                    frame = digimon.frame1;
-                    spriteHeight = digimon.frame1Height;
-                    spriteWidth = digimon.frame1Width;
+                    frame = digimon.sprite.frame1;
+                    spriteHeight = digimon.sprite.frame1Height;
+                    spriteWidth = digimon.sprite.frame1Width;
                     break;
 
                 case 1:
-                    frame = digimon.frame2;
-                    spriteHeight = digimon.frame2Height;
-                    spriteWidth = digimon.frame2Width;
+                    frame = digimon.sprite.frame2;
+                    spriteHeight = digimon.sprite.frame2Height;
+                    spriteWidth = digimon.sprite.frame2Width;
                     break;
 
                 case 2:
-                    frame = digimon.happyFrame;
-                    spriteHeight = digimon.happyFrameHeight;
-                    spriteWidth = digimon.happyFrameWidth;
+                    frame = digimon.sprite.happyFrame;
+                    spriteHeight = digimon.sprite.happyFrameHeight;
+                    spriteWidth = digimon.sprite.happyFrameWidth;
                     break;
 
                 case 3:
-                    frame = digimon.eat1Frame;
-                    spriteHeight = digimon.eat1FrameHeight;
-                    spriteWidth = digimon.eat1FrameWidth;
+                    frame = digimon.sprite.eat1Frame;
+                    spriteHeight = digimon.sprite.eat1FrameHeight;
+                    spriteWidth = digimon.sprite.eat1FrameWidth;
                     break;
 
                 case 4:
-                    frame = digimon.eat2Frame;
-                    spriteHeight = digimon.eat2FrameHeight;
-                    spriteWidth = digimon.eat2FrameWidth;
+                    frame = digimon.sprite.eat2Frame;
+                    spriteHeight = digimon.sprite.eat2FrameHeight;
+                    spriteWidth = digimon.sprite.eat2FrameWidth;
                     break;
 
                 case 5:
-                    frame = digimon.rejectFrame;
-                    spriteHeight = digimon.rejectFrameHeight;
-                    spriteWidth = digimon.rejectFrameWidth;
+                    frame = digimon.sprite.rejectFrame;
+                    spriteHeight = digimon.sprite.rejectFrameHeight;
+                    spriteWidth = digimon.sprite.rejectFrameWidth;
                     break;
 
                 case 6:
-                    frame = digimon.attackFrame;
-                    spriteHeight = digimon.attackFrameHeight;
-                    spriteWidth = digimon.attackFrameWidth;
+                    frame = digimon.sprite.attackFrame;
+                    spriteHeight = digimon.sprite.attackFrameHeight;
+                    spriteWidth = digimon.sprite.attackFrameWidth;
                     break;
 
                 case 7:
-                    frame = digimon.angryFrame;
-                    spriteHeight = digimon.angryFrameHeight;
-                    spriteWidth = digimon.angryFrameWidth;
+                    frame = digimon.sprite.angryFrame;
+                    spriteHeight = digimon.sprite.angryFrameHeight;
+                    spriteWidth = digimon.sprite.angryFrameWidth;
                     break;
 
                 case 8:
-                    frame = digimon.hurt1Frame;
-                    spriteHeight = digimon.hurt1FrameHeight;
-                    spriteWidth = digimon.hurt1FrameWidth;
+                    frame = digimon.sprite.hurt1Frame;
+                    spriteHeight = digimon.sprite.hurt1FrameHeight;
+                    spriteWidth = digimon.sprite.hurt1FrameWidth;
                     break;
 
             }
@@ -515,7 +533,7 @@ namespace DigimonSimulator
                             {
                                 ScreenPixels[yPixels, xPixels].TurnOnPixel();
                             }
-                            else
+                            else if (fill)
                             {
                                 ScreenPixels[yPixels, xPixels].TurnOffPixel();
                             }
@@ -537,7 +555,7 @@ namespace DigimonSimulator
                             {
                                 ScreenPixels[yPixels, xPixels].TurnOnPixel();
                             }
-                            else
+                            else if (fill)
                             {
                                 ScreenPixels[yPixels, xPixels].TurnOffPixel();
                             }
@@ -547,9 +565,9 @@ namespace DigimonSimulator
             }
 
             // update digimon current location and height
-            digimon.SpriteX = moveToX;
-            digimon.SpriteY = moveToY;
-            digimon.currentSpriteHeight = spriteHeight;
+            digimon.sprite.SpriteX = moveToX;
+            digimon.sprite.SpriteY = moveToY;
+            digimon.sprite.currentSpriteHeight = spriteHeight;
 
         }
 

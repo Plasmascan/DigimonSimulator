@@ -11,7 +11,7 @@ namespace DigimonSimulator
     public class DigimonGame
     {
         public PixelScreen pixelScreen;
-        public DigimonSprite currentDigimon;
+        public Digimon currentDigimon;
         public Animations animate;
         public readonly DispatcherTimer _gameTimer = new DispatcherTimer(DispatcherPriority.Normal);
         public int TimeoutSelectedMenu = 0;
@@ -24,7 +24,7 @@ namespace DigimonSimulator
         {
             pixelScreen = new PixelScreen(screen, 0, 20, 16, 32, 4);
             pixelScreen.SetupScreen();
-            currentDigimon = SpriteImages.Greymon();
+            currentDigimon = new Digimon(DigimonId.Betamon);
             animate = new Animations(this);
             animate.StartStepAnimation();
             setTimer();
