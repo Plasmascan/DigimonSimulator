@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Media;
 using System.Text;
 using System.Windows.Threading;
@@ -45,7 +46,7 @@ namespace DigimonSimulator
         public bool IsinAnimation = false;
         public bool powerUpReady = false;
         public readonly DispatcherTimer _animationTick = new DispatcherTimer(DispatcherPriority.Send);
-        public readonly DispatcherTimer _stepTimer = new DispatcherTimer(DispatcherPriority.Normal);
+        public readonly DispatcherTimer _digimonStateTimer = new DispatcherTimer(DispatcherPriority.Normal);
         public AnimationNo animation = AnimationNo.NoAnimation;
 
         public Animations(DigimonGame game)
@@ -53,11 +54,11 @@ namespace DigimonSimulator
             Game = game;
             Digimon = game.currentDigimon;
             _animationTick.Tick += _animation_Tick;
-            _stepTimer.Tick += _stepTimer_Tick;
-            _stepTimer.Interval = TimeSpan.FromMilliseconds(GameTickSpeed);
+            _digimonStateTimer.Tick += _digimonStateTimer_Tick;
+            _digimonStateTimer.Interval = TimeSpan.FromMilliseconds(GameTickSpeed);
         }
 
-        private void _stepTimer_Tick(object sender, EventArgs e)
+        private void _digimonStateTimer_Tick(object sender, EventArgs e)
         {
             StepDigimon();
         }
@@ -135,17 +136,26 @@ namespace DigimonSimulator
             }
         }
 
-        public void StartStepAnimation()
+        public void StartDigimonStateAnimation()
         {
             StepCounter = 0;
-            Digimon.sprite.SpriteX = Game.pixelScreen.NumberOfXPixels - (Digimon.sprite.frame1Width / 2) - 18;
+            if (!Digimon.isAsleep)
+            {
+                Game.pixelScreen.ClearSprite(Digimon.sprite);
+                Digimon.sprite.SpriteX = Game.pixelScreen.NumberOfXPixels - (Digimon.sprite.frame1Width / 2) - 18;
+            }
+            else if (Digimon.isAsleep)
+            {
+                Game.pixelScreen.ClearSprite(Digimon.sprite);
+                Digimon.sprite.SpriteX = GetMiddleX(Digimon.sprite.hurt1FrameWidth);
+            }
             StepDigimon();
-            _stepTimer.Start();
+            _digimonStateTimer.Start();
         }
 
-        public void StopStepAnimation()
+        public void StopDigimonStateAnimation()
         {
-            _stepTimer.Stop();
+            _digimonStateTimer.Stop();
         }
 
         public void ResetAnimations()
@@ -162,203 +172,227 @@ namespace DigimonSimulator
             isEvolving = false;
         }
 
+        private Sprite ZSprite = new Sprite();
         public void StepDigimon()
         {
             #region Animation
-            if (StepCounter == 0 || StepCounter == 1)
+            if (!Digimon.isAsleep)
             {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, true, -2 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 2)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2 , true, true, 2 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 3)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, true, -2 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 4)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, false, true, -1 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 5)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, true, 1 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 6)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, false, true, 0 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 7)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, true, 0 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 8)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, true, true, 0 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 9)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, true, true, 2 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 10)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, true, true, 3 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 11)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, true, true, 2 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 12)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, true, true, 2 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 13)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, true, true, 1 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 14)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, true, 0 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 15)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, true, -4 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 16)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, true, true, 0 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 17)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, true, true, 3 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 18)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, true, true, 2 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 19)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, true, -1 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 20)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, true, true, 2 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 21)
-            {
+                if (StepCounter == 0 || StepCounter == 1)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, true, -2 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 2)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, true, true, 2 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 3)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, true, -2 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 4)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, false, true, -1 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 5)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, true, 1 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 6)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, false, true, 0 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 7)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, true, 0 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 8)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, true, true, 0 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 9)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, true, true, 2 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 10)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, true, true, 3 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 11)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, true, true, 2 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 12)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, true, true, 2 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 13)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, true, true, 1 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 14)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, true, 0 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 15)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, true, -4 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 16)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, true, true, 0 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 17)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, true, true, 3 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 18)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, true, true, 2 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 19)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, true, -1 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 20)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, true, true, 2 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 21)
+                {
 
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, true, true, 2 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 22)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, true, true, -2 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 23)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, true, true, 2 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 24)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, true, true, -2 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 25)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, true, -2 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 26)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, true, -3 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 27)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, true, -2 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 28)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, true, -2 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 29)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, true, -1 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 30)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, true, true, 0 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 31)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, true, true, 3 + Digimon.sprite.SpriteX, 0);
-                StepCounter++;
-                return;
-            }
-            if (StepCounter == 32)
-            {
-                Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, true, -1 + Digimon.sprite.SpriteX, 0);
-                StepCounter = 0;
-                return;
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, true, true, 2 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 22)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, true, true, -2 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 23)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Happy, true, true, 2 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 24)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, true, true, -2 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 25)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, true, -2 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 26)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, true, -3 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 27)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, true, -2 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 28)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, true, -2 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 29)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, true, -1 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 30)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, true, true, 0 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 31)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, true, true, 3 + Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                    return;
+                }
+                if (StepCounter == 32)
+                {
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk2, false, true, -1 + Digimon.sprite.SpriteX, 0);
+                    StepCounter = 0;
+                    return;
+                }
             }
             #endregion
+            else if (Digimon.isAsleep)
+            {
+                if (StepCounter == 0)
+                {
+                    Game.pixelScreen.ClearSprite(ZSprite);
+                    ZSprite = SpriteImages.BigZSprite();
+                    Game.pixelScreen.DrawSprite(ZSprite, 24, 2, false);
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Hurt1, false, true, Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+                }
+                else if (StepCounter == 1)
+                {
+                    Game.pixelScreen.ClearSprite(ZSprite);
+                    ZSprite = SpriteImages.SmallZSprite();
+                    Game.pixelScreen.DrawSprite(ZSprite, 24, 2, false);
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Hurt1, false, true, Digimon.sprite.SpriteX, 0);
+                    StepCounter = 0;
+                }
+                
+            }
         }
 
         public void SetupEatAnimation(int choice)

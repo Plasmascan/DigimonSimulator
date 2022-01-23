@@ -29,11 +29,79 @@ namespace DigimonSimulator
         public int maxStrength;
         public int maxHealth;
         public int hitDamage;
+        public int sleepCareMistakeTimer = -1;
+        public int hurtCareMistakeTimer = -1;
+        public int dungCareMistakeTimer = -1;
+        public DateTime sleepTime;
+        public int secondsUntilSleep = 15;
+        public bool isAsleep = false;
 
         public Digimon(DigimonGame game, DigimonId digimonID)
         {
             this.game = game;
             SetupDigimon(digimonID);
+        }
+
+        public void WakeupDigimon()
+        {
+            secondsUntilSleep = 600;
+            isAsleep = false;
+            if (sleepCareMistakeTimer > -1)
+            {
+                careMistakes++;
+                sleepCareMistakeTimer = -1;
+            }
+        }
+
+        public void DigimonFallAsleep()
+        {
+            isAsleep = true;
+            sleepCareMistakeTimer = 600;
+        }
+
+        public bool IsActiveCareMistakeTimer()
+        {
+            if (sleepCareMistakeTimer == -1 && hurtCareMistakeTimer == -1 && dungCareMistakeTimer == -1)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool IsWithinSleepingTime()
+        {
+            if (sleepTime.Hour < 7)
+            {
+                if (game.setTime.Hour < 7)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            if (game.setTime.Hour >= 7)
+            {
+                if (game.setTime.Hour >= sleepTime.Hour)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+           
+            else
+            {
+                return true;
+            }
+            
         }
 
         public void SetupDigimon(DigimonId digimonID)
@@ -48,6 +116,7 @@ namespace DigimonSimulator
                     maxStrength = 1000;
                     hitDamage = 100;
                     canDigivolve = true;
+                    sleepTime  = DateTime.Parse("11:00:00 PM");
                     break;
 
                 case DigimonId.Egg:
@@ -62,6 +131,7 @@ namespace DigimonSimulator
                     maxStrength = 1000;
                     hitDamage = 100;
                     canDigivolve = true;
+                    sleepTime = DateTime.Parse("11:00:00 PM");
                     break;
 
                 case DigimonId.Betamon:
@@ -71,8 +141,9 @@ namespace DigimonSimulator
                     maxHunger = 1000;
                     maxStrength = 1000;
                     hitDamage = 200;
-                    evolveTime = 6;
+                    evolveTime = 9;
                     canDigivolve = true;
+                    sleepTime = DateTime.Parse("10:00:00 PM");
                     break;
 
                 case DigimonId.Greymon:
@@ -83,6 +154,7 @@ namespace DigimonSimulator
                     maxStrength = 1000;
                     hitDamage = 300;
                     canDigivolve = false;
+                    sleepTime = DateTime.Parse("11:00:00 PM");
                     break;
             }
         }

@@ -68,7 +68,7 @@ namespace DigimonSimulator
         public static void MainScreen(DigimonGame game)
         {
             game.pixelScreen.ClearScreen();
-            game.animate.StartStepAnimation();
+            game.animate.StartDigimonStateAnimation();
         }
 
         public static void drawFeedScreen(DigimonGame game, int SubMenuNo)

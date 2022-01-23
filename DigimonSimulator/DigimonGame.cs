@@ -15,6 +15,7 @@ namespace DigimonSimulator
         public Animations animate;
         public readonly DispatcherTimer _gameTimer = new DispatcherTimer(DispatcherPriority.Normal);
         public int TimeoutSelectedMenu = 0;
+        public int TimeoutMenuScreen = 0;
         public MenuScreen CurrentScreen = MenuScreen.MainScreen;
         public MenuScreen SelectedMenu = MenuScreen.MainScreen;
         public int SelectedSubMenuNo = 0;
@@ -26,6 +27,7 @@ namespace DigimonSimulator
         public int gameCurrentMinute;
         public int gameCurrentHour;
         public bool isEvolutionReady = false;
+        public DateTime setTime;
 
         public void InitializeGame(Canvas screen)
         {
@@ -33,7 +35,8 @@ namespace DigimonSimulator
             pixelScreen.SetupScreen();
             currentDigimon = new Digimon(this, DigimonId.Betamon);
             animate = new Animations(this);
-            animate.StartStepAnimation();
+            animate.StartDigimonStateAnimation();
+            setTime = DateTime.Parse("1:59:30 AM");
             setTimer();
         }
 
@@ -52,8 +55,54 @@ namespace DigimonSimulator
             gameElapsedMinutes = gameElapsedSeconds / 60;
             gameElapsedHours = gameElapsedMinutes / 60;
             currentDigimon.totalTimeAlive++;
+            setTime = setTime.AddSeconds(1);
 
-            if (currentDigimon.canDigivolve)
+
+            // set digimon to sleep
+            if (currentDigimon.IsWithinSleepingTime() && currentDigimon.secondsUntilSleep == 0 && !currentDigimon.isAsleep)
+            {
+                if (CurrentScreen == MenuScreen.MainScreen && !animate.isEvolving)
+                {
+                    currentDigimon.DigimonFallAsleep();
+                    pixelScreen.TurnOnNotificationIcon();
+                    Sounds.PlaySound(Sound.Step);
+                    animate.ResetAnimations();
+                    animate.StartDigimonStateAnimation();
+                }
+            }
+
+            // set digimon to wake
+            else if (!currentDigimon.IsWithinSleepingTime() && currentDigimon.isAsleep)
+            {
+                currentDigimon.WakeupDigimon();
+                if (CurrentScreen == MenuScreen.MainScreen)
+                {
+                    resetMainScreen();
+                }
+            }
+
+            if (!currentDigimon.IsActiveCareMistakeTimer())
+            {
+                pixelScreen.TurnOffNotificationIcon();
+            }
+
+            // countdown until a care mistake is reached
+            if (currentDigimon.sleepCareMistakeTimer > -1)
+            {
+                currentDigimon.sleepCareMistakeTimer--;
+                if (currentDigimon.sleepCareMistakeTimer == 0)
+                {
+                    currentDigimon.careMistakes++;
+                }
+            }
+
+            // used to keep digimon awake in sleeping time if woken up
+            if (currentDigimon.secondsUntilSleep > 0)
+            {
+                currentDigimon.secondsUntilSleep--;
+            }
+
+            if (currentDigimon.canDigivolve && !currentDigimon.isAsleep)
             {
                 currentDigimon.evolveTime--;
             }
@@ -62,7 +111,7 @@ namespace DigimonSimulator
             {
                 if (CurrentScreen == MenuScreen.MainScreen && currentDigimon.evolveTime < 1 && currentDigimon.canDigivolve)
                 {
-                    animate.StopStepAnimation();
+                    animate.StopDigimonStateAnimation();
                     currentDigimon.Digivolve();
                 }
             }
@@ -80,11 +129,23 @@ namespace DigimonSimulator
             if (CurrentScreen == MenuScreen.MainScreen && SelectedMenu!= MenuScreen.MainScreen)
             {
                 TimeoutSelectedMenu++;
-                if (TimeoutSelectedMenu == 5)
+                if (TimeoutSelectedMenu == 10)
                 {
                     pixelScreen.TurnOffAllIcons();
                     SelectedMenu = MenuScreen.MainScreen;
                     TimeoutSelectedMenu = 0;
+                }
+            }
+
+            // Go back to mainscreen if inactive
+            else if (CurrentScreen == MenuScreen.FeedScreen || CurrentScreen == MenuScreen.StatScreen)
+            {
+                TimeoutMenuScreen++;
+                if (TimeoutMenuScreen == 10)
+                {
+                    pixelScreen.TurnOffAllIcons();
+                    resetMainScreen();
+                    SelectedMenu = MenuScreen.MainScreen;
                 }
             }
 
@@ -117,6 +178,7 @@ namespace DigimonSimulator
                 else if (CurrentScreen == MenuScreen.StatScreen)
                 {
                     Sounds.PlaySound(Sound.Beep);
+                    TimeoutMenuScreen = 0;
                     MenuScreens.DrawStats(this, SelectedSubMenuNo);
                     if (SelectedSubMenuNo < 2)
                     {
@@ -130,6 +192,7 @@ namespace DigimonSimulator
                 else if (CurrentScreen == MenuScreen.FeedScreen && CurrentSubMenu == 0)
                 {
                     Sounds.PlaySound(Sound.Beep);
+                    TimeoutMenuScreen = 0;
                     if (SelectedSubMenuNo == 1)
                     {
                         SelectedSubMenuNo--;
@@ -166,7 +229,7 @@ namespace DigimonSimulator
                     if (SelectedMenu == MenuScreen.StatScreen)
                     {
                         Sounds.PlaySound(Sound.Beep);
-                        animate.StopStepAnimation();
+                        animate.StopDigimonStateAnimation();
                         CurrentScreen = MenuScreen.StatScreen;
                         MenuScreens.DrawStats(this, SelectedSubMenuNo);
                         SelectedSubMenuNo++;
@@ -174,20 +237,20 @@ namespace DigimonSimulator
                     else if (SelectedMenu == MenuScreen.FeedScreen)
                     {
                         Sounds.PlaySound(Sound.Beep);
-                        animate.StopStepAnimation();
+                        animate.StopDigimonStateAnimation();
                         CurrentScreen = MenuScreen.FeedScreen;
                         MenuScreens.drawFeedScreen(this, 0);
                     }
                     else if (SelectedMenu == MenuScreen.Training)
                     {
-                        animate.StopStepAnimation();
+                        animate.StopDigimonStateAnimation();
                         Sounds.PlaySound(Sound.Beep);
                         CurrentScreen = MenuScreen.Training;
                         animate.SetupTraining();
                     }
                     else if (SelectedMenu == MenuScreen.BattleCup)
                     {
-                        animate.StopStepAnimation();
+                        animate.StopDigimonStateAnimation();
                         Sounds.PlaySound(Sound.Beep);
                         CurrentScreen = MenuScreen.BattleCup;
                         animate.SetupBattleCup();
@@ -196,6 +259,7 @@ namespace DigimonSimulator
                 else if (CurrentScreen == MenuScreen.StatScreen)
                 {
                     // Goes through the different screen in stats
+                    TimeoutMenuScreen = 0;
                     Sounds.PlaySound(Sound.Beep);
                     MenuScreens.DrawStats(this, SelectedSubMenuNo);
 
@@ -211,6 +275,7 @@ namespace DigimonSimulator
 
                 else if (CurrentScreen == MenuScreen.FeedScreen)
                 {
+                    TimeoutMenuScreen = 0;
                     if (CurrentSubMenu == 1)
                     {
                         if (animate.animation == AnimationNo.Eat)
@@ -262,6 +327,7 @@ namespace DigimonSimulator
             SelectedSubMenuNo = 0;
             CurrentSubMenu = 0;
             TimeoutSelectedMenu = 0;
+            TimeoutMenuScreen = 0;
             animate.ResetAnimations();
         }
 

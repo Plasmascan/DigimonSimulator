@@ -266,6 +266,16 @@ namespace DigimonSimulator
             }
         }
 
+        public void TurnOnNotificationIcon()
+        {
+            notificationIcon.Opacity = MenuIconOn;
+        }
+
+        public void TurnOffNotificationIcon()
+        {
+            notificationIcon.Opacity = MenuIconOff;
+        }
+
         public void TurnMenuIconON(MenuScreen screen)
         {
             TurnOffAllIcons();

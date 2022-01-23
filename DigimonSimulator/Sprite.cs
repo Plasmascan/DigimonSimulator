@@ -2106,6 +2106,60 @@ namespace DigimonSimulator
             return barSprite;
         }
 
+        public static Sprite SmallZSprite()
+        {
+            Sprite smallZSprite = new Sprite();
+            smallZSprite.SpriteHeight = 6;
+            smallZSprite.SpriteWidth = 8;
+            smallZSprite.sprite = new bool[smallZSprite.SpriteHeight, smallZSprite.SpriteWidth];
+
+            #region smallZSprite
+            smallZSprite.sprite[0, 4] = true;
+            smallZSprite.sprite[0, 5] = true;
+            smallZSprite.sprite[0, 6] = true;
+            smallZSprite.sprite[0, 7] = true;
+            smallZSprite.sprite[1, 6] = true;
+            smallZSprite.sprite[2, 5] = true;
+            smallZSprite.sprite[3, 1] = true;
+            smallZSprite.sprite[3, 2] = true;
+            smallZSprite.sprite[3, 4] = true;
+            smallZSprite.sprite[3, 5] = true;
+            smallZSprite.sprite[3, 6] = true;
+            smallZSprite.sprite[3, 7] = true;
+            smallZSprite.sprite[4, 2] = true;
+            smallZSprite.sprite[5, 0] = true;
+            #endregion
+
+            return smallZSprite;
+        }
+
+        public static Sprite BigZSprite()
+        {
+            Sprite bigZSprite = new Sprite();
+            bigZSprite.SpriteHeight = 6;
+            bigZSprite.SpriteWidth = 6;
+            bigZSprite.sprite = new bool[bigZSprite.SpriteHeight, bigZSprite.SpriteWidth];
+
+            #region bigZSprite
+            bigZSprite.sprite[0, 1] = true;
+            bigZSprite.sprite[0, 2] = true;
+            bigZSprite.sprite[0, 3] = true;
+            bigZSprite.sprite[0, 4] = true;
+            bigZSprite.sprite[0, 5] = true;
+            bigZSprite.sprite[1, 4] = true;
+            bigZSprite.sprite[2, 3] = true;
+            bigZSprite.sprite[3, 2] = true;
+            bigZSprite.sprite[4, 1] = true;
+            bigZSprite.sprite[5, 0] = true;
+            bigZSprite.sprite[5, 1] = true;
+            bigZSprite.sprite[5, 2] = true;
+            bigZSprite.sprite[5, 3] = true;
+            bigZSprite.sprite[5, 4] = true;
+            #endregion
+
+            return bigZSprite;
+        }
+
         public static Sprite ThunderProjectileSprite()
         {
             Sprite thunderProjectileSprite = new Sprite();

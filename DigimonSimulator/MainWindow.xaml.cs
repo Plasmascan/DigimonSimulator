@@ -36,7 +36,7 @@ namespace DigimonSimulator
         private void aButton_Click(object sender, RoutedEventArgs e)
         {
             //mainGame.AButtonPress();
-            mainGame.animate.StopStepAnimation();
+            mainGame.animate.StopDigimonStateAnimation();
             mainGame.animate._animationTick.Start();
             mainGame.animate.animation = AnimationNo.Defeat;
         }
@@ -93,9 +93,18 @@ namespace DigimonSimulator
 
         private void debugMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            mainGame.animate.StopStepAnimation();
+            /**
+            mainGame.animate.StopDigimonStateAnimation();
             Digimon testDigimon = new Digimon(mainGame, DigimonId.Greymon);
             mainGame.animate.setupDigivolve(testDigimon);
+            **/
+
+            /**
+            DrawWindow drawWindow = new DrawWindow();
+            drawWindow.Show();
+            **/
+            Debug.WriteLine("Care mistakes: " + mainGame.currentDigimon.careMistakes + " Time: " + mainGame.setTime);
+            mainGame.currentDigimon.WakeupDigimon();
         }
 
         private void minimizeMenuItem_Click(object sender, RoutedEventArgs e)
