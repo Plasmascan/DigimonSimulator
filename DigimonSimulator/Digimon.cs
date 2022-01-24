@@ -29,15 +29,18 @@ namespace DigimonSimulator
         public int maxStrength;
         public int maxHealth;
         public int hitDamage;
+        public int dungTimeInterval;
         public int sleepCareMistakeTimer = -1;
         public int hurtCareMistakeTimer = -1;
         public int hungerCareMistakeTimer = -1;
         public int dungCareMistakeTimer = -1;
         public int forcedSleepTimer = -1;
+        public int dungTimer = 10;
         public DateTime sleepTime;
         public int secondsUntilSleep = 20;
         public bool isAsleep = false;
         public bool isInBed = false;
+        public bool isHurt = false;
 
         public Digimon(DigimonGame game, DigimonId digimonID)
         {
@@ -49,6 +52,7 @@ namespace DigimonSimulator
         {
             secondsUntilSleep = 600;
             isAsleep = false;
+            isInBed = false;
             if (sleepCareMistakeTimer > -1)
             {
                 careMistakes++;
@@ -119,6 +123,7 @@ namespace DigimonSimulator
                     maxStrength = 1000;
                     hitDamage = 100;
                     canDigivolve = true;
+                    dungTimeInterval = 100;
                     sleepTime  = DateTime.Parse("11:00:00 PM");
                     break;
 
@@ -134,6 +139,7 @@ namespace DigimonSimulator
                     maxStrength = 1000;
                     hitDamage = 100;
                     canDigivolve = true;
+                    dungTimeInterval = 100;
                     sleepTime = DateTime.Parse("11:00:00 PM");
                     break;
 
@@ -145,7 +151,8 @@ namespace DigimonSimulator
                     maxStrength = 1000;
                     hitDamage = 200;
                     evolveTime = 9;
-                    canDigivolve = true;
+                    canDigivolve = false;
+                    dungTimeInterval = 3600;
                     sleepTime = DateTime.Parse("10:00:00 PM");
                     break;
 
@@ -157,6 +164,7 @@ namespace DigimonSimulator
                     maxStrength = 1000;
                     hitDamage = 300;
                     canDigivolve = false;
+                    dungTimeInterval = 3600;
                     sleepTime = DateTime.Parse("11:00:00 PM");
                     break;
             }

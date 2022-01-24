@@ -2519,6 +2519,42 @@ namespace DigimonSimulator
             return waveProjectileSprite;
         }
 
+        public static Sprite DungProjectileSprite()
+        {
+            Sprite dungProjectileSprite = new Sprite();
+            dungProjectileSprite.SpriteHeight = 8;
+            dungProjectileSprite.SpriteWidth = 8;
+            dungProjectileSprite.sprite = new bool[dungProjectileSprite.SpriteHeight, dungProjectileSprite.SpriteWidth];
+
+            #region dungProjectileSprite
+            dungProjectileSprite.sprite[0, 7] = true;
+            dungProjectileSprite.sprite[1, 1] = true;
+            dungProjectileSprite.sprite[1, 6] = true;
+            dungProjectileSprite.sprite[2, 0] = true;
+            dungProjectileSprite.sprite[2, 7] = true;
+            dungProjectileSprite.sprite[3, 1] = true;
+            dungProjectileSprite.sprite[3, 3] = true;
+            dungProjectileSprite.sprite[4, 3] = true;
+            dungProjectileSprite.sprite[4, 4] = true;
+            dungProjectileSprite.sprite[5, 2] = true;
+            dungProjectileSprite.sprite[5, 3] = true;
+            dungProjectileSprite.sprite[5, 5] = true;
+            dungProjectileSprite.sprite[6, 1] = true;
+            dungProjectileSprite.sprite[6, 2] = true;
+            dungProjectileSprite.sprite[6, 3] = true;
+            dungProjectileSprite.sprite[6, 4] = true;
+            dungProjectileSprite.sprite[6, 6] = true;
+            dungProjectileSprite.sprite[7, 1] = true;
+            dungProjectileSprite.sprite[7, 2] = true;
+            dungProjectileSprite.sprite[7, 3] = true;
+            dungProjectileSprite.sprite[7, 4] = true;
+            dungProjectileSprite.sprite[7, 5] = true;
+            dungProjectileSprite.sprite[7, 6] = true;
+            #endregion
+
+            return dungProjectileSprite;
+        }
+
         public static DigimonSprite Elecmon()
         {
             DigimonSprite elecmonSprite = new DigimonSprite();

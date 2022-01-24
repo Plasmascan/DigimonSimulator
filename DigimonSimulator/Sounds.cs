@@ -10,6 +10,7 @@ namespace DigimonSimulator
     public enum Sound
     {
         Beep,
+        Beep2,
         Attack,
         Step,
         Damage,
@@ -72,6 +73,10 @@ namespace DigimonSimulator
                 if (soundName == Sound.Beep)
                 {
                     Play(Properties.Resources.beep);
+                }
+                else if (soundName == Sound.Beep2)
+                {
+                    Play(Properties.Resources.beep2);
                 }
                 else if (soundName == Sound.Attack)
                 {

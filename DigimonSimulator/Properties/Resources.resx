@@ -121,6 +121,9 @@
   <data name="beep" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\beep.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="beep2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\beep2.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="digivice" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\digivice.gif;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

@@ -28,6 +28,7 @@ namespace DigimonSimulator
         public int gameCurrentHour;
         public bool isEvolutionReady = false;
         public DateTime setTime;
+        public int numberOfDung = 0;
 
         public void InitializeGame(Canvas screen)
         {
@@ -36,7 +37,7 @@ namespace DigimonSimulator
             currentDigimon = new Digimon(this, DigimonId.Betamon);
             animate = new Animations(this);
             animate.StartDigimonStateAnimation();
-            setTime = DateTime.Parse("8:59:30 AM");
+            setTime = DateTime.Parse("1:59:30 AM");
             setTimer();
         }
 
@@ -64,8 +65,26 @@ namespace DigimonSimulator
                 currentDigimon.forcedSleepTimer--;
             }
 
+            // Digimon goes to toilet
+            if (!currentDigimon.isAsleep && numberOfDung != 4)
+            {
+                currentDigimon.dungTimer--;
+                if (currentDigimon.dungTimer == 0)
+                {
+                    Debug.WriteLine("gfg");
+                    numberOfDung++;
+                    currentDigimon.dungTimer = currentDigimon.dungTimeInterval;
+
+                    if (CurrentScreen == MenuScreen.MainScreen && !animate.isEvolving)
+                    {
+                        resetMainScreen();
+                    }
+                }
+                
+            }
+
             // set digimon to sleep
-            if (currentDigimon.IsWithinSleepingTime() && currentDigimon.secondsUntilSleep == 0 && !currentDigimon.isAsleep)
+            if (currentDigimon.IsWithinSleepingTime() && currentDigimon.secondsUntilSleep == 0 && !currentDigimon.isAsleep && !currentDigimon.isHurt)
             {
                 if (CurrentScreen == MenuScreen.MainScreen && !animate.isEvolving)
                 {
@@ -284,24 +303,55 @@ namespace DigimonSimulator
                     }
                     else if (SelectedMenu == MenuScreen.FeedScreen)
                     {
-                        Sounds.PlaySound(Sound.Beep);
-                        animate.StopDigimonStateAnimation();
-                        CurrentScreen = MenuScreen.FeedScreen;
-                        MenuScreens.DrawFeedScreen(this, 0);
+                        if (currentDigimon.isInBed)
+                        {
+                            Sounds.PlaySound(Sound.Beep2);
+                        }
+                        else
+                        {
+                            Sounds.PlaySound(Sound.Beep);
+                            animate.StopDigimonStateAnimation();
+                            CurrentScreen = MenuScreen.FeedScreen;
+                            MenuScreens.DrawFeedScreen(this, 0);
+                        }
                     }
                     else if (SelectedMenu == MenuScreen.Training)
                     {
-                        animate.StopDigimonStateAnimation();
-                        Sounds.PlaySound(Sound.Beep);
-                        CurrentScreen = MenuScreen.Training;
-                        animate.SetupTraining();
+                        if (currentDigimon.isInBed)
+                        {
+                            Sounds.PlaySound(Sound.Beep2);
+                        }
+                        else
+                        {
+                            if (currentDigimon.isAsleep)
+                            {
+                                currentDigimon.WakeupDigimon();
+                            }
+                            animate.StopDigimonStateAnimation();
+                            Sounds.PlaySound(Sound.Beep);
+                            CurrentScreen = MenuScreen.Training;
+                            animate.SetupTraining();
+                        }
+                        
                     }
                     else if (SelectedMenu == MenuScreen.BattleCup)
                     {
-                        animate.StopDigimonStateAnimation();
-                        Sounds.PlaySound(Sound.Beep);
-                        CurrentScreen = MenuScreen.BattleCup;
-                        animate.SetupBattleCup();
+                        if (currentDigimon.isInBed)
+                        {
+                            Sounds.PlaySound(Sound.Beep2);
+                        }
+                        else
+                        {
+                            if (currentDigimon.isAsleep)
+                            {
+                                currentDigimon.WakeupDigimon();
+                            }
+                            animate.StopDigimonStateAnimation();
+                            Sounds.PlaySound(Sound.Beep);
+                            CurrentScreen = MenuScreen.BattleCup;
+                            animate.SetupBattleCup();
+                        }
+                       
                     }
                     else if (SelectedMenu == MenuScreen.Lights)
                     {
@@ -345,6 +395,11 @@ namespace DigimonSimulator
                     else
                     {
                         Sounds.PlaySound(Sound.Beep);
+
+                        if (currentDigimon.isAsleep)
+                        {
+                            currentDigimon.WakeupDigimon();
+                        }
                         
                         // Deactivate hunger care mistake timer
                         if (SelectedSubMenuNo == 0)

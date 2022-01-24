@@ -43,6 +43,7 @@ namespace DigimonSimulator
         private Sprite BrickWall;
         private Sprite HappyMark = SpriteImages.HappyMarkSprite();
         private Sprite AngryMark;
+        private Sprite[] Dungs;
         public bool IsinAnimation = false;
         public bool powerUpReady = false;
         public readonly DispatcherTimer _animationTick = new DispatcherTimer(DispatcherPriority.Send);
@@ -56,6 +57,15 @@ namespace DigimonSimulator
             _animationTick.Tick += _animation_Tick;
             _digimonStateTimer.Tick += _digimonStateTimer_Tick;
             _digimonStateTimer.Interval = TimeSpan.FromMilliseconds(GameTickSpeed);
+
+            Dungs = new Sprite[4];
+            for (int i = 0; i < 4; i++)
+            {
+                
+                    Dungs[i] = SpriteImages.DungProjectileSprite();
+                
+            }
+
         }
 
         private void _digimonStateTimer_Tick(object sender, EventArgs e)
@@ -136,18 +146,76 @@ namespace DigimonSimulator
             }
         }
 
+        private int XOffset = 0;
+        private bool mirrorDung = false;
+        public void SetupDung()
+        {
+            if (Game.numberOfDung == 1)
+            {
+                Dungs[0].SpriteX = Game.pixelScreen.NumberOfXPixels - Dungs[0].SpriteWidth;
+                Dungs[0].SpriteY = Game.pixelScreen.NumberOfYPixels - Dungs[0].SpriteHeight;
+                XOffset = Dungs[0].SpriteWidth;
+            }
+
+            else if (Game.numberOfDung == 2)
+            {
+                Dungs[0].SpriteX = Game.pixelScreen.NumberOfXPixels - Dungs[0].SpriteWidth;
+                Dungs[0].SpriteY = Game.pixelScreen.NumberOfYPixels - Dungs[0].SpriteHeight;
+
+                Dungs[1].SpriteX = Game.pixelScreen.NumberOfXPixels - Dungs[0].SpriteWidth;
+                Dungs[1].SpriteY = 0;
+
+                XOffset = Dungs[0].SpriteWidth;
+            }
+
+            else if (Game.numberOfDung == 3)
+            {
+
+                Dungs[0].SpriteX = Game.pixelScreen.NumberOfXPixels - Dungs[0].SpriteWidth * 2;
+                Dungs[0].SpriteY = Game.pixelScreen.NumberOfYPixels - Dungs[0].SpriteHeight;
+
+                Dungs[1].SpriteX = Game.pixelScreen.NumberOfXPixels - Dungs[0].SpriteWidth * 2;
+                Dungs[1].SpriteY = 0;
+
+                Dungs[2].SpriteX = Game.pixelScreen.NumberOfXPixels - Dungs[0].SpriteWidth;
+                Dungs[2].SpriteY = Game.pixelScreen.NumberOfYPixels - Dungs[0].SpriteHeight;
+
+                XOffset = Dungs[0].SpriteWidth * 2;
+            }
+
+            else if (Game.numberOfDung == 4)
+            {
+                Dungs[0].SpriteX = Game.pixelScreen.NumberOfXPixels - Dungs[0].SpriteWidth * 2;
+                Dungs[0].SpriteY = Game.pixelScreen.NumberOfYPixels - Dungs[0].SpriteHeight;
+
+                Dungs[1].SpriteX = Game.pixelScreen.NumberOfXPixels - Dungs[0].SpriteWidth * 2;
+                Dungs[1].SpriteY = 0;
+
+                Dungs[2].SpriteX = Game.pixelScreen.NumberOfXPixels - Dungs[0].SpriteWidth;
+                Dungs[2].SpriteY = Game.pixelScreen.NumberOfYPixels - Dungs[0].SpriteHeight;
+
+                Dungs[3].SpriteX = Game.pixelScreen.NumberOfXPixels - Dungs[0].SpriteWidth;
+                Dungs[3].SpriteY = 0;
+
+
+                XOffset = Dungs[0].SpriteWidth * 2;
+            }
+        }
+
         public void StartDigimonStateAnimation()
         {
             StepCounter = 0;
+            SetupDung();
+
             if (!Digimon.isAsleep)
             {
                 Game.pixelScreen.ClearSprite(Digimon.sprite);
-                Digimon.sprite.SpriteX = Game.pixelScreen.NumberOfXPixels - (Digimon.sprite.frame1Width / 2) - 18;
+                Digimon.sprite.SpriteX = Game.pixelScreen.NumberOfXPixels - (Digimon.sprite.frame1Width / 2) - 18 - XOffset;
             }
             else if (Digimon.isAsleep)
             {
                 Game.pixelScreen.ClearSprite(Digimon.sprite);
-                Digimon.sprite.SpriteX = GetMiddleX(Digimon.sprite.hurt1FrameWidth);
+                Digimon.sprite.SpriteX = GetMiddleX(Digimon.sprite.hurt1FrameWidth) - XOffset;
             }
             StepDigimon();
             _digimonStateTimer.Start();
@@ -176,6 +244,18 @@ namespace DigimonSimulator
         private Sprite BedSprite = SpriteImages.BedSprite();
         public void StepDigimon()
         {
+
+            if (Game.numberOfDung >= 0)
+            {
+                mirrorDung = !mirrorDung;
+                for (int i = 0; i < Game.numberOfDung; i++)
+                {
+                    Game.pixelScreen.ClearSprite(Dungs[i]);
+                    Game.pixelScreen.DrawSprite(Dungs[i], Dungs[i].SpriteX, Dungs[i].SpriteY, mirrorDung);
+                    //Debug.WriteLine(Dungs[i].SpriteX);
+                }
+            }
+
             #region Animation
             if (!Digimon.isAsleep)
             {
@@ -386,13 +466,13 @@ namespace DigimonSimulator
                     }
 
                     ZSprite = SpriteImages.BigZSprite();
-                    Game.pixelScreen.DrawSprite(ZSprite, 24, 2, false);
+                    Game.pixelScreen.DrawSprite(ZSprite, 24 - XOffset, 2, false);
                     Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Hurt1, false, true, Digimon.sprite.SpriteX, 0);
 
                     // draw bed over sprite
                     if (Digimon.isInBed)
                     {
-                        Game.pixelScreen.DrawSprite(BedSprite, 7, Game.pixelScreen.NumberOfYPixels - BedSprite.SpriteHeight, false);
+                        Game.pixelScreen.DrawSprite(BedSprite, 7 - XOffset, Game.pixelScreen.NumberOfYPixels - BedSprite.SpriteHeight, false);
                     }
 
                     StepCounter++;
@@ -407,13 +487,13 @@ namespace DigimonSimulator
                     }
 
                     ZSprite = SpriteImages.SmallZSprite();
-                    Game.pixelScreen.DrawSprite(ZSprite, 24, 2, false);
+                    Game.pixelScreen.DrawSprite(ZSprite, 24 - XOffset, 2, false);
                     Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Hurt1, false, true, Digimon.sprite.SpriteX, 0);
 
                     // Draw bed over sprite
                     if (Digimon.isInBed)
                     {
-                        Game.pixelScreen.DrawSprite(BedSprite, 8, Game.pixelScreen.NumberOfYPixels - BedSprite.SpriteHeight, false);
+                        Game.pixelScreen.DrawSprite(BedSprite, 8 - XOffset, Game.pixelScreen.NumberOfYPixels - BedSprite.SpriteHeight, false);
                     }
 
                     StepCounter = 0;
