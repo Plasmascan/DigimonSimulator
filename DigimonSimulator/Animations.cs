@@ -61,9 +61,7 @@ namespace DigimonSimulator
             Dungs = new Sprite[4];
             for (int i = 0; i < 4; i++)
             {
-                
-                    Dungs[i] = SpriteImages.DungProjectileSprite();
-                
+                Dungs[i] = SpriteImages.DungSprite();
             }
 
         }
@@ -147,7 +145,7 @@ namespace DigimonSimulator
         }
 
         private int XOffset = 0;
-        private bool mirrorDung = false;
+        private bool switchDung = false;
         public void SetupDung()
         {
             if (Game.numberOfDung == 1)
@@ -244,15 +242,26 @@ namespace DigimonSimulator
         private Sprite BedSprite = SpriteImages.BedSprite();
         public void StepDigimon()
         {
-
+            Sprite tempDung;
             if (Game.numberOfDung >= 0)
             {
-                mirrorDung = !mirrorDung;
+                switchDung = !switchDung;
                 for (int i = 0; i < Game.numberOfDung; i++)
                 {
                     Game.pixelScreen.ClearSprite(Dungs[i]);
-                    Game.pixelScreen.DrawSprite(Dungs[i], Dungs[i].SpriteX, Dungs[i].SpriteY, mirrorDung);
-                    //Debug.WriteLine(Dungs[i].SpriteX);
+                    
+                    // switch between dung frame 1 and 2
+                    if (switchDung)
+                    {
+                        tempDung = SpriteImages.Dung2Sprite();
+                    }
+                    else
+                    {
+                        tempDung = SpriteImages.DungSprite();
+                    }
+
+                    Dungs[i].sprite = tempDung.sprite;
+                    Game.pixelScreen.DrawSprite(Dungs[i], Dungs[i].SpriteX, Dungs[i].SpriteY, false);
                 }
             }
 

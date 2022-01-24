@@ -150,8 +150,8 @@ namespace DigimonSimulator
                     maxHunger = 1000;
                     maxStrength = 1000;
                     hitDamage = 200;
-                    evolveTime = 9;
-                    canDigivolve = false;
+                    evolveTime = 120;
+                    canDigivolve = true;
                     dungTimeInterval = 3600;
                     sleepTime = DateTime.Parse("10:00:00 PM");
                     break;
