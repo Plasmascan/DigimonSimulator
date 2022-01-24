@@ -36,7 +36,7 @@ namespace DigimonSimulator
             currentDigimon = new Digimon(this, DigimonId.Betamon);
             animate = new Animations(this);
             animate.StartDigimonStateAnimation();
-            setTime = DateTime.Parse("1:59:30 AM");
+            setTime = DateTime.Parse("8:59:30 AM");
             setTimer();
         }
 
@@ -57,6 +57,12 @@ namespace DigimonSimulator
             currentDigimon.totalTimeAlive++;
             setTime = setTime.AddSeconds(1);
 
+            // Force digimon to sleep
+
+            if (currentDigimon.forcedSleepTimer > -1)
+            {
+                currentDigimon.forcedSleepTimer--;
+            }
 
             // set digimon to sleep
             if (currentDigimon.IsWithinSleepingTime() && currentDigimon.secondsUntilSleep == 0 && !currentDigimon.isAsleep)
@@ -68,22 +74,18 @@ namespace DigimonSimulator
                     Sounds.PlaySound(Sound.Step);
                     animate.ResetAnimations();
                     animate.StartDigimonStateAnimation();
+                    currentDigimon.hungerCareMistakeTimer = -1;
                 }
             }
 
-            // set digimon to wake
-            else if (!currentDigimon.IsWithinSleepingTime() && currentDigimon.isAsleep)
+            // automatically wake digimon up at 7am if the digimon hasn't been forced to sleep
+            else if (!currentDigimon.IsWithinSleepingTime() && currentDigimon.isAsleep && currentDigimon.forcedSleepTimer == -1)
             {
                 currentDigimon.WakeupDigimon();
                 if (CurrentScreen == MenuScreen.MainScreen)
                 {
                     resetMainScreen();
                 }
-            }
-
-            if (!currentDigimon.IsActiveCareMistakeTimer())
-            {
-                pixelScreen.TurnOffNotificationIcon();
             }
 
             // countdown until a care mistake is reached
@@ -96,17 +98,31 @@ namespace DigimonSimulator
                 }
             }
 
-            // used to keep digimon awake in sleeping time if woken up
+            // countdown until a care mistake is reached
+            if (currentDigimon.hungerCareMistakeTimer > -1)
+            {
+                currentDigimon.hungerCareMistakeTimer--;
+                if (currentDigimon.hungerCareMistakeTimer == 0)
+                {
+                    currentDigimon.careMistakes++;
+                }
+            }
+
+            // used to keep digimon awake within sleeping time if woken up
             if (currentDigimon.secondsUntilSleep > 0)
             {
                 currentDigimon.secondsUntilSleep--;
             }
 
+
+            // Evolution timer continues only when digimon is awake
             if (currentDigimon.canDigivolve && !currentDigimon.isAsleep)
             {
                 currentDigimon.evolveTime--;
             }
 
+
+            // Digivolve only when on mainscreen
             if (!animate.isEvolving && !animate.IsinAnimation)
             {
                 if (CurrentScreen == MenuScreen.MainScreen && currentDigimon.evolveTime < 1 && currentDigimon.canDigivolve)
@@ -116,16 +132,28 @@ namespace DigimonSimulator
                 }
             }
 
-            if (currentDigimon.currentHunger > -1)
+            // Hunger depletes only when digimon is awake
+            if (!currentDigimon.isAsleep)
             {
-                currentDigimon.currentHunger--;
-            }
-            if (currentDigimon.currentStrength > -1)
-            {
-                currentDigimon.currentStrength--;
+                if (currentDigimon.currentHunger > -1)
+                {
+                    currentDigimon.currentHunger--;
+                }
+
+                // if hunger reaches 0, care mistake timer is activated
+                if (currentDigimon.hungerCareMistakeTimer == -1 && currentDigimon.currentHunger == 0)
+                {
+                    currentDigimon.hungerCareMistakeTimer = 600;
+                    pixelScreen.TurnOnNotificationIcon();
+                    Sounds.PlaySound(Sound.Step);
+                }
+                if (currentDigimon.currentStrength > -1)
+                {
+                    currentDigimon.currentStrength--;
+                }
             }
 
-            // reset selected menu after ?ms if on main screen
+            // reset selected menu after 10 seconds if on main screen
             if (CurrentScreen == MenuScreen.MainScreen && SelectedMenu!= MenuScreen.MainScreen)
             {
                 TimeoutSelectedMenu++;
@@ -137,7 +165,7 @@ namespace DigimonSimulator
                 }
             }
 
-            // Go back to mainscreen if inactive
+            // Go back to mainscreen after 10 seconds if inactive
             else if (CurrentScreen == MenuScreen.FeedScreen || CurrentScreen == MenuScreen.StatScreen)
             {
                 TimeoutMenuScreen++;
@@ -147,6 +175,12 @@ namespace DigimonSimulator
                     resetMainScreen();
                     SelectedMenu = MenuScreen.MainScreen;
                 }
+            }
+
+            // Light up call out icon while the digimon needs attention before a caremistake is obtained
+            if (!currentDigimon.IsActiveCareMistakeTimer())
+            {
+                pixelScreen.TurnOffNotificationIcon();
             }
 
         }
@@ -201,7 +235,7 @@ namespace DigimonSimulator
                     {
                         SelectedSubMenuNo++;
                     }
-                    MenuScreens.drawFeedScreen(this, SelectedSubMenuNo);
+                    MenuScreens.DrawFeedScreen(this, SelectedSubMenuNo);
                 }
                 else if (CurrentScreen == MenuScreen.Training)
                 {
@@ -216,6 +250,20 @@ namespace DigimonSimulator
                     {
                         animate.powerUpTraining();
                     }
+                }
+                else if (CurrentScreen == MenuScreen.Lights && CurrentSubMenu == 0)
+                {
+                    Sounds.PlaySound(Sound.Beep);
+                    TimeoutMenuScreen = 0;
+                    if (SelectedSubMenuNo == 1)
+                    {
+                        SelectedSubMenuNo--;
+                    }
+                    else
+                    {
+                        SelectedSubMenuNo++;
+                    }
+                    MenuScreens.DrawLightsScreen(this, SelectedSubMenuNo);
                 }
             }
         }
@@ -239,7 +287,7 @@ namespace DigimonSimulator
                         Sounds.PlaySound(Sound.Beep);
                         animate.StopDigimonStateAnimation();
                         CurrentScreen = MenuScreen.FeedScreen;
-                        MenuScreens.drawFeedScreen(this, 0);
+                        MenuScreens.DrawFeedScreen(this, 0);
                     }
                     else if (SelectedMenu == MenuScreen.Training)
                     {
@@ -254,6 +302,13 @@ namespace DigimonSimulator
                         Sounds.PlaySound(Sound.Beep);
                         CurrentScreen = MenuScreen.BattleCup;
                         animate.SetupBattleCup();
+                    }
+                    else if (SelectedMenu == MenuScreen.Lights)
+                    {
+                        Sounds.PlaySound(Sound.Beep);
+                        animate.StopDigimonStateAnimation();
+                        CurrentScreen = MenuScreen.Lights;
+                        MenuScreens.DrawLightsScreen(this, 0);
                     }
                 }
                 else if (CurrentScreen == MenuScreen.StatScreen)
@@ -281,7 +336,7 @@ namespace DigimonSimulator
                         if (animate.animation == AnimationNo.Eat)
                         {
                             Sounds.PlaySound(Sound.Beep);
-                            MenuScreens.drawFeedScreen(this, SelectedSubMenuNo);
+                            MenuScreens.DrawFeedScreen(this, SelectedSubMenuNo);
                             CurrentSubMenu = 0;
                             animate.ResetAnimations();
                         }
@@ -290,10 +345,50 @@ namespace DigimonSimulator
                     else
                     {
                         Sounds.PlaySound(Sound.Beep);
+                        
+                        // Deactivate hunger care mistake timer
+                        if (SelectedSubMenuNo == 0)
+                        {
+                            currentDigimon.hungerCareMistakeTimer = -1;
+                        }
                         animate.SetupEatAnimation(SelectedSubMenuNo);
                         CurrentSubMenu = 1;
                     }
                 }
+
+                else if (CurrentScreen == MenuScreen.Lights)
+                {
+                    if (SelectedSubMenuNo == 0)
+                    {
+                        if (currentDigimon.isAsleep)
+                        {
+                            currentDigimon.WakeupDigimon();
+                        }
+
+                        resetMainScreen();
+                    }
+
+                    else
+                    {
+                        if (currentDigimon.isAsleep)
+                        {
+                            currentDigimon.isInBed = true;
+                            if (currentDigimon.sleepCareMistakeTimer > -1)
+                            {
+                                currentDigimon.sleepCareMistakeTimer = -1;
+                            }
+                            resetMainScreen();
+                        }
+                        else
+                        {
+                            currentDigimon.isAsleep = true;
+                            currentDigimon.isInBed = true;
+                            currentDigimon.forcedSleepTimer = 10800;
+                            resetMainScreen();
+                        }
+                    }
+                }
+
                 else if (CurrentScreen == MenuScreen.Training)
                 {
                     // stuff when already in training screen

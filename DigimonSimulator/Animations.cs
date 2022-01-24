@@ -173,6 +173,7 @@ namespace DigimonSimulator
         }
 
         private Sprite ZSprite = new Sprite();
+        private Sprite BedSprite = SpriteImages.BedSprite();
         public void StepDigimon()
         {
             #region Animation
@@ -378,17 +379,43 @@ namespace DigimonSimulator
                 if (StepCounter == 0)
                 {
                     Game.pixelScreen.ClearSprite(ZSprite);
+
+                    if (Digimon.isInBed)
+                    {
+                        Game.pixelScreen.ClearSprite(BedSprite);
+                    }
+
                     ZSprite = SpriteImages.BigZSprite();
                     Game.pixelScreen.DrawSprite(ZSprite, 24, 2, false);
                     Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Hurt1, false, true, Digimon.sprite.SpriteX, 0);
+
+                    // draw bed over sprite
+                    if (Digimon.isInBed)
+                    {
+                        Game.pixelScreen.DrawSprite(BedSprite, 7, Game.pixelScreen.NumberOfYPixels - BedSprite.SpriteHeight, false);
+                    }
+
                     StepCounter++;
                 }
                 else if (StepCounter == 1)
                 {
                     Game.pixelScreen.ClearSprite(ZSprite);
+
+                    if (Digimon.isInBed)
+                    {
+                        Game.pixelScreen.ClearSprite(BedSprite);
+                    }
+
                     ZSprite = SpriteImages.SmallZSprite();
                     Game.pixelScreen.DrawSprite(ZSprite, 24, 2, false);
                     Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Hurt1, false, true, Digimon.sprite.SpriteX, 0);
+
+                    // Draw bed over sprite
+                    if (Digimon.isInBed)
+                    {
+                        Game.pixelScreen.DrawSprite(BedSprite, 8, Game.pixelScreen.NumberOfYPixels - BedSprite.SpriteHeight, false);
+                    }
+
                     StepCounter = 0;
                 }
                 
@@ -462,7 +489,7 @@ namespace DigimonSimulator
                 case 3:
                     ResetAnimations();
                     Game.CurrentSubMenu = 0;
-                    MenuScreens.drawFeedScreen(Game, Game.SelectedSubMenuNo);
+                    MenuScreens.DrawFeedScreen(Game, Game.SelectedSubMenuNo);
                     break;
             }
         }
@@ -497,7 +524,7 @@ namespace DigimonSimulator
                 case 4:
                     ResetAnimations();
                     Game.CurrentSubMenu = 0;
-                    MenuScreens.drawFeedScreen(Game, Game.SelectedSubMenuNo);
+                    MenuScreens.DrawFeedScreen(Game, Game.SelectedSubMenuNo);
                     break;
             }
         }

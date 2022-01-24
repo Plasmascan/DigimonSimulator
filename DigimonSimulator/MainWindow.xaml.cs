@@ -99,12 +99,12 @@ namespace DigimonSimulator
             mainGame.animate.setupDigivolve(testDigimon);
             **/
 
-            /**
+           
             DrawWindow drawWindow = new DrawWindow();
             drawWindow.Show();
-            **/
+            
             Debug.WriteLine("Care mistakes: " + mainGame.currentDigimon.careMistakes + " Time: " + mainGame.setTime);
-            mainGame.currentDigimon.WakeupDigimon();
+            //mainGame.currentDigimon.WakeupDigimon();
         }
 
         private void minimizeMenuItem_Click(object sender, RoutedEventArgs e)

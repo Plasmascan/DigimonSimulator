@@ -245,6 +245,234 @@ namespace DigimonSimulator
             return strengthSprite;
         }
 
+        public static Sprite WakeSprite()
+        {
+            Sprite wakeSprite = new Sprite();
+            wakeSprite.SpriteHeight = 6;
+            wakeSprite.SpriteWidth = 20;
+            wakeSprite.sprite = new bool[wakeSprite.SpriteHeight, wakeSprite.SpriteWidth];
+
+            #region wakeSprite
+            wakeSprite.sprite[0, 0] = true;
+            wakeSprite.sprite[0, 2] = true;
+            wakeSprite.sprite[0, 4] = true;
+            wakeSprite.sprite[0, 7] = true;
+            wakeSprite.sprite[0, 8] = true;
+            wakeSprite.sprite[0, 11] = true;
+            wakeSprite.sprite[0, 14] = true;
+            wakeSprite.sprite[0, 16] = true;
+            wakeSprite.sprite[0, 17] = true;
+            wakeSprite.sprite[0, 18] = true;
+            wakeSprite.sprite[0, 19] = true;
+            wakeSprite.sprite[1, 0] = true;
+            wakeSprite.sprite[1, 2] = true;
+            wakeSprite.sprite[1, 4] = true;
+            wakeSprite.sprite[1, 6] = true;
+            wakeSprite.sprite[1, 9] = true;
+            wakeSprite.sprite[1, 11] = true;
+            wakeSprite.sprite[1, 13] = true;
+            wakeSprite.sprite[1, 16] = true;
+            wakeSprite.sprite[2, 0] = true;
+            wakeSprite.sprite[2, 2] = true;
+            wakeSprite.sprite[2, 4] = true;
+            wakeSprite.sprite[2, 6] = true;
+            wakeSprite.sprite[2, 9] = true;
+            wakeSprite.sprite[2, 11] = true;
+            wakeSprite.sprite[2, 12] = true;
+            wakeSprite.sprite[2, 16] = true;
+            wakeSprite.sprite[2, 17] = true;
+            wakeSprite.sprite[2, 18] = true;
+            wakeSprite.sprite[2, 19] = true;
+            wakeSprite.sprite[3, 0] = true;
+            wakeSprite.sprite[3, 2] = true;
+            wakeSprite.sprite[3, 4] = true;
+            wakeSprite.sprite[3, 6] = true;
+            wakeSprite.sprite[3, 7] = true;
+            wakeSprite.sprite[3, 8] = true;
+            wakeSprite.sprite[3, 9] = true;
+            wakeSprite.sprite[3, 11] = true;
+            wakeSprite.sprite[3, 13] = true;
+            wakeSprite.sprite[3, 16] = true;
+            wakeSprite.sprite[4, 0] = true;
+            wakeSprite.sprite[4, 2] = true;
+            wakeSprite.sprite[4, 4] = true;
+            wakeSprite.sprite[4, 6] = true;
+            wakeSprite.sprite[4, 9] = true;
+            wakeSprite.sprite[4, 11] = true;
+            wakeSprite.sprite[4, 14] = true;
+            wakeSprite.sprite[4, 16] = true;
+            wakeSprite.sprite[5, 1] = true;
+            wakeSprite.sprite[5, 3] = true;
+            wakeSprite.sprite[5, 6] = true;
+            wakeSprite.sprite[5, 9] = true;
+            wakeSprite.sprite[5, 11] = true;
+            wakeSprite.sprite[5, 14] = true;
+            wakeSprite.sprite[5, 16] = true;
+            wakeSprite.sprite[5, 17] = true;
+            wakeSprite.sprite[5, 18] = true;
+            wakeSprite.sprite[5, 19] = true;
+            #endregion
+
+            return wakeSprite;
+        }
+
+        public static Sprite SleepSprite()
+        {
+            Sprite sleepSprite = new Sprite();
+            sleepSprite.SpriteHeight = 6;
+            sleepSprite.SpriteWidth = 21;
+            sleepSprite.sprite = new bool[sleepSprite.SpriteHeight, sleepSprite.SpriteWidth];
+
+            #region sleepSprite
+            sleepSprite.sprite[0, 1] = true;
+            sleepSprite.sprite[0, 2] = true;
+            sleepSprite.sprite[0, 3] = true;
+            sleepSprite.sprite[0, 5] = true;
+            sleepSprite.sprite[0, 9] = true;
+            sleepSprite.sprite[0, 10] = true;
+            sleepSprite.sprite[0, 11] = true;
+            sleepSprite.sprite[0, 13] = true;
+            sleepSprite.sprite[0, 14] = true;
+            sleepSprite.sprite[0, 15] = true;
+            sleepSprite.sprite[0, 17] = true;
+            sleepSprite.sprite[0, 18] = true;
+            sleepSprite.sprite[0, 19] = true;
+            sleepSprite.sprite[1, 0] = true;
+            sleepSprite.sprite[1, 5] = true;
+            sleepSprite.sprite[1, 9] = true;
+            sleepSprite.sprite[1, 13] = true;
+            sleepSprite.sprite[1, 17] = true;
+            sleepSprite.sprite[1, 20] = true;
+            sleepSprite.sprite[2, 1] = true;
+            sleepSprite.sprite[2, 2] = true;
+            sleepSprite.sprite[2, 5] = true;
+            sleepSprite.sprite[2, 9] = true;
+            sleepSprite.sprite[2, 10] = true;
+            sleepSprite.sprite[2, 11] = true;
+            sleepSprite.sprite[2, 13] = true;
+            sleepSprite.sprite[2, 14] = true;
+            sleepSprite.sprite[2, 15] = true;
+            sleepSprite.sprite[2, 17] = true;
+            sleepSprite.sprite[2, 20] = true;
+            sleepSprite.sprite[3, 3] = true;
+            sleepSprite.sprite[3, 5] = true;
+            sleepSprite.sprite[3, 9] = true;
+            sleepSprite.sprite[3, 13] = true;
+            sleepSprite.sprite[3, 17] = true;
+            sleepSprite.sprite[3, 18] = true;
+            sleepSprite.sprite[3, 19] = true;
+            sleepSprite.sprite[4, 3] = true;
+            sleepSprite.sprite[4, 5] = true;
+            sleepSprite.sprite[4, 9] = true;
+            sleepSprite.sprite[4, 13] = true;
+            sleepSprite.sprite[4, 17] = true;
+            sleepSprite.sprite[5, 0] = true;
+            sleepSprite.sprite[5, 1] = true;
+            sleepSprite.sprite[5, 2] = true;
+            sleepSprite.sprite[5, 5] = true;
+            sleepSprite.sprite[5, 6] = true;
+            sleepSprite.sprite[5, 7] = true;
+            sleepSprite.sprite[5, 9] = true;
+            sleepSprite.sprite[5, 10] = true;
+            sleepSprite.sprite[5, 11] = true;
+            sleepSprite.sprite[5, 13] = true;
+            sleepSprite.sprite[5, 14] = true;
+            sleepSprite.sprite[5, 15] = true;
+            sleepSprite.sprite[5, 17] = true;
+            #endregion
+
+            return sleepSprite;
+        }
+
+        public static Sprite BedSprite()
+        {
+            Sprite bedSprite = new Sprite();
+            bedSprite.SpriteHeight = 8;
+            bedSprite.SpriteWidth = 16;
+            bedSprite.sprite = new bool[bedSprite.SpriteHeight, bedSprite.SpriteWidth];
+
+            #region bedSprite
+            bedSprite.sprite[0, 1] = true;
+            bedSprite.sprite[0, 2] = true;
+            bedSprite.sprite[0, 3] = true;
+            bedSprite.sprite[0, 4] = true;
+            bedSprite.sprite[0, 5] = true;
+            bedSprite.sprite[0, 6] = true;
+            bedSprite.sprite[0, 7] = true;
+            bedSprite.sprite[0, 8] = true;
+            bedSprite.sprite[0, 9] = true;
+            bedSprite.sprite[0, 10] = true;
+            bedSprite.sprite[0, 11] = true;
+            bedSprite.sprite[0, 12] = true;
+            bedSprite.sprite[0, 13] = true;
+            bedSprite.sprite[0, 14] = true;
+            bedSprite.sprite[1, 0] = true;
+            bedSprite.sprite[1, 3] = true;
+            bedSprite.sprite[1, 12] = true;
+            bedSprite.sprite[1, 15] = true;
+            bedSprite.sprite[2, 0] = true;
+            bedSprite.sprite[2, 3] = true;
+            bedSprite.sprite[2, 4] = true;
+            bedSprite.sprite[2, 5] = true;
+            bedSprite.sprite[2, 6] = true;
+            bedSprite.sprite[2, 7] = true;
+            bedSprite.sprite[2, 8] = true;
+            bedSprite.sprite[2, 9] = true;
+            bedSprite.sprite[2, 10] = true;
+            bedSprite.sprite[2, 11] = true;
+            bedSprite.sprite[2, 12] = true;
+            bedSprite.sprite[2, 15] = true;
+            bedSprite.sprite[3, 0] = true;
+            bedSprite.sprite[3, 2] = true;
+            bedSprite.sprite[3, 4] = true;
+            bedSprite.sprite[3, 6] = true;
+            bedSprite.sprite[3, 8] = true;
+            bedSprite.sprite[3, 10] = true;
+            bedSprite.sprite[3, 12] = true;
+            bedSprite.sprite[3, 13] = true;
+            bedSprite.sprite[3, 15] = true;
+            bedSprite.sprite[4, 0] = true;
+            bedSprite.sprite[4, 2] = true;
+            bedSprite.sprite[4, 3] = true;
+            bedSprite.sprite[4, 5] = true;
+            bedSprite.sprite[4, 7] = true;
+            bedSprite.sprite[4, 9] = true;
+            bedSprite.sprite[4, 11] = true;
+            bedSprite.sprite[4, 13] = true;
+            bedSprite.sprite[4, 15] = true;
+            bedSprite.sprite[5, 0] = true;
+            bedSprite.sprite[5, 3] = true;
+            bedSprite.sprite[5, 4] = true;
+            bedSprite.sprite[5, 5] = true;
+            bedSprite.sprite[5, 6] = true;
+            bedSprite.sprite[5, 7] = true;
+            bedSprite.sprite[5, 8] = true;
+            bedSprite.sprite[5, 9] = true;
+            bedSprite.sprite[5, 10] = true;
+            bedSprite.sprite[5, 11] = true;
+            bedSprite.sprite[5, 12] = true;
+            bedSprite.sprite[5, 15] = true;
+            bedSprite.sprite[6, 0] = true;
+            bedSprite.sprite[6, 15] = true;
+            bedSprite.sprite[7, 1] = true;
+            bedSprite.sprite[7, 2] = true;
+            bedSprite.sprite[7, 3] = true;
+            bedSprite.sprite[7, 4] = true;
+            bedSprite.sprite[7, 5] = true;
+            bedSprite.sprite[7, 6] = true;
+            bedSprite.sprite[7, 7] = true;
+            bedSprite.sprite[7, 8] = true;
+            bedSprite.sprite[7, 9] = true;
+            bedSprite.sprite[7, 10] = true;
+            bedSprite.sprite[7, 11] = true;
+            bedSprite.sprite[7, 12] = true;
+            bedSprite.sprite[7, 13] = true;
+            bedSprite.sprite[7, 14] = true;
+            #endregion
+
+            return bedSprite;
+        }
+
         public static Sprite FullHeartSprite()
         {
             Sprite fullHeartSprite = new Sprite();

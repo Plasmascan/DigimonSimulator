@@ -17,7 +17,7 @@ namespace DigimonSimulator
         public DigimonGame game;
         public DigimonId digimonID;
         public DigimonSprite sprite;
-        public int currentHunger = 700;
+        public int currentHunger = 5;
         public int currentStrength = 300;
         public int currenthealth = 1000;
         public int careMistakes = 0;
@@ -31,10 +31,13 @@ namespace DigimonSimulator
         public int hitDamage;
         public int sleepCareMistakeTimer = -1;
         public int hurtCareMistakeTimer = -1;
+        public int hungerCareMistakeTimer = -1;
         public int dungCareMistakeTimer = -1;
+        public int forcedSleepTimer = -1;
         public DateTime sleepTime;
-        public int secondsUntilSleep = 15;
+        public int secondsUntilSleep = 20;
         public bool isAsleep = false;
+        public bool isInBed = false;
 
         public Digimon(DigimonGame game, DigimonId digimonID)
         {
@@ -61,7 +64,7 @@ namespace DigimonSimulator
 
         public bool IsActiveCareMistakeTimer()
         {
-            if (sleepCareMistakeTimer == -1 && hurtCareMistakeTimer == -1 && dungCareMistakeTimer == -1)
+            if (sleepCareMistakeTimer == -1 && hurtCareMistakeTimer == -1 && dungCareMistakeTimer == -1 && hungerCareMistakeTimer == -1)
             {
                 return false;
             }

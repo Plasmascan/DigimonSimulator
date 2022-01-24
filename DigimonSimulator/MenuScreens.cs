@@ -71,7 +71,7 @@ namespace DigimonSimulator
             game.animate.StartDigimonStateAnimation();
         }
 
-        public static void drawFeedScreen(DigimonGame game, int SubMenuNo)
+        public static void DrawFeedScreen(DigimonGame game, int SubMenuNo)
         {
             game.pixelScreen.ClearScreen();
             Sprite fullFoodSprite = SpriteImages.FullFoodSprite();
@@ -80,6 +80,27 @@ namespace DigimonSimulator
 
             game.pixelScreen.DrawSprite(fullFoodSprite, 9, 0, true);
             game.pixelScreen.DrawSprite(fullVitaminSprite, 9, 8, false);
+
+            // Move the arrow depending on selection in the feeding screen
+            if (SubMenuNo == 0)
+            {
+                game.pixelScreen.DrawSprite(arrowSprite, 0, 1, false);
+            }
+            else
+            {
+                game.pixelScreen.DrawSprite(arrowSprite, 0, 8, false);
+            }
+        }
+
+        public static void DrawLightsScreen(DigimonGame game, int SubMenuNo)
+        {
+            game.pixelScreen.ClearScreen();
+            Sprite wakeSprite = SpriteImages.WakeSprite();
+            Sprite sleepSprite = SpriteImages.SleepSprite();
+            Sprite arrowSprite = SpriteImages.ArrowSprite();
+
+            game.pixelScreen.DrawSprite(wakeSprite, 9, 1, false);
+            game.pixelScreen.DrawSprite(sleepSprite, 9, 9, false);
 
             // Move the arrow depending on selection in the feeding screen
             if (SubMenuNo == 0)
