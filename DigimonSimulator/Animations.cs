@@ -24,7 +24,8 @@ namespace DigimonSimulator
         OpponentDodge,
         Victory,
         Defeat,
-        Digivolve
+        Digivolve,
+        Flush
     }
 
     public class Animations
@@ -138,14 +139,18 @@ namespace DigimonSimulator
             {
                 PlayDefeat();
             }
-            else if ( animation == AnimationNo.Digivolve)
+            else if (animation == AnimationNo.Digivolve)
             {
                 PlayDigivolve();
+            }
+            else if (animation == AnimationNo.Flush)
+            {
+                PlayFlushAnimation();
             }
         }
 
         private int XOffset = 0;
-        private bool switchDung = false;
+        private bool switchDung;
         public void SetupDung()
         {
             if (Game.numberOfDung == 1)
@@ -203,6 +208,16 @@ namespace DigimonSimulator
         public void StartDigimonStateAnimation()
         {
             StepCounter = 0;
+            switchDung = false;
+
+            if (Game.numberOfDung == 0)
+            {
+                XOffset = 0;
+            }
+            else
+            {
+                SetupDung();
+            }
             SetupDung();
 
             if (!Digimon.isAsleep)
@@ -243,7 +258,7 @@ namespace DigimonSimulator
         public void StepDigimon()
         {
             Sprite tempDung;
-            if (Game.numberOfDung >= 0)
+            if (Game.numberOfDung > 0)
             {
                 switchDung = !switchDung;
                 for (int i = 0; i < Game.numberOfDung; i++)
@@ -791,6 +806,7 @@ namespace DigimonSimulator
         {
             Game.pixelScreen.ClearScreen();
             ResetAnimations();
+            IsinAnimation = true;
             Digimon.sprite.SpriteX = Game.pixelScreen.NumberOfXPixels - (Digimon.sprite.frame1Width / 2) - 16;
             Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, true, Digimon.sprite.SpriteX, 0);
             AngryMark = SpriteImages.AngryMarkSmallSprite();
@@ -851,6 +867,7 @@ namespace DigimonSimulator
         {
             Game.pixelScreen.ClearScreen();
             ResetAnimations();
+            IsinAnimation = true;
             Digimon.sprite.SpriteX = Game.pixelScreen.NumberOfXPixels - (Digimon.sprite.frame1Width / 2) - 16;
             Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, true, Digimon.sprite.SpriteX, 0);
             Sounds.PlaySound(Sound.Win);
@@ -899,6 +916,56 @@ namespace DigimonSimulator
                     //ResetAnimations();
                     Game.resetMainScreen();
                     break;
+            }
+        }
+
+        private Sprite FlushSprite;
+        public void SetupFlushAnimation()
+        {
+            ResetAnimations();
+            IsinAnimation = true;
+            FlushSprite = SpriteImages.FlushSprite();
+            animation = AnimationNo.Flush;
+            Game.pixelScreen.DrawSprite(FlushSprite, Game.pixelScreen.NumberOfXPixels - XOffset, -FlushSprite.SpriteHeight, false);
+            _animationTick.Interval = TimeSpan.FromMilliseconds(35);
+            _animationTick.Start();
+        }
+
+        private void MoveFlush()
+        {
+            
+
+            for (int i = 0; i < Game.numberOfDung; i++)
+            {
+                if (Game.numberOfDung == 1)
+                {
+                    if (animationCounter > 7)
+                    {
+                        Game.pixelScreen.ClearSprite(Dungs[i]);
+                        Game.pixelScreen.DrawSprite(Dungs[i], Dungs[i].SpriteX, Dungs[i].SpriteY + 1, false);
+                    }
+                }
+                else
+                {
+                    Game.pixelScreen.ClearSprite(Dungs[i]);
+                    Game.pixelScreen.DrawSprite(Dungs[i], Dungs[i].SpriteX, Dungs[i].SpriteY + 1, false);
+                }
+                
+            }
+            Game.pixelScreen.ClearSprite(FlushSprite);
+            Game.pixelScreen.DrawSprite(FlushSprite, FlushSprite.SpriteX, FlushSprite.SpriteY + 1, false);
+        }
+
+        private void PlayFlushAnimation()
+        {
+            if (animationCounter < 25)
+            {
+                MoveFlush();
+            }
+            else
+            {
+                Game.numberOfDung = 0;
+                SetupHappy();
             }
         }
 

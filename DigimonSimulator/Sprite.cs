@@ -2460,6 +2460,65 @@ namespace DigimonSimulator
             return dung2Sprite;
         }
 
+        public static Sprite FlushSprite()
+        {
+            Sprite flushSprite = new Sprite();
+            flushSprite.SpriteHeight = 6;
+            flushSprite.SpriteWidth = 16;
+            flushSprite.sprite = new bool[flushSprite.SpriteHeight, flushSprite.SpriteWidth];
+
+            #region flushSprite
+            flushSprite.sprite[0, 4] = true;
+            flushSprite.sprite[0, 12] = true;
+            flushSprite.sprite[1, 1] = true;
+            flushSprite.sprite[1, 3] = true;
+            flushSprite.sprite[1, 5] = true;
+            flushSprite.sprite[1, 7] = true;
+            flushSprite.sprite[1, 9] = true;
+            flushSprite.sprite[1, 11] = true;
+            flushSprite.sprite[1, 13] = true;
+            flushSprite.sprite[1, 15] = true;
+            flushSprite.sprite[2, 0] = true;
+            flushSprite.sprite[2, 2] = true;
+            flushSprite.sprite[2, 4] = true;
+            flushSprite.sprite[2, 6] = true;
+            flushSprite.sprite[2, 8] = true;
+            flushSprite.sprite[2, 10] = true;
+            flushSprite.sprite[2, 12] = true;
+            flushSprite.sprite[2, 14] = true;
+            flushSprite.sprite[3, 0] = true;
+            flushSprite.sprite[3, 1] = true;
+            flushSprite.sprite[3, 3] = true;
+            flushSprite.sprite[3, 4] = true;
+            flushSprite.sprite[3, 5] = true;
+            flushSprite.sprite[3, 7] = true;
+            flushSprite.sprite[3, 8] = true;
+            flushSprite.sprite[3, 9] = true;
+            flushSprite.sprite[3, 11] = true;
+            flushSprite.sprite[3, 12] = true;
+            flushSprite.sprite[3, 13] = true;
+            flushSprite.sprite[3, 15] = true;
+            flushSprite.sprite[4, 1] = true;
+            flushSprite.sprite[4, 2] = true;
+            flushSprite.sprite[4, 3] = true;
+            flushSprite.sprite[4, 5] = true;
+            flushSprite.sprite[4, 6] = true;
+            flushSprite.sprite[4, 7] = true;
+            flushSprite.sprite[4, 9] = true;
+            flushSprite.sprite[4, 10] = true;
+            flushSprite.sprite[4, 11] = true;
+            flushSprite.sprite[4, 13] = true;
+            flushSprite.sprite[4, 14] = true;
+            flushSprite.sprite[4, 15] = true;
+            flushSprite.sprite[5, 2] = true;
+            flushSprite.sprite[5, 6] = true;
+            flushSprite.sprite[5, 10] = true;
+            flushSprite.sprite[5, 14] = true;
+            #endregion
+
+            return flushSprite;
+        }
+
         public static Sprite ThunderProjectileSprite()
         {
             Sprite thunderProjectileSprite = new Sprite();

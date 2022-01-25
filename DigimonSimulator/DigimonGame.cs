@@ -66,12 +66,11 @@ namespace DigimonSimulator
             }
 
             // Digimon goes to toilet
-            if (!currentDigimon.isAsleep && numberOfDung != 4)
+            if (!currentDigimon.isAsleep && numberOfDung != 4 && !animate.IsinAnimation)
             {
                 currentDigimon.dungTimer--;
                 if (currentDigimon.dungTimer == 0)
                 {
-                    Debug.WriteLine("gfg");
                     numberOfDung++;
                     currentDigimon.dungTimer = currentDigimon.dungTimeInterval;
 
@@ -86,7 +85,7 @@ namespace DigimonSimulator
             // set digimon to sleep
             if (currentDigimon.IsWithinSleepingTime() && currentDigimon.secondsUntilSleep == 0 && !currentDigimon.isAsleep && !currentDigimon.isHurt)
             {
-                if (CurrentScreen == MenuScreen.MainScreen && !animate.isEvolving)
+                if (CurrentScreen == MenuScreen.MainScreen && !animate.isEvolving && !animate.IsinAnimation)
                 {
                     currentDigimon.DigimonFallAsleep();
                     pixelScreen.TurnOnNotificationIcon();
@@ -164,7 +163,10 @@ namespace DigimonSimulator
                 {
                     currentDigimon.hungerCareMistakeTimer = 600;
                     pixelScreen.TurnOnNotificationIcon();
-                    Sounds.PlaySound(Sound.Step);
+                    if (CurrentScreen == MenuScreen.MainScreen)
+                    {
+                        Sounds.PlaySound(Sound.Step);
+                    }
                 }
                 if (currentDigimon.currentStrength > -1)
                 {
@@ -360,6 +362,21 @@ namespace DigimonSimulator
                         CurrentScreen = MenuScreen.Lights;
                         MenuScreens.DrawLightsScreen(this, 0);
                     }
+
+                    else if (SelectedMenu == MenuScreen.Flush && !animate.IsinAnimation)
+                    {
+                        if (numberOfDung == 0 || currentDigimon.isAsleep)
+                        {
+                            Sounds.PlaySound(Sound.Beep2);
+                        }
+                        else
+                        {
+                            //setup dung flush animation
+                            CurrentScreen = MenuScreen.Flush;
+                            animate.StopDigimonStateAnimation();
+                            animate.SetupFlushAnimation();
+                        }
+                    }
                 }
                 else if (CurrentScreen == MenuScreen.StatScreen)
                 {
@@ -453,7 +470,7 @@ namespace DigimonSimulator
 
         public void CButtonPress()
         {
-            if (!animate.isEvolving)
+            if (!animate.isEvolving && animate.animation != AnimationNo.Happy && animate.animation != AnimationNo.Angry && animate.animation != AnimationNo.Flush)
             {
                 if (CurrentScreen != MenuScreen.MainScreen)
                 {

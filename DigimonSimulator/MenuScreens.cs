@@ -10,7 +10,7 @@ namespace DigimonSimulator
         FeedScreen = 1,
         Training = 2,
         BattleCup = 3,
-        CleanDung = 4,
+        Flush = 4,
         Lights = 5,
         Medical = 6,
         History = 7,

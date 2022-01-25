@@ -64,7 +64,7 @@ namespace DigimonSimulator
 
         private void loadSpriteButton_Click(object sender, RoutedEventArgs e)
         {
-            bool isDigimon = true;
+            bool isDigimon = false;
             if (isDigimon)
             {
                 Digimon digimon = new Digimon(null, DigimonId.Betamon);
@@ -74,8 +74,8 @@ namespace DigimonSimulator
             else
             {
                 Sprite sprite = new Sprite();
-                sprite = SpriteImages.FireBallProjectileSprite();
-                drawScreen.DrawSprite(sprite, 0, 0, false);
+                sprite = SpriteImages.FlushSprite();
+                drawScreen.DrawSprite(sprite, 10, 0, false);
             }
         }
 
