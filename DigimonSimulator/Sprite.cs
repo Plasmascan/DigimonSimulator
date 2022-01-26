@@ -2218,6 +2218,47 @@ namespace DigimonSimulator
             return blackSkullMarkSprite;
         }
 
+        public static Sprite WhiteSkullMarkSprite()
+        {
+            Sprite whiteSkullMarkSprite = new Sprite();
+            whiteSkullMarkSprite.SpriteHeight = 7;
+            whiteSkullMarkSprite.SpriteWidth = 7;
+            whiteSkullMarkSprite.sprite = new bool[whiteSkullMarkSprite.SpriteHeight, whiteSkullMarkSprite.SpriteWidth];
+
+            #region whiteSkullMarkSprite
+            whiteSkullMarkSprite.sprite[0, 0] = true;
+            whiteSkullMarkSprite.sprite[0, 2] = true;
+            whiteSkullMarkSprite.sprite[0, 3] = true;
+            whiteSkullMarkSprite.sprite[0, 4] = true;
+            whiteSkullMarkSprite.sprite[0, 6] = true;
+            whiteSkullMarkSprite.sprite[1, 0] = true;
+            whiteSkullMarkSprite.sprite[1, 1] = true;
+            whiteSkullMarkSprite.sprite[1, 5] = true;
+            whiteSkullMarkSprite.sprite[1, 6] = true;
+            whiteSkullMarkSprite.sprite[2, 0] = true;
+            whiteSkullMarkSprite.sprite[2, 6] = true;
+            whiteSkullMarkSprite.sprite[3, 0] = true;
+            whiteSkullMarkSprite.sprite[3, 1] = true;
+            whiteSkullMarkSprite.sprite[3, 2] = true;
+            whiteSkullMarkSprite.sprite[3, 4] = true;
+            whiteSkullMarkSprite.sprite[3, 5] = true;
+            whiteSkullMarkSprite.sprite[3, 6] = true;
+            whiteSkullMarkSprite.sprite[4, 0] = true;
+            whiteSkullMarkSprite.sprite[4, 1] = true;
+            whiteSkullMarkSprite.sprite[4, 5] = true;
+            whiteSkullMarkSprite.sprite[4, 6] = true;
+            whiteSkullMarkSprite.sprite[5, 1] = true;
+            whiteSkullMarkSprite.sprite[5, 2] = true;
+            whiteSkullMarkSprite.sprite[5, 3] = true;
+            whiteSkullMarkSprite.sprite[5, 4] = true;
+            whiteSkullMarkSprite.sprite[5, 5] = true;
+            whiteSkullMarkSprite.sprite[6, 1] = true;
+            whiteSkullMarkSprite.sprite[6, 5] = true;
+            #endregion
+
+            return whiteSkullMarkSprite;
+        }
+
         public static Sprite HealthBarSprite()
         {
             Sprite healthBarSprite = new Sprite();

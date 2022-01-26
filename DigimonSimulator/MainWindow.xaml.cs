@@ -99,9 +99,12 @@ namespace DigimonSimulator
             mainGame.animate.setupDigivolve(testDigimon);
             **/
 
-           
-            DrawWindow drawWindow = new DrawWindow();
-            drawWindow.Show();
+
+            //DrawWindow drawWindow = new DrawWindow();
+            //drawWindow.Show();
+
+            mainGame.currentDigimon.HurtDigimon();
+            mainGame.resetMainScreen();
             
             Debug.WriteLine("Care mistakes: " + mainGame.currentDigimon.careMistakes + " Time: " + mainGame.setTime);
             //mainGame.currentDigimon.WakeupDigimon();

@@ -74,7 +74,7 @@ namespace DigimonSimulator
             else
             {
                 Sprite sprite = new Sprite();
-                sprite = SpriteImages.FlushSprite();
+                sprite = SpriteImages.BlackSkullMarkSprite();
                 drawScreen.DrawSprite(sprite, 10, 0, false);
             }
         }

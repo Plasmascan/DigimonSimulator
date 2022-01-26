@@ -55,9 +55,20 @@ namespace DigimonSimulator
             isInBed = false;
             if (sleepCareMistakeTimer > -1)
             {
-                careMistakes++;
                 sleepCareMistakeTimer = -1;
             }
+        }
+
+        public void HurtDigimon()
+        {
+            isHurt = true;
+            hurtCareMistakeTimer = 600;
+        }
+
+        public void HealDigimon()
+        {
+            isHurt = false;
+            hurtCareMistakeTimer = -1;
         }
 
         public void DigimonFallAsleep()

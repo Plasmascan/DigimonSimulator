@@ -220,12 +220,12 @@ namespace DigimonSimulator
             }
             SetupDung();
 
-            if (!Digimon.isAsleep)
+            if (!Digimon.isAsleep && !Digimon.isHurt)
             {
                 Game.pixelScreen.ClearSprite(Digimon.sprite);
                 Digimon.sprite.SpriteX = Game.pixelScreen.NumberOfXPixels - (Digimon.sprite.frame1Width / 2) - 18 - XOffset;
             }
-            else if (Digimon.isAsleep)
+            else 
             {
                 Game.pixelScreen.ClearSprite(Digimon.sprite);
                 Digimon.sprite.SpriteX = GetMiddleX(Digimon.sprite.hurt1FrameWidth) - XOffset;
@@ -255,6 +255,7 @@ namespace DigimonSimulator
 
         private Sprite ZSprite = new Sprite();
         private Sprite BedSprite = SpriteImages.BedSprite();
+        private Sprite hurtSkull = new Sprite();
         public void StepDigimon()
         {
             Sprite tempDung;
@@ -281,7 +282,7 @@ namespace DigimonSimulator
             }
 
             #region Animation
-            if (!Digimon.isAsleep)
+            if (!Digimon.isAsleep && !Digimon.isHurt)
             {
                 if (StepCounter == 0 || StepCounter == 1)
                 {
@@ -477,6 +478,28 @@ namespace DigimonSimulator
                     return;
                 }
             }
+
+            if (Digimon.isHurt && !Digimon.isInBed)
+            {
+                if (StepCounter == 0)
+                {
+                    Game.pixelScreen.ClearSprite(hurtSkull);
+                    hurtSkull = SpriteImages.WhiteSkullMarkSprite();
+                    Game.pixelScreen.DrawSprite(hurtSkull, 25 - XOffset, 1, false);
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Hurt1, false, true, Digimon.sprite.SpriteX, 0);
+                    StepCounter++;
+
+                }
+                else if (StepCounter == 1)
+                {
+                    Game.pixelScreen.ClearSprite(hurtSkull);
+                    hurtSkull = SpriteImages.BlackSkullMarkSprite();
+                    Game.pixelScreen.DrawSprite(hurtSkull, 25 - XOffset, 1, false);
+                    Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Hurt1, false, true, Digimon.sprite.SpriteX, 0);
+                    StepCounter = 0;
+                }
+            }
+
             #endregion
             else if (Digimon.isAsleep)
             {
@@ -569,7 +592,9 @@ namespace DigimonSimulator
         public void SetupRejectAnimation()
         {
             animation = AnimationNo.Reject;
-            Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Reject, true, true, Digimon.sprite.SpriteX, 0);
+            IsinAnimation = true;
+            Game.pixelScreen.ClearScreen();
+            Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Reject, true, true, GetMiddleX(Digimon.sprite.rejectFrameWidth), 0);
             _animationTick.Interval = TimeSpan.FromMilliseconds(GameTickSpeed);
             _animationTick.Start();
         }
@@ -593,7 +618,14 @@ namespace DigimonSimulator
                 case 3:
                     ResetAnimations();
                     Game.CurrentSubMenu = 0;
-                    MenuScreens.DrawFeedScreen(Game, Game.SelectedSubMenuNo);
+                    if (Game.CurrentScreen == MenuScreen.FeedScreen)
+                    {
+                        MenuScreens.DrawFeedScreen(Game, Game.SelectedSubMenuNo);
+                    }
+                    else
+                    {
+                        Game.resetMainScreen();
+                    }
                     break;
             }
         }
@@ -1717,6 +1749,7 @@ namespace DigimonSimulator
             {
                 case 0:
                     isEvolving = true;
+                    IsinAnimation = true;
                     Sounds.PlaySound(Sound.Digivolve);
                     Game.pixelScreen.ClearScreen();
                     Game.pixelScreen.DrawDigimonFrame(Digimon, SpriteFrame.Walk, false, true, GetMiddleX(Digimon.sprite.frame1Width), 0);

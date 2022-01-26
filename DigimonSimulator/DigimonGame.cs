@@ -66,13 +66,23 @@ namespace DigimonSimulator
             }
 
             // Digimon goes to toilet
-            if (!currentDigimon.isAsleep && numberOfDung != 4 && !animate.IsinAnimation)
+            if (!currentDigimon.isAsleep && numberOfDung != 4 && !animate.IsinAnimation && !currentDigimon.isHurt)
             {
                 currentDigimon.dungTimer--;
                 if (currentDigimon.dungTimer == 0)
                 {
                     numberOfDung++;
                     currentDigimon.dungTimer = currentDigimon.dungTimeInterval;
+
+                    // Digimon gets injured if 4 dungs are on screen
+
+                    if (numberOfDung == 4)
+                    {
+                        currentDigimon.HurtDigimon();
+                        pixelScreen.TurnOnNotificationIcon();
+                        Sounds.PlaySound(Sound.Step); // change with notification sound when imlemented
+
+                    }
 
                     if (CurrentScreen == MenuScreen.MainScreen && !animate.isEvolving)
                     {
@@ -121,6 +131,17 @@ namespace DigimonSimulator
             {
                 currentDigimon.hungerCareMistakeTimer--;
                 if (currentDigimon.hungerCareMistakeTimer == 0)
+                {
+                    currentDigimon.careMistakes++;
+                }
+            }
+
+            // countdown until a care mistake is reached
+            if (currentDigimon.hurtCareMistakeTimer > -1)
+            {
+                currentDigimon.hurtCareMistakeTimer--;
+
+                if (currentDigimon.hurtCareMistakeTimer == 0)
                 {
                     currentDigimon.careMistakes++;
                 }
@@ -309,6 +330,12 @@ namespace DigimonSimulator
                         {
                             Sounds.PlaySound(Sound.Beep2);
                         }
+                        else if (currentDigimon.isHurt)
+                        {
+                            Sounds.PlaySound(Sound.Beep);
+                            animate.StopDigimonStateAnimation();
+                            animate.SetupRejectAnimation();
+                        }
                         else
                         {
                             Sounds.PlaySound(Sound.Beep);
@@ -323,12 +350,15 @@ namespace DigimonSimulator
                         {
                             Sounds.PlaySound(Sound.Beep2);
                         }
+                        else if (currentDigimon.isHurt)
+                        {
+                            Sounds.PlaySound(Sound.Beep);
+                            animate.StopDigimonStateAnimation();
+                            animate.SetupRejectAnimation();
+                        }
                         else
                         {
-                            if (currentDigimon.isAsleep)
-                            {
-                                currentDigimon.WakeupDigimon();
-                            }
+                            currentDigimon.WakeupDigimon();
                             animate.StopDigimonStateAnimation();
                             Sounds.PlaySound(Sound.Beep);
                             CurrentScreen = MenuScreen.Training;
@@ -342,12 +372,15 @@ namespace DigimonSimulator
                         {
                             Sounds.PlaySound(Sound.Beep2);
                         }
+                        else if (currentDigimon.isHurt)
+                        {
+                            Sounds.PlaySound(Sound.Beep);
+                            animate.StopDigimonStateAnimation();
+                            animate.SetupRejectAnimation();
+                        }
                         else
                         {
-                            if (currentDigimon.isAsleep)
-                            {
-                                currentDigimon.WakeupDigimon();
-                            }
+                            currentDigimon.WakeupDigimon(); // Move this where the battlecup screen select will start ####
                             animate.StopDigimonStateAnimation();
                             Sounds.PlaySound(Sound.Beep);
                             CurrentScreen = MenuScreen.BattleCup;
@@ -372,9 +405,32 @@ namespace DigimonSimulator
                         else
                         {
                             //setup dung flush animation
+                            Sounds.PlaySound(Sound.Beep);
                             CurrentScreen = MenuScreen.Flush;
                             animate.StopDigimonStateAnimation();
                             animate.SetupFlushAnimation();
+                        }
+                    }
+
+                    else if (SelectedMenu == MenuScreen.Medical)
+                    {
+                        Sounds.PlaySound(Sound.Beep);
+                        if (currentDigimon.isInBed)
+                        {
+                            Sounds.PlaySound(Sound.Beep2);
+                        }
+                        else if (currentDigimon.isHurt)
+                        {
+                            CurrentScreen = MenuScreen.Medical;
+                            currentDigimon.HealDigimon();
+                            animate.StopDigimonStateAnimation();
+                            animate.SetupAngry();
+                        }
+                        else
+                        {
+                            CurrentScreen = MenuScreen.Medical;
+                            animate.StopDigimonStateAnimation();
+                            animate.SetupRejectAnimation();
                         }
                     }
                 }
@@ -412,12 +468,8 @@ namespace DigimonSimulator
                     else
                     {
                         Sounds.PlaySound(Sound.Beep);
+                        currentDigimon.WakeupDigimon();
 
-                        if (currentDigimon.isAsleep)
-                        {
-                            currentDigimon.WakeupDigimon();
-                        }
-                        
                         // Deactivate hunger care mistake timer
                         if (SelectedSubMenuNo == 0)
                         {
