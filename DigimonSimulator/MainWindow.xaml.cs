@@ -100,13 +100,16 @@ namespace DigimonSimulator
             **/
 
 
-            //DrawWindow drawWindow = new DrawWindow();
-            //drawWindow.Show();
+            DrawWindow drawWindow = new DrawWindow();
+            drawWindow.Show();
 
-            mainGame.currentDigimon.HurtDigimon();
-            mainGame.resetMainScreen();
+            //mainGame.currentDigimon.HurtDigimon();
+            //mainGame.resetMainScreen();
             
-            Debug.WriteLine("Care mistakes: " + mainGame.currentDigimon.careMistakes + " Time: " + mainGame.setTime);
+            if (mainGame.currentDigimon != null)
+            {
+                Debug.WriteLine("Care mistakes: " + mainGame.currentDigimon.careMistakes + " Time: " + mainGame.setTime);
+            }
             //mainGame.currentDigimon.WakeupDigimon();
         }
 

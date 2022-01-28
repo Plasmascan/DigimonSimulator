@@ -15,6 +15,7 @@ namespace DigimonSimulator
         Medical = 6,
         History = 7,
         Battle = 8,
+        EggSelection = 9
     }
 
     public static class MenuScreens
@@ -63,6 +64,15 @@ namespace DigimonSimulator
                 }
             }
 
+        }
+
+        public static void DrawEggSelectionScreen(DigimonGame game)
+        {
+            Digimon Egg = new Digimon(game, DigimonId.V1Egg);
+            
+            Egg.sprite.SpriteX = game.pixelScreen.NumberOfXPixels / 2 - (Egg.sprite.frame1Width / 2);
+            //game.pixelScreen.ClearScreen();
+            game.pixelScreen.DrawDigimonFrame(Egg, SpriteFrame.Walk, false, true, Egg.sprite.SpriteX, 0);
         }
 
         public static void MainScreen(DigimonGame game)

@@ -7,7 +7,7 @@ namespace DigimonSimulator
 {
     public enum DigimonId
     {
-        Egg,
+        V1Egg,
         Botamon,
         Betamon,
         Greymon
@@ -135,11 +135,15 @@ namespace DigimonSimulator
                     hitDamage = 100;
                     canDigivolve = true;
                     dungTimeInterval = 100;
+                    evolveTime = 600;
                     sleepTime  = DateTime.Parse("11:00:00 PM");
                     break;
 
-                case DigimonId.Egg:
-                    Debug.WriteLine("Egg");
+                case DigimonId.V1Egg:
+                    this.sprite = SpriteImages.V1Egg();
+                    this.digimonID = DigimonId.V1Egg;
+                    canDigivolve = true;
+                    evolveTime = 5;
                     break;
 
                 case DigimonId.Botamon:
@@ -151,6 +155,7 @@ namespace DigimonSimulator
                     hitDamage = 100;
                     canDigivolve = true;
                     dungTimeInterval = 100;
+                    evolveTime = 600;
                     sleepTime = DateTime.Parse("11:00:00 PM");
                     break;
 
@@ -161,7 +166,7 @@ namespace DigimonSimulator
                     maxHunger = 1000;
                     maxStrength = 1000;
                     hitDamage = 200;
-                    evolveTime = 120;
+                    evolveTime = 15;
                     canDigivolve = true;
                     dungTimeInterval = 3600;
                     sleepTime = DateTime.Parse("10:00:00 PM");
@@ -186,10 +191,14 @@ namespace DigimonSimulator
             Digimon evolveDigimon;
             switch (digimonID)
             {
-                case DigimonId.Egg:
+                case DigimonId.V1Egg:
+                    evolveDigimon = new Digimon(game, DigimonId.Botamon);
+                    game.animate.setupDigivolve(evolveDigimon);
                     break;
 
                 case DigimonId.Botamon:
+                    evolveDigimon = new Digimon(game, DigimonId.Betamon);
+                    game.animate.setupDigivolve(evolveDigimon);
                     break;
 
                 case DigimonId.Betamon:
