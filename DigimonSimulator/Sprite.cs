@@ -771,6 +771,39 @@ namespace DigimonSimulator
             return arrowSprite;
         }
 
+        public static Sprite SelectTriangleSprite()
+        {
+            Sprite selectTriangleSprite = new Sprite();
+            selectTriangleSprite.SpriteHeight = 8;
+            selectTriangleSprite.SpriteWidth = 4;
+            selectTriangleSprite.sprite = new bool[selectTriangleSprite.SpriteHeight, selectTriangleSprite.SpriteWidth];
+
+            #region selectTriangleSprite
+            selectTriangleSprite.sprite[0, 3] = true;
+            selectTriangleSprite.sprite[1, 2] = true;
+            selectTriangleSprite.sprite[1, 3] = true;
+            selectTriangleSprite.sprite[2, 1] = true;
+            selectTriangleSprite.sprite[2, 2] = true;
+            selectTriangleSprite.sprite[2, 3] = true;
+            selectTriangleSprite.sprite[3, 0] = true;
+            selectTriangleSprite.sprite[3, 1] = true;
+            selectTriangleSprite.sprite[3, 2] = true;
+            selectTriangleSprite.sprite[3, 3] = true;
+            selectTriangleSprite.sprite[4, 0] = true;
+            selectTriangleSprite.sprite[4, 1] = true;
+            selectTriangleSprite.sprite[4, 2] = true;
+            selectTriangleSprite.sprite[4, 3] = true;
+            selectTriangleSprite.sprite[5, 1] = true;
+            selectTriangleSprite.sprite[5, 2] = true;
+            selectTriangleSprite.sprite[5, 3] = true;
+            selectTriangleSprite.sprite[6, 2] = true;
+            selectTriangleSprite.sprite[6, 3] = true;
+            selectTriangleSprite.sprite[7, 3] = true;
+            #endregion
+
+            return selectTriangleSprite;
+        }
+
         public static Sprite ExplanationMarkSprite()
         {
             Sprite explanationMarkSprite = new Sprite();
@@ -2691,6 +2724,43 @@ namespace DigimonSimulator
             return waveProjectileSprite;
         }
 
+        public static Sprite BabyProjectileSprite()
+        {
+            Sprite babyProjectileSprite = new Sprite();
+            babyProjectileSprite.SpriteHeight = 8;
+            babyProjectileSprite.SpriteWidth = 8;
+            babyProjectileSprite.sprite = new bool[babyProjectileSprite.SpriteHeight, babyProjectileSprite.SpriteWidth];
+
+            #region babyProjectileSprite
+            babyProjectileSprite.sprite[0, 2] = true;
+            babyProjectileSprite.sprite[0, 3] = true;
+            babyProjectileSprite.sprite[0, 4] = true;
+            babyProjectileSprite.sprite[0, 5] = true;
+            babyProjectileSprite.sprite[1, 1] = true;
+            babyProjectileSprite.sprite[1, 6] = true;
+            babyProjectileSprite.sprite[2, 0] = true;
+            babyProjectileSprite.sprite[2, 2] = true;
+            babyProjectileSprite.sprite[2, 3] = true;
+            babyProjectileSprite.sprite[2, 7] = true;
+            babyProjectileSprite.sprite[3, 0] = true;
+            babyProjectileSprite.sprite[3, 2] = true;
+            babyProjectileSprite.sprite[3, 7] = true;
+            babyProjectileSprite.sprite[4, 0] = true;
+            babyProjectileSprite.sprite[4, 7] = true;
+            babyProjectileSprite.sprite[5, 0] = true;
+            babyProjectileSprite.sprite[5, 2] = true;
+            babyProjectileSprite.sprite[5, 7] = true;
+            babyProjectileSprite.sprite[6, 1] = true;
+            babyProjectileSprite.sprite[6, 6] = true;
+            babyProjectileSprite.sprite[7, 2] = true;
+            babyProjectileSprite.sprite[7, 3] = true;
+            babyProjectileSprite.sprite[7, 4] = true;
+            babyProjectileSprite.sprite[7, 5] = true;
+            #endregion
+
+            return babyProjectileSprite;
+        }
+
         public static DigimonSprite V1Egg()
         {
             DigimonSprite v1Egg = new DigimonSprite();
@@ -2934,6 +3004,273 @@ namespace DigimonSimulator
             v1Egg.happyFrame[15, 10] = true;
             #endregion
             return v1Egg;
+        }
+
+        public static DigimonSprite Botamon()
+        {
+            DigimonSprite botamonSprite = new DigimonSprite();
+            botamonSprite.projectileSprite = BabyProjectileSprite();
+            botamonSprite.currentSpriteHeight = 6;
+            botamonSprite.frame1Height = 6;
+            botamonSprite.frame1Width = 8;
+            botamonSprite.frame2Height = 5;
+            botamonSprite.frame2Width = 8;
+            botamonSprite.happyFrameHeight = 8;
+            botamonSprite.happyFrameWidth = 6;
+            botamonSprite.eat1FrameHeight = 5;
+            botamonSprite.eat1FrameWidth = 5;
+            botamonSprite.eat2FrameHeight = 8;
+            botamonSprite.eat2FrameWidth = 8;
+            botamonSprite.rejectFrameHeight = 7;
+            botamonSprite.rejectFrameWidth = 6;
+            botamonSprite.attackFrameHeight = 8;
+            botamonSprite.attackFrameWidth = 8;
+            botamonSprite.angryFrameHeight = 8;
+            botamonSprite.angryFrameWidth = 8;
+
+            botamonSprite.frame1 = new bool[botamonSprite.frame1Height, botamonSprite.frame1Width];
+            botamonSprite.frame2 = new bool[botamonSprite.frame2Height, botamonSprite.frame2Width];
+            botamonSprite.happyFrame = new bool[botamonSprite.happyFrameHeight, botamonSprite.happyFrameWidth];
+            botamonSprite.eat1Frame = new bool[botamonSprite.eat1FrameHeight, botamonSprite.eat1FrameWidth];
+            botamonSprite.eat2Frame = new bool[botamonSprite.eat2FrameHeight, botamonSprite.eat2FrameWidth];
+            botamonSprite.rejectFrame = new bool[botamonSprite.rejectFrameHeight, botamonSprite.rejectFrameWidth];
+            botamonSprite.attackFrame = new bool[botamonSprite.attackFrameHeight, botamonSprite.attackFrameWidth];
+            botamonSprite.angryFrame = new bool[botamonSprite.angryFrameHeight, botamonSprite.angryFrameWidth];
+
+            #region botamon frames
+            //frame 1
+            botamonSprite.frame1[0, 2] = true;
+            botamonSprite.frame1[0, 5] = true;
+            botamonSprite.frame1[1, 1] = true;
+            botamonSprite.frame1[1, 2] = true;
+            botamonSprite.frame1[1, 3] = true;
+            botamonSprite.frame1[1, 4] = true;
+            botamonSprite.frame1[1, 5] = true;
+            botamonSprite.frame1[1, 6] = true;
+            botamonSprite.frame1[2, 1] = true;
+            botamonSprite.frame1[2, 3] = true;
+            botamonSprite.frame1[2, 4] = true;
+            botamonSprite.frame1[2, 6] = true;
+            botamonSprite.frame1[3, 1] = true;
+            botamonSprite.frame1[3, 2] = true;
+            botamonSprite.frame1[3, 3] = true;
+            botamonSprite.frame1[3, 4] = true;
+            botamonSprite.frame1[3, 5] = true;
+            botamonSprite.frame1[3, 6] = true;
+            botamonSprite.frame1[4, 1] = true;
+            botamonSprite.frame1[4, 2] = true;
+            botamonSprite.frame1[4, 5] = true;
+            botamonSprite.frame1[4, 6] = true;
+            botamonSprite.frame1[5, 0] = true;
+            botamonSprite.frame1[5, 1] = true;
+            botamonSprite.frame1[5, 2] = true;
+            botamonSprite.frame1[5, 3] = true;
+            botamonSprite.frame1[5, 4] = true;
+            botamonSprite.frame1[5, 5] = true;
+            botamonSprite.frame1[5, 6] = true;
+            botamonSprite.frame1[5, 7] = true;
+
+            //Frame 2
+            botamonSprite.frame2[0, 2] = true;
+            botamonSprite.frame2[0, 5] = true;
+            botamonSprite.frame2[1, 2] = true;
+            botamonSprite.frame2[1, 3] = true;
+            botamonSprite.frame2[1, 4] = true;
+            botamonSprite.frame2[1, 5] = true;
+            botamonSprite.frame2[2, 1] = true;
+            botamonSprite.frame2[2, 3] = true;
+            botamonSprite.frame2[2, 4] = true;
+            botamonSprite.frame2[2, 5] = true;
+            botamonSprite.frame2[2, 6] = true;
+            botamonSprite.frame2[3, 1] = true;
+            botamonSprite.frame2[3, 2] = true;
+            botamonSprite.frame2[3, 3] = true;
+            botamonSprite.frame2[3, 4] = true;
+            botamonSprite.frame2[3, 6] = true;
+            botamonSprite.frame2[4, 0] = true;
+            botamonSprite.frame2[4, 1] = true;
+            botamonSprite.frame2[4, 2] = true;
+            botamonSprite.frame2[4, 3] = true;
+            botamonSprite.frame2[4, 4] = true;
+            botamonSprite.frame2[4, 5] = true;
+            botamonSprite.frame2[4, 6] = true;
+            botamonSprite.frame2[4, 7] = true;
+
+            //happy frame
+            botamonSprite.happyFrame[0, 1] = true;
+            botamonSprite.happyFrame[0, 4] = true;
+            botamonSprite.happyFrame[1, 1] = true;
+            botamonSprite.happyFrame[1, 2] = true;
+            botamonSprite.happyFrame[1, 3] = true;
+            botamonSprite.happyFrame[1, 4] = true;
+            botamonSprite.happyFrame[2, 0] = true;
+            botamonSprite.happyFrame[2, 2] = true;
+            botamonSprite.happyFrame[2, 3] = true;
+            botamonSprite.happyFrame[2, 5] = true;
+            botamonSprite.happyFrame[3, 0] = true;
+            botamonSprite.happyFrame[3, 1] = true;
+            botamonSprite.happyFrame[3, 2] = true;
+            botamonSprite.happyFrame[3, 3] = true;
+            botamonSprite.happyFrame[3, 4] = true;
+            botamonSprite.happyFrame[3, 5] = true;
+            botamonSprite.happyFrame[4, 0] = true;
+            botamonSprite.happyFrame[4, 1] = true;
+            botamonSprite.happyFrame[4, 4] = true;
+            botamonSprite.happyFrame[4, 5] = true;
+            botamonSprite.happyFrame[5, 0] = true;
+            botamonSprite.happyFrame[5, 1] = true;
+            botamonSprite.happyFrame[5, 4] = true;
+            botamonSprite.happyFrame[5, 5] = true;
+            botamonSprite.happyFrame[6, 0] = true;
+            botamonSprite.happyFrame[6, 1] = true;
+            botamonSprite.happyFrame[6, 2] = true;
+            botamonSprite.happyFrame[6, 3] = true;
+            botamonSprite.happyFrame[6, 4] = true;
+            botamonSprite.happyFrame[6, 5] = true;
+            botamonSprite.happyFrame[7, 1] = true;
+            botamonSprite.happyFrame[7, 2] = true;
+            botamonSprite.happyFrame[7, 3] = true;
+            botamonSprite.happyFrame[7, 4] = true;
+
+            //eat 
+            botamonSprite.eat1Frame[0, 4] = true;
+            botamonSprite.eat1Frame[1, 1] = true;
+            botamonSprite.eat1Frame[1, 2] = true;
+            botamonSprite.eat1Frame[1, 3] = true;
+            botamonSprite.eat1Frame[1, 4] = true;
+            botamonSprite.eat1Frame[2, 1] = true;
+            botamonSprite.eat1Frame[2, 3] = true;
+            botamonSprite.eat1Frame[2, 4] = true;
+            botamonSprite.eat1Frame[3, 0] = true;
+            botamonSprite.eat1Frame[3, 1] = true;
+            botamonSprite.eat1Frame[3, 2] = true;
+            botamonSprite.eat1Frame[3, 3] = true;
+            botamonSprite.eat1Frame[3, 4] = true;
+            botamonSprite.eat1Frame[4, 0] = true;
+            botamonSprite.eat1Frame[4, 1] = true;
+            botamonSprite.eat1Frame[4, 2] = true;
+            botamonSprite.eat1Frame[4, 3] = true;
+
+            //eat2
+            botamonSprite.eat2Frame[0, 1] = true;
+            botamonSprite.eat2Frame[0, 2] = true;
+            botamonSprite.eat2Frame[0, 3] = true;
+            botamonSprite.eat2Frame[0, 4] = true;
+            botamonSprite.eat2Frame[0, 7] = true;
+            botamonSprite.eat2Frame[1, 0] = true;
+            botamonSprite.eat2Frame[1, 1] = true;
+            botamonSprite.eat2Frame[1, 2] = true;
+            botamonSprite.eat2Frame[1, 3] = true;
+            botamonSprite.eat2Frame[1, 4] = true;
+            botamonSprite.eat2Frame[1, 5] = true;
+            botamonSprite.eat2Frame[1, 6] = true;
+            botamonSprite.eat2Frame[1, 7] = true;
+            botamonSprite.eat2Frame[2, 2] = true;
+            botamonSprite.eat2Frame[2, 3] = true;
+            botamonSprite.eat2Frame[2, 5] = true;
+            botamonSprite.eat2Frame[2, 6] = true;
+            botamonSprite.eat2Frame[3, 3] = true;
+            botamonSprite.eat2Frame[3, 4] = true;
+            botamonSprite.eat2Frame[3, 5] = true;
+            botamonSprite.eat2Frame[3, 6] = true;
+            botamonSprite.eat2Frame[4, 4] = true;
+            botamonSprite.eat2Frame[4, 5] = true;
+            botamonSprite.eat2Frame[4, 6] = true;
+            botamonSprite.eat2Frame[5, 4] = true;
+            botamonSprite.eat2Frame[5, 5] = true;
+            botamonSprite.eat2Frame[5, 6] = true;
+            botamonSprite.eat2Frame[6, 1] = true;
+            botamonSprite.eat2Frame[6, 2] = true;
+            botamonSprite.eat2Frame[6, 3] = true;
+            botamonSprite.eat2Frame[6, 4] = true;
+            botamonSprite.eat2Frame[6, 5] = true;
+            botamonSprite.eat2Frame[6, 6] = true;
+            botamonSprite.eat2Frame[6, 7] = true;
+            botamonSprite.eat2Frame[7, 1] = true;
+            botamonSprite.eat2Frame[7, 2] = true;
+            botamonSprite.eat2Frame[7, 3] = true;
+            botamonSprite.eat2Frame[7, 4] = true;
+            botamonSprite.eat2Frame[7, 5] = true;
+            botamonSprite.eat2Frame[7, 6] = true;
+            botamonSprite.eat2Frame[7, 7] = true;
+
+            //reject
+            botamonSprite.rejectFrame[0, 2] = true;
+            botamonSprite.rejectFrame[0, 4] = true;
+            botamonSprite.rejectFrame[1, 1] = true;
+            botamonSprite.rejectFrame[1, 2] = true;
+            botamonSprite.rejectFrame[1, 3] = true;
+            botamonSprite.rejectFrame[1, 4] = true;
+            botamonSprite.rejectFrame[2, 0] = true;
+            botamonSprite.rejectFrame[2, 1] = true;
+            botamonSprite.rejectFrame[2, 4] = true;
+            botamonSprite.rejectFrame[2, 5] = true;
+            botamonSprite.rejectFrame[3, 0] = true;
+            botamonSprite.rejectFrame[3, 1] = true;
+            botamonSprite.rejectFrame[3, 2] = true;
+            botamonSprite.rejectFrame[3, 3] = true;
+            botamonSprite.rejectFrame[3, 4] = true;
+            botamonSprite.rejectFrame[3, 5] = true;
+            botamonSprite.rejectFrame[4, 3] = true;
+            botamonSprite.rejectFrame[4, 4] = true;
+            botamonSprite.rejectFrame[4, 5] = true;
+            botamonSprite.rejectFrame[5, 0] = true;
+            botamonSprite.rejectFrame[5, 1] = true;
+            botamonSprite.rejectFrame[5, 2] = true;
+            botamonSprite.rejectFrame[5, 3] = true;
+            botamonSprite.rejectFrame[5, 4] = true;
+            botamonSprite.rejectFrame[5, 5] = true;
+            botamonSprite.rejectFrame[6, 1] = true;
+            botamonSprite.rejectFrame[6, 2] = true;
+            botamonSprite.rejectFrame[6, 3] = true;
+            botamonSprite.rejectFrame[6, 4] = true;
+
+            //atttack
+            botamonSprite.attackFrame = botamonSprite.eat2Frame;
+
+            //angry
+            botamonSprite.angryFrame[0, 1] = true;
+            botamonSprite.angryFrame[0, 6] = true;
+            botamonSprite.angryFrame[1, 1] = true;
+            botamonSprite.angryFrame[1, 2] = true;
+            botamonSprite.angryFrame[1, 3] = true;
+            botamonSprite.angryFrame[1, 4] = true;
+            botamonSprite.angryFrame[1, 5] = true;
+            botamonSprite.angryFrame[1, 6] = true;
+            botamonSprite.angryFrame[2, 0] = true;
+            botamonSprite.angryFrame[2, 2] = true;
+            botamonSprite.angryFrame[2, 3] = true;
+            botamonSprite.angryFrame[2, 4] = true;
+            botamonSprite.angryFrame[2, 5] = true;
+            botamonSprite.angryFrame[2, 7] = true;
+            botamonSprite.angryFrame[3, 0] = true;
+            botamonSprite.angryFrame[3, 1] = true;
+            botamonSprite.angryFrame[3, 3] = true;
+            botamonSprite.angryFrame[3, 4] = true;
+            botamonSprite.angryFrame[3, 6] = true;
+            botamonSprite.angryFrame[3, 7] = true;
+            botamonSprite.angryFrame[4, 0] = true;
+            botamonSprite.angryFrame[4, 1] = true;
+            botamonSprite.angryFrame[4, 2] = true;
+            botamonSprite.angryFrame[4, 3] = true;
+            botamonSprite.angryFrame[4, 4] = true;
+            botamonSprite.angryFrame[4, 5] = true;
+            botamonSprite.angryFrame[4, 6] = true;
+            botamonSprite.angryFrame[4, 7] = true;
+            botamonSprite.angryFrame[5, 1] = true;
+            botamonSprite.angryFrame[5, 2] = true;
+            botamonSprite.angryFrame[5, 5] = true;
+            botamonSprite.angryFrame[5, 6] = true;
+            botamonSprite.angryFrame[6, 2] = true;
+            botamonSprite.angryFrame[6, 5] = true;
+            botamonSprite.angryFrame[7, 2] = true;
+            botamonSprite.angryFrame[7, 3] = true;
+            botamonSprite.angryFrame[7, 4] = true;
+            botamonSprite.angryFrame[7, 5] = true;
+
+            #endregion
+
+            return botamonSprite;
         }
 
         public static DigimonSprite Elecmon()
@@ -4571,120 +4908,5 @@ namespace DigimonSimulator
             return greymonSprite;
         }
 
-
-        public static DigimonSprite Botamon()
-        {
-            DigimonSprite botamonSprite = new DigimonSprite();
-            botamonSprite.projectileSprite = FireBallProjectileSprite();
-            botamonSprite.currentSpriteHeight = 6;
-            botamonSprite.frame1Height = 6;
-            botamonSprite.frame1Width = 8;
-            botamonSprite.frame2Height = 5;
-            botamonSprite.frame2Width = 8;
-            botamonSprite.happyFrameHeight = 8;
-            botamonSprite.happyFrameWidth = 6;
-
-            botamonSprite.frame1 = new bool[botamonSprite.frame1Height, botamonSprite.frame1Width];
-            botamonSprite.frame2 = new bool[botamonSprite.frame2Height, botamonSprite.frame2Width];
-            botamonSprite.happyFrame = new bool[botamonSprite.happyFrameHeight, botamonSprite.happyFrameWidth];
-
-            #region botamon frames
-            //frame 1
-            botamonSprite.frame1[0, 2] = true;
-            botamonSprite.frame1[0, 5] = true;
-            botamonSprite.frame1[1, 1] = true;
-            botamonSprite.frame1[1, 2] = true;
-            botamonSprite.frame1[1, 3] = true;
-            botamonSprite.frame1[1, 4] = true;
-            botamonSprite.frame1[1, 5] = true;
-            botamonSprite.frame1[1, 6] = true;
-            botamonSprite.frame1[2, 1] = true;
-            botamonSprite.frame1[2, 3] = true;
-            botamonSprite.frame1[2, 4] = true;
-            botamonSprite.frame1[2, 6] = true;
-            botamonSprite.frame1[3, 1] = true;
-            botamonSprite.frame1[3, 2] = true;
-            botamonSprite.frame1[3, 3] = true;
-            botamonSprite.frame1[3, 4] = true;
-            botamonSprite.frame1[3, 5] = true;
-            botamonSprite.frame1[3, 6] = true;
-            botamonSprite.frame1[4, 1] = true;
-            botamonSprite.frame1[4, 2] = true;
-            botamonSprite.frame1[4, 5] = true;
-            botamonSprite.frame1[4, 6] = true;
-            botamonSprite.frame1[5, 0] = true;
-            botamonSprite.frame1[5, 1] = true;
-            botamonSprite.frame1[5, 2] = true;
-            botamonSprite.frame1[5, 3] = true;
-            botamonSprite.frame1[5, 4] = true;
-            botamonSprite.frame1[5, 5] = true;
-            botamonSprite.frame1[5, 6] = true;
-            botamonSprite.frame1[5, 7] = true;
-
-            //Frame 2
-            botamonSprite.frame2[0, 2] = true;
-            botamonSprite.frame2[0, 5] = true;
-            botamonSprite.frame2[1, 2] = true;
-            botamonSprite.frame2[1, 3] = true;
-            botamonSprite.frame2[1, 4] = true;
-            botamonSprite.frame2[1, 5] = true;
-            botamonSprite.frame2[2, 1] = true;
-            botamonSprite.frame2[2, 3] = true;
-            botamonSprite.frame2[2, 4] = true;
-            botamonSprite.frame2[2, 5] = true;
-            botamonSprite.frame2[2, 6] = true;
-            botamonSprite.frame2[3, 1] = true;
-            botamonSprite.frame2[3, 2] = true;
-            botamonSprite.frame2[3, 3] = true;
-            botamonSprite.frame2[3, 4] = true;
-            botamonSprite.frame2[3, 6] = true;
-            botamonSprite.frame2[4, 0] = true;
-            botamonSprite.frame2[4, 1] = true;
-            botamonSprite.frame2[4, 2] = true;
-            botamonSprite.frame2[4, 3] = true;
-            botamonSprite.frame2[4, 4] = true;
-            botamonSprite.frame2[4, 5] = true;
-            botamonSprite.frame2[4, 6] = true;
-            botamonSprite.frame2[4, 7] = true;
-
-            //happy frame
-            botamonSprite.happyFrame[0, 1] = true;
-            botamonSprite.happyFrame[0, 4] = true;
-            botamonSprite.happyFrame[1, 1] = true;
-            botamonSprite.happyFrame[1, 2] = true;
-            botamonSprite.happyFrame[1, 3] = true;
-            botamonSprite.happyFrame[1, 4] = true;
-            botamonSprite.happyFrame[2, 0] = true;
-            botamonSprite.happyFrame[2, 2] = true;
-            botamonSprite.happyFrame[2, 3] = true;
-            botamonSprite.happyFrame[2, 5] = true;
-            botamonSprite.happyFrame[3, 0] = true;
-            botamonSprite.happyFrame[3, 1] = true;
-            botamonSprite.happyFrame[3, 2] = true;
-            botamonSprite.happyFrame[3, 3] = true;
-            botamonSprite.happyFrame[3, 4] = true;
-            botamonSprite.happyFrame[3, 5] = true;
-            botamonSprite.happyFrame[4, 0] = true;
-            botamonSprite.happyFrame[4, 1] = true;
-            botamonSprite.happyFrame[4, 4] = true;
-            botamonSprite.happyFrame[4, 5] = true;
-            botamonSprite.happyFrame[5, 0] = true;
-            botamonSprite.happyFrame[5, 1] = true;
-            botamonSprite.happyFrame[5, 4] = true;
-            botamonSprite.happyFrame[5, 5] = true;
-            botamonSprite.happyFrame[6, 0] = true;
-            botamonSprite.happyFrame[6, 1] = true;
-            botamonSprite.happyFrame[6, 2] = true;
-            botamonSprite.happyFrame[6, 3] = true;
-            botamonSprite.happyFrame[6, 4] = true;
-            botamonSprite.happyFrame[6, 5] = true;
-            botamonSprite.happyFrame[7, 1] = true;
-            botamonSprite.happyFrame[7, 2] = true;
-            botamonSprite.happyFrame[7, 3] = true;
-            botamonSprite.happyFrame[7, 4] = true;
-            #endregion
-
-            return botamonSprite;
-        }
     }
 }

@@ -31,7 +31,7 @@ namespace DigimonSimulator
                 Sprite emptyHeartSprite = SpriteImages.EmptyHeartSprite();
                 game.pixelScreen.DrawSprite(hungerSprite, 0, 0, false);
 
-                for (int i = 0, hunger = 1, x = 0; i < 4; i++, hunger += 250, x += 8)
+                for (int i = 0, hunger = game.currentDigimon.maxHunger / 4, x = 0; i < 4; i++, hunger += game.currentDigimon.maxHunger / 4, x += 8)
                 {
                     if (game.currentDigimon.currentHunger < hunger)
                     {
@@ -51,7 +51,7 @@ namespace DigimonSimulator
                 Sprite emptyHeartSprite = SpriteImages.EmptyHeartSprite();
                 game.pixelScreen.DrawSprite(strengthSprite, 0, 0, false);
 
-                for (int i = 0, strength = 1, x = 0; i < 4; i++, strength += 250, x += 8)
+                for (int i = 0, strength = game.currentDigimon.maxStrength / 4, x = 0; i < 4; i++, strength += game.currentDigimon.maxStrength / 4, x += 8)
                 {
                     if (game.currentDigimon.currentStrength < strength)
                     {
@@ -69,10 +69,11 @@ namespace DigimonSimulator
         public static void DrawEggSelectionScreen(DigimonGame game)
         {
             Digimon Egg = new Digimon(game, DigimonId.V1Egg);
-            
+            Sprite selectTriangleSprite = SpriteImages.SelectTriangleSprite();
             Egg.sprite.SpriteX = game.pixelScreen.NumberOfXPixels / 2 - (Egg.sprite.frame1Width / 2);
-            //game.pixelScreen.ClearScreen();
             game.pixelScreen.DrawDigimonFrame(Egg, SpriteFrame.Walk, false, true, Egg.sprite.SpriteX, 0);
+            game.pixelScreen.DrawSprite(selectTriangleSprite, 0, 5, false);
+            game.pixelScreen.DrawSprite(selectTriangleSprite, game.pixelScreen.NumberOfXPixels - selectTriangleSprite.SpriteWidth, 5, true);
         }
 
         public static void MainScreen(DigimonGame game)

@@ -18,7 +18,7 @@ namespace DigimonSimulator
         public DigimonId digimonID;
         public DigimonSprite sprite;
         public int currentHunger = 5;
-        public int currentStrength = 300;
+        public int currentStrength = 5;
         public int currenthealth = 1000;
         public int careMistakes = 0;
         public int injuries = 0;
@@ -37,7 +37,7 @@ namespace DigimonSimulator
         public int forcedSleepTimer = -1;
         public int dungTimer = 10;
         public DateTime sleepTime;
-        public int secondsUntilSleep = 20;
+        public int secondsUntilSleep = 600;
         public bool isAsleep = false;
         public bool isInBed = false;
         public bool isHurt = false;
@@ -126,19 +126,6 @@ namespace DigimonSimulator
         {
             switch (digimonID)
             {
-                default:
-                    this.sprite = SpriteImages.Botamon();
-                    this.digimonID = DigimonId.Botamon;
-                    maxHealth = 500;
-                    maxHunger = 1000;
-                    maxStrength = 1000;
-                    hitDamage = 100;
-                    canDigivolve = true;
-                    dungTimeInterval = 100;
-                    evolveTime = 600;
-                    sleepTime  = DateTime.Parse("11:00:00 PM");
-                    break;
-
                 case DigimonId.V1Egg:
                     this.sprite = SpriteImages.V1Egg();
                     this.digimonID = DigimonId.V1Egg;
@@ -150,8 +137,8 @@ namespace DigimonSimulator
                     this.sprite = SpriteImages.Botamon();
                     this.digimonID = DigimonId.Botamon;
                     maxHealth = 500;
-                    maxHunger = 1000;
-                    maxStrength = 1000;
+                    maxHunger = 200;
+                    maxStrength = 200;
                     hitDamage = 100;
                     canDigivolve = true;
                     dungTimeInterval = 100;
@@ -204,10 +191,11 @@ namespace DigimonSimulator
                 case DigimonId.Betamon:
                     evolveDigimon = new Digimon(game, DigimonId.Greymon);
                     game.animate.setupDigivolve(evolveDigimon);
-                    // call digivolv animation
                     break;
             }
 
+            careMistakes = 0;
+            injuries = 0;
         }
     }
 
