@@ -35,16 +35,17 @@ namespace DigimonSimulator
         {
             pixelScreen = new PixelScreen(screen, 0, 20, 16, 32, 4);
             pixelScreen.SetupScreen();
-            //currentDigimon = new Digimon(this, DigimonId.Betamon);
+            //currentDigimon = new Digimon(this, DigimonId.Agumon);
             animate = new Animations(this);
             //animate.StartDigimonStateAnimation();
-            setTime = DateTime.Parse("1:59:30 AM");
+            setTime = DateTime.Now;
             SelectEgg();
             setTimer();
         }
 
         public void SelectEgg()
         {
+            currentDigimon = null;
             CurrentScreen = MenuScreen.EggSelection;
             MenuScreens.DrawEggSelectionScreen(this);
         }

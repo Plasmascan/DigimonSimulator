@@ -108,6 +108,7 @@ namespace DigimonSimulator
             
             if (mainGame.currentDigimon != null)
             {
+                mainGame.currentDigimon.HurtDigimon();
                 Debug.WriteLine("Care mistakes: " + mainGame.currentDigimon.careMistakes + " Time: " + mainGame.setTime);
             }
             //mainGame.currentDigimon.WakeupDigimon();

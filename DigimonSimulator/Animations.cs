@@ -266,7 +266,6 @@ namespace DigimonSimulator
         private Sprite hurtSkull = new Sprite();
         public void StepDigimon()
         {
-            Debug.WriteLine(StepCounter);
             Sprite tempDung;
             if (Game.numberOfDung > 0)
             {
@@ -295,7 +294,6 @@ namespace DigimonSimulator
                 
                 if (StepCounter == 0)
                 {
-                    Game.pixelScreen.ClearScreen();
                     Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Walk, false, true, GetMiddleX(Game.currentDigimon.sprite.frame1Width), 0);
                     StepCounter++;
 
@@ -1626,7 +1624,7 @@ namespace DigimonSimulator
             {
                 case 0:
                     Game.pixelScreen.ClearScreen();
-                    Game.currentDigimon.sprite.SpriteX = Game.pixelScreen.NumberOfXPixels - (Game.currentDigimon.sprite.frame1Width / 2) - 16;
+                    Game.currentDigimon.sprite.SpriteX = GetMiddleX(Game.currentDigimon.sprite.frame1Width);
                     Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Walk, false, true, Game.currentDigimon.sprite.SpriteX, 0);
                     _animationTick.Interval = TimeSpan.FromMilliseconds(GameTickSpeed);
                     break;
@@ -1677,7 +1675,7 @@ namespace DigimonSimulator
             {
                 case 0:
                     Game.pixelScreen.ClearScreen();
-                    Game.currentDigimon.sprite.SpriteX = Game.pixelScreen.NumberOfXPixels - (Game.currentDigimon.sprite.hurt1FrameWidth / 2) - 16;
+                    Game.currentDigimon.sprite.SpriteX = GetMiddleX(Game.currentDigimon.sprite.frame1Width);
                     Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Walk, false, true, Game.currentDigimon.sprite.SpriteX, 0);
                     _animationTick.Interval = TimeSpan.FromMilliseconds(GameTickSpeed + 260); // slowdown timer to sync the sounds
                     break;

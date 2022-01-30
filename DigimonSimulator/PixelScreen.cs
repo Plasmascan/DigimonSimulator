@@ -379,9 +379,9 @@ namespace DigimonSimulator
         // Clears a digimon sprite from the screen
         public void ClearSprite(DigimonSprite digimon)
         {
-            for (int y = digimon.SpriteY; y <  digimon.currentSpriteHeight + digimon.SpriteY; y++)
+            for (int y = digimon.SpriteY; y <  digimon.currentFrameHeight + digimon.SpriteY; y++)
             {
-                for (int x = digimon.SpriteX; x < digimon.frame1Width + digimon.SpriteX; x++)
+                for (int x = digimon.SpriteX; x < digimon.currentFrameWidth + digimon.SpriteX; x++)
                 {
                     if (isPixelOnScreen(y, x))
                     {
@@ -577,7 +577,8 @@ namespace DigimonSimulator
             // update digimon current location and height
             digimon.sprite.SpriteX = moveToX;
             digimon.sprite.SpriteY = moveToY;
-            digimon.sprite.currentSpriteHeight = spriteHeight;
+            digimon.sprite.currentFrameHeight = spriteHeight;
+            digimon.sprite.currentFrameWidth = spriteWidth;
 
         }
 

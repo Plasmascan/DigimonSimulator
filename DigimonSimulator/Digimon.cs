@@ -9,7 +9,9 @@ namespace DigimonSimulator
     {
         V1Egg,
         Botamon,
+        Koromon,
         Betamon,
+        Agumon,
         Greymon
     }
     public class Digimon
@@ -136,13 +138,26 @@ namespace DigimonSimulator
                 case DigimonId.Botamon:
                     this.sprite = SpriteImages.Botamon();
                     this.digimonID = DigimonId.Botamon;
-                    maxHealth = 500;
+                    maxHealth = 300;
                     maxHunger = 200;
                     maxStrength = 200;
                     hitDamage = 100;
                     canDigivolve = true;
                     dungTimeInterval = 100;
                     evolveTime = 600;
+                    sleepTime = DateTime.Parse("11:00:00 PM");
+                    break;
+
+                case DigimonId.Koromon:
+                    this.sprite = SpriteImages.Koromon();
+                    this.digimonID = DigimonId.Koromon;
+                    maxHealth = 500;
+                    maxHunger = 400;
+                    maxStrength = 400;
+                    hitDamage = 200;
+                    canDigivolve = true;
+                    dungTimeInterval = 600;
+                    evolveTime = 3600*4;
                     sleepTime = DateTime.Parse("11:00:00 PM");
                     break;
 
@@ -155,6 +170,19 @@ namespace DigimonSimulator
                     hitDamage = 200;
                     evolveTime = 15;
                     canDigivolve = true;
+                    dungTimeInterval = 3600;
+                    sleepTime = DateTime.Parse("10:00:00 PM");
+                    break;
+
+                case DigimonId.Agumon:
+                    this.sprite = SpriteImages.Agumon();
+                    this.digimonID = DigimonId.Agumon;
+                    maxHealth = 800;
+                    maxHunger = 1000;
+                    maxStrength = 1000;
+                    hitDamage = 200;
+                    evolveTime = 10000;
+                    canDigivolve = false;
                     dungTimeInterval = 3600;
                     sleepTime = DateTime.Parse("10:00:00 PM");
                     break;
@@ -184,7 +212,12 @@ namespace DigimonSimulator
                     break;
 
                 case DigimonId.Botamon:
-                    evolveDigimon = new Digimon(game, DigimonId.Betamon);
+                    evolveDigimon = new Digimon(game, DigimonId.Koromon);
+                    game.animate.setupDigivolve(evolveDigimon);
+                    break;
+
+                case DigimonId.Koromon:
+                    evolveDigimon = new Digimon(game, DigimonId.Agumon);
                     game.animate.setupDigivolve(evolveDigimon);
                     break;
 
