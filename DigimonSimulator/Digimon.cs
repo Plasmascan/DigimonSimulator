@@ -12,7 +12,9 @@ namespace DigimonSimulator
         Koromon,
         Betamon,
         Agumon,
-        Greymon
+        Greymon,
+        Devimon,
+        Seadramon
     }
     public class Digimon
     {
@@ -197,6 +199,30 @@ namespace DigimonSimulator
                     canDigivolve = false;
                     dungTimeInterval = 3600;
                     sleepTime = DateTime.Parse("11:00:00 PM");
+                    break;
+
+                case DigimonId.Devimon:
+                    this.sprite = SpriteImages.Devimon();
+                    this.digimonID = DigimonId.Devimon;
+                    maxHealth = 1000;
+                    maxHunger = 1000;
+                    maxStrength = 1000;
+                    hitDamage = 300;
+                    canDigivolve = false;
+                    dungTimeInterval = 3600;
+                    sleepTime = DateTime.Parse("12:00:00 AM");
+                    break;
+
+                case DigimonId.Seadramon:
+                    this.sprite = SpriteImages.Seadramon();
+                    this.digimonID = DigimonId.Seadramon;
+                    maxHealth = 1000;
+                    maxHunger = 1000;
+                    maxStrength = 1000;
+                    hitDamage = 300;
+                    canDigivolve = false;
+                    dungTimeInterval = 3600;
+                    sleepTime = DateTime.Parse("12:00:00 AM");
                     break;
             }
         }
