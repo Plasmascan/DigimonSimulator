@@ -14,7 +14,8 @@ namespace DigimonSimulator
         Agumon,
         Greymon,
         Devimon,
-        Seadramon
+        Seadramon,
+        Numemon
     }
     public class Digimon
     {
@@ -216,6 +217,18 @@ namespace DigimonSimulator
                 case DigimonId.Seadramon:
                     this.sprite = SpriteImages.Seadramon();
                     this.digimonID = DigimonId.Seadramon;
+                    maxHealth = 1000;
+                    maxHunger = 1000;
+                    maxStrength = 1000;
+                    hitDamage = 300;
+                    canDigivolve = false;
+                    dungTimeInterval = 3600;
+                    sleepTime = DateTime.Parse("12:00:00 AM");
+                    break;
+
+                case DigimonId.Numemon:
+                    this.sprite = SpriteImages.Numemon();
+                    this.digimonID = DigimonId.Numemon;
                     maxHealth = 1000;
                     maxHunger = 1000;
                     maxStrength = 1000;
