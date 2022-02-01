@@ -35,7 +35,7 @@ namespace DigimonSimulator
         {
             pixelScreen = new PixelScreen(screen, 0, 20, 16, 32, 4);
             pixelScreen.SetupScreen();
-            //currentDigimon = new Digimon(this, DigimonId.Agumon);
+            //currentDigimon = new Digimon(this, DigimonId.Meramon);
             animate = new Animations(this);
             //animate.StartDigimonStateAnimation();
             setTime = DateTime.Now;
@@ -242,7 +242,7 @@ namespace DigimonSimulator
         {
             if (!animate.isEvolving)
             {
-                if (CurrentScreen == MenuScreen.MainScreen)
+                if (CurrentScreen == MenuScreen.MainScreen && !isEgg)
                 {
                     TimeoutSelectedMenu = 0;
                     Sounds.PlaySound(Sound.Beep);
