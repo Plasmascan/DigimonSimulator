@@ -27,9 +27,12 @@ namespace DigimonSimulator
      
         public static void MuteSound()
         {
-            SoundPlayer.Stop();
-            SoundPlayer.Dispose();
-            SoundPlayer = null;
+            if (SoundPlayer != null)
+            {
+                SoundPlayer.Stop();
+                SoundPlayer.Dispose();
+                SoundPlayer = null;
+            }
             IsMuted = true;
         }
 
