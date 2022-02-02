@@ -18,7 +18,8 @@ namespace DigimonSimulator
         Numemon,
         Meramon,
         MetalGreymon,
-        BlitzGreymon
+        BlitzGreymon,
+        Tyrannomon
     }
     public class Digimon
     {
@@ -268,6 +269,18 @@ namespace DigimonSimulator
                 case DigimonId.BlitzGreymon:
                     this.sprite = SpriteImages.BlitzGreymon();
                     this.digimonID = DigimonId.BlitzGreymon;
+                    maxHealth = 1000;
+                    maxHunger = 1000;
+                    maxStrength = 1000;
+                    hitDamage = 300;
+                    canDigivolve = false;
+                    dungTimeInterval = 3600;
+                    sleepTime = DateTime.Parse("12:00:00 AM");
+                    break;
+
+                case DigimonId.Tyrannomon:
+                    this.sprite = SpriteImages.Tyrannomon();
+                    this.digimonID = DigimonId.Tyrannomon;
                     maxHealth = 1000;
                     maxHunger = 1000;
                     maxStrength = 1000;

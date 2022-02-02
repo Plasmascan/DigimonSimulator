@@ -213,6 +213,7 @@ namespace DigimonSimulator
         {
             StepCounter = 0;
             switchDung = false;
+            int maxFrameWidth;
 
             if (Game.numberOfDung == 0)
             {
@@ -230,8 +231,18 @@ namespace DigimonSimulator
             }
             else if (!Game.currentDigimon.isAsleep && !Game.currentDigimon.isHurt)
             {
+                // Get the biggest walk frame width
+                if (Game.currentDigimon.sprite.frame2Width > Game.currentDigimon.sprite.frame1Width)
+                {
+                    maxFrameWidth = Game.currentDigimon.sprite.frame2Width;
+                }
+                else
+                {
+                    maxFrameWidth = Game.currentDigimon.sprite.frame1Width;
+                }
+
                 Game.pixelScreen.ClearSprite(Game.currentDigimon.sprite);
-                Game.currentDigimon.sprite.SpriteX = Game.pixelScreen.NumberOfXPixels - (Game.currentDigimon.sprite.frame1Width / 2) - 18 - XOffset;
+                Game.currentDigimon.sprite.SpriteX = Game.pixelScreen.NumberOfXPixels - (maxFrameWidth / 2) - 18 - XOffset;
             }
             else 
             {
@@ -880,35 +891,35 @@ namespace DigimonSimulator
             switch (animationCounter)
             {
                 default:
-                    Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Angry, false, true, Game.currentDigimon.sprite.SpriteX, 0);
+                    Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Angry, false, true, GetMiddleX(Game.currentDigimon.sprite.angryFrameWidth), 0);
                     Game.pixelScreen.ClearSprite(AngryMark);
                     AngryMark = SpriteImages.AngryMarkBigSprite();
                     Game.pixelScreen.DrawSprite(AngryMark, Game.pixelScreen.NumberOfXPixels - 7, 0, false);
                     break;
 
                 case 1:
-                    Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Walk, false, true, Game.currentDigimon.sprite.SpriteX, 0);
+                    Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Walk, false, true, GetMiddleX(Game.currentDigimon.sprite.frame1Width), 0);
                     Game.pixelScreen.ClearSprite(AngryMark);
                     AngryMark = SpriteImages.AngryMarkSmallSprite();
                     Game.pixelScreen.DrawSprite(AngryMark, Game.pixelScreen.NumberOfXPixels - 6, 5, false);
                     break;
 
                 case 2:
-                    Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Angry, false, true, Game.currentDigimon.sprite.SpriteX, 0);
+                    Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Angry, false, true, GetMiddleX(Game.currentDigimon.sprite.angryFrameWidth), 0);
                     Game.pixelScreen.ClearSprite(AngryMark);
                     AngryMark = SpriteImages.AngryMarkBigSprite();
                     Game.pixelScreen.DrawSprite(AngryMark, Game.pixelScreen.NumberOfXPixels - 7, 0, false);
                     break;
 
                 case 3:
-                    Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Walk, false, true, Game.currentDigimon.sprite.SpriteX, 0);
+                    Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Walk, false, true, GetMiddleX(Game.currentDigimon.sprite.frame1Width), 0);
                     Game.pixelScreen.ClearSprite(AngryMark);
                     AngryMark = SpriteImages.AngryMarkSmallSprite();
                     Game.pixelScreen.DrawSprite(AngryMark, Game.pixelScreen.NumberOfXPixels - 6, 5, false);
                     break;
 
                 case 4:
-                    Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Angry, false, true, Game.currentDigimon.sprite.SpriteX, 0);
+                    Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Angry, false, true, GetMiddleX(Game.currentDigimon.sprite.angryFrameWidth), 0);
                     Game.pixelScreen.ClearSprite(AngryMark);
                     AngryMark = SpriteImages.AngryMarkBigSprite();
                     Game.pixelScreen.DrawSprite(AngryMark, Game.pixelScreen.NumberOfXPixels - 7, 0, false);
@@ -1071,7 +1082,7 @@ namespace DigimonSimulator
             ResetAnimations();
             int startX = Game.pixelScreen.NumberOfXPixels - (Game.currentDigimon.sprite.frame1Width / 2) - 8;
             IsinAnimation = true;
-            Opponent = new Digimon(Game, DigimonId.Greymon);
+            Opponent = new Digimon(Game, DigimonId.BlitzGreymon);
             Opponent.sprite.SpriteX = 8 - (Opponent.sprite.frame1Width / 2);
             Game.currentDigimon.sprite.SpriteX = startX;
             Game.pixelScreen.DrawDigimonFrame(Opponent, SpriteFrame.Walk2, true, true, Opponent.sprite.SpriteX, 0);
@@ -1631,7 +1642,7 @@ namespace DigimonSimulator
 
                 case 1:
                     Sounds.PlaySound(Sound.Win);
-                    Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Happy, false, true, Game.currentDigimon.sprite.SpriteX, 0);
+                    Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Happy, false, true, GetMiddleX(Game.currentDigimon.sprite.happyFrameWidth), 0);
                     DrawVictoryMarks();
                     break;
 
@@ -1682,7 +1693,7 @@ namespace DigimonSimulator
 
                 case 1:
                     Sounds.PlaySound(Sound.Lose);
-                    Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Hurt1, false, true, Game.currentDigimon.sprite.SpriteX, 0);
+                    Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Hurt1, false, true, GetMiddleX(Game.currentDigimon.sprite.hurt1FrameWidth), 0);
                     DrawDefeatMarks();
                     break;
 
