@@ -15,6 +15,7 @@ namespace DigimonSimulator
         Greymon,
         Devimon,
         Seadramon,
+        Airdramon,
         Numemon,
         Meramon,
         MetalGreymon,
@@ -29,14 +30,18 @@ namespace DigimonSimulator
         public int currentHunger = 5;
         public int currentStrength = 5;
         public int currenthealth = 1000;
+        public int currentWeight = 0;
         public int careMistakes = 0;
-        public int injuries = 0;
+        public int timesInjured = 0;
+        public int timesTrained = 0;
+        public int timesOverfed = 0;
         public int totalTimeAlive;
         public bool canDigivolve;
         public int evolveTime;
         public int maxHunger;
         public int maxStrength;
         public int maxHealth;
+        public int minWeight;
         public int hitDamage;
         public int dungTimeInterval;
         public int sleepCareMistakeTimer = -1;
@@ -50,6 +55,7 @@ namespace DigimonSimulator
         public bool isAsleep = false;
         public bool isInBed = false;
         public bool isHurt = false;
+        public bool isOverfeedable = true;
 
         public Digimon(DigimonGame game, DigimonId digimonID)
         {
@@ -65,6 +71,26 @@ namespace DigimonSimulator
             if (sleepCareMistakeTimer > -1)
             {
                 sleepCareMistakeTimer = -1;
+            }
+        }
+
+        public void LoseWeight(int amount)
+        {
+            if (currentWeight - amount < minWeight)
+            {
+                currentWeight = minWeight;
+            }
+            else
+            {
+                currentWeight -= amount;
+            }
+        }
+
+        public void AddStrength()
+        {
+            if (currentStrength < maxStrength)
+            {
+                currentStrength += maxStrength / 4;
             }
         }
 
@@ -152,6 +178,7 @@ namespace DigimonSimulator
                     canDigivolve = true;
                     dungTimeInterval = 100;
                     evolveTime = 600;
+                    minWeight = 5;
                     sleepTime = DateTime.Parse("11:00:00 PM");
                     break;
 
@@ -164,8 +191,9 @@ namespace DigimonSimulator
                     hitDamage = 200;
                     canDigivolve = true;
                     dungTimeInterval = 600;
-                    evolveTime = 3600*4;
-                    sleepTime = DateTime.Parse("11:00:00 PM");
+                    evolveTime = 3600*6;
+                    minWeight = 10;
+                    sleepTime = DateTime.Parse("9:00:00 PM");
                     break;
 
                 case DigimonId.Betamon:
@@ -175,9 +203,10 @@ namespace DigimonSimulator
                     maxHunger = 1000;
                     maxStrength = 1000;
                     hitDamage = 200;
-                    evolveTime = 15;
+                    evolveTime = 3600 * 24;
                     canDigivolve = true;
                     dungTimeInterval = 3600;
+                    minWeight = 20;
                     sleepTime = DateTime.Parse("10:00:00 PM");
                     break;
 
@@ -188,10 +217,11 @@ namespace DigimonSimulator
                     maxHunger = 1000;
                     maxStrength = 1000;
                     hitDamage = 200;
-                    evolveTime = 10000;
-                    canDigivolve = false;
+                    evolveTime = 3600 * 24;
+                    canDigivolve = true;
                     dungTimeInterval = 3600;
-                    sleepTime = DateTime.Parse("10:00:00 PM");
+                    minWeight = 20;
+                    sleepTime = DateTime.Parse("9:00:00 PM");
                     break;
 
                 case DigimonId.Greymon:
@@ -203,6 +233,7 @@ namespace DigimonSimulator
                     hitDamage = 300;
                     canDigivolve = false;
                     dungTimeInterval = 3600;
+                    minWeight = 30;
                     sleepTime = DateTime.Parse("11:00:00 PM");
                     break;
 
@@ -215,6 +246,7 @@ namespace DigimonSimulator
                     hitDamage = 300;
                     canDigivolve = false;
                     dungTimeInterval = 3600;
+                    minWeight = 40;
                     sleepTime = DateTime.Parse("12:00:00 AM");
                     break;
 
@@ -227,7 +259,21 @@ namespace DigimonSimulator
                     hitDamage = 300;
                     canDigivolve = false;
                     dungTimeInterval = 3600;
-                    sleepTime = DateTime.Parse("12:00:00 AM");
+                    minWeight = 20;
+                    sleepTime = DateTime.Parse("11:00:00 PM");
+                    break;
+
+                case DigimonId.Airdramon:
+                    this.sprite = SpriteImages.Airdramon();
+                    this.digimonID = DigimonId.Airdramon;
+                    maxHealth = 1000;
+                    maxHunger = 1000;
+                    maxStrength = 1000;
+                    hitDamage = 300;
+                    canDigivolve = false;
+                    dungTimeInterval = 3600;
+                    minWeight = 20;
+                    sleepTime = DateTime.Parse("11:00:00 PM");
                     break;
 
                 case DigimonId.Numemon:
@@ -239,7 +285,8 @@ namespace DigimonSimulator
                     hitDamage = 300;
                     canDigivolve = false;
                     dungTimeInterval = 3600;
-                    sleepTime = DateTime.Parse("12:00:00 AM");
+                    minWeight = 10;
+                    sleepTime = DateTime.Parse("9:00:00 PM");
                     break;
 
                 case DigimonId.Meramon:
@@ -251,7 +298,8 @@ namespace DigimonSimulator
                     hitDamage = 300;
                     canDigivolve = false;
                     dungTimeInterval = 3600;
-                    sleepTime = DateTime.Parse("12:00:00 AM");
+                    minWeight = 30;
+                    sleepTime = DateTime.Parse("10:00:00 PM");
                     break;
 
                 case DigimonId.MetalGreymon:
@@ -263,7 +311,8 @@ namespace DigimonSimulator
                     hitDamage = 300;
                     canDigivolve = false;
                     dungTimeInterval = 3600;
-                    sleepTime = DateTime.Parse("12:00:00 AM");
+                    minWeight = 40;
+                    sleepTime = DateTime.Parse("11:00:00 PM");
                     break;
 
                 case DigimonId.BlitzGreymon:
@@ -275,7 +324,8 @@ namespace DigimonSimulator
                     hitDamage = 300;
                     canDigivolve = false;
                     dungTimeInterval = 3600;
-                    sleepTime = DateTime.Parse("12:00:00 AM");
+                    minWeight = 50;
+                    sleepTime = DateTime.Parse("11:00:00 PM");
                     break;
 
                 case DigimonId.Tyrannomon:
@@ -287,7 +337,8 @@ namespace DigimonSimulator
                     hitDamage = 300;
                     canDigivolve = false;
                     dungTimeInterval = 3600;
-                    sleepTime = DateTime.Parse("12:00:00 AM");
+                    minWeight = 20;
+                    sleepTime = DateTime.Parse("11:00:00 PM");
                     break;
             }
         }
@@ -297,6 +348,11 @@ namespace DigimonSimulator
             Digimon evolveDigimon;
             switch (digimonID)
             {
+                default:
+                    evolveDigimon = new Digimon(game, DigimonId.Botamon);
+                    game.animate.setupDigivolve(evolveDigimon);
+                    break;
+
                 case DigimonId.V1Egg:
                     evolveDigimon = new Digimon(game, DigimonId.Botamon);
                     game.animate.setupDigivolve(evolveDigimon);
@@ -308,18 +364,79 @@ namespace DigimonSimulator
                     break;
 
                 case DigimonId.Koromon:
-                    evolveDigimon = new Digimon(game, DigimonId.Agumon);
+                    if (careMistakes >= 3)
+                    {
+                        evolveDigimon = new Digimon(game, DigimonId.Betamon);
+                    }
+                    else
+                    {
+                        evolveDigimon = new Digimon(game, DigimonId.Agumon);
+                    }
+                    
                     game.animate.setupDigivolve(evolveDigimon);
                     break;
 
                 case DigimonId.Betamon:
-                    evolveDigimon = new Digimon(game, DigimonId.Greymon);
+                    if (careMistakes <= 2 && timesTrained >= 16)
+                    {
+                        evolveDigimon = new Digimon(game, DigimonId.Devimon);
+                    }
+                    else if (careMistakes >= 3 && timesOverfed <= 2 && timesTrained >= 8 && timesTrained <= 15)
+                    {
+                        evolveDigimon = new Digimon(game, DigimonId.Airdramon);
+                    }
+                    else if (careMistakes <= 2 && timesTrained <= 15)
+                    {
+                        evolveDigimon = new Digimon(game, DigimonId.Meramon);
+                    }
+                    else if (careMistakes >= 3 && timesOverfed >= 3 && timesTrained >= 8 && timesTrained <= 15)
+                    {
+                        evolveDigimon = new Digimon(game, DigimonId.Seadramon);
+                    }
+                    else
+                    {
+                        evolveDigimon = new Digimon(game, DigimonId.Numemon);
+                    }
+                    game.animate.setupDigivolve(evolveDigimon);
+                    break;
+
+                case DigimonId.Agumon:
+                    if (careMistakes <= 2 && timesTrained >= 16)
+                    {
+                        evolveDigimon = new Digimon(game, DigimonId.Greymon);
+                    }
+                    else if (careMistakes <= 2 && timesTrained <= 15)
+                    {
+                        evolveDigimon = new Digimon(game, DigimonId.Devimon);
+                    }
+                    else if (careMistakes >= 3 && timesTrained >= 5 && timesTrained <= 15 && timesOverfed >= 3)
+                    {
+                        evolveDigimon = new Digimon(game, DigimonId.Tyrannomon);
+                    }
+                    else if (careMistakes >= 3 && timesTrained >= 16 && timesOverfed >= 3)
+                    {
+                        evolveDigimon = new Digimon(game, DigimonId.Meramon);
+                    }
+                    else
+                    {
+                        evolveDigimon = new Digimon(game, DigimonId.Numemon);
+                    }
                     game.animate.setupDigivolve(evolveDigimon);
                     break;
             }
 
+            // Properties to reset after digivolving
             careMistakes = 0;
-            injuries = 0;
+            timesInjured = 0;
+            timesTrained = 0;
+            timesOverfed = 0;
+
+            // Ensure that current weight isn't lower than the new digimons minimum weight
+            if (currentWeight < evolveDigimon.minWeight)
+            {
+                currentWeight = evolveDigimon.minWeight;
+            }
+
         }
     }
 

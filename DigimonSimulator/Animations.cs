@@ -593,8 +593,14 @@ namespace DigimonSimulator
             Game.pixelScreen.ClearScreen();
 
             // setup the rejection animation when trying to eat while the digimon is full
-            if (choice == 0 && Game.currentDigimon.currentHunger > Game.currentDigimon.maxHunger)
+            if (choice == 0 && Game.currentDigimon.currentHunger > Game.currentDigimon.maxHunger + Game.currentDigimon.maxHunger / 4)
             {
+                // Add to overfeed amount and disable overfeeding
+                if (Game.currentDigimon.isOverfeedable)
+                {
+                    Game.currentDigimon.isOverfeedable = false;
+                    Game.currentDigimon.timesOverfed++;
+                }
                 SetupRejectAnimation();
                 return;
             }
@@ -845,9 +851,12 @@ namespace DigimonSimulator
                     break;
 
                 case 110:
+                    Game.currentDigimon.LoseWeight(1);
                     if (powerUp >= 11)
                     {
                         SetupHappy();
+                        Game.currentDigimon.timesTrained++;
+                        Game.currentDigimon.AddStrength();
                     }
                     else
                     {

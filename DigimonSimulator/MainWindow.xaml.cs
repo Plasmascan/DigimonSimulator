@@ -108,8 +108,9 @@ namespace DigimonSimulator
             
             if (mainGame.currentDigimon != null)
             {
-                mainGame.currentDigimon.HurtDigimon();
-                Debug.WriteLine("Care mistakes: " + mainGame.currentDigimon.careMistakes + " Time: " + mainGame.setTime);
+                //mainGame.currentDigimon.HurtDigimon();
+                Debug.WriteLine("Care mistakes: " + mainGame.currentDigimon.careMistakes + " overfeed: " + mainGame.currentDigimon.timesOverfed + 
+                    "\ncurrent hunger: " + mainGame.currentDigimon.currentHunger + " needed: " + mainGame.currentDigimon.maxHunger / 4 * 4);
             }
             //mainGame.currentDigimon.WakeupDigimon();
         }

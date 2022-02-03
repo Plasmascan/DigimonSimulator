@@ -35,7 +35,7 @@ namespace DigimonSimulator
         {
             pixelScreen = new PixelScreen(screen, 0, 20, 16, 32, 4);
             pixelScreen.SetupScreen();
-            //currentDigimon = new Digimon(this, DigimonId.Greymon);
+            //currentDigimon = new Digimon(this, DigimonId.Agumon);
             animate = new Animations(this);
             //animate.StartDigimonStateAnimation();
             setTime = DateTime.Now;
@@ -188,6 +188,12 @@ namespace DigimonSimulator
                     if (currentDigimon.currentHunger > -1)
                     {
                         currentDigimon.currentHunger--;
+
+                        // Allow digimon to be overfed if the amount of hunger hearts has gone back down atleast 3 hearts
+                        if (currentDigimon.currentHunger < currentDigimon.maxHunger / 4 * 4)
+                        {
+                            currentDigimon.isOverfeedable = true;
+                        }
                     }
 
                     // if hunger reaches 0, care mistake timer is activated
