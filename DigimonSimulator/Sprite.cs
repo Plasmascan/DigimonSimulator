@@ -2594,6 +2594,89 @@ namespace DigimonSimulator
             return flushSprite;
         }
 
+        public static Sprite GraveSprite()
+        {
+            Sprite graveSprite = new Sprite();
+            graveSprite.SpriteHeight = 16;
+            graveSprite.SpriteWidth = 12;
+            graveSprite.sprite = new bool[graveSprite.SpriteHeight, graveSprite.SpriteWidth];
+
+            #region graveSprite
+            graveSprite.sprite[0, 5] = true;
+            graveSprite.sprite[0, 6] = true;
+            graveSprite.sprite[1, 4] = true;
+            graveSprite.sprite[1, 7] = true;
+            graveSprite.sprite[2, 4] = true;
+            graveSprite.sprite[2, 7] = true;
+            graveSprite.sprite[3, 2] = true;
+            graveSprite.sprite[3, 3] = true;
+            graveSprite.sprite[3, 4] = true;
+            graveSprite.sprite[3, 7] = true;
+            graveSprite.sprite[3, 8] = true;
+            graveSprite.sprite[3, 9] = true;
+            graveSprite.sprite[4, 1] = true;
+            graveSprite.sprite[4, 10] = true;
+            graveSprite.sprite[5, 1] = true;
+            graveSprite.sprite[5, 10] = true;
+            graveSprite.sprite[6, 2] = true;
+            graveSprite.sprite[6, 3] = true;
+            graveSprite.sprite[6, 4] = true;
+            graveSprite.sprite[6, 7] = true;
+            graveSprite.sprite[6, 8] = true;
+            graveSprite.sprite[6, 9] = true;
+            graveSprite.sprite[7, 4] = true;
+            graveSprite.sprite[7, 7] = true;
+            graveSprite.sprite[8, 4] = true;
+            graveSprite.sprite[8, 7] = true;
+            graveSprite.sprite[9, 4] = true;
+            graveSprite.sprite[9, 7] = true;
+            graveSprite.sprite[10, 3] = true;
+            graveSprite.sprite[10, 5] = true;
+            graveSprite.sprite[10, 6] = true;
+            graveSprite.sprite[10, 7] = true;
+            graveSprite.sprite[10, 8] = true;
+            graveSprite.sprite[11, 2] = true;
+            graveSprite.sprite[11, 4] = true;
+            graveSprite.sprite[11, 5] = true;
+            graveSprite.sprite[11, 6] = true;
+            graveSprite.sprite[11, 7] = true;
+            graveSprite.sprite[11, 8] = true;
+            graveSprite.sprite[11, 9] = true;
+            graveSprite.sprite[12, 2] = true;
+            graveSprite.sprite[12, 4] = true;
+            graveSprite.sprite[12, 5] = true;
+            graveSprite.sprite[12, 6] = true;
+            graveSprite.sprite[12, 7] = true;
+            graveSprite.sprite[12, 8] = true;
+            graveSprite.sprite[12, 9] = true;
+            graveSprite.sprite[13, 1] = true;
+            graveSprite.sprite[13, 2] = true;
+            graveSprite.sprite[13, 4] = true;
+            graveSprite.sprite[13, 5] = true;
+            graveSprite.sprite[13, 6] = true;
+            graveSprite.sprite[13, 7] = true;
+            graveSprite.sprite[13, 8] = true;
+            graveSprite.sprite[13, 9] = true;
+            graveSprite.sprite[13, 10] = true;
+            graveSprite.sprite[14, 0] = true;
+            graveSprite.sprite[14, 11] = true;
+            graveSprite.sprite[15, 0] = true;
+            graveSprite.sprite[15, 1] = true;
+            graveSprite.sprite[15, 2] = true;
+            graveSprite.sprite[15, 3] = true;
+            graveSprite.sprite[15, 4] = true;
+            graveSprite.sprite[15, 5] = true;
+            graveSprite.sprite[15, 6] = true;
+            graveSprite.sprite[15, 7] = true;
+            graveSprite.sprite[15, 8] = true;
+            graveSprite.sprite[15, 9] = true;
+            graveSprite.sprite[15, 10] = true;
+            graveSprite.sprite[15, 11] = true;
+            #endregion
+
+            return graveSprite;
+        }
+
         public static Sprite ThunderProjectileSprite()
         {
             Sprite thunderProjectileSprite = new Sprite();

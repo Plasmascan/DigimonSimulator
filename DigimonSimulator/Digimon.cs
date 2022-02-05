@@ -47,7 +47,7 @@ namespace DigimonSimulator
         public int sleepCareMistakeTimer = -1;
         public int hurtCareMistakeTimer = -1;
         public int hungerCareMistakeTimer = -1;
-        public int dungCareMistakeTimer = -1;
+        public int strengthCareMistakeTimer = -1;
         public int forcedSleepTimer = -1;
         public int dungTimer = 10;
         public DateTime sleepTime;
@@ -92,18 +92,43 @@ namespace DigimonSimulator
             {
                 currentStrength += maxStrength / 4;
             }
+            if (strengthCareMistakeTimer > -1)
+            {
+                strengthCareMistakeTimer = -1;
+            }
+        }
+
+        public void AddCareMistake()
+        {
+            careMistakes++;
+            if (careMistakes == 20)
+            {
+                KillDigimon();
+            }
         }
 
         public void HurtDigimon()
         {
+            timesInjured++;
             isHurt = true;
             hurtCareMistakeTimer = 600;
+            if (timesInjured == 20)
+            {
+                KillDigimon();
+            }
         }
 
         public void HealDigimon()
         {
             isHurt = false;
             hurtCareMistakeTimer = -1;
+        }
+
+        public void KillDigimon()
+        {
+            MenuScreens.DrawDeathScreen(game);
+            game.currentDigimon = null;
+            game.CurrentScreen = MenuScreen.DeathScreen;
         }
 
         public void DigimonFallAsleep()
@@ -114,13 +139,13 @@ namespace DigimonSimulator
 
         public bool IsActiveCareMistakeTimer()
         {
-            if (sleepCareMistakeTimer == -1 && hurtCareMistakeTimer == -1 && dungCareMistakeTimer == -1 && hungerCareMistakeTimer == -1)
+            if (sleepCareMistakeTimer > -1 || hurtCareMistakeTimer > 3600 * 6 - 600 || hungerCareMistakeTimer > 3600 * 6 - 600 || strengthCareMistakeTimer > 3600 * 6 - 600)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
 

@@ -113,7 +113,6 @@ namespace DigimonSimulator
                         Sounds.PlaySound(Sound.Step);
                         animate.ResetAnimations();
                         animate.StartDigimonStateAnimation();
-                        currentDigimon.hungerCareMistakeTimer = -1;
                     }
                 }
 
@@ -133,7 +132,7 @@ namespace DigimonSimulator
                     currentDigimon.sleepCareMistakeTimer--;
                     if (currentDigimon.sleepCareMistakeTimer == 0)
                     {
-                        currentDigimon.careMistakes++;
+                        currentDigimon.AddCareMistake();
                     }
                 }
 
@@ -141,9 +140,29 @@ namespace DigimonSimulator
                 if (currentDigimon.hungerCareMistakeTimer > -1 && !isEgg)
                 {
                     currentDigimon.hungerCareMistakeTimer--;
-                    if (currentDigimon.hungerCareMistakeTimer == 0)
+                    if (currentDigimon.hungerCareMistakeTimer == 3600*6 - 600)
                     {
-                        currentDigimon.careMistakes++;
+                        currentDigimon.AddCareMistake();
+                    }
+                    else if (currentDigimon.hungerCareMistakeTimer == 0)
+                    {
+                        currentDigimon.KillDigimon();
+                        return;
+                    }
+                }
+
+                // countdown until a care mistake is reached
+                if (currentDigimon.strengthCareMistakeTimer > -1 && !isEgg)
+                {
+                    currentDigimon.strengthCareMistakeTimer--;
+                    if (currentDigimon.strengthCareMistakeTimer == 3600 * 6 - 600)
+                    {
+                        currentDigimon.AddCareMistake();
+                    }
+                    else if (currentDigimon.strengthCareMistakeTimer == 0)
+                    {
+                        currentDigimon.KillDigimon();
+                        return;
                     }
                 }
 
@@ -152,9 +171,14 @@ namespace DigimonSimulator
                 {
                     currentDigimon.hurtCareMistakeTimer--;
 
-                    if (currentDigimon.hurtCareMistakeTimer == 0)
+                    if (currentDigimon.hurtCareMistakeTimer == 3600 * 6 - 600)
                     {
-                        currentDigimon.careMistakes++;
+                        currentDigimon.AddCareMistake();
+                    }
+                    else if (currentDigimon.hurtCareMistakeTimer == 0)
+                    {
+                        currentDigimon.KillDigimon();
+                        return;
                     }
                 }
 
@@ -182,7 +206,7 @@ namespace DigimonSimulator
                     }
                 }
 
-                // Hunger depletes only when digimon is awake
+                // Hunger and strength depletes only when digimon is awake
                 if (!currentDigimon.isAsleep && !isEgg)
                 {
                     if (currentDigimon.currentHunger > -1)
@@ -190,26 +214,39 @@ namespace DigimonSimulator
                         currentDigimon.currentHunger--;
 
                         // Allow digimon to be overfed if the amount of hunger hearts has gone back down atleast 3 hearts
-                        if (currentDigimon.currentHunger < currentDigimon.maxHunger / 4 * 4)
+                        if (currentDigimon.currentHunger < currentDigimon.maxHunger / 4 * 3)
                         {
                             currentDigimon.isOverfeedable = true;
                         }
                     }
 
+                    if (currentDigimon.currentStrength > -1)
+                    {
+                        currentDigimon.currentStrength--;
+                    }
+
                     // if hunger reaches 0, care mistake timer is activated
                     if (currentDigimon.hungerCareMistakeTimer == -1 && currentDigimon.currentHunger == 0)
                     {
-                        currentDigimon.hungerCareMistakeTimer = 600;
+                        currentDigimon.hungerCareMistakeTimer = 3600 * 6;
                         pixelScreen.TurnOnNotificationIcon();
                         if (CurrentScreen == MenuScreen.MainScreen)
                         {
                             Sounds.PlaySound(Sound.Step);
                         }
                     }
-                    if (currentDigimon.currentStrength > -1 && !isEgg)
+
+                    // if strength reaches 0, care mistake timer is activated
+                    if (currentDigimon.strengthCareMistakeTimer == -1 && currentDigimon.currentStrength == 0)
                     {
-                        currentDigimon.currentStrength--;
+                        currentDigimon.strengthCareMistakeTimer = 3600 * 6;
+                        pixelScreen.TurnOnNotificationIcon();
+                        if (CurrentScreen == MenuScreen.MainScreen)
+                        {
+                            Sounds.PlaySound(Sound.Step);
+                        }
                     }
+
                 }
 
                 // reset selected menu after 10 seconds if on main screen
@@ -487,10 +524,14 @@ namespace DigimonSimulator
                         Sounds.PlaySound(Sound.Beep);
                         currentDigimon.WakeupDigimon();
 
-                        // Deactivate hunger care mistake timer
+                        // Deactivate hunger or strength care mistake timer
                         if (SelectedSubMenuNo == 0)
                         {
                             currentDigimon.hungerCareMistakeTimer = -1;
+                        }
+                        else
+                        {
+                            currentDigimon.strengthCareMistakeTimer = -1;
                         }
                         animate.SetupEatAnimation(SelectedSubMenuNo);
                         CurrentSubMenu = 1;
@@ -542,12 +583,17 @@ namespace DigimonSimulator
                     currentDigimon = new Digimon(this, DigimonId.V1Egg);
                     resetMainScreen();
                 }
+                else if (CurrentScreen == MenuScreen.DeathScreen)
+                {
+                    SelectEgg();
+                }
             }
         }
 
         public void CButtonPress()
         {
-            if (!animate.isEvolving && animate.animation != AnimationNo.Happy && animate.animation != AnimationNo.Angry && animate.animation != AnimationNo.Flush && CurrentScreen != MenuScreen.EggSelection)
+            if (!animate.isEvolving && animate.animation != AnimationNo.Happy && animate.animation != AnimationNo.Angry && animate.animation
+                != AnimationNo.Flush && CurrentScreen != MenuScreen.EggSelection && CurrentScreen != MenuScreen.DeathScreen)
             {
                 if (CurrentScreen != MenuScreen.MainScreen)
                 {

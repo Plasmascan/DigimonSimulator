@@ -15,7 +15,8 @@ namespace DigimonSimulator
         Medical = 6,
         History = 7,
         Battle = 8,
-        EggSelection = 9
+        EggSelection = 9,
+        DeathScreen = 10
     }
 
     public static class MenuScreens
@@ -31,9 +32,9 @@ namespace DigimonSimulator
                 Sprite emptyHeartSprite = SpriteImages.EmptyHeartSprite();
                 game.pixelScreen.DrawSprite(hungerSprite, 0, 0, false);
 
-                for (int i = 0, hunger = game.currentDigimon.maxHunger / 4, x = 0; i < 4; i++, hunger += game.currentDigimon.maxHunger / 4, x += 8)
+                for (int i = 0, hunger = 0, x = 0; i < 4; i++, hunger += game.currentDigimon.maxHunger / 4, x += 8)
                 {
-                    if (game.currentDigimon.currentHunger < hunger)
+                    if (game.currentDigimon.currentHunger <= hunger)
                     {
                         game.pixelScreen.DrawSprite(emptyHeartSprite, x, 9, false);
                     }
@@ -51,9 +52,9 @@ namespace DigimonSimulator
                 Sprite emptyHeartSprite = SpriteImages.EmptyHeartSprite();
                 game.pixelScreen.DrawSprite(strengthSprite, 0, 0, false);
 
-                for (int i = 0, strength = game.currentDigimon.maxStrength / 4, x = 0; i < 4; i++, strength += game.currentDigimon.maxStrength / 4, x += 8)
+                for (int i = 0, strength = 0, x = 0; i < 4; i++, strength += game.currentDigimon.maxStrength / 4, x += 8)
                 {
-                    if (game.currentDigimon.currentStrength < strength)
+                    if (game.currentDigimon.currentStrength <= strength)
                     {
                         game.pixelScreen.DrawSprite(emptyHeartSprite, x, 9, false);
                     }
@@ -122,6 +123,18 @@ namespace DigimonSimulator
             {
                 game.pixelScreen.DrawSprite(arrowSprite, 0, 8, false);
             }
+        }
+
+        public static void DrawDeathScreen(DigimonGame game)
+        {
+            game.resetMainScreen();
+            game.SelectedMenu = MenuScreen.MainScreen;
+            game.pixelScreen.TurnOffAllIcons();
+            game.pixelScreen.TurnOffNotificationIcon();
+            Sprite grave = SpriteImages.GraveSprite();
+            game.animate.StopDigimonStateAnimation();
+            game.pixelScreen.ClearScreen();
+            game.pixelScreen.DrawSprite(grave, game.pixelScreen.NumberOfXPixels / 2 - grave.SpriteWidth / 2, 0, false);
         }
     }
 }
