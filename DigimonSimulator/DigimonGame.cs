@@ -90,9 +90,6 @@ namespace DigimonSimulator
                         if (numberOfDung == 4)
                         {
                             currentDigimon.HurtDigimon();
-                            pixelScreen.TurnOnNotificationIcon();
-                            Sounds.PlaySound(Sound.Step); // change with notification sound when imlemented
-
                         }
 
                         if (CurrentScreen == MenuScreen.MainScreen && !animate.isEvolving)
@@ -110,7 +107,7 @@ namespace DigimonSimulator
                     {
                         currentDigimon.DigimonFallAsleep();
                         pixelScreen.TurnOnNotificationIcon();
-                        Sounds.PlaySound(Sound.Step);
+                        Sounds.PlaySound(Sound.Notify);
                         animate.ResetAnimations();
                         animate.StartDigimonStateAnimation();
                     }
@@ -232,7 +229,7 @@ namespace DigimonSimulator
                         pixelScreen.TurnOnNotificationIcon();
                         if (CurrentScreen == MenuScreen.MainScreen)
                         {
-                            Sounds.PlaySound(Sound.Step);
+                            Sounds.PlaySound(Sound.Notify);
                         }
                     }
 
@@ -243,7 +240,7 @@ namespace DigimonSimulator
                         pixelScreen.TurnOnNotificationIcon();
                         if (CurrentScreen == MenuScreen.MainScreen)
                         {
-                            Sounds.PlaySound(Sound.Step);
+                            Sounds.PlaySound(Sound.Notify);
                         }
                     }
 

@@ -18,7 +18,8 @@ namespace DigimonSimulator
         Win, 
         Start,
         Defeat,
-        Digivolve
+        Digivolve,
+        Notify
     }
     public static class Sounds
     {
@@ -116,7 +117,10 @@ namespace DigimonSimulator
                 {
                     Play(Properties.Resources.digivolve);
                 }
-
+                else if (soundName == Sound.Notify)
+                {
+                    Play(Properties.Resources.notify);
+                }
             }
         }
     }

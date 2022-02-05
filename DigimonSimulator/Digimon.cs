@@ -27,8 +27,8 @@ namespace DigimonSimulator
         public DigimonGame game;
         public DigimonId digimonID;
         public DigimonSprite sprite;
-        public int currentHunger = 5;
-        public int currentStrength = 5;
+        public int currentHunger = 1;
+        public int currentStrength = 1;
         public int currenthealth = 1000;
         public int currentWeight = 0;
         public int careMistakes = 0;
@@ -111,7 +111,9 @@ namespace DigimonSimulator
         {
             timesInjured++;
             isHurt = true;
-            hurtCareMistakeTimer = 600;
+            game.pixelScreen.TurnOnNotificationIcon();
+            Sounds.PlaySound(Sound.Notify);
+            hurtCareMistakeTimer = 3600 * 6;
             if (timesInjured == 20)
             {
                 KillDigimon();

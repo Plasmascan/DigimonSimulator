@@ -108,7 +108,7 @@ namespace DigimonSimulator
             
             if (mainGame.currentDigimon != null)
             {
-                //mainGame.currentDigimon.HurtDigimon();
+                mainGame.currentDigimon.HurtDigimon();
                 Debug.WriteLine("Care mistakes: " + mainGame.currentDigimon.careMistakes + " overfeed: " + mainGame.currentDigimon.timesOverfed + 
                     "\ncurrent hunger: " + mainGame.currentDigimon.currentHunger + " needed: " + mainGame.currentDigimon.maxHunger / 4 * 3);
                 //mainGame.currentDigimon.KillDigimon();
