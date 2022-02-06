@@ -680,7 +680,7 @@ namespace DigimonSimulator
 
         }
 
-        public void DrawNumbers(int x, int y, int number)
+        public void DrawNumbers(int x, int y, int number, bool isPercent)
         {
             int xDraw = x;
             int numberOfDigits;
@@ -688,13 +688,21 @@ namespace DigimonSimulator
             Sprite []DigitSprites = new Sprite[2];
 
             // Seperate digits from a number over 10 into an array
+            if (number == 100 && isPercent)
+            {
+                DrawSprite(SpriteImages.NumberOneSprite(), x - 6, y, false);
+                DrawSprite(SpriteImages.NumberZeroSprite(), x, y, false);
+                DrawSprite(SpriteImages.NumberZeroSprite(), x + 6, y, false);
+                return;
+            }
+
             if (number < 10)
             {
                 xDraw += 6;
                 numberOfDigits = 1;
                 Digits[0] = number;
-
             }
+            
             else if (number >= 99)
             {
                 number = 99;

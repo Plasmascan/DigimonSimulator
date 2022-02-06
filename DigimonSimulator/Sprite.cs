@@ -246,6 +246,73 @@ namespace DigimonSimulator
             return strengthSprite;
         }
 
+        public static Sprite EffortSprite()
+        {
+            Sprite effortSprite = new Sprite();
+            effortSprite.SpriteHeight = 7;
+            effortSprite.SpriteWidth = 24;
+            effortSprite.sprite = new bool[effortSprite.SpriteHeight, effortSprite.SpriteWidth];
+
+            #region effortSprite
+            effortSprite.sprite[0, 0] = true;
+            effortSprite.sprite[0, 1] = true;
+            effortSprite.sprite[0, 2] = true;
+            effortSprite.sprite[0, 3] = true;
+            effortSprite.sprite[1, 0] = true;
+            effortSprite.sprite[1, 7] = true;
+            effortSprite.sprite[1, 11] = true;
+            effortSprite.sprite[1, 22] = true;
+            effortSprite.sprite[2, 0] = true;
+            effortSprite.sprite[2, 6] = true;
+            effortSprite.sprite[2, 10] = true;
+            effortSprite.sprite[2, 14] = true;
+            effortSprite.sprite[2, 18] = true;
+            effortSprite.sprite[2, 21] = true;
+            effortSprite.sprite[2, 22] = true;
+            effortSprite.sprite[2, 23] = true;
+            effortSprite.sprite[3, 0] = true;
+            effortSprite.sprite[3, 1] = true;
+            effortSprite.sprite[3, 2] = true;
+            effortSprite.sprite[3, 3] = true;
+            effortSprite.sprite[3, 5] = true;
+            effortSprite.sprite[3, 6] = true;
+            effortSprite.sprite[3, 7] = true;
+            effortSprite.sprite[3, 9] = true;
+            effortSprite.sprite[3, 10] = true;
+            effortSprite.sprite[3, 11] = true;
+            effortSprite.sprite[3, 13] = true;
+            effortSprite.sprite[3, 15] = true;
+            effortSprite.sprite[3, 17] = true;
+            effortSprite.sprite[3, 19] = true;
+            effortSprite.sprite[3, 22] = true;
+            effortSprite.sprite[4, 0] = true;
+            effortSprite.sprite[4, 6] = true;
+            effortSprite.sprite[4, 10] = true;
+            effortSprite.sprite[4, 13] = true;
+            effortSprite.sprite[4, 15] = true;
+            effortSprite.sprite[4, 17] = true;
+            effortSprite.sprite[4, 22] = true;
+            effortSprite.sprite[5, 0] = true;
+            effortSprite.sprite[5, 6] = true;
+            effortSprite.sprite[5, 10] = true;
+            effortSprite.sprite[5, 13] = true;
+            effortSprite.sprite[5, 15] = true;
+            effortSprite.sprite[5, 17] = true;
+            effortSprite.sprite[5, 22] = true;
+            effortSprite.sprite[6, 0] = true;
+            effortSprite.sprite[6, 1] = true;
+            effortSprite.sprite[6, 2] = true;
+            effortSprite.sprite[6, 3] = true;
+            effortSprite.sprite[6, 6] = true;
+            effortSprite.sprite[6, 10] = true;
+            effortSprite.sprite[6, 14] = true;
+            effortSprite.sprite[6, 17] = true;
+            effortSprite.sprite[6, 22] = true;
+            #endregion
+
+            return effortSprite;
+        }
+
         public static Sprite WakeSprite()
         {
             Sprite wakeSprite = new Sprite();
@@ -2717,6 +2784,103 @@ namespace DigimonSimulator
             #endregion
 
             return scalesSprite;
+        }
+
+        public static Sprite WinSprite()
+        {
+            Sprite winSprite = new Sprite();
+            winSprite.SpriteHeight = 7;
+            winSprite.SpriteWidth = 16;
+            winSprite.sprite = new bool[winSprite.SpriteHeight, winSprite.SpriteWidth];
+
+            #region winSprite
+            winSprite.sprite[0, 0] = true;
+            winSprite.sprite[0, 2] = true;
+            winSprite.sprite[0, 4] = true;
+            winSprite.sprite[0, 6] = true;
+            winSprite.sprite[0, 7] = true;
+            winSprite.sprite[0, 8] = true;
+            winSprite.sprite[0, 10] = true;
+            winSprite.sprite[0, 11] = true;
+            winSprite.sprite[0, 15] = true;
+            winSprite.sprite[1, 0] = true;
+            winSprite.sprite[1, 2] = true;
+            winSprite.sprite[1, 4] = true;
+            winSprite.sprite[1, 7] = true;
+            winSprite.sprite[1, 10] = true;
+            winSprite.sprite[1, 12] = true;
+            winSprite.sprite[1, 15] = true;
+            winSprite.sprite[2, 0] = true;
+            winSprite.sprite[2, 2] = true;
+            winSprite.sprite[2, 4] = true;
+            winSprite.sprite[2, 7] = true;
+            winSprite.sprite[2, 10] = true;
+            winSprite.sprite[2, 12] = true;
+            winSprite.sprite[2, 15] = true;
+            winSprite.sprite[3, 0] = true;
+            winSprite.sprite[3, 2] = true;
+            winSprite.sprite[3, 4] = true;
+            winSprite.sprite[3, 7] = true;
+            winSprite.sprite[3, 10] = true;
+            winSprite.sprite[3, 12] = true;
+            winSprite.sprite[3, 15] = true;
+            winSprite.sprite[4, 0] = true;
+            winSprite.sprite[4, 2] = true;
+            winSprite.sprite[4, 4] = true;
+            winSprite.sprite[4, 7] = true;
+            winSprite.sprite[4, 10] = true;
+            winSprite.sprite[4, 13] = true;
+            winSprite.sprite[4, 15] = true;
+            winSprite.sprite[5, 0] = true;
+            winSprite.sprite[5, 2] = true;
+            winSprite.sprite[5, 4] = true;
+            winSprite.sprite[5, 7] = true;
+            winSprite.sprite[5, 10] = true;
+            winSprite.sprite[5, 13] = true;
+            winSprite.sprite[5, 15] = true;
+            winSprite.sprite[6, 1] = true;
+            winSprite.sprite[6, 3] = true;
+            winSprite.sprite[6, 6] = true;
+            winSprite.sprite[6, 7] = true;
+            winSprite.sprite[6, 8] = true;
+            winSprite.sprite[6, 10] = true;
+            winSprite.sprite[6, 14] = true;
+            winSprite.sprite[6, 15] = true;
+            #endregion
+
+            return winSprite;
+        }
+
+        public static Sprite PercentSprite()
+        {
+            Sprite percentSprite = new Sprite();
+            percentSprite.SpriteHeight = 7;
+            percentSprite.SpriteWidth = 7;
+            percentSprite.sprite = new bool[percentSprite.SpriteHeight, percentSprite.SpriteWidth];
+
+            #region percentSprite
+            percentSprite.sprite[0, 1] = true;
+            percentSprite.sprite[0, 6] = true;
+            percentSprite.sprite[1, 0] = true;
+            percentSprite.sprite[1, 2] = true;
+            percentSprite.sprite[1, 5] = true;
+            percentSprite.sprite[2, 0] = true;
+            percentSprite.sprite[2, 2] = true;
+            percentSprite.sprite[2, 4] = true;
+            percentSprite.sprite[3, 1] = true;
+            percentSprite.sprite[3, 3] = true;
+            percentSprite.sprite[3, 5] = true;
+            percentSprite.sprite[4, 2] = true;
+            percentSprite.sprite[4, 4] = true;
+            percentSprite.sprite[4, 6] = true;
+            percentSprite.sprite[5, 1] = true;
+            percentSprite.sprite[5, 4] = true;
+            percentSprite.sprite[5, 6] = true;
+            percentSprite.sprite[6, 0] = true;
+            percentSprite.sprite[6, 5] = true;
+            #endregion
+
+            return percentSprite;
         }
 
         public static Sprite LetterASprite()

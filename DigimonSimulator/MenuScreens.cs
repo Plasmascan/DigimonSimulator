@@ -35,11 +35,11 @@ namespace DigimonSimulator
                 game.pixelScreen.DrawSprite(SpriteImages.ScalesSprite(), 0, 8, false);
                 game.pixelScreen.DrawSprite(aSprite, game.pixelScreen.NumberOfXPixels - aSprite.SpriteWidth - 1, 1, false);
                 game.pixelScreen.DrawSprite(gSprite, game.pixelScreen.NumberOfXPixels - gSprite.SpriteWidth - 1, 8, false);
-                game.pixelScreen.DrawNumbers(15, 0, game.currentDigimon.totalTimeAlive / (3600*24));
-                game.pixelScreen.DrawNumbers(14, 8, game.currentDigimon.currentWeight);
+                game.pixelScreen.DrawNumbers(15, 0, game.currentDigimon.totalTimeAlive / (3600*24), false);
+                game.pixelScreen.DrawNumbers(14, 8, game.currentDigimon.currentWeight, false);
             }
 
-            if (SubMenuNo == 1)
+            else if (SubMenuNo == 1)
             {
                 Sprite hungerSprite = SpriteImages.HungerSprite();
                 Sprite fullHeartSprite = SpriteImages.FullHeartSprite();
@@ -59,7 +59,7 @@ namespace DigimonSimulator
                 }
             }
 
-            if (SubMenuNo == 2)
+            else if (SubMenuNo == 2)
             {
                 Sprite strengthSprite = SpriteImages.StrengthSprite();
                 Sprite fullHeartSprite = SpriteImages.FullHeartSprite();
@@ -78,7 +78,32 @@ namespace DigimonSimulator
                     }
                 }
             }
+            else if (SubMenuNo == 3)
+            {
+                Sprite effortSprite = SpriteImages.EffortSprite();
+                Sprite fullHeartSprite = SpriteImages.FullHeartSprite();
+                Sprite emptyHeartSprite = SpriteImages.EmptyHeartSprite();
+                game.pixelScreen.DrawSprite(effortSprite, 0, 0, false);
 
+                for (int i = 0, effort = 4, x = 0; i < 4; i++, effort += 4, x += 8)
+                {
+                    if (game.currentDigimon.timesTrained <= effort)
+                    {
+                        game.pixelScreen.DrawSprite(emptyHeartSprite, x, 9, false);
+                    }
+                    else
+                    {
+                        game.pixelScreen.DrawSprite(fullHeartSprite, x, 9, false);
+                    }
+                }
+            }
+            else if (SubMenuNo == 4)
+            {
+                Sprite percent = SpriteImages.PercentSprite();
+                game.pixelScreen.DrawSprite(SpriteImages.WinSprite(), 8, 0, false);
+                game.pixelScreen.DrawNumbers(13, 8, game.currentDigimon.GetWinPercent(), true);
+                game.pixelScreen.DrawSprite(percent, game.pixelScreen.NumberOfXPixels - percent.SpriteWidth, game.pixelScreen.NumberOfYPixels - percent.SpriteHeight, false);
+            }
         }
 
         public static void DrawEggSelectionScreen(DigimonGame game)

@@ -36,6 +36,9 @@ namespace DigimonSimulator
         public int timesTrained = 0;
         public int timesOverfed = 0;
         public int totalTimeAlive = 0;
+        public int totalVictories = 0;
+        public int totalLoses = 0;
+        public int digivolveChanceFromBattles;
         public bool canDigivolve;
         public int evolveTime;
         public int maxHunger;
@@ -71,6 +74,26 @@ namespace DigimonSimulator
             if (sleepCareMistakeTimer > -1)
             {
                 sleepCareMistakeTimer = -1;
+            }
+        }
+
+        public void AddBattleResult(bool isVictory)
+        {
+            if (isVictory)
+            {
+                totalVictories++;
+                if (digivolveChanceFromBattles < 100)
+                {
+                    digivolveChanceFromBattles += 8;
+                }
+            }
+            else
+            {
+                totalLoses++;
+                if (digivolveChanceFromBattles > 0)
+                {
+                    digivolveChanceFromBattles -= 8;
+                }
             }
         }
 
@@ -157,6 +180,19 @@ namespace DigimonSimulator
             else
             {
                 return false;
+            }
+        }
+
+        public int GetWinPercent()
+        {
+            if (totalLoses + totalVictories == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                float percent = (float)totalVictories / ((float)totalLoses + (float)totalVictories) * 100;
+                return (int)percent;
             }
         }
 
@@ -466,6 +502,9 @@ namespace DigimonSimulator
             timesInjured = 0;
             timesTrained = 0;
             timesOverfed = 0;
+            totalLoses = 0;
+            totalVictories = 0;
+            digivolveChanceFromBattles = 0;
 
             // Ensure that current weight isn't lower than the new digimons minimum weight
             if (currentWeight < evolveDigimon.minWeight)

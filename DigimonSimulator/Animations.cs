@@ -1091,7 +1091,7 @@ namespace DigimonSimulator
             ResetAnimations();
             int startX = Game.pixelScreen.NumberOfXPixels - (Game.currentDigimon.sprite.frame1Width / 2) - 8;
             IsinAnimation = true;
-            Opponent = new Digimon(Game, DigimonId.BlitzGreymon);
+            Opponent = new Digimon(Game, DigimonId.Betamon);
             Opponent.sprite.SpriteX = 8 - (Opponent.sprite.frame1Width / 2);
             Game.currentDigimon.sprite.SpriteX = startX;
             Game.pixelScreen.DrawDigimonFrame(Opponent, SpriteFrame.Walk2, true, true, Opponent.sprite.SpriteX, 0);
@@ -1428,6 +1428,7 @@ namespace DigimonSimulator
                         _animationTick.Interval = TimeSpan.FromMilliseconds(GameTickSpeed);
                         animationCounter = -1;
                         animation = AnimationNo.Defeat;
+                        Game.currentDigimon.AddBattleResult(false);
                     }
                     
                     break;
@@ -1503,6 +1504,7 @@ namespace DigimonSimulator
                     {
                         animationCounter = -1;
                         animation = AnimationNo.Victory;
+                        Game.currentDigimon.AddBattleResult(true);
                     }
                     break;
             }
