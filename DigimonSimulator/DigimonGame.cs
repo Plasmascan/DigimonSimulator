@@ -474,6 +474,7 @@ namespace DigimonSimulator
                         {
                             CurrentScreen = MenuScreen.Medical;
                             currentDigimon.HealDigimon();
+                            currentDigimon.WakeupDigimon();
                             animate.StopDigimonStateAnimation();
                             animate.SetupAngry();
                         }
@@ -520,6 +521,7 @@ namespace DigimonSimulator
                     {
                         Sounds.PlaySound(Sound.Beep);
                         currentDigimon.WakeupDigimon();
+                        currentDigimon.AddWeight();
 
                         // Deactivate hunger or strength care mistake timer
                         if (SelectedSubMenuNo == 0)

@@ -679,5 +679,80 @@ namespace DigimonSimulator
             DrawSprite(screenCopy, moveX, moveY, false);
 
         }
+
+        public void DrawNumbers(int x, int y, int number)
+        {
+            int xDraw = x;
+            int numberOfDigits;
+            int[] Digits = new int[2];
+            Sprite []DigitSprites = new Sprite[2];
+
+            // Seperate digits from a number over 10 into an array
+            if (number < 10)
+            {
+                xDraw += 6;
+                numberOfDigits = 1;
+                Digits[0] = number;
+
+            }
+            else if (number >= 99)
+            {
+                number = 99;
+                Digits[0] = 9;
+                Digits[1] = 9;
+                numberOfDigits = 2;
+            }
+            else
+            {
+                Digits[0] = number / 10;
+                Digits[1] = number % 10;
+                Debug.WriteLine("Digits[0]: " + Digits[0] + "  Digits[1]: " + Digits[1]);
+                numberOfDigits = 2;
+            }
+
+            for (int i = 0; i < numberOfDigits; i++)
+            {
+                switch (Digits[i])
+                {
+                    case 0:
+                        DigitSprites[i] = SpriteImages.NumberZeroSprite();
+                        break;
+                    case 1:
+                        DigitSprites[i] = SpriteImages.NumberOneSprite();
+                        break;
+                    case 2:
+                        DigitSprites[i] = SpriteImages.NumberTwoSprite();
+                        break;
+                    case 3:
+                        DigitSprites[i] = SpriteImages.NumberThreeSprite();
+                        break;
+                    case 4:
+                        DigitSprites[i] = SpriteImages.NumberFourSprite();
+                        break;
+                    case 5:
+                        DigitSprites[i] = SpriteImages.NumberFiveSprite();
+                        break;
+                    case 6:
+                        DigitSprites[i] = SpriteImages.NumberSixSprite();
+                        break;
+                    case 7:
+                        DigitSprites[i] = SpriteImages.NumberSevenSprite();
+                        break;
+                    case 8:
+                        DigitSprites[i] = SpriteImages.NumberEightSprite();
+                        break;
+                    case 9:
+                        DigitSprites[i] = SpriteImages.NumberNineSprite();
+                        break;
+                }
+            }
+
+            for (int i = 0, xLocation = xDraw; i < numberOfDigits; i++, xLocation += 6)
+            {
+                DrawSprite(DigitSprites[i], xLocation, y, false);
+            }
+            
+
+        }
     }
 }

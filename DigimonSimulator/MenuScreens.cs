@@ -27,6 +27,20 @@ namespace DigimonSimulator
 
             if (SubMenuNo == 0)
             {
+                Digimon botamon = new Digimon(game, DigimonId.Botamon);
+                Sprite aSprite = SpriteImages.LetterASprite();
+                Sprite gSprite = SpriteImages.LetterSmallGSprite();
+
+                game.pixelScreen.DrawDigimonFrame(botamon, SpriteFrame.Walk, false, false, 0, -10);
+                game.pixelScreen.DrawSprite(SpriteImages.ScalesSprite(), 0, 8, false);
+                game.pixelScreen.DrawSprite(aSprite, game.pixelScreen.NumberOfXPixels - aSprite.SpriteWidth - 1, 1, false);
+                game.pixelScreen.DrawSprite(gSprite, game.pixelScreen.NumberOfXPixels - gSprite.SpriteWidth - 1, 8, false);
+                game.pixelScreen.DrawNumbers(15, 0, game.currentDigimon.totalTimeAlive / (3600*24));
+                game.pixelScreen.DrawNumbers(14, 8, game.currentDigimon.currentWeight);
+            }
+
+            if (SubMenuNo == 1)
+            {
                 Sprite hungerSprite = SpriteImages.HungerSprite();
                 Sprite fullHeartSprite = SpriteImages.FullHeartSprite();
                 Sprite emptyHeartSprite = SpriteImages.EmptyHeartSprite();
@@ -45,7 +59,7 @@ namespace DigimonSimulator
                 }
             }
 
-            if (SubMenuNo == 1)
+            if (SubMenuNo == 2)
             {
                 Sprite strengthSprite = SpriteImages.StrengthSprite();
                 Sprite fullHeartSprite = SpriteImages.FullHeartSprite();

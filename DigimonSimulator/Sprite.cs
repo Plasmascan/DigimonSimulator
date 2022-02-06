@@ -2677,6 +2677,364 @@ namespace DigimonSimulator
             return graveSprite;
         }
 
+        public static Sprite ScalesSprite()
+        {
+            Sprite scalesSprite = new Sprite();
+            scalesSprite.SpriteHeight = 8;
+            scalesSprite.SpriteWidth = 7;
+            scalesSprite.sprite = new bool[scalesSprite.SpriteHeight, scalesSprite.SpriteWidth];
+
+            #region scalesSprite
+            scalesSprite.sprite[0, 0] = true;
+            scalesSprite.sprite[0, 6] = true;
+            scalesSprite.sprite[1, 0] = true;
+            scalesSprite.sprite[1, 1] = true;
+            scalesSprite.sprite[1, 2] = true;
+            scalesSprite.sprite[1, 3] = true;
+            scalesSprite.sprite[1, 4] = true;
+            scalesSprite.sprite[1, 5] = true;
+            scalesSprite.sprite[1, 6] = true;
+            scalesSprite.sprite[2, 3] = true;
+            scalesSprite.sprite[3, 1] = true;
+            scalesSprite.sprite[3, 2] = true;
+            scalesSprite.sprite[3, 3] = true;
+            scalesSprite.sprite[3, 4] = true;
+            scalesSprite.sprite[3, 5] = true;
+            scalesSprite.sprite[4, 1] = true;
+            scalesSprite.sprite[4, 5] = true;
+            scalesSprite.sprite[5, 1] = true;
+            scalesSprite.sprite[5, 5] = true;
+            scalesSprite.sprite[6, 1] = true;
+            scalesSprite.sprite[6, 3] = true;
+            scalesSprite.sprite[6, 5] = true;
+            scalesSprite.sprite[7, 0] = true;
+            scalesSprite.sprite[7, 1] = true;
+            scalesSprite.sprite[7, 2] = true;
+            scalesSprite.sprite[7, 3] = true;
+            scalesSprite.sprite[7, 4] = true;
+            scalesSprite.sprite[7, 5] = true;
+            scalesSprite.sprite[7, 6] = true;
+            #endregion
+
+            return scalesSprite;
+        }
+
+        public static Sprite LetterASprite()
+        {
+            Sprite letterASprite = new Sprite();
+            letterASprite.SpriteHeight = 6;
+            letterASprite.SpriteWidth = 5;
+            letterASprite.sprite = new bool[letterASprite.SpriteHeight, letterASprite.SpriteWidth];
+
+            #region letterASprite
+            letterASprite.sprite[0, 2] = true;
+            letterASprite.sprite[1, 1] = true;
+            letterASprite.sprite[1, 3] = true;
+            letterASprite.sprite[2, 0] = true;
+            letterASprite.sprite[2, 4] = true;
+            letterASprite.sprite[3, 0] = true;
+            letterASprite.sprite[3, 1] = true;
+            letterASprite.sprite[3, 2] = true;
+            letterASprite.sprite[3, 3] = true;
+            letterASprite.sprite[3, 4] = true;
+            letterASprite.sprite[4, 0] = true;
+            letterASprite.sprite[4, 4] = true;
+            letterASprite.sprite[5, 0] = true;
+            letterASprite.sprite[5, 4] = true;
+            #endregion
+
+            return letterASprite;
+        }
+
+        public static Sprite LetterSmallGSprite()
+        {
+            Sprite letterSmallGSprite = new Sprite();
+            letterSmallGSprite.SpriteHeight = 7;
+            letterSmallGSprite.SpriteWidth = 6;
+            letterSmallGSprite.sprite = new bool[letterSmallGSprite.SpriteHeight, letterSmallGSprite.SpriteWidth];
+
+            #region letterSmallGSprite
+            letterSmallGSprite.sprite[0, 2] = true;
+            letterSmallGSprite.sprite[0, 3] = true;
+            letterSmallGSprite.sprite[0, 4] = true;
+            letterSmallGSprite.sprite[1, 1] = true;
+            letterSmallGSprite.sprite[1, 4] = true;
+            letterSmallGSprite.sprite[2, 2] = true;
+            letterSmallGSprite.sprite[2, 3] = true;
+            letterSmallGSprite.sprite[2, 4] = true;
+            letterSmallGSprite.sprite[3, 4] = true;
+            letterSmallGSprite.sprite[3, 5] = true;
+            letterSmallGSprite.sprite[4, 1] = true;
+            letterSmallGSprite.sprite[4, 2] = true;
+            letterSmallGSprite.sprite[4, 3] = true;
+            letterSmallGSprite.sprite[4, 4] = true;
+            letterSmallGSprite.sprite[5, 0] = true;
+            letterSmallGSprite.sprite[5, 4] = true;
+            letterSmallGSprite.sprite[6, 1] = true;
+            letterSmallGSprite.sprite[6, 2] = true;
+            letterSmallGSprite.sprite[6, 3] = true;
+            #endregion
+
+            return letterSmallGSprite;
+        }
+
+        public static Sprite NumberZeroSprite()
+        {
+            Sprite numberZeroSprite = new Sprite();
+            numberZeroSprite.SpriteHeight = 7;
+            numberZeroSprite.SpriteWidth = 4;
+            numberZeroSprite.sprite = new bool[numberZeroSprite.SpriteHeight, numberZeroSprite.SpriteWidth];
+
+            #region numberZeroSprite
+            numberZeroSprite.sprite[0, 1] = true;
+            numberZeroSprite.sprite[0, 2] = true;
+            numberZeroSprite.sprite[1, 0] = true;
+            numberZeroSprite.sprite[1, 3] = true;
+            numberZeroSprite.sprite[2, 0] = true;
+            numberZeroSprite.sprite[2, 3] = true;
+            numberZeroSprite.sprite[3, 0] = true;
+            numberZeroSprite.sprite[3, 3] = true;
+            numberZeroSprite.sprite[4, 0] = true;
+            numberZeroSprite.sprite[4, 3] = true;
+            numberZeroSprite.sprite[5, 0] = true;
+            numberZeroSprite.sprite[5, 3] = true;
+            numberZeroSprite.sprite[6, 1] = true;
+            numberZeroSprite.sprite[6, 2] = true;
+            #endregion
+
+            return numberZeroSprite;
+        }
+
+        public static Sprite NumberOneSprite()
+        {
+            Sprite numberOneSprite = new Sprite();
+            numberOneSprite.SpriteHeight = 7;
+            numberOneSprite.SpriteWidth = 4;
+            numberOneSprite.sprite = new bool[numberOneSprite.SpriteHeight, numberOneSprite.SpriteWidth];
+
+            #region numberOneSprite
+            numberOneSprite.sprite[0, 2] = true;
+            numberOneSprite.sprite[1, 1] = true;
+            numberOneSprite.sprite[1, 2] = true;
+            numberOneSprite.sprite[2, 2] = true;
+            numberOneSprite.sprite[3, 2] = true;
+            numberOneSprite.sprite[4, 2] = true;
+            numberOneSprite.sprite[5, 2] = true;
+            numberOneSprite.sprite[6, 2] = true;
+            #endregion
+
+            return numberOneSprite;
+        }
+
+        public static Sprite NumberTwoSprite()
+        {
+            Sprite numberTwoSprite = new Sprite();
+            numberTwoSprite.SpriteHeight = 7;
+            numberTwoSprite.SpriteWidth = 4;
+            numberTwoSprite.sprite = new bool[numberTwoSprite.SpriteHeight, numberTwoSprite.SpriteWidth];
+
+            #region numberTwoSprite
+            numberTwoSprite.sprite[0, 1] = true;
+            numberTwoSprite.sprite[0, 2] = true;
+            numberTwoSprite.sprite[1, 0] = true;
+            numberTwoSprite.sprite[1, 3] = true;
+            numberTwoSprite.sprite[2, 3] = true;
+            numberTwoSprite.sprite[3, 2] = true;
+            numberTwoSprite.sprite[4, 1] = true;
+            numberTwoSprite.sprite[5, 0] = true;
+            numberTwoSprite.sprite[6, 0] = true;
+            numberTwoSprite.sprite[6, 1] = true;
+            numberTwoSprite.sprite[6, 2] = true;
+            numberTwoSprite.sprite[6, 3] = true;
+            #endregion
+
+            return numberTwoSprite;
+        }
+
+        public static Sprite NumberThreeSprite()
+        {
+            Sprite numberThreeSprite = new Sprite();
+            numberThreeSprite.SpriteHeight = 7;
+            numberThreeSprite.SpriteWidth = 4;
+            numberThreeSprite.sprite = new bool[numberThreeSprite.SpriteHeight, numberThreeSprite.SpriteWidth];
+
+            #region numberThreeSprite
+            numberThreeSprite.sprite[0, 1] = true;
+            numberThreeSprite.sprite[0, 2] = true;
+            numberThreeSprite.sprite[1, 0] = true;
+            numberThreeSprite.sprite[1, 3] = true;
+            numberThreeSprite.sprite[2, 3] = true;
+            numberThreeSprite.sprite[3, 1] = true;
+            numberThreeSprite.sprite[3, 2] = true;
+            numberThreeSprite.sprite[4, 3] = true;
+            numberThreeSprite.sprite[5, 0] = true;
+            numberThreeSprite.sprite[5, 3] = true;
+            numberThreeSprite.sprite[6, 1] = true;
+            numberThreeSprite.sprite[6, 2] = true;
+            #endregion
+
+            return numberThreeSprite;
+        }
+
+        public static Sprite NumberFourSprite()
+        {
+            Sprite numberFourSprite = new Sprite();
+            numberFourSprite.SpriteHeight = 7;
+            numberFourSprite.SpriteWidth = 4;
+            numberFourSprite.sprite = new bool[numberFourSprite.SpriteHeight, numberFourSprite.SpriteWidth];
+
+            #region numberFourSprite
+            numberFourSprite.sprite[0, 2] = true;
+            numberFourSprite.sprite[1, 1] = true;
+            numberFourSprite.sprite[1, 2] = true;
+            numberFourSprite.sprite[2, 0] = true;
+            numberFourSprite.sprite[2, 2] = true;
+            numberFourSprite.sprite[3, 0] = true;
+            numberFourSprite.sprite[3, 2] = true;
+            numberFourSprite.sprite[4, 0] = true;
+            numberFourSprite.sprite[4, 2] = true;
+            numberFourSprite.sprite[5, 0] = true;
+            numberFourSprite.sprite[5, 1] = true;
+            numberFourSprite.sprite[5, 2] = true;
+            numberFourSprite.sprite[5, 3] = true;
+            numberFourSprite.sprite[6, 2] = true;
+            #endregion
+
+            return numberFourSprite;
+        }
+
+        public static Sprite NumberFiveSprite()
+        {
+            Sprite numberFiveSprite = new Sprite();
+            numberFiveSprite.SpriteHeight = 7;
+            numberFiveSprite.SpriteWidth = 4;
+            numberFiveSprite.sprite = new bool[numberFiveSprite.SpriteHeight, numberFiveSprite.SpriteWidth];
+
+            #region numberFiveSprite
+            numberFiveSprite.sprite[0, 0] = true;
+            numberFiveSprite.sprite[0, 1] = true;
+            numberFiveSprite.sprite[0, 2] = true;
+            numberFiveSprite.sprite[0, 3] = true;
+            numberFiveSprite.sprite[1, 0] = true;
+            numberFiveSprite.sprite[2, 0] = true;
+            numberFiveSprite.sprite[3, 0] = true;
+            numberFiveSprite.sprite[3, 1] = true;
+            numberFiveSprite.sprite[3, 2] = true;
+            numberFiveSprite.sprite[4, 3] = true;
+            numberFiveSprite.sprite[5, 3] = true;
+            numberFiveSprite.sprite[6, 0] = true;
+            numberFiveSprite.sprite[6, 1] = true;
+            numberFiveSprite.sprite[6, 2] = true;
+            #endregion
+
+            return numberFiveSprite;
+        }
+
+        public static Sprite NumberSixSprite()
+        {
+            Sprite numberSixSprite = new Sprite();
+            numberSixSprite.SpriteHeight = 7;
+            numberSixSprite.SpriteWidth = 4;
+            numberSixSprite.sprite = new bool[numberSixSprite.SpriteHeight, numberSixSprite.SpriteWidth];
+
+            #region numberSixSprite
+            numberSixSprite.sprite[0, 1] = true;
+            numberSixSprite.sprite[0, 2] = true;
+            numberSixSprite.sprite[1, 0] = true;
+            numberSixSprite.sprite[1, 3] = true;
+            numberSixSprite.sprite[2, 0] = true;
+            numberSixSprite.sprite[3, 0] = true;
+            numberSixSprite.sprite[3, 1] = true;
+            numberSixSprite.sprite[3, 2] = true;
+            numberSixSprite.sprite[4, 0] = true;
+            numberSixSprite.sprite[4, 3] = true;
+            numberSixSprite.sprite[5, 0] = true;
+            numberSixSprite.sprite[5, 3] = true;
+            numberSixSprite.sprite[6, 1] = true;
+            numberSixSprite.sprite[6, 2] = true;
+            #endregion
+
+            return numberSixSprite;
+        }
+
+        public static Sprite NumberSevenSprite()
+        {
+            Sprite numberSevenSprite = new Sprite();
+            numberSevenSprite.SpriteHeight = 7;
+            numberSevenSprite.SpriteWidth = 4;
+            numberSevenSprite.sprite = new bool[numberSevenSprite.SpriteHeight, numberSevenSprite.SpriteWidth];
+
+            #region numberSevenSprite
+            numberSevenSprite.sprite[0, 0] = true;
+            numberSevenSprite.sprite[0, 1] = true;
+            numberSevenSprite.sprite[0, 2] = true;
+            numberSevenSprite.sprite[0, 3] = true;
+            numberSevenSprite.sprite[1, 0] = true;
+            numberSevenSprite.sprite[1, 3] = true;
+            numberSevenSprite.sprite[2, 3] = true;
+            numberSevenSprite.sprite[3, 2] = true;
+            numberSevenSprite.sprite[4, 2] = true;
+            numberSevenSprite.sprite[5, 2] = true;
+            numberSevenSprite.sprite[6, 2] = true;
+            #endregion
+
+            return numberSevenSprite;
+        }
+
+        public static Sprite NumberEightSprite()
+        {
+            Sprite numberEightSprite = new Sprite();
+            numberEightSprite.SpriteHeight = 7;
+            numberEightSprite.SpriteWidth = 4;
+            numberEightSprite.sprite = new bool[numberEightSprite.SpriteHeight, numberEightSprite.SpriteWidth];
+
+            #region numberEightSprite
+            numberEightSprite.sprite[0, 1] = true;
+            numberEightSprite.sprite[0, 2] = true;
+            numberEightSprite.sprite[1, 0] = true;
+            numberEightSprite.sprite[1, 3] = true;
+            numberEightSprite.sprite[2, 0] = true;
+            numberEightSprite.sprite[2, 3] = true;
+            numberEightSprite.sprite[3, 1] = true;
+            numberEightSprite.sprite[3, 2] = true;
+            numberEightSprite.sprite[4, 0] = true;
+            numberEightSprite.sprite[4, 3] = true;
+            numberEightSprite.sprite[5, 0] = true;
+            numberEightSprite.sprite[5, 3] = true;
+            numberEightSprite.sprite[6, 1] = true;
+            numberEightSprite.sprite[6, 2] = true;
+            #endregion
+
+            return numberEightSprite;
+        }
+
+        public static Sprite NumberNineSprite()
+        {
+            Sprite numberNineSprite = new Sprite();
+            numberNineSprite.SpriteHeight = 7;
+            numberNineSprite.SpriteWidth = 4;
+            numberNineSprite.sprite = new bool[numberNineSprite.SpriteHeight, numberNineSprite.SpriteWidth];
+
+            #region numberNineSprite
+            numberNineSprite.sprite[0, 1] = true;
+            numberNineSprite.sprite[0, 2] = true;
+            numberNineSprite.sprite[1, 0] = true;
+            numberNineSprite.sprite[1, 3] = true;
+            numberNineSprite.sprite[2, 0] = true;
+            numberNineSprite.sprite[2, 3] = true;
+            numberNineSprite.sprite[3, 1] = true;
+            numberNineSprite.sprite[3, 2] = true;
+            numberNineSprite.sprite[3, 3] = true;
+            numberNineSprite.sprite[4, 3] = true;
+            numberNineSprite.sprite[5, 0] = true;
+            numberNineSprite.sprite[5, 3] = true;
+            numberNineSprite.sprite[6, 1] = true;
+            numberNineSprite.sprite[6, 2] = true;
+            #endregion
+
+            return numberNineSprite;
+        }
+
         public static Sprite ThunderProjectileSprite()
         {
             Sprite thunderProjectileSprite = new Sprite();

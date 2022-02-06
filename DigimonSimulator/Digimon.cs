@@ -35,7 +35,7 @@ namespace DigimonSimulator
         public int timesInjured = 0;
         public int timesTrained = 0;
         public int timesOverfed = 0;
-        public int totalTimeAlive;
+        public int totalTimeAlive = 0;
         public bool canDigivolve;
         public int evolveTime;
         public int maxHunger;
@@ -86,6 +86,14 @@ namespace DigimonSimulator
             }
         }
 
+        public void AddWeight()
+        {
+            if (currentWeight < 99)
+            {
+                currentWeight++;
+            }
+        }
+
         public void AddStrength()
         {
             if (currentStrength < maxStrength)
@@ -131,6 +139,7 @@ namespace DigimonSimulator
             MenuScreens.DrawDeathScreen(game);
             game.currentDigimon = null;
             game.CurrentScreen = MenuScreen.DeathScreen;
+            game.numberOfDung = 0;
         }
 
         public void DigimonFallAsleep()
