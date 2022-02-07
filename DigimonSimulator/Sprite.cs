@@ -3239,6 +3239,134 @@ namespace DigimonSimulator
             return thunderProjectileSprite;
         }
 
+        public static Sprite TriangleProjectileSprite()
+        {
+            Sprite triangleProjectileSprite = new Sprite();
+            triangleProjectileSprite.SpriteHeight = 8;
+            triangleProjectileSprite.SpriteWidth = 8;
+            triangleProjectileSprite.sprite = new bool[triangleProjectileSprite.SpriteHeight, triangleProjectileSprite.SpriteWidth];
+
+            #region triangleProjectileSprite
+            triangleProjectileSprite.sprite[0, 1] = true;
+            triangleProjectileSprite.sprite[0, 2] = true;
+            triangleProjectileSprite.sprite[1, 0] = true;
+            triangleProjectileSprite.sprite[1, 1] = true;
+            triangleProjectileSprite.sprite[1, 2] = true;
+            triangleProjectileSprite.sprite[1, 3] = true;
+            triangleProjectileSprite.sprite[1, 4] = true;
+            triangleProjectileSprite.sprite[2, 0] = true;
+            triangleProjectileSprite.sprite[2, 1] = true;
+            triangleProjectileSprite.sprite[2, 2] = true;
+            triangleProjectileSprite.sprite[2, 3] = true;
+            triangleProjectileSprite.sprite[2, 4] = true;
+            triangleProjectileSprite.sprite[2, 5] = true;
+            triangleProjectileSprite.sprite[2, 6] = true;
+            triangleProjectileSprite.sprite[3, 0] = true;
+            triangleProjectileSprite.sprite[3, 1] = true;
+            triangleProjectileSprite.sprite[3, 2] = true;
+            triangleProjectileSprite.sprite[3, 3] = true;
+            triangleProjectileSprite.sprite[3, 4] = true;
+            triangleProjectileSprite.sprite[3, 5] = true;
+            triangleProjectileSprite.sprite[3, 6] = true;
+            triangleProjectileSprite.sprite[3, 7] = true;
+            triangleProjectileSprite.sprite[4, 0] = true;
+            triangleProjectileSprite.sprite[4, 1] = true;
+            triangleProjectileSprite.sprite[4, 2] = true;
+            triangleProjectileSprite.sprite[4, 3] = true;
+            triangleProjectileSprite.sprite[4, 4] = true;
+            triangleProjectileSprite.sprite[4, 5] = true;
+            triangleProjectileSprite.sprite[4, 6] = true;
+            triangleProjectileSprite.sprite[5, 0] = true;
+            triangleProjectileSprite.sprite[5, 1] = true;
+            triangleProjectileSprite.sprite[5, 2] = true;
+            triangleProjectileSprite.sprite[5, 3] = true;
+            triangleProjectileSprite.sprite[5, 4] = true;
+            triangleProjectileSprite.sprite[6, 1] = true;
+            triangleProjectileSprite.sprite[6, 2] = true;
+            #endregion
+
+            return triangleProjectileSprite;
+        }
+
+        public static Sprite ArrowProjectileSprite()
+        {
+            Sprite arrowProjectileSprite = new Sprite();
+            arrowProjectileSprite.SpriteHeight = 7;
+            arrowProjectileSprite.SpriteWidth = 8;
+            arrowProjectileSprite.sprite = new bool[arrowProjectileSprite.SpriteHeight, arrowProjectileSprite.SpriteWidth];
+
+            #region arrowProjectileSprite
+            arrowProjectileSprite.sprite[0, 5] = true;
+            arrowProjectileSprite.sprite[0, 6] = true;
+            arrowProjectileSprite.sprite[0, 7] = true;
+            arrowProjectileSprite.sprite[1, 2] = true;
+            arrowProjectileSprite.sprite[1, 3] = true;
+            arrowProjectileSprite.sprite[1, 4] = true;
+            arrowProjectileSprite.sprite[1, 7] = true;
+            arrowProjectileSprite.sprite[2, 0] = true;
+            arrowProjectileSprite.sprite[2, 1] = true;
+            arrowProjectileSprite.sprite[2, 6] = true;
+            arrowProjectileSprite.sprite[3, 2] = true;
+            arrowProjectileSprite.sprite[3, 3] = true;
+            arrowProjectileSprite.sprite[3, 4] = true;
+            arrowProjectileSprite.sprite[3, 7] = true;
+            arrowProjectileSprite.sprite[4, 5] = true;
+            arrowProjectileSprite.sprite[4, 6] = true;
+            arrowProjectileSprite.sprite[4, 7] = true;
+            #endregion
+
+            return arrowProjectileSprite;
+        }
+
+        public static Sprite BoxingGloveProjectileSprite()
+        {
+            Sprite boxingGloveProjectileSprite = new Sprite();
+            boxingGloveProjectileSprite.SpriteHeight = 7;
+            boxingGloveProjectileSprite.SpriteWidth = 8;
+            boxingGloveProjectileSprite.sprite = new bool[boxingGloveProjectileSprite.SpriteHeight, boxingGloveProjectileSprite.SpriteWidth];
+
+            #region boxingGloveProjectileSprite
+            boxingGloveProjectileSprite.sprite[0, 1] = true;
+            boxingGloveProjectileSprite.sprite[0, 2] = true;
+            boxingGloveProjectileSprite.sprite[0, 3] = true;
+            boxingGloveProjectileSprite.sprite[0, 4] = true;
+            boxingGloveProjectileSprite.sprite[1, 0] = true;
+            boxingGloveProjectileSprite.sprite[1, 1] = true;
+            boxingGloveProjectileSprite.sprite[1, 2] = true;
+            boxingGloveProjectileSprite.sprite[1, 3] = true;
+            boxingGloveProjectileSprite.sprite[1, 4] = true;
+            boxingGloveProjectileSprite.sprite[1, 5] = true;
+            boxingGloveProjectileSprite.sprite[2, 0] = true;
+            boxingGloveProjectileSprite.sprite[2, 1] = true;
+            boxingGloveProjectileSprite.sprite[2, 2] = true;
+            boxingGloveProjectileSprite.sprite[2, 3] = true;
+            boxingGloveProjectileSprite.sprite[2, 4] = true;
+            boxingGloveProjectileSprite.sprite[2, 5] = true;
+            boxingGloveProjectileSprite.sprite[2, 6] = true;
+            boxingGloveProjectileSprite.sprite[2, 7] = true;
+            boxingGloveProjectileSprite.sprite[3, 0] = true;
+            boxingGloveProjectileSprite.sprite[3, 1] = true;
+            boxingGloveProjectileSprite.sprite[3, 4] = true;
+            boxingGloveProjectileSprite.sprite[3, 5] = true;
+            boxingGloveProjectileSprite.sprite[3, 7] = true;
+            boxingGloveProjectileSprite.sprite[4, 0] = true;
+            boxingGloveProjectileSprite.sprite[4, 2] = true;
+            boxingGloveProjectileSprite.sprite[4, 3] = true;
+            boxingGloveProjectileSprite.sprite[4, 4] = true;
+            boxingGloveProjectileSprite.sprite[4, 5] = true;
+            boxingGloveProjectileSprite.sprite[4, 7] = true;
+            boxingGloveProjectileSprite.sprite[5, 1] = true;
+            boxingGloveProjectileSprite.sprite[5, 2] = true;
+            boxingGloveProjectileSprite.sprite[5, 3] = true;
+            boxingGloveProjectileSprite.sprite[5, 4] = true;
+            boxingGloveProjectileSprite.sprite[5, 5] = true;
+            boxingGloveProjectileSprite.sprite[5, 6] = true;
+            boxingGloveProjectileSprite.sprite[5, 7] = true;
+            #endregion
+
+            return boxingGloveProjectileSprite;
+        }
+
         public static Sprite FireBallProjectileSprite()
         {
             Sprite fireBallProjectileSprite = new Sprite();
@@ -3369,6 +3497,40 @@ namespace DigimonSimulator
             #endregion
 
             return torpedoProjectileSprite;
+        }
+
+        public static Sprite LinesProjectileSprite()
+        {
+            Sprite linesProjectileSprite = new Sprite();
+            linesProjectileSprite.SpriteHeight = 8;
+            linesProjectileSprite.SpriteWidth = 8;
+            linesProjectileSprite.sprite = new bool[linesProjectileSprite.SpriteHeight, linesProjectileSprite.SpriteWidth];
+
+            #region linesProjectileSprite
+            linesProjectileSprite.sprite[0, 3] = true;
+            linesProjectileSprite.sprite[0, 4] = true;
+            linesProjectileSprite.sprite[0, 5] = true;
+            linesProjectileSprite.sprite[0, 6] = true;
+            linesProjectileSprite.sprite[1, 1] = true;
+            linesProjectileSprite.sprite[1, 2] = true;
+            linesProjectileSprite.sprite[1, 3] = true;
+            linesProjectileSprite.sprite[1, 4] = true;
+            linesProjectileSprite.sprite[3, 0] = true;
+            linesProjectileSprite.sprite[3, 1] = true;
+            linesProjectileSprite.sprite[3, 2] = true;
+            linesProjectileSprite.sprite[3, 3] = true;
+            linesProjectileSprite.sprite[3, 4] = true;
+            linesProjectileSprite.sprite[4, 3] = true;
+            linesProjectileSprite.sprite[4, 4] = true;
+            linesProjectileSprite.sprite[4, 5] = true;
+            linesProjectileSprite.sprite[4, 6] = true;
+            linesProjectileSprite.sprite[6, 1] = true;
+            linesProjectileSprite.sprite[6, 2] = true;
+            linesProjectileSprite.sprite[6, 3] = true;
+            linesProjectileSprite.sprite[6, 4] = true;
+            #endregion
+
+            return linesProjectileSprite;
         }
 
         public static Sprite BabyProjectileSprite()
@@ -5132,7 +5294,7 @@ namespace DigimonSimulator
         public static DigimonSprite Agumon()
         {
             DigimonSprite agumonSprite = new DigimonSprite();
-            agumonSprite.projectileSprite = ThunderProjectileSprite();
+            agumonSprite.projectileSprite = TriangleProjectileSprite();
             agumonSprite.currentFrameHeight = 15;
             agumonSprite.currentFrameWidth = 15;
             agumonSprite.frame1Height = 15;
@@ -6422,7 +6584,7 @@ namespace DigimonSimulator
         public static DigimonSprite Devimon()
         {
             DigimonSprite devimonSprite = new DigimonSprite();
-            devimonSprite.projectileSprite = TorpedoProjectileSprite();
+            devimonSprite.projectileSprite = BoxingGloveProjectileSprite();
             devimonSprite.currentFrameHeight = 16;
             devimonSprite.currentFrameWidth = 16;
             devimonSprite.frame1Height = 16;
@@ -7337,7 +7499,7 @@ namespace DigimonSimulator
         public static DigimonSprite Seadramon()
         {
             DigimonSprite seadramonSprite = new DigimonSprite();
-            seadramonSprite.projectileSprite = ThunderProjectileSprite();
+            seadramonSprite.projectileSprite = ArrowProjectileSprite();
             seadramonSprite.currentFrameHeight = 16;
             seadramonSprite.currentFrameWidth = 16;
             seadramonSprite.frame1Height = 16;
@@ -7928,7 +8090,7 @@ namespace DigimonSimulator
         public static DigimonSprite Airdramon()
         {
             DigimonSprite airdramonSprite = new DigimonSprite();
-            airdramonSprite.projectileSprite = ThunderProjectileSprite();
+            airdramonSprite.projectileSprite = ArrowProjectileSprite();
             airdramonSprite.currentFrameHeight = 16;
             airdramonSprite.currentFrameWidth = 16;
             airdramonSprite.frame1Height = 16;
@@ -9325,7 +9487,7 @@ namespace DigimonSimulator
         public static DigimonSprite Meramon()
         {
             DigimonSprite meramonSprite = new DigimonSprite();
-            meramonSprite.projectileSprite = ThunderProjectileSprite();
+            meramonSprite.projectileSprite = BoxingGloveProjectileSprite();
             meramonSprite.currentFrameHeight = 16;
             meramonSprite.currentFrameWidth = 16;
             meramonSprite.frame1Height = 16;
@@ -10686,7 +10848,7 @@ namespace DigimonSimulator
         public static DigimonSprite BlitzGreymon()
         {
             DigimonSprite blitzGreymonSprite = new DigimonSprite();
-            blitzGreymonSprite.projectileSprite = ThunderProjectileSprite();
+            blitzGreymonSprite.projectileSprite = LinesProjectileSprite();
             blitzGreymonSprite.currentFrameHeight = 16;
             blitzGreymonSprite.currentFrameWidth = 16;
             blitzGreymonSprite.frame1Height = 16;
@@ -11772,7 +11934,7 @@ namespace DigimonSimulator
         public static DigimonSprite Tyrannomon()
         {
             DigimonSprite tyrannomonSprite = new DigimonSprite();
-            tyrannomonSprite.projectileSprite = ThunderProjectileSprite();
+            tyrannomonSprite.projectileSprite = FireBallProjectileSprite();
             tyrannomonSprite.currentFrameHeight = 16;
             tyrannomonSprite.currentFrameWidth = 15;
             tyrannomonSprite.frame1Height = 16;
