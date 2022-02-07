@@ -714,7 +714,6 @@ namespace DigimonSimulator
             {
                 Digits[0] = number / 10;
                 Digits[1] = number % 10;
-                Debug.WriteLine("Digits[0]: " + Digits[0] + "  Digits[1]: " + Digits[1]);
                 numberOfDigits = 2;
             }
 

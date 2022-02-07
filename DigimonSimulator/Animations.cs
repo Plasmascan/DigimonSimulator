@@ -588,12 +588,12 @@ namespace DigimonSimulator
 
         public void SetupEatAnimation(int choice)
         {
-            int addHungerAmounter = 50, addStrengthAmount = 50;
+            int addHungerAmounter = Game.currentDigimon.maxHunger / 15, addStrengthAmount = Game.currentDigimon.maxStrength / 15;
             Game.currentDigimon.sprite.SpriteX = Game.pixelScreen.NumberOfXPixels - (Game.currentDigimon.sprite.frame1Width / 2) - 16;
             Game.pixelScreen.ClearScreen();
 
             // setup the rejection animation when trying to eat while the digimon is full
-            if (choice == 0 && Game.currentDigimon.currentHunger > Game.currentDigimon.maxHunger + Game.currentDigimon.maxHunger / 4)
+            if (choice == 0 && Game.currentDigimon.currentHunger > Game.currentDigimon.maxHunger)
             {
                 // Add to overfeed amount and disable overfeeding
                 if (Game.currentDigimon.isOverfeedable)
@@ -619,7 +619,7 @@ namespace DigimonSimulator
                 EatItemFull = SpriteImages.FullVitaminSprite();
                 EatItemHalf = SpriteImages.HalfVitaminSprite();
                 EatItemEmpty = SpriteImages.EmptyVitaminSprite();
-                if (Game.currentDigimon.currentStrength < Game.currentDigimon.maxStrength)
+                if (Game.currentDigimon.currentStrength < Game.currentDigimon.maxStrength + Game.currentDigimon.maxStrength / 12)
                 {
                     Game.currentDigimon.currentStrength += addStrengthAmount;
                 }
@@ -1092,6 +1092,7 @@ namespace DigimonSimulator
             int startX = Game.pixelScreen.NumberOfXPixels - (Game.currentDigimon.sprite.frame1Width / 2) - 8;
             IsinAnimation = true;
             Opponent = new Digimon(Game, DigimonId.Betamon);
+            Opponent.currenthealth = Opponent.maxHealth;
             Opponent.sprite.SpriteX = 8 - (Opponent.sprite.frame1Width / 2);
             Game.currentDigimon.sprite.SpriteX = startX;
             Game.pixelScreen.DrawDigimonFrame(Opponent, SpriteFrame.Walk2, true, true, Opponent.sprite.SpriteX, 0);

@@ -35,7 +35,7 @@ namespace DigimonSimulator
         {
             pixelScreen = new PixelScreen(screen, 0, 20, 16, 32, 4);
             pixelScreen.SetupScreen();
-            //currentDigimon = new Digimon(this, DigimonId.Greymon);
+            //currentDigimon = new Digimon(this, DigimonId.Betamon);
             animate = new Animations(this);
             //animate.StartDigimonStateAnimation();
             setTime = DateTime.Now;
