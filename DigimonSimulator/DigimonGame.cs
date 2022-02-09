@@ -30,16 +30,17 @@ namespace DigimonSimulator
         public DateTime setTime;
         public int numberOfDung = 0;
         public bool isEgg = false;
+        public bool isHost = false;
 
         public void InitializeGame(Canvas screen)
         {
             pixelScreen = new PixelScreen(screen, 0, 20, 16, 32, 4);
             pixelScreen.SetupScreen();
-            //currentDigimon = new Digimon(this, DigimonId.BlitzGreymon);
+            currentDigimon = new Digimon(this, DigimonId.Devimon);
             animate = new Animations(this);
-            //animate.StartDigimonStateAnimation();
+            animate.StartDigimonStateAnimation();
             setTime = DateTime.Now;
-            SelectEgg();
+            //SelectEgg();
             setTimer();
         }
 
@@ -330,14 +331,7 @@ namespace DigimonSimulator
                     }
                     MenuScreens.DrawFeedScreen(this, SelectedSubMenuNo);
                 }
-                else if (CurrentScreen == MenuScreen.Training)
-                {
-                    if (!animate.IsinAnimation && animate.powerUpReady)
-                    {
-                        animate.powerUpTraining();
-                    }
-                }
-                else if (CurrentScreen == MenuScreen.BattleCup)
+                else if (CurrentScreen == MenuScreen.Training || CurrentScreen == MenuScreen.Battle || CurrentScreen == MenuScreen.BattleCup)
                 {
                     if (!animate.IsinAnimation && animate.powerUpReady)
                     {
@@ -485,6 +479,29 @@ namespace DigimonSimulator
                             animate.SetupRejectAnimation();
                         }
                     }
+
+                    else if (SelectedMenu == MenuScreen.Battle)
+                    {
+                        if (currentDigimon.isInBed)
+                        {
+                            Sounds.PlaySound(Sound.Beep2);
+                        }
+                        else if (currentDigimon.isHurt)
+                        {
+                            Sounds.PlaySound(Sound.Beep);
+                            animate.StopDigimonStateAnimation();
+                            animate.SetupRejectAnimation();
+                        }
+                        else
+                        {
+                            currentDigimon.WakeupDigimon(); 
+                            animate.StopDigimonStateAnimation();
+                            Sounds.PlaySound(Sound.Beep);
+                            CurrentScreen = MenuScreen.Battle;
+                            animate.SetupBattle();
+                        }
+
+                    }
                 }
                 else if (CurrentScreen == MenuScreen.StatScreen)
                 {
@@ -619,6 +636,12 @@ namespace DigimonSimulator
             TimeoutSelectedMenu = 0;
             TimeoutMenuScreen = 0;
             animate.ResetAnimations();
+            if (animate.Battle != null)
+            {
+                animate.Battle.isHostActive = false;
+                animate.Battle.CloseTCPConnections();
+                animate.Battle.battleFound = false;
+            }
         }
 
     }

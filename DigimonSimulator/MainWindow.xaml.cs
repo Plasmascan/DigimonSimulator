@@ -91,6 +91,32 @@ namespace DigimonSimulator
             }
         }
 
+        private void hostMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (hostMenuItem.IsChecked)
+            {
+                if (mainGame.CurrentScreen != MenuScreen.Battle)
+                {
+                    mainGame.isHost = true;
+                }
+                else
+                {
+                    hostMenuItem.IsChecked = !hostMenuItem.IsChecked;
+                }
+            }
+            else
+            {
+                if (mainGame.CurrentScreen != MenuScreen.Battle)
+                {
+                    mainGame.isHost = false;
+                }
+                else
+                {
+                    hostMenuItem.IsChecked = !hostMenuItem.IsChecked;
+                }
+            }
+        }
+
         private void debugMenuItem_Click(object sender, RoutedEventArgs e)
         {
             /**
