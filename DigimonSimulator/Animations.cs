@@ -48,6 +48,7 @@ namespace DigimonSimulator
         private Sprite[] Dungs;
         public bool IsinAnimation = false;
         public bool powerUpReady = false;
+        public bool isInBattle = false;
         public readonly DispatcherTimer _animationTick = new DispatcherTimer(DispatcherPriority.Send);
         public readonly DispatcherTimer _digimonStateTimer = new DispatcherTimer(DispatcherPriority.Normal);
         public AnimationNo animation = AnimationNo.NoAnimation;
@@ -276,6 +277,7 @@ namespace DigimonSimulator
             powerUpReady = false;
             secondProjectile = null;
             isEvolving = false;
+            isInBattle = false;
         }
 
         private Sprite ZSprite = new Sprite();

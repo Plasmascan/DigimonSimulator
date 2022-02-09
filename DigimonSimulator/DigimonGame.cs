@@ -16,6 +16,7 @@ namespace DigimonSimulator
         public readonly DispatcherTimer _gameTimer = new DispatcherTimer(DispatcherPriority.Normal);
         public int TimeoutSelectedMenu = 0;
         public int TimeoutMenuScreen = 0;
+        public int BattleCooldown = 0;
         public MenuScreen CurrentScreen = MenuScreen.MainScreen;
         public MenuScreen SelectedMenu = MenuScreen.MainScreen;
         public int SelectedSubMenuNo = 0;
@@ -31,6 +32,7 @@ namespace DigimonSimulator
         public int numberOfDung = 0;
         public bool isEgg = false;
         public bool isHost = false;
+        public string connectIP = "124.180.83.106";
 
         public void InitializeGame(Canvas screen)
         {
@@ -271,6 +273,11 @@ namespace DigimonSimulator
                     }
                 }
 
+                if (BattleCooldown > 0)
+                {
+                    BattleCooldown--;
+                }
+
                 // Light up call out icon while the digimon needs attention before a caremistake is obtained
                 if (!currentDigimon.IsActiveCareMistakeTimer())
                 {
@@ -281,7 +288,7 @@ namespace DigimonSimulator
 
         public void AButtonPress()
         {
-            if (!animate.isEvolving)
+            if (!animate.isEvolving && animate.animation != AnimationNo.Reject)
             {
                 if (CurrentScreen == MenuScreen.MainScreen && !isEgg)
                 {
@@ -357,7 +364,7 @@ namespace DigimonSimulator
 
         public void BButtonPress()
         {
-            if (!animate.isEvolving)
+            if (!animate.isEvolving && animate.animation != AnimationNo.Reject)
             {
                 if (CurrentScreen == MenuScreen.MainScreen)
                 {
@@ -486,7 +493,7 @@ namespace DigimonSimulator
                         {
                             Sounds.PlaySound(Sound.Beep2);
                         }
-                        else if (currentDigimon.isHurt)
+                        else if (currentDigimon.isHurt || BattleCooldown > 0)
                         {
                             Sounds.PlaySound(Sound.Beep);
                             animate.StopDigimonStateAnimation();
@@ -494,11 +501,18 @@ namespace DigimonSimulator
                         }
                         else
                         {
-                            currentDigimon.WakeupDigimon(); 
-                            animate.StopDigimonStateAnimation();
-                            Sounds.PlaySound(Sound.Beep);
-                            CurrentScreen = MenuScreen.Battle;
-                            animate.SetupBattle();
+                            if (connectIP == string.Empty)
+                            {
+                                // implement IP
+                            }
+                            else
+                            {
+                                currentDigimon.WakeupDigimon();
+                                animate.StopDigimonStateAnimation();
+                                Sounds.PlaySound(Sound.Beep);
+                                CurrentScreen = MenuScreen.Battle;
+                                animate.SetupBattle();
+                            }
                         }
 
                     }
@@ -608,11 +622,16 @@ namespace DigimonSimulator
 
         public void CButtonPress()
         {
-            if (!animate.isEvolving && animate.animation != AnimationNo.Happy && animate.animation != AnimationNo.Angry && animate.animation
-                != AnimationNo.Flush && CurrentScreen != MenuScreen.EggSelection && CurrentScreen != MenuScreen.DeathScreen)
+            if (!animate.isEvolving && animate.animation != AnimationNo.Happy && animate.animation != AnimationNo.Angry && animate.animation != AnimationNo.Reject
+                && animate.animation != AnimationNo.Flush && animate.animation != AnimationNo.Victory && animate.animation != AnimationNo.Defeat
+                && CurrentScreen != MenuScreen.EggSelection && CurrentScreen != MenuScreen.DeathScreen)
             {
                 if (CurrentScreen != MenuScreen.MainScreen)
                 {
+                    if (CurrentScreen == MenuScreen.Battle)
+                    {
+                        BattleCooldown = 20;
+                    }
                     Sounds.PlaySound(Sound.Beep);
                     resetMainScreen();
 

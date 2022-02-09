@@ -196,10 +196,10 @@ namespace DigimonSimulator
                     try
                     {
                         //TcpClient client = new TcpClient("127.0.0.1", 1402);
-                        client = new TcpClient("124.180.83.106", 1402);
+                        client = new TcpClient(game.connectIP, 1402);
                         
                         // Ensure user is still the client
-                        if (game.isHost || game.CurrentScreen != MenuScreen.Battle)
+                        if (game.isHost || game.CurrentScreen != MenuScreen.Battle || game.animate.isInBattle)
                         {
                             battleFound = false;
                             return;
@@ -297,7 +297,7 @@ namespace DigimonSimulator
                         TcpClient client = listener.AcceptTcpClient();
 
                         // Cancel if user is no longer host
-                        if (!game.isHost || game.CurrentScreen != MenuScreen.Battle)
+                        if (!game.isHost || game.CurrentScreen != MenuScreen.Battle || game.animate.isInBattle)
                         {
                             battleFound = false;
                             return;
@@ -397,14 +397,16 @@ namespace DigimonSimulator
             CloseTCPConnections();
 
             // Ensure user is still on the battlescreen
-            if (game.CurrentScreen == MenuScreen.Battle)
+            if (game.CurrentScreen == MenuScreen.Battle && !game.animate.isInBattle)
             {
                 if (battleFound)
                 {
+                    game.animate.isInBattle = true;
                     game.animate.SetupMultiplayer();
                 }
                 else
                 {
+                    game.animate.isInBattle = true;
                     game.resetMainScreen();
                 }
             }
