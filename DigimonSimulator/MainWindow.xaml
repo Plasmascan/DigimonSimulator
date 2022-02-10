@@ -21,12 +21,12 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="72*"/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="backgroundImage" HorizontalAlignment="Left" Height="292" Margin="12,8,0,0" VerticalAlignment="Top" Width="474" Source="/blueDigiviceLightGreen.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5" MouseDown="backgroundImage_MouseDown">
+        <Image x:Name="backgroundImage" HorizontalAlignment="Left" Height="292" Margin="12,8,0,0" VerticalAlignment="Top" Width="474" Source="/blueDigiviceLightGreen.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5" MouseDown="backgroundImage_MouseDown" ContextMenuOpening="backgroundImage_ContextMenuOpening">
             <Image.ContextMenu>
                 <ContextMenu>
                     <MenuItem x:Name="debugMenuItem" Header="debug" Click="debugMenuItem_Click" />
                     <MenuItem x:Name="pinMenuItem" Header="Always ontop" IsCheckable="True" Click="pinMenuItem_Click" />
-                    <MenuItem x:Name="hostMenuItem" Header="Host" IsCheckable="True" Click="hostMenuItem_Click" />
+                    <MenuItem x:Name="multiplayerOptionsMenuItem" Header="Multiplayer Options" Click="hostMenuItem_Click" />
                     <MenuItem x:Name="lockMenuItem" Header="Lock into place" IsCheckable="True"/>
                     <MenuItem x:Name="minimizeMenuItem" Header="Minimize" Click="minimizeMenuItem_Click" />
                     <MenuItem x:Name="muteUnmuteMenuItem" Header="Mute" Click="muteUnmuteMenuItem_Click">
@@ -45,11 +45,6 @@
         </Image>
 
         <Canvas x:Name="screenCanvas" Margin="77,94,295,133"/>
-        <Button x:Name="aButton" Content="A" HorizontalAlignment="Left" Margin="29,287,0,0" VerticalAlignment="Top" Click="aButton_Click" Width="32" Visibility="Hidden"/>
-        <Button x:Name="bButton" Content="B" HorizontalAlignment="Left" Margin="79,287,0,0" VerticalAlignment="Top" Click="bButton_Click" Width="30" Visibility="Hidden"/>
-        <Button x:Name="cButton" Content="C" HorizontalAlignment="Left" Margin="129,287,0,0" VerticalAlignment="Top" Width="31" Click="cButton_Click" Grid.ColumnSpan="2" Visibility="Hidden"/>
-        <Button x:Name="printButton" Content="Print" HorizontalAlignment="Left" Margin="454,73,0,0" VerticalAlignment="Top" Click="printButton_Click" Width="58" Visibility="Hidden"/>
-        <Button x:Name="pauseButton" Content="Pause" HorizontalAlignment="Left" Margin="454,103,0,0" VerticalAlignment="Top" Height="19" Width="58" Click="pauseButton_Click" Visibility="Hidden"/>
         <Image x:Name="pressedAButtonImage" HorizontalAlignment="Left" Height="36" Margin="367,67,0,0" VerticalAlignment="Top" Width="40" Source="/blueDigiviceButton.png" MouseLeftButtonDown="pressedAButtonImage_MouseLeftButtonDown" MouseLeftButtonUp="pressedAButtonImage_MouseLeftButtonUp" MouseLeave="pressedAButtonImage_MouseLeave" Stretch="None"/>
         <Image x:Name="pressedBButtonImage" HorizontalAlignment="Left" Height="41" Margin="367,129,0,0" VerticalAlignment="Top" Width="44" Source="/blueDigiviceButton.png" MouseLeftButtonDown="pressedBButtonImage_MouseLeftButtonDown" MouseLeftButtonUp="pressedBButtonImage_MouseLeftButtonUp" MouseLeave="pressedBButtonImage_MouseLeave" Stretch="None"/>
         <Image x:Name="pressedCButtonImage" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="44" Source="/blueDigiviceButton.png" MouseLeftButtonDown="pressedCButtonImage_MouseLeftButtonDown" MouseLeftButtonUp="pressedCButtonImage_MouseLeftButtonUp" MouseLeave="pressedCButtonImage_MouseLeave" Margin="367,192,0,0" Stretch="None"/>

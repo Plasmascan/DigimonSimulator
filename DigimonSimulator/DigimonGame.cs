@@ -16,7 +16,6 @@ namespace DigimonSimulator
         public readonly DispatcherTimer _gameTimer = new DispatcherTimer(DispatcherPriority.Normal);
         public int TimeoutSelectedMenu = 0;
         public int TimeoutMenuScreen = 0;
-        //public int BattleCooldown = 0;
         public MenuScreen CurrentScreen = MenuScreen.MainScreen;
         public MenuScreen SelectedMenu = MenuScreen.MainScreen;
         public int SelectedSubMenuNo = 0;
@@ -31,8 +30,10 @@ namespace DigimonSimulator
         public DateTime setTime;
         public int numberOfDung = 0;
         public bool isEgg = false;
-        public bool isHost = false;
+        public bool isHost = true;
         public string connectIP = "124.180.83.106";
+        public int hostPort = 1402;
+        public int connectPort = 1402;
 
         public void InitializeGame(Canvas screen)
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
@@ -199,7 +200,20 @@ namespace DigimonSimulator
                 {
                     try
                     {
-                        client = new TcpClient(game.connectIP, 1402);
+                        // Determine if address is either ipv4 or ipv6
+                        IPAddress iAddr = IPAddress.Parse(game.connectIP);
+                        if (iAddr.AddressFamily == AddressFamily.InterNetworkV6)
+                        {
+                            Debug.WriteLine("ip6");
+                            client = new TcpClient(AddressFamily.InterNetworkV6);
+                            client.Connect(iAddr, game.connectPort);
+                        }
+                        else
+                        {
+                            Debug.WriteLine("ip4");
+                            client = new TcpClient(game.connectIP, game.connectPort);
+                        }
+                        
 
                         // Return if the connection is no longer active
                         if (isPendingCancel)
@@ -282,7 +296,8 @@ namespace DigimonSimulator
 
         public Task Host()
         {
-            listener = new TcpListener(System.Net.IPAddress.Any, 1402);
+            // Listern on port
+            TcpListener listener = TcpListener.Create(game.hostPort);
             listener.Start();
             isHostActive = true;
             int sendcount = 0;

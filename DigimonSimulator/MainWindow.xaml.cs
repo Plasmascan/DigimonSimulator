@@ -33,32 +33,6 @@ namespace DigimonSimulator
             pressedCButtonImage.Opacity = 0;
         }
 
-        private void aButton_Click(object sender, RoutedEventArgs e)
-        {
-            //mainGame.AButtonPress();
-            mainGame.animate.StopDigimonStateAnimation();
-            mainGame.animate._animationTick.Start();
-            mainGame.animate.animation = AnimationNo.Defeat;
-        }
-
-        private void bButton_Click(object sender, RoutedEventArgs e)
-        {
-            //mainGame.BButtonPress();
-            mainGame.animate.Opponent.currenthealth = -1;
-        }
-
-        private void cButton_Click(object sender, RoutedEventArgs e)
-        {
-            //mainGame.CButtonPress();
-            mainGame.currentDigimon.currenthealth = -1;
-        }
-
-        private void printButton_Click(object sender, RoutedEventArgs e)
-        {
-            DrawWindow drawWindow = new DrawWindow();
-            drawWindow.Show();
-        }
-
         private void closeGameMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -93,28 +67,8 @@ namespace DigimonSimulator
 
         private void hostMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            if (hostMenuItem.IsChecked)
-            {
-                if (mainGame.CurrentScreen != MenuScreen.Battle)
-                {
-                    mainGame.isHost = true;
-                }
-                else
-                {
-                    hostMenuItem.IsChecked = !hostMenuItem.IsChecked;
-                }
-            }
-            else
-            {
-                if (mainGame.CurrentScreen != MenuScreen.Battle)
-                {
-                    mainGame.isHost = false;
-                }
-                else
-                {
-                    hostMenuItem.IsChecked = !hostMenuItem.IsChecked;
-                }
-            }
+            MultiplayerOptions multiplayerOptionsWindow = new MultiplayerOptions(mainGame);
+            multiplayerOptionsWindow.Show();
         }
 
         private void debugMenuItem_Click(object sender, RoutedEventArgs e)
@@ -209,20 +163,12 @@ namespace DigimonSimulator
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            aButton.Visibility = Visibility.Visible;
-            bButton.Visibility = Visibility.Visible;
-            cButton.Visibility = Visibility.Visible;
-            pauseButton.Visibility = Visibility.Visible;
-            printButton.Visibility = Visibility.Visible;
+           
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            aButton.Visibility = Visibility.Hidden;
-            bButton.Visibility = Visibility.Hidden;
-            cButton.Visibility = Visibility.Hidden;
-            pauseButton.Visibility = Visibility.Hidden;
-            printButton.Visibility = Visibility.Hidden;
+            
         }
 
         private void backgroundImage_MouseDown(object sender, MouseButtonEventArgs e)
@@ -234,5 +180,17 @@ namespace DigimonSimulator
 
         }
 
+        private void backgroundImage_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            // Ensure user is not already in the battle screen
+            if (mainGame.CurrentScreen == MenuScreen.Battle)
+            {
+                multiplayerOptionsMenuItem.IsEnabled = false;
+            }
+            else
+            {
+                multiplayerOptionsMenuItem.IsEnabled = true;
+            }
+        }
     }
 }
