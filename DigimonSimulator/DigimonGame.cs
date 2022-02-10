@@ -16,7 +16,7 @@ namespace DigimonSimulator
         public readonly DispatcherTimer _gameTimer = new DispatcherTimer(DispatcherPriority.Normal);
         public int TimeoutSelectedMenu = 0;
         public int TimeoutMenuScreen = 0;
-        public int BattleCooldown = 0;
+        //public int BattleCooldown = 0;
         public MenuScreen CurrentScreen = MenuScreen.MainScreen;
         public MenuScreen SelectedMenu = MenuScreen.MainScreen;
         public int SelectedSubMenuNo = 0;
@@ -273,10 +273,7 @@ namespace DigimonSimulator
                     }
                 }
 
-                if (BattleCooldown > 0)
-                {
-                    BattleCooldown--;
-                }
+                
 
                 // Light up call out icon while the digimon needs attention before a caremistake is obtained
                 if (!currentDigimon.IsActiveCareMistakeTimer())
@@ -493,7 +490,7 @@ namespace DigimonSimulator
                         {
                             Sounds.PlaySound(Sound.Beep2);
                         }
-                        else if (currentDigimon.isHurt || BattleCooldown > 0)
+                        else if (currentDigimon.isHurt || animate.battleLogic.isPendingCancel)
                         {
                             Sounds.PlaySound(Sound.Beep);
                             animate.StopDigimonStateAnimation();
@@ -511,7 +508,7 @@ namespace DigimonSimulator
                                 animate.StopDigimonStateAnimation();
                                 Sounds.PlaySound(Sound.Beep);
                                 CurrentScreen = MenuScreen.Battle;
-                                animate.SetupBattle();
+                                animate.SetupConnect();
                             }
                         }
 
@@ -628,13 +625,8 @@ namespace DigimonSimulator
             {
                 if (CurrentScreen != MenuScreen.MainScreen)
                 {
-                    if (CurrentScreen == MenuScreen.Battle)
-                    {
-                        BattleCooldown = 20;
-                    }
                     Sounds.PlaySound(Sound.Beep);
                     resetMainScreen();
-
                 }
                 else if (CurrentScreen == MenuScreen.MainScreen && SelectedMenu != MenuScreen.MainScreen)
                 {
@@ -655,11 +647,17 @@ namespace DigimonSimulator
             TimeoutSelectedMenu = 0;
             TimeoutMenuScreen = 0;
             animate.ResetAnimations();
-            if (animate.Battle != null)
+
+            if (animate.battleLogic.isConnecting)
             {
-                animate.Battle.isHostActive = false;
-                animate.Battle.CloseTCPConnections();
-                animate.Battle.battleFound = false;
+                animate.battleLogic.isPendingCancel = true;
+            }
+
+            if (animate.battleLogic.isHostActive)
+            {
+                animate.battleLogic.isHostActive = false;
+                animate.battleLogic.CloseTCPConnections();
+                animate.battleLogic.battleFound = false;
             }
         }
 

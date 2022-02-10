@@ -28,6 +28,8 @@ namespace DigimonSimulator
         public BattleTurn[] turns;
         public TcpListener listener;
         public TcpClient client;
+        public bool isPendingCancel = false;
+        public bool isConnecting = false;
 
         public BattleLogic(DigimonGame game)
         {
@@ -124,6 +126,12 @@ namespace DigimonSimulator
             return code;
         }
 
+        public void ResetTurns()
+        {
+            Array.Clear(turns, 0, turns.Length);
+            turnIndex = 0;
+        }
+
         public void DecodeBattleCode(string code)
         {
             int stringIndex = 0;
@@ -138,28 +146,22 @@ namespace DigimonSimulator
                 charToString = code[stringIndex].ToString();
                 StringToInt = Int32.Parse(charToString);
                 result = Convert.ToBoolean(StringToInt);
-                //turns[turnIndexC].isHit = result;
                 battleTurn.isHit = result;
-                Debug.WriteLine(charToString);
                 stringIndex += 2;
 
 
                 charToString = code[stringIndex].ToString();
                 StringToInt = Int32.Parse(charToString);
                 result = Convert.ToBoolean(StringToInt);
-                //turns[turnIndexC].isDoubleShot = result;
                 battleTurn.isDoubleShot = result;
-                Debug.WriteLine(charToString);
                 stringIndex += 2;
 
 
                 charToString = code[stringIndex].ToString();
                 StringToInt = Int32.Parse(charToString);
                 result = Convert.ToBoolean(StringToInt);
-                //turns[turnIndexC].isBattleEnded = result;
                 battleTurn.isBattleEnded = result;
                 turns[turnIndexC] = battleTurn;
-                Debug.WriteLine(charToString);
                 stringIndex += 2;
                 turnIndexC++;
             }
@@ -185,40 +187,37 @@ namespace DigimonSimulator
         NetworkStream stream;
         public Task Connect()
         {
-            bool end = false;
+            bool isEnded = false;
             int counter = 0;
             int sendCount = 0;
             int digimonID = (int)currentDigimon.digimonID;
+            isConnecting = true;
+            string dataToSend;
             return Task.Factory.StartNew(() =>
             {
-                while (!end)
+                while (!isEnded)
                 {
                     try
                     {
-                        //TcpClient client = new TcpClient("127.0.0.1", 1402);
                         client = new TcpClient(game.connectIP, 1402);
-                        
-                        // Ensure user is still the client
-                        if (game.isHost || game.CurrentScreen != MenuScreen.Battle || game.animate.isInBattle)
+
+                        // Return if the connection is no longer active
+                        if (isPendingCancel)
                         {
                             battleFound = false;
                             return;
                         }
 
-                        int digimonId;
-                        string dataToSend;
+                        // Send digimon Id to client
                         if (sendCount == 0)
                         {
                             dataToSend = digimonID.ToString();
                         }
+
+                        // Final message
                         else if (sendCount == 1)
                         {
-                            dataToSend = "test send from connect 2";
-                        }
-
-                        else if (sendCount == 2)
-                        {
-                            dataToSend = "test send from connect 3";
+                            dataToSend = "Ready";
                         }
 
                         else
@@ -226,6 +225,7 @@ namespace DigimonSimulator
                             return;
                         }
 
+                        // Get byte count and convert string into a byte array
                         int byteCount = Encoding.ASCII.GetByteCount(dataToSend + 1);
                         byte[] sendData = new byte[byteCount];
                         sendData = Encoding.ASCII.GetBytes(dataToSend);
@@ -238,30 +238,34 @@ namespace DigimonSimulator
                         StreamReader sr = new StreamReader(stream);
                         string response = sr.ReadLine();
                         Debug.WriteLine(response);
+
+                        // Recieve opponent's digimon id from host
                         if (sendCount == 0)
                         {
                             game.animate.Opponent = new Digimon(game, (DigimonId)Int32.Parse(response));
-                            //Debug.WriteLine(opponentDigimon.digimonID.ToString());
-                            Debug.WriteLine(response);
                         }
 
+                        // Data recieved, return and start battle
                         if (sendCount == 1)
                         {
                             DecodeBattleCode(response);
                             battleFound = true;
-                            end = true;
-                            Debug.WriteLine(response);
-                            return; //added
+                            isEnded = true;
+                            return;
                         }
-                        sendCount++;
+
+                        if (response != null)
+                        {
+                            sendCount++;
+                        }
                     }
                     catch (Exception e)
                     {
                         Debug.WriteLine("failed");
                         counter++;
 
-                        // Ensure user is still the client
-                        if (counter == 15 || sendCount > 0 || game.isHost || game.CurrentScreen != MenuScreen.Battle)
+                        // Ensure the client is still active, timeout after 15 tries or if an exception is thrown after already recieving data
+                        if (counter == 15 || sendCount > 0 || isPendingCancel)
                         {
                             battleFound = false;
                             return;
@@ -296,7 +300,7 @@ namespace DigimonSimulator
                         Debug.WriteLine("waiting");
                         TcpClient client = listener.AcceptTcpClient();
 
-                        // Cancel if user is no longer host
+                        // Cancel if user is no longer host or the user has left the battle start screen
                         if (!game.isHost || game.CurrentScreen != MenuScreen.Battle || game.animate.isInBattle)
                         {
                             battleFound = false;
@@ -308,6 +312,7 @@ namespace DigimonSimulator
                         StreamReader sr = new StreamReader(client.GetStream());
                         StreamWriter sw = new StreamWriter(client.GetStream());
 
+                        // Caculate how many bytes used
                         byte[] buffer = new byte[1024];
                         stream.Read(buffer, 0, buffer.Length);
                         int recv = 0;
@@ -318,6 +323,8 @@ namespace DigimonSimulator
                                 recv++;
                             }
                         }
+
+                        // Convert used bytes in buffer to string
                         string request = Encoding.UTF8.GetString(buffer, 0, recv);
                         Debug.WriteLine("request recieved:" + request);
 
@@ -325,7 +332,6 @@ namespace DigimonSimulator
                         {
                             dataToSend = digimonID.ToString();
                             game.animate.Opponent = new Digimon(game, (DigimonId)Int32.Parse(request));
-                            Debug.WriteLine(request);
                         }
 
                         else if (sendcount == 1)
@@ -333,12 +339,6 @@ namespace DigimonSimulator
                             GenerateBattle();
                             dataToSend = GenerateBattleCode();
                             battleFound = true;
-                            Debug.WriteLine(request);
-                        }
-
-                        else if (sendcount == 2)
-                        {
-                            dataToSend = "host 3";
                         }
 
                         else
@@ -349,17 +349,24 @@ namespace DigimonSimulator
                         sw.WriteLine(dataToSend);
                         sw.Flush();
 
+                        // Finished recieving data
                         if (sendcount == 1)
                         {
                             return;
                         }
-                        sendcount++;
+
+                        if (request != null)
+                        {
+                            sendcount++;
+                        }
+
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine("failed");
-                        // Cancel if user is no longer host
-                        if (!game.isHost || game.CurrentScreen != MenuScreen.Battle)
+
+                        // Cancel if user is no longer on the battle screen
+                        if (!game.isHost || game.CurrentScreen != MenuScreen.Battle || sendcount > 0)
                         {
                             battleFound = false;
                             return;
@@ -374,6 +381,8 @@ namespace DigimonSimulator
             await Connect();
             Debug.WriteLine("connect done");
             CloseTCPConnections();
+            isConnecting = false;
+            isPendingCancel = false;
 
             // Ensure user is still on the battlescreen
             if (game.CurrentScreen == MenuScreen.Battle)
