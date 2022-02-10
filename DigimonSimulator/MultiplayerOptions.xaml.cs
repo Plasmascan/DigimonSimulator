@@ -47,9 +47,19 @@ namespace DigimonSimulator
                 connectCodeTextBox.Text = SymmetricKeyEncryptionDecryption.EncryptString(keyString, game.connectIP + "port:" + game.connectPort);
             }
 
-            externalIP = new WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
-            string externalIpString = SymmetricKeyEncryptionDecryption.EncryptString(keyString, externalIP + "port:" +  game.hostPort);
-            userCodeTextBox.Text = externalIpString;
+            try
+            {
+                externalIP = new WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
+                string externalIpString = SymmetricKeyEncryptionDecryption.EncryptString(keyString, externalIP + "port:" + game.hostPort);
+                userCodeTextBox.Text = externalIpString;
+            }
+            catch
+            {
+                externalIP = string.Empty;
+                userCodeTextBox.Text = "Can't resolve IP";
+                copyButton.IsEnabled = false;
+            }
+            
             portTextBox.Text = game.hostPort.ToString();
 
         }
@@ -102,6 +112,7 @@ namespace DigimonSimulator
                 catch
                 {
                     MessageBox.Show("Invalid Port", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
             }
             else
@@ -207,7 +218,10 @@ namespace DigimonSimulator
 
         private void portTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            userCodeTextBox.Text = SymmetricKeyEncryptionDecryption.EncryptString(keyString, externalIP + "port:" + portTextBox.Text);
+            if (externalIP != string.Empty)
+            {
+                userCodeTextBox.Text = SymmetricKeyEncryptionDecryption.EncryptString(keyString, externalIP + "port:" + portTextBox.Text);
+            }
         }
 
         private void copyButton_Click(object sender, RoutedEventArgs e)
