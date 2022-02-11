@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Open.Nat;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -22,13 +25,22 @@ namespace DigimonSimulator
     {
         DigimonGame game;
         static string keyString = "b14cahszi24e413hsz4e2ea2315ag4s3";
-        static string externalIP;
+        static string externalIP = "";
+        bool isResolveIpInProgress = false;
+        bool isMapPortInProgress = false;
 
         public MultiplayerOptions(DigimonGame game)
         {
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.game = game;
             InitializeComponent();
+            userCodeTextBox.Text = "Obtaining Code...";
+            applyHostOButton.IsEnabled = false;
+            ipAddressLabel.IsEnabled = false;
+            ipAddressTextBox.IsEnabled = false;
+            ipAddressPortLabel.IsEnabled = false;
+            ipAddressPortTextBox.IsEnabled = false;
+
             if (game.isHost)
             {
                 hostCheckBox.IsChecked = true;
@@ -47,21 +59,90 @@ namespace DigimonSimulator
                 connectCodeTextBox.Text = SymmetricKeyEncryptionDecryption.EncryptString(keyString, game.connectIP + "port:" + game.connectPort);
             }
 
+            //try
+            //{
+            //    externalIP = new WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
+            //    string externalIpString = SymmetricKeyEncryptionDecryption.EncryptString(keyString, externalIP + "port:" + game.hostPort);
+            //    userCodeTextBox.Text = externalIpString;
+            //}
+            //catch
+            //{
+            //    externalIP = string.Empty;
+            //    userCodeTextBox.Text = "Can't resolve IP";
+            //    copyButton.IsEnabled = false;
+            //}
+
+            
+            //userCodeTextBox.Text = game.externalIP;
+
+            GetExternalIP();
+            CreatePortMapping(game.hostPort);
+
+            
+            portTextBox.Text = game.hostPort.ToString();
+        }
+
+        public async void GetExternalIP()
+        {
             try
             {
-                externalIP = new WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
+                isResolveIpInProgress = true;
+                var discoverer = new NatDiscoverer();
+                var device = await discoverer.DiscoverDeviceAsync();
+                var ip = await device.GetExternalIPAsync();
+                externalIP = ip.ToString();
                 string externalIpString = SymmetricKeyEncryptionDecryption.EncryptString(keyString, externalIP + "port:" + game.hostPort);
+                Debug.WriteLine(externalIP + "port:" + game.hostPort);
                 userCodeTextBox.Text = externalIpString;
             }
             catch
             {
+                userCodeTextBox.Text = "Can't resolve IP, The game will still be hosted over the local network.";
                 externalIP = string.Empty;
-                userCodeTextBox.Text = "Can't resolve IP";
-                copyButton.IsEnabled = false;
             }
-            
-            portTextBox.Text = game.hostPort.ToString();
+            isResolveIpInProgress = false;
 
+            if (isMapPortInProgress == false)
+            {
+                applyHostOButton.IsEnabled = true;
+                portTextBox.IsEnabled = true;
+            }
+        }
+
+        public async void CreatePortMapping(int portNumber)
+        {
+            isMapPortInProgress = true;
+            try
+            {
+                var discoverer = new NatDiscoverer();
+                var cts = new CancellationTokenSource(10000);
+                var device = await discoverer.DiscoverDeviceAsync(PortMapper.Upnp, cts);
+
+                // Check to see if port is already mapped
+                Mapping returnedMap = await device.GetSpecificMappingAsync(Protocol.Tcp, portNumber);
+                if (returnedMap == null)
+                {
+                    await device.CreatePortMapAsync(new Mapping(Protocol.Tcp, portNumber, portNumber, 600000, "Digimon Simulator"));
+                }
+                else
+                {
+                    Debug.WriteLine(returnedMap.Expiration);
+                }
+            }
+            catch
+            {
+                if (externalIP != string.Empty)
+                {
+                    MessageBox.Show("Failed to map port, Required port forwarding if playing online.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            isMapPortInProgress = false;
+
+            if (isResolveIpInProgress == false)
+            {
+                applyHostOButton.IsEnabled = true;
+                portTextBox.IsEnabled = true;
+            }
         }
 
         private void hostCheckBox_Click(object sender, RoutedEventArgs e)
@@ -104,16 +185,6 @@ namespace DigimonSimulator
             if (hostCheckBox.IsChecked == true)
             {
                 game.isHost = true;
-                try
-                {
-                    int newPort = Convert.ToInt32(portTextBox.Text.ToString());
-                    game.hostPort = newPort;
-                }
-                catch
-                {
-                    MessageBox.Show("Invalid Port", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
             }
             else
             {
@@ -123,13 +194,13 @@ namespace DigimonSimulator
                 string connectionIP = game.connectIP;
                 int connectionPort = game.connectPort;
 
-                if (connectCodeTextBox.Text.ToString() != string.Empty)
+                if (connectCodeTextBox.Text.ToString() != string.Empty && IpConnectCheckBox.IsChecked == false)
                 {
 
                     try
                     {
                         string decode = SymmetricKeyEncryptionDecryption.DecryptString(keyString, connectCodeTextBox.Text.ToString());
-
+                        Debug.WriteLine(decode);
                         // Find index of port and set as connection port
                         int portIndex = decode.IndexOf("port:");
                         string port = "";
@@ -152,9 +223,36 @@ namespace DigimonSimulator
                     }
                     catch
                     {
-                        MessageBox.Show("Invalid Code", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Invalid Code.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         game.connectIP = connectionIP;
                         game.connectPort = connectionPort;
+                        return;
+                    }
+                }
+                else if (connectCodeTextBox.Text.ToString() != string.Empty && IpConnectCheckBox.IsChecked == true)
+                {
+                    try
+                    {
+                        IPAddress address;
+                        int port;
+                        bool isValidIP = false;
+                        bool isValidPort = false;
+                        port = Convert.ToInt32(ipAddressPortTextBox.Text.ToString());
+                        isValidIP = IPAddress.TryParse(ipAddressTextBox.Text.ToString(), out address);
+                        if (port > -1 && port < 65535)
+                        {
+                            isValidPort = true;
+                        }
+
+                        if (isValidIP && isValidPort)
+                        {
+                            game.connectIP = ipAddressTextBox.Text.ToString();
+                            game.connectPort = port;
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Invalid IP Address or port.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                 }
@@ -185,25 +283,29 @@ namespace DigimonSimulator
 
         private void portTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
+            validatePortInput(e, portTextBox);
+        }
+
+        private void validatePortInput(TextCompositionEventArgs e, TextBox textbox)
+        {
             Regex regex = new Regex("[^0-9]+");
             int result;
             bool isNumber = int.TryParse(e.Text, out result);
             e.Handled = regex.IsMatch(e.Text);
 
-            if (portTextBox.Text.ToString() != string.Empty && isNumber)
+            if (textbox.Text.ToString() != string.Empty && isNumber)
             {
-                string text = portTextBox.Text.ToString();
-                string fullText = portTextBox.Text.ToString() + e.Text;
+                string text = textbox.Text.ToString();
+                string fullText = textbox.Text.ToString() + e.Text;
                 int textToInt = Convert.ToInt32(fullText);
                 if (textToInt > 65535)
                 {
-                    portTextBox.Text = "65535";
-                    portTextBox.SelectionStart = portTextBox.Text.Length;
+                    textbox.Text = "65535";
+                    textbox.SelectionStart = textbox.Text.Length;
                     e.Handled = true;
                 }
             }
-
-        }
+        } 
 
         private void portTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -224,9 +326,83 @@ namespace DigimonSimulator
             }
         }
 
+        private bool setPort(string port, bool isHostPort)
+        {
+            try
+            {
+                int newPort = Convert.ToInt32(port);
+                if (newPort > 65535 || newPort < 1)
+                {
+                    throw new Exception();
+                }
+                if (isHostPort)
+                {
+                    game.hostPort = newPort;
+                }
+                else
+                {
+                    game.connectPort = newPort;
+                }
+                return true;
+            }
+            catch
+            {
+                MessageBox.Show("Invalid Port.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
         private void copyButton_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(userCodeTextBox.Text.ToString());
+        }
+
+        private void applyHostOButton_Click(object sender, RoutedEventArgs e)
+        {
+            applyHostOButton.IsEnabled = false;
+            portTextBox.IsEnabled = false;
+            userCodeTextBox.Text = "Refreshing...";
+            GetExternalIP();
+            bool isValidPort = setPort(portTextBox.Text.ToString(), true);
+            if (isValidPort)
+            {
+                CreatePortMapping(game.hostPort);
+            }
+        }
+
+        private void showLocalCodeCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            if (IpConnectCheckBox.IsChecked == true)
+            {
+                hostscodeLabel.IsEnabled = false;
+                connectCodeTextBox.IsEnabled = false;
+                pasteButton.IsEnabled = false;
+                ipAddressLabel.IsEnabled = true;
+                ipAddressTextBox.IsEnabled = true;
+                ipAddressPortLabel.IsEnabled = true;
+                ipAddressPortTextBox.IsEnabled = true;
+            }
+            else
+            {
+                hostscodeLabel.IsEnabled = true;
+                connectCodeTextBox.IsEnabled = true;
+                pasteButton.IsEnabled = true;
+                ipAddressLabel.IsEnabled = false;
+                ipAddressTextBox.IsEnabled = false;
+                ipAddressPortLabel.IsEnabled = false;
+                ipAddressPortTextBox.IsEnabled = false;
+            }
+        }
+
+        private void ipAddressPortTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            validatePortInput(e, ipAddressPortTextBox);
+        }
+
+        private void ipAddressTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9/.]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

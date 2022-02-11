@@ -35,7 +35,7 @@ namespace DigimonSimulator
 
         private void closeGameMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            Environment.Exit(0);
         }
 
         private void muteUnmuteMenuItem_Click(object sender, RoutedEventArgs e)
@@ -76,6 +76,8 @@ namespace DigimonSimulator
    
             DrawWindow drawWindow = new DrawWindow();
             drawWindow.Show();
+
+            Debug.WriteLine("port: " + mainGame.hostPort + " connect ip: " + mainGame.connectIP + " connect port: " + mainGame.connectPort + " host port: " + mainGame.hostPort);
             
             if (mainGame.currentDigimon != null)
             {   

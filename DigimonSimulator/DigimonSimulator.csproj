@@ -28,6 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Open.Nat" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="bandage.png" />
     <Resource Include="battle.png" />
     <Resource Include="battleCup.png" />

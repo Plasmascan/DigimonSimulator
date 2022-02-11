@@ -32,8 +32,9 @@ namespace DigimonSimulator
         public bool isEgg = false;
         public bool isHost = true;
         public string connectIP = "124.180.83.106";
-        public int hostPort = 1402;
-        public int connectPort = 1402;
+        //public int hostPort = 13453;
+        public int hostPort = 13453;
+        public int connectPort = 13453;
 
         public void InitializeGame(Canvas screen)
         {
@@ -664,6 +665,7 @@ namespace DigimonSimulator
                 animate.battleLogic.battleFound = false;
             }
         }
+
 
     }
 }

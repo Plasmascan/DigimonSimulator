@@ -5,14 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DigimonSimulator"
         mc:Ignorable="d"
-        Title="Multiplayer Setup" Height="517" Width="547" ResizeMode="NoResize">
-    <Grid Margin="0,0,0,0">
+        Title="Multiplayer Setup" Height="559" Width="547" ResizeMode="NoResize">
+    <Grid Margin="0,0,0,-0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="325*"/>
+            <RowDefinition Height="176*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="171*"/>
             <ColumnDefinition Width="376*"/>
         </Grid.ColumnDefinitions>
 
-        <GroupBox x:Name="hostGroupBox" Header="       Host" Margin="60,45,88,270" Grid.ColumnSpan="2">
+        <GroupBox x:Name="hostGroupBox" Header="       Host" Margin="60,45,88,124" Grid.ColumnSpan="2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="108*"/>
@@ -24,27 +28,34 @@
                 </Button>
                 <Label Content="Port:" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top"/>
                 <TextBox x:Name="portTextBox" HorizontalAlignment="Left" Margin="92,14,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" PreviewTextInput="portTextBox_PreviewTextInput" PreviewKeyDown="portTextBox_PreviewKeyDown" TextChanged="portTextBox_TextChanged"/>
-                <TextBox x:Name="userCodeTextBox" HorizontalAlignment="Left" Margin="92,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="243" Grid.ColumnSpan="2" Height="56" IsReadOnly="True"/>
+                <TextBox x:Name="userCodeTextBox" HorizontalAlignment="Left" Margin="92,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="243" Grid.ColumnSpan="2" Height="56" />
+                <Button x:Name="applyHostOButton" Content="Apply" Grid.Column="1" Margin="172,0,0,0" Height="24" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="56" Click="applyHostOButton_Click"/>
+
             </Grid>
         </GroupBox>
 
-        <GroupBox x:Name="ConnectGroupBox" Header="       Connect" Margin="60,248,86,92" Grid.ColumnSpan="2">
+        <GroupBox x:Name="ConnectGroupBox" Header="       Connect" Margin="60,248,86,73" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="108*"/>
                     <ColumnDefinition Width="281*"/>
                 </Grid.ColumnDefinitions>
                 <TextBox x:Name="connectCodeTextBox" HorizontalAlignment="Left" Margin="96,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="243" Grid.ColumnSpan="2" TextChanged="connectCodeTextBox_TextChanged" Height="50"/>
-                <Label Content="Host's Code:" HorizontalAlignment="Center" Height="35" VerticalAlignment="Top" Width="86"  Margin="0,8,0,0"/>
+                <Label x:Name="hostscodeLabel" Content="Host's Code:" HorizontalAlignment="Center" Height="35" VerticalAlignment="Top" Width="86"  Margin="0,8,0,0"/>
                 <Button x:Name="pasteButton"  HorizontalAlignment="Left" Margin="236,12,0,0" VerticalAlignment="Top" Width="19" Click="pasteButton_Click" Height="19" Grid.Column="1">
                     <Image Source="/pasteImage.png"></Image>
                 </Button>
+                <CheckBox x:Name="IpConnectCheckBox" Content="Use IP" HorizontalAlignment="Center" Margin="0,87,0,0" VerticalAlignment="Top" Width="88" Click="showLocalCodeCheckBox_Click" Height="41"/>
+                <TextBox x:Name="ipAddressTextBox" HorizontalAlignment="Left" Margin="93,114,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" PreviewTextInput="ipAddressTextBox_PreviewTextInput"/>
+                <Label x:Name="ipAddressLabel" Content="IP Address:" HorizontalAlignment="Left" Margin="11,110,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="ipAddressPortTextBox" HorizontalAlignment="Left" Margin="93,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" PreviewTextInput="ipAddressPortTextBox_PreviewTextInput"/>
+                <Label x:Name="ipAddressPortLabel" Content="Port:" HorizontalAlignment="Left" Margin="45,141,0,0" VerticalAlignment="Top"/>
 
             </Grid>
         </GroupBox>
         <CheckBox x:Name="hostCheckBox" Content="" HorizontalAlignment="Left" Margin="69,47,0,0" VerticalAlignment="Top" Click="hostCheckBox_Click" Width="68"/>
         <CheckBox x:Name="connectCheckBox" Content="" HorizontalAlignment="Left" Margin="69,251,0,0" VerticalAlignment="Top" Click="connectCheckBox_Click" Width="68"/>
-        <Button x:Name="okButton" Content="Ok" HorizontalAlignment="Left" Margin="124,427,0,10" Width="90" Height="32" Click="okButton_Click" Grid.Column="1" VerticalAlignment="Top"/>
-        <Button x:Name="cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="231,427,0,10" Width="90" Height="32" Click="cancelButton_Click" Grid.Column="1" VerticalAlignment="Top"/>
+        <Button x:Name="okButton" Content="Ok" HorizontalAlignment="Left" Margin="128,135,0,0" Width="90" Height="32" Click="okButton_Click" Grid.Column="1" VerticalAlignment="Top" Grid.Row="1"/>
+        <Button x:Name="cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="235,135,0,0" Width="90" Height="32" Click="cancelButton_Click" Grid.Column="1" VerticalAlignment="Top" Grid.Row="1"/>
     </Grid>
 </Window>
