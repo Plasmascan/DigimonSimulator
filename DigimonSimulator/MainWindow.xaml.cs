@@ -73,27 +73,23 @@ namespace DigimonSimulator
 
         private void debugMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            /**
-            mainGame.animate.StopDigimonStateAnimation();
-            Digimon testDigimon = new Digimon(mainGame, DigimonId.Greymon);
-            mainGame.animate.setupDigivolve(testDigimon);
-            **/
-
-
+   
             DrawWindow drawWindow = new DrawWindow();
             drawWindow.Show();
-
-            //mainGame.currentDigimon.HurtDigimon();
-            //mainGame.resetMainScreen();
             
             if (mainGame.currentDigimon != null)
-            {
-                mainGame.currentDigimon.HurtDigimon();
+            {   
+                //mainGame.currentDigimon.HurtDigimon();
                 Debug.WriteLine("Care mistakes: " + mainGame.currentDigimon.careMistakes + " overfeed: " + mainGame.currentDigimon.timesOverfed + 
                     "\ncurrent hunger: " + mainGame.currentDigimon.currentHunger + " needed: " + mainGame.currentDigimon.maxHunger / 4 * 3);
-                //mainGame.currentDigimon.KillDigimon();
+                if (mainGame.currentDigimon.canDigivolve)
+                {
+                    mainGame.animate.StopDigimonStateAnimation();
+                    mainGame.currentDigimon.Digivolve();
+                }
             }
-            //mainGame.currentDigimon.WakeupDigimon();
+
+            
         }
 
         private void minimizeMenuItem_Click(object sender, RoutedEventArgs e)

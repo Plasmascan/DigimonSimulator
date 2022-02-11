@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace DigimonSimulator
 {
@@ -22,8 +23,6 @@ namespace DigimonSimulator
         private const int MAXTURNS = 10;
         public int turnIndex;
         Random rnd = new Random();
-        public Digimon currentDigimon;
-        public Digimon opponentDigimon;
         DigimonGame game;
         public bool isCurrentDigimonsTurn;
         public BattleTurn[] turns;
@@ -35,7 +34,6 @@ namespace DigimonSimulator
         public BattleLogic(DigimonGame game)
         {
             this.game = game;
-            currentDigimon = game.currentDigimon;
             turns = new BattleTurn[MAXTURNS];
             turnIndex = 0;
             isCurrentDigimonsTurn = true;
@@ -54,11 +52,11 @@ namespace DigimonSimulator
                 // Select digimon's turn
                 if (isCurrentDigimonsTurn)
                 {
-                    digimonsTurn = currentDigimon;
+                    digimonsTurn = game.currentDigimon;
                 }
                 else
                 {
-                    digimonsTurn = opponentDigimon;
+                    digimonsTurn = game.animate.Opponent;
                 }
 
                 hitChance = rnd.Next(1, 100);
@@ -191,7 +189,7 @@ namespace DigimonSimulator
             bool isEnded = false;
             int counter = 0;
             int sendCount = 0;
-            int digimonID = (int)currentDigimon.digimonID;
+            int digimonID = (int)game.currentDigimon.digimonID;
             isConnecting = true;
             string dataToSend;
             return Task.Factory.StartNew(() =>
@@ -297,12 +295,20 @@ namespace DigimonSimulator
         public Task Host()
         {
             // Listern on port
-            TcpListener listener = TcpListener.Create(game.hostPort);
-            listener.Start();
+            try
+            {
+                listener = TcpListener.Create(game.hostPort);
+                listener.Start();
+            }
+            catch
+            {
+                MessageBox.Show("Failed to open port: " + game.hostPort, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return Task.CompletedTask;
+            }
             isHostActive = true;
             int sendcount = 0;
             string dataToSend;
-            int digimonID = (int)currentDigimon.digimonID;
+            int digimonID = (int)game.currentDigimon.digimonID;
 
             return Task.Factory.StartNew(() =>
             {

@@ -39,11 +39,11 @@ namespace DigimonSimulator
         {
             pixelScreen = new PixelScreen(screen, 0, 20, 16, 32, 4);
             pixelScreen.SetupScreen();
-            currentDigimon = new Digimon(this, DigimonId.Devimon);
+            //currentDigimon = new Digimon(this, DigimonId.Devimon);
             animate = new Animations(this);
-            animate.StartDigimonStateAnimation();
+            //animate.StartDigimonStateAnimation();
             setTime = DateTime.Now;
-            //SelectEgg();
+            SelectEgg();
             setTimer();
         }
 
@@ -72,6 +72,9 @@ namespace DigimonSimulator
                 gameElapsedHours = gameElapsedMinutes / 60;
                 currentDigimon.totalTimeAlive++;
                 setTime = setTime.AddSeconds(1);
+
+                //Debug.WriteLine("hunger timer: " + currentDigimon.hungerCareMistakeTimer + "  strength Timer: " + currentDigimon.strengthCareMistakeTimer + "   " +
+                //    "hurt Timer: " + currentDigimon.hurtCareMistakeTimer);
 
                 // Force digimon to sleep
 
