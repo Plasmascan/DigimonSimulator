@@ -166,7 +166,7 @@ namespace DigimonSimulator
 
         public static void DrawDeathScreen(DigimonGame game)
         {
-            game.resetMainScreen();
+            game.ResetMainScreen();
             game.SelectedMenu = MenuScreen.MainScreen;
             game.pixelScreen.TurnOffAllIcons();
             game.pixelScreen.TurnOffNotificationIcon();

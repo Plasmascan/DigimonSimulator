@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DigimonSimulator"
         mc:Ignorable="d"
-        Title="Multiplayer Setup" Height="559" Width="547" ResizeMode="NoResize">
+        Title="Multiplayer Setup" Height="559" Width="547" ResizeMode="NoResize" Closed="Window_Closed">
     <Grid Margin="0,0,0,-0">
         <Grid.RowDefinitions>
             <RowDefinition Height="325*"/>

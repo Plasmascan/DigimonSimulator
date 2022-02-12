@@ -67,8 +67,7 @@ namespace DigimonSimulator
 
         private void hostMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MultiplayerOptions multiplayerOptionsWindow = new MultiplayerOptions(mainGame);
-            multiplayerOptionsWindow.Show();
+            mainGame.OpenMultiplayerOptions();
         }
 
         private void debugMenuItem_Click(object sender, RoutedEventArgs e)
@@ -78,6 +77,9 @@ namespace DigimonSimulator
             drawWindow.Show();
 
             Debug.WriteLine("port: " + mainGame.hostPort + " connect ip: " + mainGame.connectIP + " connect port: " + mainGame.connectPort + " host port: " + mainGame.hostPort);
+
+            string test = "send1:9";
+            Debug.WriteLine(test.IndexOf("send2"));
             
             if (mainGame.currentDigimon != null)
             {   

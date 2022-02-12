@@ -187,6 +187,7 @@ namespace DigimonSimulator
         public Task Connect()
         {
             bool isEnded = false;
+            battleFound = false;
             int counter = 0;
             int sendCount = 0;
             int digimonID = (int)game.currentDigimon.digimonID;
@@ -223,7 +224,7 @@ namespace DigimonSimulator
                         // Send digimon Id to client
                         if (sendCount == 0)
                         {
-                            dataToSend = digimonID.ToString();
+                            dataToSend = "Send1:" + digimonID.ToString();
                         }
 
                         // Final message
@@ -252,24 +253,31 @@ namespace DigimonSimulator
                         Debug.WriteLine(response);
 
                         // Recieve opponent's digimon id from host
-                        if (sendCount == 0)
+                        if (response.IndexOf("Send1:") != -1)
                         {
+                            response = response.Remove(0, 6);
+                            Debug.WriteLine(response);
                             game.animate.Opponent = new Digimon(game, (DigimonId)Int32.Parse(response));
+                            sendCount = 1;
                         }
 
                         // Data recieved, return and start battle
-                        if (sendCount == 1)
+                        else if (response.IndexOf("Send2:") != -1)
                         {
+                            response = response.Remove(0, 6);
+                            Debug.WriteLine(response);
                             DecodeBattleCode(response);
                             battleFound = true;
                             isEnded = true;
                             return;
                         }
 
-                        if (response != null)
+                        else
                         {
-                            sendCount++;
+                            sendCount = 0;
                         }
+
+                        
                     }
                     catch (Exception e)
                     {
@@ -306,6 +314,7 @@ namespace DigimonSimulator
                 return Task.CompletedTask;
             }
             isHostActive = true;
+            battleFound = false;
             int sendcount = 0;
             string dataToSend;
             int digimonID = (int)game.currentDigimon.digimonID;
@@ -349,16 +358,18 @@ namespace DigimonSimulator
                         string request = Encoding.UTF8.GetString(buffer, 0, recv);
                         Debug.WriteLine("request recieved:" + request);
 
-                        if (sendcount == 0)
+                        if (request.IndexOf("Send1:") != -1)
                         {
-                            dataToSend = digimonID.ToString();
+                            dataToSend = "Send1:" + digimonID.ToString();
+                            request = request.Remove(0, 6);
+                            Debug.WriteLine("request recieved:" + request);
                             game.animate.Opponent = new Digimon(game, (DigimonId)Int32.Parse(request));
                         }
 
-                        else if (sendcount == 1)
+                        else if (request.IndexOf("Ready") != -1)
                         {
                             GenerateBattle();
-                            dataToSend = GenerateBattleCode();
+                            dataToSend = "Send2:" + GenerateBattleCode();
                             battleFound = true;
                         }
 
@@ -371,7 +382,7 @@ namespace DigimonSimulator
                         sw.Flush();
 
                         // Finished recieving data
-                        if (sendcount == 1)
+                        if (request.IndexOf("Ready") != -1)
                         {
                             return;
                         }
@@ -414,7 +425,7 @@ namespace DigimonSimulator
                 }
                 else
                 {
-                    game.resetMainScreen();
+                    game.ResetMainScreen();
                 }
             }
         }
@@ -437,7 +448,7 @@ namespace DigimonSimulator
                 else
                 {
                     game.animate.isInBattle = true;
-                    game.resetMainScreen();
+                    game.ResetMainScreen();
                 }
             }
 

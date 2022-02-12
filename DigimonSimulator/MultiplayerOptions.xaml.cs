@@ -84,6 +84,7 @@ namespace DigimonSimulator
 
         public async void GetExternalIP()
         {
+            bool isIPResolved;
             try
             {
                 isResolveIpInProgress = true;
@@ -94,12 +95,29 @@ namespace DigimonSimulator
                 string externalIpString = SymmetricKeyEncryptionDecryption.EncryptString(keyString, externalIP + "port:" + game.hostPort);
                 Debug.WriteLine(externalIP + "port:" + game.hostPort);
                 userCodeTextBox.Text = externalIpString;
+                isIPResolved = true;
             }
             catch
             {
-                userCodeTextBox.Text = "Can't resolve IP, The game will still be hosted over the local network.";
-                externalIP = string.Empty;
+                isIPResolved = false;
             }
+
+            if (!isIPResolved)
+            {
+                try
+                {
+                    externalIP = new WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
+                    string externalIpString = SymmetricKeyEncryptionDecryption.EncryptString(keyString, externalIP + "port:" + game.hostPort);
+                    userCodeTextBox.Text = externalIpString;
+                }
+                catch
+                {
+                    userCodeTextBox.Text = "Can't resolve IP, The game will still be hosted over the local network.";
+                    externalIP = string.Empty;
+                    copyButton.IsEnabled = false;
+                }
+            }
+
             isResolveIpInProgress = false;
 
             if (isMapPortInProgress == false)
@@ -259,7 +277,7 @@ namespace DigimonSimulator
                 else
                 {
                     game.connectIP = "127.0.0.1";
-                    game.connectPort = 1402;
+                    game.connectPort = game.hostPort;
                 }
             }
             Close();
@@ -401,8 +419,13 @@ namespace DigimonSimulator
 
         private void ipAddressTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("[^0-9/.]+");
+            Regex regex = new Regex("[^0-9A-Fa-f/.:]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            game.isMultiplayerOptionsOpen = false;
         }
     }
 }

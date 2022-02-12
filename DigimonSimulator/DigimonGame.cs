@@ -27,6 +27,8 @@ namespace DigimonSimulator
         public int gameCurrentMinute;
         public int gameCurrentHour;
         public bool isEvolutionReady = false;
+        MultiplayerOptions multiplayerOptionsWindow;
+        public bool isMultiplayerOptionsOpen = false;
         public DateTime setTime;
         public int numberOfDung = 0;
         public bool isEgg = false;
@@ -102,7 +104,7 @@ namespace DigimonSimulator
 
                         if (CurrentScreen == MenuScreen.MainScreen && !animate.isEvolving)
                         {
-                            resetMainScreen();
+                            ResetMainScreen();
                         }
                     }
 
@@ -127,7 +129,7 @@ namespace DigimonSimulator
                     currentDigimon.WakeupDigimon();
                     if (CurrentScreen == MenuScreen.MainScreen)
                     {
-                        resetMainScreen();
+                        ResetMainScreen();
                     }
                 }
 
@@ -273,7 +275,7 @@ namespace DigimonSimulator
                     if (TimeoutMenuScreen == 10)
                     {
                         pixelScreen.TurnOffAllIcons();
-                        resetMainScreen();
+                        ResetMainScreen();
                         SelectedMenu = MenuScreen.MainScreen;
                     }
                 }
@@ -491,7 +493,11 @@ namespace DigimonSimulator
 
                     else if (SelectedMenu == MenuScreen.Battle)
                     {
-                        if (currentDigimon.isInBed)
+                        if (isMultiplayerOptionsOpen)
+                        {
+                            multiplayerOptionsWindow.Focus();
+                        }
+                        else if (currentDigimon.isInBed)
                         {
                             Sounds.PlaySound(Sound.Beep2);
                         }
@@ -505,7 +511,7 @@ namespace DigimonSimulator
                         {
                             if (connectIP == string.Empty)
                             {
-                                // implement IP
+                                OpenMultiplayerOptions();
                             }
                             else
                             {
@@ -579,7 +585,7 @@ namespace DigimonSimulator
                             currentDigimon.WakeupDigimon();
                         }
 
-                        resetMainScreen();
+                        ResetMainScreen();
                     }
 
                     else
@@ -591,14 +597,14 @@ namespace DigimonSimulator
                             {
                                 currentDigimon.sleepCareMistakeTimer = -1;
                             }
-                            resetMainScreen();
+                            ResetMainScreen();
                         }
                         else
                         {
                             currentDigimon.isAsleep = true;
                             currentDigimon.isInBed = true;
                             currentDigimon.forcedSleepTimer = 10800;
-                            resetMainScreen();
+                            ResetMainScreen();
                         }
                     }
                 }
@@ -613,7 +619,7 @@ namespace DigimonSimulator
                     Sounds.PlaySound(Sound.Beep);
                     isEgg = true;
                     currentDigimon = new Digimon(this, DigimonId.V1Egg);
-                    resetMainScreen();
+                    ResetMainScreen();
                 }
                 else if (CurrentScreen == MenuScreen.DeathScreen)
                 {
@@ -631,7 +637,7 @@ namespace DigimonSimulator
                 if (CurrentScreen != MenuScreen.MainScreen)
                 {
                     Sounds.PlaySound(Sound.Beep);
-                    resetMainScreen();
+                    ResetMainScreen();
                 }
                 else if (CurrentScreen == MenuScreen.MainScreen && SelectedMenu != MenuScreen.MainScreen)
                 {
@@ -643,7 +649,7 @@ namespace DigimonSimulator
             }
         }
 
-        public void resetMainScreen()
+        public void ResetMainScreen()
         {
             MenuScreens.MainScreen(this);
             CurrentScreen = MenuScreen.MainScreen;
@@ -666,6 +672,20 @@ namespace DigimonSimulator
             }
         }
 
+        public void OpenMultiplayerOptions()
+        {
+            if (!isMultiplayerOptionsOpen)
+            {
+                isMultiplayerOptionsOpen = true;
+                multiplayerOptionsWindow = new MultiplayerOptions(this);
+                multiplayerOptionsWindow.Show();
+            }
+            else
+            {
+                multiplayerOptionsWindow.Focus();
+            }
+           
+        }
 
     }
 }

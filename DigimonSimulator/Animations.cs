@@ -36,6 +36,7 @@ namespace DigimonSimulator
         private int StepCounter = 0;
         private int animationCounter = -1;
         private int GameTickSpeed = 500;
+        private int ProjectileSpeed = 47;
         public int powerUp = 0;
         private Sprite EatItemFull;
         private Sprite EatItemHalf;
@@ -128,7 +129,7 @@ namespace DigimonSimulator
             {
                 DigimonDodge();
             }
-            
+
             else if (animation == AnimationNo.OpponentDodge)
             {
                 OpponentDigimonDodge();
@@ -253,7 +254,7 @@ namespace DigimonSimulator
                 Game.pixelScreen.ClearSprite(Game.currentDigimon.sprite);
                 Game.currentDigimon.sprite.SpriteX = Game.pixelScreen.NumberOfXPixels - (maxFrameWidth / 2) - 18 - XOffset;
             }
-            else 
+            else
             {
                 Game.pixelScreen.ClearSprite(Game.currentDigimon.sprite);
                 Game.currentDigimon.sprite.SpriteX = GetMiddleX(Game.currentDigimon.sprite.hurt1FrameWidth) - XOffset;
@@ -294,7 +295,7 @@ namespace DigimonSimulator
                 for (int i = 0; i < Game.numberOfDung; i++)
                 {
                     Game.pixelScreen.ClearSprite(Dungs[i]);
-                    
+
                     // switch between dung frame 1 and 2
                     if (switchDung)
                     {
@@ -312,7 +313,7 @@ namespace DigimonSimulator
 
             if (Game.isEgg)
             {
-                
+
                 if (StepCounter == 0)
                 {
                     Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Walk, false, true, GetMiddleX(Game.currentDigimon.sprite.frame1Width), 0);
@@ -321,7 +322,7 @@ namespace DigimonSimulator
                 }
                 else if (StepCounter == 1)
                 {
-                    
+
                     Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Walk2, false, true, GetMiddleX(Game.currentDigimon.sprite.frame2Width), 0);
                     StepCounter = 0;
                 }
@@ -592,7 +593,7 @@ namespace DigimonSimulator
 
                     StepCounter = 0;
                 }
-                
+
             }
         }
 
@@ -677,7 +678,7 @@ namespace DigimonSimulator
                     }
                     else
                     {
-                        Game.resetMainScreen();
+                        Game.ResetMainScreen();
                     }
                     break;
             }
@@ -785,7 +786,7 @@ namespace DigimonSimulator
                 case 13:
                     Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Attack, false, true, Game.currentDigimon.sprite.SpriteX - 1, 0);
                     Sounds.PlaySound(Sound.Attack);
-                    _animationTick.Interval = TimeSpan.FromMilliseconds(47);
+                    _animationTick.Interval = TimeSpan.FromMilliseconds(44);
                     break;
 
 
@@ -946,7 +947,7 @@ namespace DigimonSimulator
 
                 case 6:
                     ResetAnimations();
-                    Game.resetMainScreen();
+                    Game.ResetMainScreen();
                     break;
             }
         }
@@ -1002,7 +1003,7 @@ namespace DigimonSimulator
 
                 case 6:
                     //ResetAnimations();
-                    Game.resetMainScreen();
+                    Game.ResetMainScreen();
                     break;
             }
         }
@@ -1021,7 +1022,7 @@ namespace DigimonSimulator
 
         private void MoveFlush()
         {
-            
+
 
             for (int i = 0; i < Game.numberOfDung; i++)
             {
@@ -1038,7 +1039,7 @@ namespace DigimonSimulator
                     Game.pixelScreen.ClearSprite(Dungs[i]);
                     Game.pixelScreen.DrawSprite(Dungs[i], Dungs[i].SpriteX, Dungs[i].SpriteY + 1, false);
                 }
-                
+
             }
             Game.pixelScreen.ClearSprite(FlushSprite);
             Game.pixelScreen.DrawSprite(FlushSprite, FlushSprite.SpriteX, FlushSprite.SpriteY + 1, false);
@@ -1091,13 +1092,9 @@ namespace DigimonSimulator
 
 
         public Digimon Opponent;
-        //SpriteImages.Betamon();
         private Sprite secondProjectile;
-        //int hitPower, doubleAttack;
         int damage;
 
-        //Random rnd = new Random();
-        
         public void SetupBattleCup()
         {
             Game.pixelScreen.ClearScreen();
@@ -1180,7 +1177,7 @@ namespace DigimonSimulator
                     {
                         battleLogic.HostBattle();
                     }
-                    
+
                     break;
             }
         }
@@ -1249,7 +1246,7 @@ namespace DigimonSimulator
                     IsinAnimation = false;
                     Game.pixelScreen.DrawSprite(SpriteImages.PowerUpSprite(), 9, Game.pixelScreen.NumberOfYPixels - 2, false);
                     break;
-                
+
                 // jump the digimon back and prepair to attack
                 case 13:
                     IsinAnimation = true;
@@ -1260,10 +1257,10 @@ namespace DigimonSimulator
                     animationCounter = -1;
                     animation = AnimationNo.Attack;
                     break;
-                
+
             }
 
-            
+
         }
 
         private void SetupSecondProjectile(Digimon digimon)
@@ -1298,7 +1295,7 @@ namespace DigimonSimulator
 
                 case 3:
                     Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Walk2, false, true, Game.currentDigimon.sprite.SpriteX + 1, 0);
-                    _animationTick.Interval = TimeSpan.FromMilliseconds(47);
+                    _animationTick.Interval = TimeSpan.FromMilliseconds(ProjectileSpeed);
                     break;
 
                 case 10:
@@ -1314,10 +1311,7 @@ namespace DigimonSimulator
                     Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Attack, false, true, Game.currentDigimon.sprite.SpriteX, 0);
                     Game.currentDigimon.sprite.projectileSprite.SpriteX = 8;
                     Game.currentDigimon.sprite.projectileSprite.SpriteY = 0;
-                    //_animationTick.Interval = TimeSpan.FromMilliseconds(47);
                     Sounds.PlaySound(Sound.Attack);
-                    //hitPower = rnd.Next(1, 100);
-                    //doubleAttack = rnd.Next(1, 100);
 
                     // shoot two projectiles
                     if (battleLogic.turns[battleLogic.turnIndex].isDoubleShot)
@@ -1353,7 +1347,6 @@ namespace DigimonSimulator
                     if (battleLogic.turns[battleLogic.turnIndex].isHit)
                     {
                         animation = AnimationNo.OpponentDamaged;
-                        //Opponent.currenthealth -= 500;
                     }
                     else
                     {
@@ -1401,7 +1394,7 @@ namespace DigimonSimulator
 
                 case 3:
                     Game.pixelScreen.DrawDigimonFrame(Opponent, SpriteFrame.Walk2, true, true, Opponent.sprite.SpriteX - 1, 0);
-                    _animationTick.Interval = TimeSpan.FromMilliseconds(47);
+                    _animationTick.Interval = TimeSpan.FromMilliseconds(ProjectileSpeed);
                     break;
 
                 case 10:
@@ -1417,10 +1410,7 @@ namespace DigimonSimulator
                     Game.pixelScreen.DrawDigimonFrame(Opponent, SpriteFrame.Attack, true, true, Opponent.sprite.SpriteX, 0);
                     Opponent.sprite.projectileSprite.SpriteX = 16;
                     Opponent.sprite.projectileSprite.SpriteY = 0;
-                    //_animationTick.Interval = TimeSpan.FromMilliseconds(47);
                     Sounds.PlaySound(Sound.Attack);
-                    //hitPower = rnd.Next(1, 100);
-                    //doubleAttack = rnd.Next(1, 100);
 
                     // shoot two projectiles
                     if (battleLogic.turns[battleLogic.turnIndex].isDoubleShot)
@@ -1434,7 +1424,6 @@ namespace DigimonSimulator
                         secondProjectile = null;
                         damage = Opponent.hitDamage;
                     }
-                    // ROLL
                     break;
 
                 // own digimon screen start
@@ -1456,7 +1445,6 @@ namespace DigimonSimulator
                     if (battleLogic.turns[battleLogic.turnIndex].isHit)
                     {
                         animation = AnimationNo.DigimonDamaged;
-                        //Digimon.currenthealth -= 500;
                     }
                     else
                     {
@@ -1488,22 +1476,17 @@ namespace DigimonSimulator
             switch (animationCounter)
             {
                 case 0:
-                    // if hit
                     Game.pixelScreen.ClearScreen();
                     Game.pixelScreen.DrawSprite(SpriteImages.BlackSkullSprite(), 0, 0, false);
                     Sounds.PlaySound(Sound.Damage);
-                    //
                     break;
 
                 case 5:
-                    // if hit
                     Game.pixelScreen.ClearScreen();
                     Game.pixelScreen.DrawSprite(SpriteImages.WhiteSkullSprite(), 0, 0, false);
-                    //
                     break;
 
                 case 10:
-                    // if hit
                     Game.pixelScreen.ClearScreen();
                     Game.pixelScreen.DrawDigimonFrame(Game.currentDigimon, SpriteFrame.Hurt1, false, true, Game.currentDigimon.sprite.SpriteX, 0);
                     DrawHealthBar(Game.currentDigimon);
@@ -1535,7 +1518,7 @@ namespace DigimonSimulator
                         animation = AnimationNo.Defeat;
                         Game.currentDigimon.AddBattleResult(false);
                     }
-                    
+
                     break;
 
                 case 50:
@@ -1560,7 +1543,7 @@ namespace DigimonSimulator
                         battleLogic.turnIndex++;
                         animation = AnimationNo.Attack;
                     }
-                    
+
                     break;
             }
         }
@@ -1570,26 +1553,20 @@ namespace DigimonSimulator
             switch (animationCounter)
             {
                 case 0:
-                    // if hit
                     Game.pixelScreen.ClearScreen();
                     Game.pixelScreen.DrawSprite(SpriteImages.BlackSkullSprite(), 0, 0, false);
                     Sounds.PlaySound(Sound.Damage);
-                    //
                     break;
 
                 case 5:
-                    // if hit
                     Game.pixelScreen.ClearScreen();
                     Game.pixelScreen.DrawSprite(SpriteImages.WhiteSkullSprite(), 0, 0, false);
-                    //
                     break;
 
                 case 10:
-                    // if hit
                     Game.pixelScreen.ClearScreen();
                     Game.pixelScreen.DrawDigimonFrame(Opponent, SpriteFrame.Hurt1, true, true, Opponent.sprite.SpriteX, 0);
                     DrawHealthBar(Opponent);
-                    //
                     break;
 
                 case 15:
@@ -1713,7 +1690,7 @@ namespace DigimonSimulator
                         battleLogic.turnIndex++;
                         animation = AnimationNo.Attack;
                     }
-                    
+
                     break;
             }
         }
@@ -1854,7 +1831,7 @@ namespace DigimonSimulator
                     break;
 
                 case 8:
-                    Game.resetMainScreen();
+                    Game.ResetMainScreen();
                     break;
             }
         }
@@ -1946,7 +1923,7 @@ namespace DigimonSimulator
                     break;
 
                 case 55:
-                    Game.resetMainScreen();
+                    Game.ResetMainScreen();
                     break;
             }
 
@@ -2061,7 +2038,7 @@ namespace DigimonSimulator
 
                 case 17:
                     Game.currentDigimon.SetupDigimon(evolvedDigimon.digimonID);
-                    Game.resetMainScreen();
+                    Game.ResetMainScreen();
                     break;
             }
         }
@@ -2216,7 +2193,7 @@ namespace DigimonSimulator
                 case 36:
                     Game.currentDigimon.SetupDigimon(evolvedDigimon.digimonID);
                     Game.isEgg = false;
-                    Game.resetMainScreen();
+                    Game.ResetMainScreen();
                     break;
             }
         }
