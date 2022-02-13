@@ -264,7 +264,12 @@ namespace DigimonSimulator
                         if (response.IndexOf("Send1:") != -1)
                         {
                             response = response.Remove(response.IndexOf("Send1:"), 6);
-                            Debug.WriteLine(response);
+
+                            // Ensure the recieved digimonID is valid
+                            if (!Enum.IsDefined(typeof(DigimonId), (DigimonId)Int32.Parse(response)))
+                            {
+                                throw new Exception();
+                            }
                             game.animate.Opponent = new Digimon(game, (DigimonId)Int32.Parse(response));
                             sendCount = 1;
                             isInitialConnectionSuccess = true;
@@ -372,7 +377,12 @@ namespace DigimonSimulator
                         {
                             dataToSend = "Send1:" + digimonID.ToString();
                             request = request.Remove(request.IndexOf("Send1:"), 6);
-                            Debug.WriteLine("request recieved:" + request);
+
+                            // Ensure the recieved digimonID is valid
+                            if (!Enum.IsDefined(typeof(DigimonId), (DigimonId)Int32.Parse(request)))
+                            {
+                                throw new Exception();
+                            }
                             game.animate.Opponent = new Digimon(game, (DigimonId)Int32.Parse(request));
                             isInitialConnectionSuccess = true;
                         }
