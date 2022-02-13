@@ -59,26 +59,8 @@ namespace DigimonSimulator
                 connectCodeTextBox.Text = SymmetricKeyEncryptionDecryption.EncryptString(keyString, game.connectIP + "port:" + game.connectPort);
             }
 
-            //try
-            //{
-            //    externalIP = new WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
-            //    string externalIpString = SymmetricKeyEncryptionDecryption.EncryptString(keyString, externalIP + "port:" + game.hostPort);
-            //    userCodeTextBox.Text = externalIpString;
-            //}
-            //catch
-            //{
-            //    externalIP = string.Empty;
-            //    userCodeTextBox.Text = "Can't resolve IP";
-            //    copyButton.IsEnabled = false;
-            //}
-
-            
-            //userCodeTextBox.Text = game.externalIP;
-
             GetExternalIP();
             CreatePortMapping(game.hostPort);
-
-            
             portTextBox.Text = game.hostPort.ToString();
         }
 

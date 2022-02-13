@@ -131,7 +131,7 @@ namespace DigimonSimulator
             turnIndex = 0;
         }
 
-        public void DecodeBattleCode(string code)
+        public bool DecodeBattleCode(string code)
         {
             int stringIndex = 0;
             int turnIndexC = 0;
@@ -141,30 +141,37 @@ namespace DigimonSimulator
             BattleTurn battleTurn;
             while (stringIndex < code.Length)
             {
-                battleTurn = new BattleTurn();
-                charToString = code[stringIndex].ToString();
-                StringToInt = Int32.Parse(charToString);
-                result = Convert.ToBoolean(StringToInt);
-                battleTurn.isHit = result;
-                stringIndex += 2;
+                try
+                {
+                    battleTurn = new BattleTurn();
+                    charToString = code[stringIndex].ToString();
+                    StringToInt = Int32.Parse(charToString);
+                    result = Convert.ToBoolean(StringToInt);
+                    battleTurn.isHit = result;
+                    stringIndex += 2;
 
 
-                charToString = code[stringIndex].ToString();
-                StringToInt = Int32.Parse(charToString);
-                result = Convert.ToBoolean(StringToInt);
-                battleTurn.isDoubleShot = result;
-                stringIndex += 2;
+                    charToString = code[stringIndex].ToString();
+                    StringToInt = Int32.Parse(charToString);
+                    result = Convert.ToBoolean(StringToInt);
+                    battleTurn.isDoubleShot = result;
+                    stringIndex += 2;
 
 
-                charToString = code[stringIndex].ToString();
-                StringToInt = Int32.Parse(charToString);
-                result = Convert.ToBoolean(StringToInt);
-                battleTurn.isBattleEnded = result;
-                turns[turnIndexC] = battleTurn;
-                stringIndex += 2;
-                turnIndexC++;
+                    charToString = code[stringIndex].ToString();
+                    StringToInt = Int32.Parse(charToString);
+                    result = Convert.ToBoolean(StringToInt);
+                    battleTurn.isBattleEnded = result;
+                    turns[turnIndexC] = battleTurn;
+                    stringIndex += 2;
+                    turnIndexC++;
+                }
+                catch
+                {
+                    return false;
+                }
             }
-
+            return true;
             Debug.WriteLine(code);
         }
 
@@ -187,6 +194,7 @@ namespace DigimonSimulator
         public Task Connect()
         {
             bool isEnded = false;
+            bool isInitialConnectionSuccess = false;
             battleFound = false;
             int counter = 0;
             int sendCount = 0;
@@ -221,7 +229,7 @@ namespace DigimonSimulator
                             return;
                         }
 
-                        // Send digimon Id to client
+                        // Send digimon Id to host
                         if (sendCount == 0)
                         {
                             dataToSend = "Send1:" + digimonID.ToString();
@@ -259,15 +267,15 @@ namespace DigimonSimulator
                             Debug.WriteLine(response);
                             game.animate.Opponent = new Digimon(game, (DigimonId)Int32.Parse(response));
                             sendCount = 1;
+                            isInitialConnectionSuccess = true;
                         }
 
                         // Data recieved, return and start battle
-                        else if (response.IndexOf("Send2:") != -1)
+                        else if (response.IndexOf("Send2:") != -1 && isInitialConnectionSuccess)
                         {
                             response = response.Remove(0, 6);
                             Debug.WriteLine(response);
-                            DecodeBattleCode(response);
-                            battleFound = true;
+                            battleFound = DecodeBattleCode(response);
                             isEnded = true;
                             return;
                         }
@@ -302,6 +310,13 @@ namespace DigimonSimulator
 
         public Task Host()
         {
+            battleFound = false;
+            isHostActive = true;
+            bool isInitialConnectionSuccess = false;
+            int sendcount = 0;
+            string dataToSend;
+            int digimonID = (int)game.currentDigimon.digimonID;
+
             // Listern on port
             try
             {
@@ -313,11 +328,6 @@ namespace DigimonSimulator
                 MessageBox.Show("Failed to open port: " + game.hostPort, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return Task.CompletedTask;
             }
-            isHostActive = true;
-            battleFound = false;
-            int sendcount = 0;
-            string dataToSend;
-            int digimonID = (int)game.currentDigimon.digimonID;
 
             return Task.Factory.StartNew(() =>
             {
@@ -364,9 +374,10 @@ namespace DigimonSimulator
                             request = request.Remove(0, 6);
                             Debug.WriteLine("request recieved:" + request);
                             game.animate.Opponent = new Digimon(game, (DigimonId)Int32.Parse(request));
+                            isInitialConnectionSuccess = true;
                         }
 
-                        else if (request.IndexOf("Ready") != -1)
+                        else if (request.IndexOf("Ready") != -1 && isInitialConnectionSuccess)
                         {
                             GenerateBattle();
                             dataToSend = "Send2:" + GenerateBattleCode();
