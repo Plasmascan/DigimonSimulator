@@ -35,6 +35,10 @@ namespace DigimonSimulator
 
         private void closeGameMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            if (!mainGame.isEgg)
+            {
+                SaveLoad.SerializeSaveData(mainGame);
+            }
             Environment.Exit(0);
         }
 
@@ -77,13 +81,9 @@ namespace DigimonSimulator
             drawWindow.Show();
 
             Debug.WriteLine("port: " + mainGame.hostPort + " connect ip: " + mainGame.connectIP + " connect port: " + mainGame.connectPort + " host port: " + mainGame.hostPort);
-
-            string test = "send1:9";
-            Debug.WriteLine(test.IndexOf("send2"));
-            
             if (mainGame.currentDigimon != null)
-            {   
-                //mainGame.currentDigimon.HurtDigimon();
+            {
+                mainGame.currentDigimon.HurtDigimon();
                 Debug.WriteLine("Care mistakes: " + mainGame.currentDigimon.careMistakes + " overfeed: " + mainGame.currentDigimon.timesOverfed + 
                     "\ncurrent hunger: " + mainGame.currentDigimon.currentHunger + " needed: " + mainGame.currentDigimon.maxHunger / 4 * 3);
                 if (mainGame.currentDigimon.canDigivolve)
@@ -93,7 +93,7 @@ namespace DigimonSimulator
                 }
             }
 
-            
+            //mainGame.currentDigimon.KillDigimon();
         }
 
         private void minimizeMenuItem_Click(object sender, RoutedEventArgs e)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Media;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
@@ -20,17 +21,9 @@ namespace DigimonSimulator
         public MenuScreen SelectedMenu = MenuScreen.MainScreen;
         public int SelectedSubMenuNo = 0;
         public int CurrentSubMenu = 0;
-        public int gameElapsedSeconds = 0;
-        public int gameElapsedMinutes = 0;
-        public int gameElapsedHours = 0;
-        public int gameCurrentSecond;
-        public int gameCurrentMinute;
-        public int gameCurrentHour;
-        public bool isEvolutionReady = false;
         MultiplayerOptions multiplayerOptionsWindow;
         public bool isMultiplayerOptionsOpen = false;
         public DateTime setTime;
-        public int numberOfDung = 0;
         public bool isEgg = false;
         public bool isHost = true;
         public string connectIP = "124.180.83.106";
@@ -46,8 +39,29 @@ namespace DigimonSimulator
             animate = new Animations(this);
             //animate.StartDigimonStateAnimation();
             setTime = DateTime.Now;
-            SelectEgg();
+            LoadGame();
             setTimer();
+        }
+
+        public void LoadGame()
+        {
+            bool isLoaded = SaveLoad.DeserializeSaveData(this);
+
+            if (isLoaded)
+            {
+                ResetMainScreen();
+                if (currentDigimon.IsActiveCareMistakeTimer())
+                {
+                    pixelScreen.TurnOnNotificationIcon();
+                    Sounds.PlaySound(Sound.Notify);
+                }
+            }
+            else
+            {
+                SelectEgg();
+                //MessageBox.Show("No save file found. Starting a new game.", "Save File", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            
         }
 
         public void SelectEgg()
@@ -68,18 +82,8 @@ namespace DigimonSimulator
         {
             if (currentDigimon != null)
             {
-                gameElapsedSeconds++;
-                gameCurrentSecond = gameElapsedSeconds % 60;
-                gameCurrentMinute = gameElapsedSeconds / 60 % 60;
-                gameElapsedMinutes = gameElapsedSeconds / 60;
-                gameElapsedHours = gameElapsedMinutes / 60;
                 currentDigimon.totalTimeAlive++;
                 setTime = setTime.AddSeconds(1);
-
-                //Debug.WriteLine("hunger timer: " + currentDigimon.hungerCareMistakeTimer + "  strength Timer: " + currentDigimon.strengthCareMistakeTimer + "   " +
-                //    "hurt Timer: " + currentDigimon.hurtCareMistakeTimer);
-
-                // Force digimon to sleep
 
                 if (currentDigimon.forcedSleepTimer > -1)
                 {
@@ -87,17 +91,17 @@ namespace DigimonSimulator
                 }
 
                 // Digimon goes to toilet
-                if (!currentDigimon.isAsleep && numberOfDung != 4 && !animate.IsinAnimation && !currentDigimon.isHurt && !isEgg)
+                if (!currentDigimon.isAsleep && currentDigimon.numberOfDung != 4 && !animate.IsinAnimation && !currentDigimon.isHurt && !isEgg)
                 {
                     currentDigimon.dungTimer--;
                     if (currentDigimon.dungTimer == 0)
                     {
-                        numberOfDung++;
+                        currentDigimon.numberOfDung++;
                         currentDigimon.dungTimer = currentDigimon.dungTimeInterval;
 
                         // Digimon gets injured if 4 dungs are on screen
 
-                        if (numberOfDung == 4)
+                        if (currentDigimon.numberOfDung == 4)
                         {
                             currentDigimon.HurtDigimon();
                         }
@@ -287,6 +291,15 @@ namespace DigimonSimulator
                 {
                     pixelScreen.TurnOffNotificationIcon();
                 }
+
+                // Save game every minute
+                if (setTime.Second % 60 == 0 && !isEgg)
+                {
+                    _gameTimer.Stop();
+                    SaveLoad.SerializeSaveData(this);
+                    _gameTimer.Start();
+                    Debug.WriteLine("Saved");
+                }
             }
         }
 
@@ -454,7 +467,7 @@ namespace DigimonSimulator
 
                     else if (SelectedMenu == MenuScreen.Flush && !animate.IsinAnimation)
                     {
-                        if (numberOfDung == 0 || currentDigimon.isAsleep)
+                        if (currentDigimon.numberOfDung == 0 || currentDigimon.isAsleep)
                         {
                             Sounds.PlaySound(Sound.Beep2);
                         }

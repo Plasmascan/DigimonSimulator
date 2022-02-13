@@ -154,7 +154,7 @@ namespace DigimonSimulator
 
                 if (i == 0)
                 {
-                    menuIcon.Source = new BitmapImage(new Uri("scales.png", UriKind.Relative));
+                    menuIcon.Source = new BitmapImage(new Uri("Images/scales.png", UriKind.Relative));
                     menuIcon.Width = iconWidth;
                     menuIcon.Height = iconHeight;
                     menuIcon.Opacity = MenuIconOff;
@@ -166,7 +166,7 @@ namespace DigimonSimulator
 
                 else if (i == 1)
                 {
-                    menuIcon.Source = new BitmapImage(new Uri("food.png", UriKind.Relative));
+                    menuIcon.Source = new BitmapImage(new Uri("Images/food.png", UriKind.Relative));
                     menuIcon.Width = iconWidth;
                     menuIcon.Height = iconHeight;
                     menuIcon.Opacity = MenuIconOff;
@@ -176,7 +176,7 @@ namespace DigimonSimulator
                     MenuIcons[i] = menuIcon;
                 }
                 else if (i == 2) {
-                    menuIcon.Source = new BitmapImage(new Uri("trainingBag.png", UriKind.Relative));
+                    menuIcon.Source = new BitmapImage(new Uri("Images/trainingBag.png", UriKind.Relative));
                     menuIcon.Width = iconWidth;
                     menuIcon.Height = iconHeight;
                     menuIcon.Opacity = MenuIconOff;
@@ -187,7 +187,7 @@ namespace DigimonSimulator
                 }
                 else if (i == 3)
                 {
-                    menuIcon.Source = new BitmapImage(new Uri("battleCup.png", UriKind.Relative));
+                    menuIcon.Source = new BitmapImage(new Uri("Images/battleCup.png", UriKind.Relative));
                     menuIcon.Width = iconWidth;
                     menuIcon.Height = iconHeight;
                     menuIcon.Opacity = MenuIconOff;
@@ -198,7 +198,7 @@ namespace DigimonSimulator
                 }
                 else if (i == 4)
                 {
-                    menuIcon.Source = new BitmapImage(new Uri("dung.png", UriKind.Relative));
+                    menuIcon.Source = new BitmapImage(new Uri("Images/dung.png", UriKind.Relative));
                     menuIcon.Width = iconWidth;
                     menuIcon.Height = iconHeight;
                     menuIcon.Opacity = MenuIconOff;
@@ -209,7 +209,7 @@ namespace DigimonSimulator
                 }
                 else if (i == 5)
                 {
-                    menuIcon.Source = new BitmapImage(new Uri("lightbulb.png", UriKind.Relative));
+                    menuIcon.Source = new BitmapImage(new Uri("Images/lightbulb.png", UriKind.Relative));
                     menuIcon.Width = iconWidth;
                     menuIcon.Height = iconHeight;
                     menuIcon.Opacity = MenuIconOff;
@@ -220,7 +220,7 @@ namespace DigimonSimulator
                 }
                 else if (i == 6)
                 {
-                    menuIcon.Source = new BitmapImage(new Uri("bandage.png", UriKind.Relative));
+                    menuIcon.Source = new BitmapImage(new Uri("Images/bandage.png", UriKind.Relative));
                     menuIcon.Width = iconWidth;
                     menuIcon.Height = iconHeight;
                     menuIcon.Opacity = MenuIconOff;
@@ -231,7 +231,7 @@ namespace DigimonSimulator
                 }
                 else if (i == 7)
                 {
-                    menuIcon.Source = new BitmapImage(new Uri("book.png", UriKind.Relative));
+                    menuIcon.Source = new BitmapImage(new Uri("Images/book.png", UriKind.Relative));
                     menuIcon.Width = iconWidth;
                     menuIcon.Height = iconHeight;
                     menuIcon.Opacity = MenuIconOff;
@@ -242,7 +242,7 @@ namespace DigimonSimulator
                 }
                 else if (i == 8)
                 {
-                    menuIcon.Source = new BitmapImage(new Uri("battle.png", UriKind.Relative));
+                    menuIcon.Source = new BitmapImage(new Uri("Images/battle.png", UriKind.Relative));
                     menuIcon.Width = iconWidth;
                     menuIcon.Height = iconHeight;
                     menuIcon.Opacity = MenuIconOff;
@@ -253,7 +253,7 @@ namespace DigimonSimulator
                 }
                 else
                 {
-                    menuIcon.Source = new BitmapImage(new Uri("shout.png", UriKind.Relative));
+                    menuIcon.Source = new BitmapImage(new Uri("Images/shout.png", UriKind.Relative));
                     menuIcon.Width = iconWidth;
                     menuIcon.Height = iconHeight;
                     menuIcon.Opacity = MenuIconOff;
@@ -690,9 +690,9 @@ namespace DigimonSimulator
             // Seperate digits from a number over 10 into an array
             if (number == 100 && isPercent)
             {
-                DrawSprite(SpriteImages.NumberOneSprite(), x - 6, y, false);
-                DrawSprite(SpriteImages.NumberZeroSprite(), x, y, false);
-                DrawSprite(SpriteImages.NumberZeroSprite(), x + 6, y, false);
+                DrawSprite(SpriteMaps.NumberOneSprite(), x - 6, y, false);
+                DrawSprite(SpriteMaps.NumberZeroSprite(), x, y, false);
+                DrawSprite(SpriteMaps.NumberZeroSprite(), x + 6, y, false);
                 return;
             }
 
@@ -722,34 +722,34 @@ namespace DigimonSimulator
                 switch (Digits[i])
                 {
                     case 0:
-                        DigitSprites[i] = SpriteImages.NumberZeroSprite();
+                        DigitSprites[i] = SpriteMaps.NumberZeroSprite();
                         break;
                     case 1:
-                        DigitSprites[i] = SpriteImages.NumberOneSprite();
+                        DigitSprites[i] = SpriteMaps.NumberOneSprite();
                         break;
                     case 2:
-                        DigitSprites[i] = SpriteImages.NumberTwoSprite();
+                        DigitSprites[i] = SpriteMaps.NumberTwoSprite();
                         break;
                     case 3:
-                        DigitSprites[i] = SpriteImages.NumberThreeSprite();
+                        DigitSprites[i] = SpriteMaps.NumberThreeSprite();
                         break;
                     case 4:
-                        DigitSprites[i] = SpriteImages.NumberFourSprite();
+                        DigitSprites[i] = SpriteMaps.NumberFourSprite();
                         break;
                     case 5:
-                        DigitSprites[i] = SpriteImages.NumberFiveSprite();
+                        DigitSprites[i] = SpriteMaps.NumberFiveSprite();
                         break;
                     case 6:
-                        DigitSprites[i] = SpriteImages.NumberSixSprite();
+                        DigitSprites[i] = SpriteMaps.NumberSixSprite();
                         break;
                     case 7:
-                        DigitSprites[i] = SpriteImages.NumberSevenSprite();
+                        DigitSprites[i] = SpriteMaps.NumberSevenSprite();
                         break;
                     case 8:
-                        DigitSprites[i] = SpriteImages.NumberEightSprite();
+                        DigitSprites[i] = SpriteMaps.NumberEightSprite();
                         break;
                     case 9:
-                        DigitSprites[i] = SpriteImages.NumberNineSprite();
+                        DigitSprites[i] = SpriteMaps.NumberNineSprite();
                         break;
                 }
             }

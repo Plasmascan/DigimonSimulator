@@ -25,45 +25,60 @@ namespace DigimonSimulator
     public class Digimon
     {
         public DigimonGame game;
-        public DigimonId digimonID;
         public DigimonSprite sprite;
-        public int currentHunger = 1;
-        public int currentStrength = 1;
-        public int currenthealth = 1000;
-        public int currentWeight = 0;
-        public int careMistakes = 0;
-        public int timesInjured = 0;
-        public int timesTrained = 0;
-        public int timesOverfed = 0;
-        public int totalTimeAlive = 0;
-        public int totalVictories = 0;
-        public int totalLoses = 0;
-        public int digivolveChanceFromBattles;
-        public bool canDigivolve;
-        public int evolveTime;
-        public int maxHunger;
-        public int maxStrength;
-        public int maxHealth;
-        public int minWeight;
-        public int hitDamage;
-        public int dungTimeInterval;
-        public int sleepCareMistakeTimer = -1;
-        public int hurtCareMistakeTimer = -1;
-        public int hungerCareMistakeTimer = -1;
-        public int strengthCareMistakeTimer = -1;
-        public int forcedSleepTimer = -1;
-        public int dungTimer = 10;
-        public DateTime sleepTime;
-        public int secondsUntilSleep = 600;
-        public bool isAsleep = false;
-        public bool isInBed = false;
-        public bool isHurt = false;
-        public bool isOverfeedable = true;
+        public DigimonId digimonID { get; set; }
+        public int currentHunger { get; set; }
+        public int currentStrength { get; set; }
+        public int currenthealth { get; set; }
+        public int currentWeight { get; set; }
+        public int careMistakes { get; set; }
+        public int timesInjured { get; set; }
+        public int timesTrained { get; set; }
+        public int timesOverfed { get; set; }
+        public int totalTimeAlive { get; set; }
+        public int totalVictories { get; set; }
+        public int totalLoses { get; set; }
+        public int digivolveChanceFromBattles { get; set; }
+        public bool canDigivolve { get; set; }
+        public int evolveTime { get; set; }
+        public int maxHunger { get; set; }
+        public int maxStrength { get; set; }
+        public int maxHealth { get; set; }
+        public int minWeight { get; set; }
+        public int baseHitDamage { get; set; }
+        public int dungTimeInterval { get; set; }
+        public int numberOfDung { get; set; }
+        public int sleepCareMistakeTimer { get; set; }
+        public int hurtCareMistakeTimer { get; set; }
+        public int hungerCareMistakeTimer { get; set; }
+        public int strengthCareMistakeTimer { get; set; }
+        public int forcedSleepTimer { get; set; }
+        public int dungTimer { get; set; }
+        public DateTime sleepTime { get; set; }
+        public int secondsUntilSleep { get; set; }
+        public bool isAsleep { get; set; }
+        public bool isInBed { get; set; }
+        public bool isHurt { get; set; }
+        public bool isOverfeedable { get; set; }
 
+        public Digimon()
+        {
+
+        }
         public Digimon(DigimonGame game, DigimonId digimonID)
         {
             this.game = game;
             SetupDigimon(digimonID);
+            currentHunger = 1;
+            currentStrength = 1;
+            currenthealth = 1000;
+            sleepCareMistakeTimer = -1;
+            hurtCareMistakeTimer = -1;
+            hungerCareMistakeTimer = -1;
+            strengthCareMistakeTimer = -1;
+            forcedSleepTimer = -1;
+            dungTimer = 10;
+            secondsUntilSleep = 600;
         }
 
         public void WakeupDigimon()
@@ -162,7 +177,7 @@ namespace DigimonSimulator
             MenuScreens.DrawDeathScreen(game);
             game.currentDigimon = null;
             game.CurrentScreen = MenuScreen.DeathScreen;
-            game.numberOfDung = 0;
+            numberOfDung = 0;
         }
 
         public void DigimonFallAsleep()
@@ -231,22 +246,27 @@ namespace DigimonSimulator
 
         public void SetupDigimon(DigimonId digimonID)
         {
+            if (!Enum.IsDefined(typeof(DigimonId), digimonID))
+            {
+                throw new Exception();
+            }
+
             switch (digimonID)
             {
                 case DigimonId.V1Egg:
-                    this.sprite = SpriteImages.V1Egg();
+                    this.sprite = SpriteMaps.V1Egg();
                     this.digimonID = DigimonId.V1Egg;
                     canDigivolve = true;
                     evolveTime = 5;
                     break;
 
                 case DigimonId.Botamon:
-                    this.sprite = SpriteImages.Botamon();
+                    this.sprite = SpriteMaps.Botamon();
                     this.digimonID = DigimonId.Botamon;
                     maxHealth = 300;
                     maxHunger = 600;
                     maxStrength = 600;
-                    hitDamage = 100;
+                    baseHitDamage = 100;
                     canDigivolve = true;
                     dungTimeInterval = 100;
                     evolveTime = 600;
@@ -255,12 +275,12 @@ namespace DigimonSimulator
                     break;
 
                 case DigimonId.Koromon:
-                    this.sprite = SpriteImages.Koromon();
+                    this.sprite = SpriteMaps.Koromon();
                     this.digimonID = DigimonId.Koromon;
                     maxHealth = 500;
                     maxHunger = 3600;
                     maxStrength = 3600;
-                    hitDamage = 200;
+                    baseHitDamage = 200;
                     canDigivolve = true;
                     dungTimeInterval = 600;
                     evolveTime = 3600*6;
@@ -269,12 +289,12 @@ namespace DigimonSimulator
                     break;
 
                 case DigimonId.Betamon:
-                    this.sprite = SpriteImages.Betamon();
+                    this.sprite = SpriteMaps.Betamon();
                     this.digimonID = DigimonId.Betamon;
                     maxHealth = 800;
                     maxHunger = 6000;
                     maxStrength = 6000;
-                    hitDamage = 200;
+                    baseHitDamage = 200;
                     evolveTime = 3600 * 24;
                     canDigivolve = true;
                     dungTimeInterval = 3600;
@@ -283,12 +303,12 @@ namespace DigimonSimulator
                     break;
 
                 case DigimonId.Agumon:
-                    this.sprite = SpriteImages.Agumon();
+                    this.sprite = SpriteMaps.Agumon();
                     this.digimonID = DigimonId.Agumon;
                     maxHealth = 800;
                     maxHunger = 6000;
                     maxStrength = 6000;
-                    hitDamage = 200;
+                    baseHitDamage = 200;
                     evolveTime = 3600 * 24;
                     canDigivolve = true;
                     dungTimeInterval = 3600;
@@ -297,12 +317,12 @@ namespace DigimonSimulator
                     break;
 
                 case DigimonId.Greymon:
-                    this.sprite = SpriteImages.Greymon();
+                    this.sprite = SpriteMaps.Greymon();
                     this.digimonID = DigimonId.Greymon;
                     maxHealth = 1000;
                     maxHunger = 3600 * 2;
                     maxStrength = 3600 * 2;
-                    hitDamage = 300;
+                    baseHitDamage = 300;
                     canDigivolve = false;
                     dungTimeInterval = 3600;
                     minWeight = 30;
@@ -310,12 +330,12 @@ namespace DigimonSimulator
                     break;
 
                 case DigimonId.Devimon:
-                    this.sprite = SpriteImages.Devimon();
+                    this.sprite = SpriteMaps.Devimon();
                     this.digimonID = DigimonId.Devimon;
                     maxHealth = 1000;
                     maxHunger = 3600 * 2;
                     maxStrength = 3600 * 2;
-                    hitDamage = 300;
+                    baseHitDamage = 300;
                     canDigivolve = false;
                     dungTimeInterval = 3600;
                     minWeight = 40;
@@ -323,12 +343,12 @@ namespace DigimonSimulator
                     break;
 
                 case DigimonId.Seadramon:
-                    this.sprite = SpriteImages.Seadramon();
+                    this.sprite = SpriteMaps.Seadramon();
                     this.digimonID = DigimonId.Seadramon;
                     maxHealth = 1000;
                     maxHunger = 3600 * 2;
                     maxStrength = 3600 * 2;
-                    hitDamage = 300;
+                    baseHitDamage = 300;
                     canDigivolve = false;
                     dungTimeInterval = 3600;
                     minWeight = 20;
@@ -336,12 +356,12 @@ namespace DigimonSimulator
                     break;
 
                 case DigimonId.Airdramon:
-                    this.sprite = SpriteImages.Airdramon();
+                    this.sprite = SpriteMaps.Airdramon();
                     this.digimonID = DigimonId.Airdramon;
                     maxHealth = 1000;
                     maxHunger = 3600 * 2;
                     maxStrength = 3600 * 2;
-                    hitDamage = 300;
+                    baseHitDamage = 300;
                     canDigivolve = false;
                     dungTimeInterval = 3600;
                     minWeight = 20;
@@ -349,12 +369,12 @@ namespace DigimonSimulator
                     break;
 
                 case DigimonId.Numemon:
-                    this.sprite = SpriteImages.Numemon();
+                    this.sprite = SpriteMaps.Numemon();
                     this.digimonID = DigimonId.Numemon;
                     maxHealth = 1000;
                     maxHunger = 3600 * 2;
                     maxStrength = 3600 * 2;
-                    hitDamage = 300;
+                    baseHitDamage = 300;
                     canDigivolve = false;
                     dungTimeInterval = 3600;
                     minWeight = 10;
@@ -362,12 +382,12 @@ namespace DigimonSimulator
                     break;
 
                 case DigimonId.Meramon:
-                    this.sprite = SpriteImages.Meramon();
+                    this.sprite = SpriteMaps.Meramon();
                     this.digimonID = DigimonId.Meramon;
                     maxHealth = 1000;
                     maxHunger = 3600 * 2;
                     maxStrength = 3600 * 2;
-                    hitDamage = 300;
+                    baseHitDamage = 300;
                     canDigivolve = false;
                     dungTimeInterval = 3600;
                     minWeight = 30;
@@ -375,12 +395,12 @@ namespace DigimonSimulator
                     break;
 
                 case DigimonId.MetalGreymon:
-                    this.sprite = SpriteImages.MetalGreymon();
+                    this.sprite = SpriteMaps.MetalGreymon();
                     this.digimonID = DigimonId.MetalGreymon;
                     maxHealth = 1000;
                     maxHunger = 3600 * 2;
                     maxStrength = 3600 * 2;
-                    hitDamage = 300;
+                    baseHitDamage = 300;
                     canDigivolve = false;
                     dungTimeInterval = 3600;
                     minWeight = 40;
@@ -388,12 +408,12 @@ namespace DigimonSimulator
                     break;
 
                 case DigimonId.BlitzGreymon:
-                    this.sprite = SpriteImages.BlitzGreymon();
+                    this.sprite = SpriteMaps.BlitzGreymon();
                     this.digimonID = DigimonId.BlitzGreymon;
                     maxHealth = 1000;
                     maxHunger = 3600 * 2;
                     maxStrength = 3600 * 2;
-                    hitDamage = 300;
+                    baseHitDamage = 300;
                     canDigivolve = false;
                     dungTimeInterval = 3600;
                     minWeight = 50;
@@ -401,12 +421,12 @@ namespace DigimonSimulator
                     break;
 
                 case DigimonId.Tyrannomon:
-                    this.sprite = SpriteImages.Tyrannomon();
+                    this.sprite = SpriteMaps.Tyrannomon();
                     this.digimonID = DigimonId.Tyrannomon;
                     maxHealth = 1000;
                     maxHunger = 3600 * 2;
                     maxStrength = 3600 * 2;
-                    hitDamage = 300;
+                    baseHitDamage = 300;
                     canDigivolve = false;
                     dungTimeInterval = 3600;
                     minWeight = 20;

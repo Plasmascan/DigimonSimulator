@@ -63,7 +63,7 @@ namespace DigimonSimulator
         public bool[,] hurt1Frame;
     }
 
-    public static class SpriteImages
+    public static class SpriteMaps
     {
         public static Sprite HungerSprite()
         {

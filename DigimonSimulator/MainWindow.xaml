@@ -31,13 +31,13 @@
                     <MenuItem x:Name="minimizeMenuItem" Header="Minimize" Click="minimizeMenuItem_Click" />
                     <MenuItem x:Name="muteUnmuteMenuItem" Header="Mute" Click="muteUnmuteMenuItem_Click">
                         <MenuItem.Icon>
-                            <Image x:Name="muteUnmuteMenuItemIcon" Source="/mute.png" />
+                            <Image x:Name="muteUnmuteMenuItemIcon" Source="Images/mute.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
                     <MenuItem Header="Quit" Click="closeGameMenuItem_Click">
                         <MenuItem.Icon>
-                            <Image Source="/powerOff.png" />
+                            <Image Source="Images/powerOff.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </ContextMenu>

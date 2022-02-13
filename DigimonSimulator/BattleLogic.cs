@@ -263,7 +263,7 @@ namespace DigimonSimulator
                         // Recieve opponent's digimon id from host
                         if (response.IndexOf("Send1:") != -1)
                         {
-                            response = response.Remove(0, 6);
+                            response = response.Remove(response.IndexOf("Send1:"), 6);
                             Debug.WriteLine(response);
                             game.animate.Opponent = new Digimon(game, (DigimonId)Int32.Parse(response));
                             sendCount = 1;
@@ -273,7 +273,7 @@ namespace DigimonSimulator
                         // Data recieved, return and start battle
                         else if (response.IndexOf("Send2:") != -1 && isInitialConnectionSuccess)
                         {
-                            response = response.Remove(0, 6);
+                            response = response.Remove(response.IndexOf("Send2:"), 6);
                             Debug.WriteLine(response);
                             battleFound = DecodeBattleCode(response);
                             isEnded = true;
@@ -371,7 +371,7 @@ namespace DigimonSimulator
                         if (request.IndexOf("Send1:") != -1)
                         {
                             dataToSend = "Send1:" + digimonID.ToString();
-                            request = request.Remove(0, 6);
+                            request = request.Remove(request.IndexOf("Send1:"), 6);
                             Debug.WriteLine("request recieved:" + request);
                             game.animate.Opponent = new Digimon(game, (DigimonId)Int32.Parse(request));
                             isInitialConnectionSuccess = true;

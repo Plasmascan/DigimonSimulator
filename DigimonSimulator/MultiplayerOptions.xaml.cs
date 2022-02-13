@@ -26,6 +26,7 @@ namespace DigimonSimulator
         DigimonGame game;
         static string keyString = "b14cahszi24e413hsz4e2ea2315ag4s3";
         static string externalIP = "";
+        bool isMappingErrorShown = false;
         bool isResolveIpInProgress = false;
         bool isMapPortInProgress = false;
 
@@ -131,9 +132,10 @@ namespace DigimonSimulator
             }
             catch
             {
-                if (externalIP != string.Empty)
+                if (externalIP != string.Empty && !isMappingErrorShown)
                 {
                     MessageBox.Show("Failed to map port, Required port forwarding if playing online.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                    isMappingErrorShown = true;
                 }
             }
             isMapPortInProgress = false;

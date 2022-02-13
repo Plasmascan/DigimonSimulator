@@ -28,11 +28,11 @@ namespace DigimonSimulator
             if (SubMenuNo == 0)
             {
                 Digimon botamon = new Digimon(game, DigimonId.Botamon);
-                Sprite aSprite = SpriteImages.LetterASprite();
-                Sprite gSprite = SpriteImages.LetterSmallGSprite();
+                Sprite aSprite = SpriteMaps.LetterASprite();
+                Sprite gSprite = SpriteMaps.LetterSmallGSprite();
 
                 game.pixelScreen.DrawDigimonFrame(botamon, SpriteFrame.Walk, false, false, 0, -10);
-                game.pixelScreen.DrawSprite(SpriteImages.ScalesSprite(), 0, 8, false);
+                game.pixelScreen.DrawSprite(SpriteMaps.ScalesSprite(), 0, 8, false);
                 game.pixelScreen.DrawSprite(aSprite, game.pixelScreen.NumberOfXPixels - aSprite.SpriteWidth - 1, 1, false);
                 game.pixelScreen.DrawSprite(gSprite, game.pixelScreen.NumberOfXPixels - gSprite.SpriteWidth - 1, 8, false);
                 game.pixelScreen.DrawNumbers(15, 0, game.currentDigimon.totalTimeAlive / (3600*24), false);
@@ -41,9 +41,9 @@ namespace DigimonSimulator
 
             else if (SubMenuNo == 1)
             {
-                Sprite hungerSprite = SpriteImages.HungerSprite();
-                Sprite fullHeartSprite = SpriteImages.FullHeartSprite();
-                Sprite emptyHeartSprite = SpriteImages.EmptyHeartSprite();
+                Sprite hungerSprite = SpriteMaps.HungerSprite();
+                Sprite fullHeartSprite = SpriteMaps.FullHeartSprite();
+                Sprite emptyHeartSprite = SpriteMaps.EmptyHeartSprite();
                 game.pixelScreen.DrawSprite(hungerSprite, 0, 0, false);
 
                 for (int i = 0, hunger = 0, x = 0; i < 4; i++, hunger += game.currentDigimon.maxHunger / 4, x += 8)
@@ -61,9 +61,9 @@ namespace DigimonSimulator
 
             else if (SubMenuNo == 2)
             {
-                Sprite strengthSprite = SpriteImages.StrengthSprite();
-                Sprite fullHeartSprite = SpriteImages.FullHeartSprite();
-                Sprite emptyHeartSprite = SpriteImages.EmptyHeartSprite();
+                Sprite strengthSprite = SpriteMaps.StrengthSprite();
+                Sprite fullHeartSprite = SpriteMaps.FullHeartSprite();
+                Sprite emptyHeartSprite = SpriteMaps.EmptyHeartSprite();
                 game.pixelScreen.DrawSprite(strengthSprite, 0, 0, false);
 
                 for (int i = 0, strength = 0, x = 0; i < 4; i++, strength += game.currentDigimon.maxStrength / 4, x += 8)
@@ -80,9 +80,9 @@ namespace DigimonSimulator
             }
             else if (SubMenuNo == 3)
             {
-                Sprite effortSprite = SpriteImages.EffortSprite();
-                Sprite fullHeartSprite = SpriteImages.FullHeartSprite();
-                Sprite emptyHeartSprite = SpriteImages.EmptyHeartSprite();
+                Sprite effortSprite = SpriteMaps.EffortSprite();
+                Sprite fullHeartSprite = SpriteMaps.FullHeartSprite();
+                Sprite emptyHeartSprite = SpriteMaps.EmptyHeartSprite();
                 game.pixelScreen.DrawSprite(effortSprite, 0, 0, false);
 
                 for (int i = 0, effort = 4, x = 0; i < 4; i++, effort += 4, x += 8)
@@ -99,8 +99,8 @@ namespace DigimonSimulator
             }
             else if (SubMenuNo == 4)
             {
-                Sprite percent = SpriteImages.PercentSprite();
-                game.pixelScreen.DrawSprite(SpriteImages.WinSprite(), 8, 0, false);
+                Sprite percent = SpriteMaps.PercentSprite();
+                game.pixelScreen.DrawSprite(SpriteMaps.WinSprite(), 8, 0, false);
                 game.pixelScreen.DrawNumbers(13, 8, game.currentDigimon.GetWinPercent(), true);
                 game.pixelScreen.DrawSprite(percent, game.pixelScreen.NumberOfXPixels - percent.SpriteWidth, game.pixelScreen.NumberOfYPixels - percent.SpriteHeight, false);
             }
@@ -109,7 +109,7 @@ namespace DigimonSimulator
         public static void DrawEggSelectionScreen(DigimonGame game)
         {
             Digimon Egg = new Digimon(game, DigimonId.V1Egg);
-            Sprite selectTriangleSprite = SpriteImages.SelectTriangleSprite();
+            Sprite selectTriangleSprite = SpriteMaps.SelectTriangleSprite();
             Egg.sprite.SpriteX = game.pixelScreen.NumberOfXPixels / 2 - (Egg.sprite.frame1Width / 2);
             game.pixelScreen.DrawDigimonFrame(Egg, SpriteFrame.Walk, false, true, Egg.sprite.SpriteX, 0);
             game.pixelScreen.DrawSprite(selectTriangleSprite, 0, 5, false);
@@ -125,9 +125,9 @@ namespace DigimonSimulator
         public static void DrawFeedScreen(DigimonGame game, int SubMenuNo)
         {
             game.pixelScreen.ClearScreen();
-            Sprite fullFoodSprite = SpriteImages.FullFoodSprite();
-            Sprite fullVitaminSprite = SpriteImages.FullVitaminSprite();
-            Sprite arrowSprite = SpriteImages.ArrowSprite();
+            Sprite fullFoodSprite = SpriteMaps.FullFoodSprite();
+            Sprite fullVitaminSprite = SpriteMaps.FullVitaminSprite();
+            Sprite arrowSprite = SpriteMaps.ArrowSprite();
 
             game.pixelScreen.DrawSprite(fullFoodSprite, 9, 0, true);
             game.pixelScreen.DrawSprite(fullVitaminSprite, 9, 8, false);
@@ -146,9 +146,9 @@ namespace DigimonSimulator
         public static void DrawLightsScreen(DigimonGame game, int SubMenuNo)
         {
             game.pixelScreen.ClearScreen();
-            Sprite wakeSprite = SpriteImages.WakeSprite();
-            Sprite sleepSprite = SpriteImages.SleepSprite();
-            Sprite arrowSprite = SpriteImages.ArrowSprite();
+            Sprite wakeSprite = SpriteMaps.WakeSprite();
+            Sprite sleepSprite = SpriteMaps.SleepSprite();
+            Sprite arrowSprite = SpriteMaps.ArrowSprite();
 
             game.pixelScreen.DrawSprite(wakeSprite, 9, 1, false);
             game.pixelScreen.DrawSprite(sleepSprite, 9, 9, false);
@@ -170,7 +170,7 @@ namespace DigimonSimulator
             game.SelectedMenu = MenuScreen.MainScreen;
             game.pixelScreen.TurnOffAllIcons();
             game.pixelScreen.TurnOffNotificationIcon();
-            Sprite grave = SpriteImages.GraveSprite();
+            Sprite grave = SpriteMaps.GraveSprite();
             game.animate.StopDigimonStateAnimation();
             game.pixelScreen.ClearScreen();
             game.pixelScreen.DrawSprite(grave, game.pixelScreen.NumberOfXPixels / 2 - grave.SpriteWidth / 2, 0, false);

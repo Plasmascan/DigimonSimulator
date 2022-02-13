@@ -32,23 +32,23 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="bandage.png" />
-    <Resource Include="battle.png" />
-    <Resource Include="battleCup.png" />
     <Resource Include="blueDigiviceButton.png" />
     <Resource Include="blueDigiviceLightGreen.png" />
-    <Resource Include="book.png" />
-    <Resource Include="copyImage.png" />
-    <Resource Include="dung.png" />
-    <Resource Include="food.png" />
-    <Resource Include="lightbulb.png" />
-    <Resource Include="mute.png" />
-    <Resource Include="pasteImage.png" />
-    <Resource Include="powerOff.png" />
-    <Resource Include="scales.png" />
-    <Resource Include="shout.png" />
-    <Resource Include="trainingBag.png" />
-    <Resource Include="unmute.png" />
+    <Resource Include="Images\bandage.png" />
+    <Resource Include="Images\battle.png" />
+    <Resource Include="Images\battleCup.png" />
+    <Resource Include="Images\book.png" />
+    <Resource Include="Images\copyImage.png" />
+    <Resource Include="Images\dung.png" />
+    <Resource Include="Images\food.png" />
+    <Resource Include="Images\lightbulb.png" />
+    <Resource Include="Images\mute.png" />
+    <Resource Include="Images\pasteImage.png" />
+    <Resource Include="Images\powerOff.png" />
+    <Resource Include="Images\scales.png" />
+    <Resource Include="Images\shout.png" />
+    <Resource Include="Images\trainingBag.png" />
+    <Resource Include="Images\unmute.png" />
   </ItemGroup>
 
   <ItemGroup>
