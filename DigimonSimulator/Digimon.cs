@@ -20,7 +20,10 @@ namespace DigimonSimulator
         Meramon,
         MetalGreymon,
         BlitzGreymon,
-        Tyrannomon
+        Tyrannomon,
+        Mamemon,
+        Monzaemon,
+        BanchoMamemon
     }
     public class Digimon
     {
@@ -278,11 +281,11 @@ namespace DigimonSimulator
                     this.sprite = SpriteMaps.Koromon();
                     this.digimonID = DigimonId.Koromon;
                     maxHealth = 500;
-                    maxHunger = 3600;
-                    maxStrength = 3600;
+                    maxHunger = 4500;
+                    maxStrength = 4500;
                     baseHitDamage = 200;
                     canDigivolve = true;
-                    dungTimeInterval = 600;
+                    dungTimeInterval = 600 * 3;
                     evolveTime = 3600*6;
                     minWeight = 10;
                     sleepTime = DateTime.Parse("9:00:00 PM");
@@ -431,6 +434,45 @@ namespace DigimonSimulator
                     dungTimeInterval = 3600;
                     minWeight = 20;
                     sleepTime = DateTime.Parse("11:00:00 PM");
+                    break;
+
+                case DigimonId.Mamemon:
+                    this.sprite = SpriteMaps.Mamemon();
+                    this.digimonID = DigimonId.Mamemon;
+                    maxHealth = 1000;
+                    maxHunger = 3600 * 2;
+                    maxStrength = 3600 * 2;
+                    baseHitDamage = 300;
+                    canDigivolve = false;
+                    dungTimeInterval = 3600;
+                    minWeight = 5;
+                    sleepTime = DateTime.Parse("10:00:00 PM");
+                    break;
+
+                case DigimonId.Monzaemon:
+                    this.sprite = SpriteMaps.Monzaemon();
+                    this.digimonID = DigimonId.Monzaemon;
+                    maxHealth = 1000;
+                    maxHunger = 3600 * 2;
+                    maxStrength = 3600 * 2;
+                    baseHitDamage = 300;
+                    canDigivolve = false;
+                    dungTimeInterval = 3600;
+                    minWeight = 40;
+                    sleepTime = DateTime.Parse("11:00:00 PM");
+                    break;
+
+                case DigimonId.BanchoMamemon:
+                    this.sprite = SpriteMaps.BanchoMamemon();
+                    this.digimonID = DigimonId.BanchoMamemon;
+                    maxHealth = 1000;
+                    maxHunger = 3600 * 2;
+                    maxStrength = 3600 * 2;
+                    baseHitDamage = 300;
+                    canDigivolve = false;
+                    dungTimeInterval = 3600;
+                    minWeight = 30;
+                    sleepTime = DateTime.Parse("12:00:00 AM");
                     break;
             }
         }

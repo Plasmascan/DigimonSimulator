@@ -233,11 +233,11 @@ namespace DigimonSimulator
             {
                 SetupDung();
             }
-            SetupDung();
+            //SetupDung();
 
             if (Game.isEgg)
             {
-                Game.currentDigimon.sprite.SpriteX = GetMiddleX(Game.currentDigimon.sprite.frame1Width) - XOffset;
+                Game.currentDigimon.sprite.SpriteX = GetMiddleX(Game.currentDigimon.sprite.frame1Width);
             }
             else if (!Game.currentDigimon.isAsleep && !Game.currentDigimon.isHurt)
             {
@@ -819,6 +819,10 @@ namespace DigimonSimulator
                     Sounds.PlaySound(Sound.Damage);
                     Game.pixelScreen.ClearSprite(BrickWall);
                     Game.pixelScreen.ClearSprite(Game.currentDigimon.sprite.projectileSprite);
+                    if (secondProjectile != null)
+                    {
+                        Game.pixelScreen.ClearSprite(secondProjectile);
+                    }
                     Explosion = SpriteMaps.ExplosionBigSprite();
                     Game.pixelScreen.DrawSprite(Explosion, 0, 0, false);
                     break;

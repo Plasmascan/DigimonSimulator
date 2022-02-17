@@ -21,11 +21,14 @@ namespace DigimonSimulator
         public static void SerializeSaveData(DigimonGame game)
         {
             SaveData data = new SaveData();
-            data.digimon = game.currentDigimon;
             data.isHost = game.isHost;
             data.hostPort = game.hostPort;
             data.connectIP = game.connectIP;
             data.connectPort = game.connectPort;
+            if (game.currentDigimon != null)
+            {
+                data.digimon = game.currentDigimon;
+            }
             //string jsonString = JsonSerializer.Serialize(data);
             string jsonString = SymmetricKeyEncryptionDecryption.EncryptString(keyString, JsonSerializer.Serialize(data));
             File.WriteAllText("saveFile.dig", jsonString);
@@ -38,6 +41,10 @@ namespace DigimonSimulator
                 //string jsonString = File.ReadAllText("saveFile.dig");
                 string jsonString = SymmetricKeyEncryptionDecryption.DecryptString(keyString, File.ReadAllText("saveFile.dig"));
                 SaveData data = JsonSerializer.Deserialize<SaveData>(jsonString);
+                game.isHost = data.isHost;
+                game.hostPort = data.hostPort;
+                game.connectIP = data.connectIP;
+                game.connectPort = data.connectPort;
                 Digimon loadDigimon = data.digimon;
                 if (loadDigimon == null)
                 {
@@ -48,10 +55,6 @@ namespace DigimonSimulator
                 loadDigimon.SetupDigimon(loadDigimon.digimonID);
                 loadDigimon.evolveTime = evolutionTimeRemaining;
                 game.currentDigimon = loadDigimon;
-                game.isHost = data.isHost;
-                game.hostPort = data.hostPort;
-                game.connectIP = data.connectIP;
-                game.connectPort = data.connectPort;
                 return true;
             }
             catch
