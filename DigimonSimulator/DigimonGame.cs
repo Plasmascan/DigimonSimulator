@@ -35,11 +35,12 @@ namespace DigimonSimulator
         {
             pixelScreen = new PixelScreen(screen, 0, 20, 16, 32, 4);
             pixelScreen.SetupScreen();
-            //currentDigimon = new Digimon(this, DigimonId.Monzaemon);
+            currentDigimon = new Digimon(this, DigimonId.MetalGreymon);
             animate = new Animations(this);
-            //animate.StartDigimonStateAnimation();
+            animate.StartDigimonStateAnimation();
             setTime = DateTime.Now;
-            LoadGame();
+            //LoadGame();
+            
             setTimer();
         }
 
@@ -104,6 +105,10 @@ namespace DigimonSimulator
                         if (currentDigimon.numberOfDung == 4)
                         {
                             currentDigimon.HurtDigimon();
+                            if (currentDigimon == null)
+                            {
+                                return;
+                            }
                         }
 
                         if (CurrentScreen == MenuScreen.MainScreen && !animate.isEvolving)
@@ -144,6 +149,10 @@ namespace DigimonSimulator
                     if (currentDigimon.sleepCareMistakeTimer == 0)
                     {
                         currentDigimon.AddCareMistake();
+                        if (currentDigimon == null)
+                        {
+                            return;
+                        }
                     }
                 }
 
@@ -154,6 +163,10 @@ namespace DigimonSimulator
                     if (currentDigimon.hungerCareMistakeTimer == 3600*6 - 600)
                     {
                         currentDigimon.AddCareMistake();
+                        if (currentDigimon == null)
+                        {
+                            return;
+                        }
                     }
                     else if (currentDigimon.hungerCareMistakeTimer == 0)
                     {
@@ -169,6 +182,10 @@ namespace DigimonSimulator
                     if (currentDigimon.strengthCareMistakeTimer == 3600 * 6 - 600)
                     {
                         currentDigimon.AddCareMistake();
+                        if (currentDigimon == null)
+                        {
+                            return;
+                        }
                     }
                     else if (currentDigimon.strengthCareMistakeTimer == 0)
                     {
@@ -185,6 +202,10 @@ namespace DigimonSimulator
                     if (currentDigimon.hurtCareMistakeTimer == 3600 * 6 - 600)
                     {
                         currentDigimon.AddCareMistake();
+                        if (currentDigimon == null)
+                        {
+                            return;
+                        }
                     }
                     else if (currentDigimon.hurtCareMistakeTimer == 0)
                     {

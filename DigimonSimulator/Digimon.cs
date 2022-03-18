@@ -100,7 +100,7 @@ namespace DigimonSimulator
             if (isVictory)
             {
                 totalVictories++;
-                if (digivolveChanceFromBattles < 100)
+                if (digivolveChanceFromBattles < 120)
                 {
                     digivolveChanceFromBattles += 8;
                 }
@@ -326,7 +326,8 @@ namespace DigimonSimulator
                     maxHunger = 3600 * 2;
                     maxStrength = 3600 * 2;
                     baseHitDamage = 300;
-                    canDigivolve = false;
+                    evolveTime = 3600 * 36;
+                    canDigivolve = true;
                     dungTimeInterval = 3600;
                     minWeight = 30;
                     sleepTime = DateTime.Parse("11:00:00 PM");
@@ -339,7 +340,8 @@ namespace DigimonSimulator
                     maxHunger = 3600 * 2;
                     maxStrength = 3600 * 2;
                     baseHitDamage = 300;
-                    canDigivolve = false;
+                    evolveTime = 3600 * 36;
+                    canDigivolve = true;
                     dungTimeInterval = 3600;
                     minWeight = 40;
                     sleepTime = DateTime.Parse("12:00:00 AM");
@@ -352,7 +354,8 @@ namespace DigimonSimulator
                     maxHunger = 3600 * 2;
                     maxStrength = 3600 * 2;
                     baseHitDamage = 300;
-                    canDigivolve = false;
+                    evolveTime = 3600 * 36;
+                    canDigivolve = true;
                     dungTimeInterval = 3600;
                     minWeight = 20;
                     sleepTime = DateTime.Parse("11:00:00 PM");
@@ -365,7 +368,8 @@ namespace DigimonSimulator
                     maxHunger = 3600 * 2;
                     maxStrength = 3600 * 2;
                     baseHitDamage = 300;
-                    canDigivolve = false;
+                    evolveTime = 3600 * 36;
+                    canDigivolve = true;
                     dungTimeInterval = 3600;
                     minWeight = 20;
                     sleepTime = DateTime.Parse("11:00:00 PM");
@@ -378,7 +382,8 @@ namespace DigimonSimulator
                     maxHunger = 3600 * 2;
                     maxStrength = 3600 * 2;
                     baseHitDamage = 300;
-                    canDigivolve = false;
+                    evolveTime = 3600 * 36;
+                    canDigivolve = true;
                     dungTimeInterval = 3600;
                     minWeight = 10;
                     sleepTime = DateTime.Parse("9:00:00 PM");
@@ -391,7 +396,8 @@ namespace DigimonSimulator
                     maxHunger = 3600 * 2;
                     maxStrength = 3600 * 2;
                     baseHitDamage = 300;
-                    canDigivolve = false;
+                    evolveTime = 3600 * 36;
+                    canDigivolve = true;
                     dungTimeInterval = 3600;
                     minWeight = 30;
                     sleepTime = DateTime.Parse("10:00:00 PM");
@@ -404,7 +410,8 @@ namespace DigimonSimulator
                     maxHunger = 3600 * 2;
                     maxStrength = 3600 * 2;
                     baseHitDamage = 300;
-                    canDigivolve = false;
+                    evolveTime = 3600 * 48;
+                    canDigivolve = true;
                     dungTimeInterval = 3600;
                     minWeight = 40;
                     sleepTime = DateTime.Parse("11:00:00 PM");
@@ -430,7 +437,8 @@ namespace DigimonSimulator
                     maxHunger = 3600 * 2;
                     maxStrength = 3600 * 2;
                     baseHitDamage = 300;
-                    canDigivolve = false;
+                    evolveTime = 3600 * 36;
+                    canDigivolve = true;
                     dungTimeInterval = 3600;
                     minWeight = 20;
                     sleepTime = DateTime.Parse("11:00:00 PM");
@@ -443,7 +451,8 @@ namespace DigimonSimulator
                     maxHunger = 3600 * 2;
                     maxStrength = 3600 * 2;
                     baseHitDamage = 300;
-                    canDigivolve = false;
+                    evolveTime = 3600 * 48;
+                    canDigivolve = true;
                     dungTimeInterval = 3600;
                     minWeight = 5;
                     sleepTime = DateTime.Parse("10:00:00 PM");
@@ -480,6 +489,7 @@ namespace DigimonSimulator
         public void Digivolve()
         {
             Digimon evolveDigimon;
+            bool successfulEvolution = false;
             switch (digimonID)
             {
                 default:
@@ -557,6 +567,104 @@ namespace DigimonSimulator
                     }
                     game.animate.setupDigivolve(evolveDigimon);
                     break;
+
+                case DigimonId.Greymon:
+                    evolveDigimon = new Digimon();
+                    successfulEvolution = DigivolveAdult(ref evolveDigimon ,DigimonId.MetalGreymon);
+                    if (!successfulEvolution)
+                    {
+                        game.ResetMainScreen();
+                        return;
+                    }
+                    break;
+
+                case DigimonId.Devimon:
+                    evolveDigimon = new Digimon();
+                    successfulEvolution = DigivolveAdult(ref evolveDigimon, DigimonId.MetalGreymon);
+                    if (!successfulEvolution)
+                    {
+                        game.ResetMainScreen();
+                        return;
+                    }
+                    break;
+
+                case DigimonId.Airdramon:
+                    evolveDigimon = new Digimon();
+                    successfulEvolution = DigivolveAdult(ref evolveDigimon, DigimonId.MetalGreymon);
+                    if (!successfulEvolution)
+                    {
+                        game.ResetMainScreen();
+                        return;
+                    }
+                    break;
+
+                case DigimonId.Numemon:
+                    evolveDigimon = new Digimon();
+                    successfulEvolution = DigivolveAdult(ref evolveDigimon, DigimonId.Monzaemon);
+                    if (!successfulEvolution)
+                    {
+                        game.ResetMainScreen();
+                        return;
+                    }
+                    break;
+
+                case DigimonId.Tyrannomon:
+                    evolveDigimon = new Digimon();
+                    successfulEvolution = DigivolveAdult(ref evolveDigimon, DigimonId.Mamemon);
+                    if (!successfulEvolution)
+                    {
+                        game.ResetMainScreen();
+                        return;
+                    }
+                    break;
+
+                case DigimonId.Meramon:
+                    evolveDigimon = new Digimon();
+                    successfulEvolution = DigivolveAdult(ref evolveDigimon, DigimonId.Mamemon);
+                    if (!successfulEvolution)
+                    {
+                        game.ResetMainScreen();
+                        return;
+                    }
+                    break;
+
+                case DigimonId.Seadramon:
+                    evolveDigimon = new Digimon();
+                    successfulEvolution = DigivolveAdult(ref evolveDigimon, DigimonId.Mamemon);
+                    if (!successfulEvolution)
+                    {
+                        game.ResetMainScreen();
+                        return;
+                    }
+                    break;
+
+                case DigimonId.MetalGreymon:
+                    if (careMistakes <= 2)
+                    {
+                        evolveDigimon = new Digimon(game, DigimonId.BlitzGreymon);
+                        game.animate.setupDigivolve(evolveDigimon);
+                    }
+                    else
+                    {
+                        canDigivolve = false;
+                        game.ResetMainScreen();
+                        return;
+                    }
+                    break;
+
+                case DigimonId.Mamemon:
+                    if (careMistakes <= 2)
+                    {
+                        evolveDigimon = new Digimon(game, DigimonId.BanchoMamemon);
+                        game.animate.setupDigivolve(evolveDigimon);
+                    }
+                    else
+                    {
+                        canDigivolve = false;
+                        game.ResetMainScreen();
+                        return;
+                    }
+                    break;
             }
 
             // Properties to reset after digivolving
@@ -575,6 +683,32 @@ namespace DigimonSimulator
             }
 
         }
+
+        private bool DigivolveAdult(ref Digimon evolveDigimon ,DigimonId evolveId)
+        {
+            if (totalLoses + totalVictories >= 15)
+            {
+                if (digivolveChanceFromBattles >= 96)
+                {
+                    evolveDigimon = new Digimon(game, evolveId);
+                }
+                else
+                {
+                    canDigivolve = false;
+                    game.ResetMainScreen();
+                    return false;
+                }
+                game.animate.setupDigivolve(evolveDigimon);
+            }
+            else
+            {
+                canDigivolve = false;
+                game.ResetMainScreen();
+                return false;
+            }
+            return true;
+        }
     }
+
 
 }

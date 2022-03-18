@@ -22,15 +22,28 @@ namespace DigimonSimulator
     public partial class MainWindow : Window
     {
         DigimonGame mainGame = new DigimonGame();
+        bool debugMode = false;
 
         public MainWindow()
         {
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
+            if (debugMode)
+            {
+                SetupDebug();
+            }
             mainGame.InitializeGame(screenCanvas);
             pressedAButtonImage.Opacity = 0;
             pressedBButtonImage.Opacity = 0;
             pressedCButtonImage.Opacity = 0;
+        }
+
+        public void SetupDebug()
+        {
+            MenuItem item = new MenuItem();
+            item.Header = "Debug";
+            item.Click += debugMenuItem_Click;
+            backgroundImageContextMenu.Items.Add(item);
         }
 
         private void closeGameMenuItem_Click(object sender, RoutedEventArgs e)
