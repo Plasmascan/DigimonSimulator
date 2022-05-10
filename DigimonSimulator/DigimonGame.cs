@@ -27,7 +27,6 @@ namespace DigimonSimulator
         public bool isEgg = false;
         public bool isHost = true;
         public string connectIP = "124.180.83.106";
-        //public int hostPort = 13453;
         public int hostPort = 13453;
         public int connectPort = 13453;
 
@@ -35,12 +34,9 @@ namespace DigimonSimulator
         {
             pixelScreen = new PixelScreen(screen, 0, 20, 16, 32, 4);
             pixelScreen.SetupScreen();
-            currentDigimon = new Digimon(this, DigimonId.MetalGreymon);
             animate = new Animations(this);
-            animate.StartDigimonStateAnimation();
             setTime = DateTime.Now;
-            //LoadGame();
-            
+            LoadGame();
             setTimer();
         }
 
@@ -60,13 +56,13 @@ namespace DigimonSimulator
             else
             {
                 SelectEgg();
-                //MessageBox.Show("No save file found. Starting a new game.", "Save File", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             
         }
 
         public void SelectEgg()
         {
+            setTime = DateTime.Now;
             currentDigimon = null;
             CurrentScreen = MenuScreen.EggSelection;
             MenuScreens.DrawEggSelectionScreen(this);

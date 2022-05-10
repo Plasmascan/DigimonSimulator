@@ -92,21 +92,6 @@ namespace DigimonSimulator
    
             DrawWindow drawWindow = new DrawWindow();
             drawWindow.Show();
-
-            Debug.WriteLine("port: " + mainGame.hostPort + " connect ip: " + mainGame.connectIP + " connect port: " + mainGame.connectPort + " host port: " + mainGame.hostPort);
-            if (mainGame.currentDigimon != null)
-            {
-                mainGame.currentDigimon.HurtDigimon();
-                Debug.WriteLine("Care mistakes: " + mainGame.currentDigimon.careMistakes + " overfeed: " + mainGame.currentDigimon.timesOverfed + 
-                    "\ncurrent hunger: " + mainGame.currentDigimon.currentHunger + " needed: " + mainGame.currentDigimon.maxHunger / 4 * 3);
-                if (mainGame.currentDigimon.canDigivolve)
-                {
-                    mainGame.animate.StopDigimonStateAnimation();
-                    mainGame.currentDigimon.Digivolve();
-                }
-            }
-
-            //mainGame.currentDigimon.KillDigimon();
         }
 
         private void minimizeMenuItem_Click(object sender, RoutedEventArgs e)

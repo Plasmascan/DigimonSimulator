@@ -18,8 +18,12 @@ namespace DigimonSimulator
     public static class SaveLoad
     {
         static string keyString = "b14cahszi24e413hsz4e2ea2315ag4s3";
+        static string folderLocation = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        static string folderPath = Path.Combine(folderLocation, "DigimonSimulator/");
+
         public static void SerializeSaveData(DigimonGame game)
         {
+            Directory.CreateDirectory(folderPath);
             SaveData data = new SaveData();
             data.isHost = game.isHost;
             data.hostPort = game.hostPort;
@@ -31,7 +35,7 @@ namespace DigimonSimulator
             }
             //string jsonString = JsonSerializer.Serialize(data);
             string jsonString = SymmetricKeyEncryptionDecryption.EncryptString(keyString, JsonSerializer.Serialize(data));
-            File.WriteAllText("saveFile.dig", jsonString);
+            File.WriteAllText(folderPath + "saveFile.dig", jsonString);
         }
 
         public static bool DeserializeSaveData(DigimonGame game)
@@ -39,7 +43,7 @@ namespace DigimonSimulator
             try
             {
                 //string jsonString = File.ReadAllText("saveFile.dig");
-                string jsonString = SymmetricKeyEncryptionDecryption.DecryptString(keyString, File.ReadAllText("saveFile.dig"));
+                string jsonString = SymmetricKeyEncryptionDecryption.DecryptString(keyString, File.ReadAllText(folderPath + "saveFile.dig"));
                 SaveData data = JsonSerializer.Deserialize<SaveData>(jsonString);
                 game.isHost = data.isHost;
                 game.hostPort = data.hostPort;
