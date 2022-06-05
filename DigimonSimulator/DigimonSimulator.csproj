@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>agumon.ico</ApplicationIcon>
+    <ApplicationIcon>agumont.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
